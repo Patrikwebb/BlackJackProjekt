@@ -9,7 +9,7 @@ import javafx.scene.control.*;
 
 /**
  * @author PatrikWebb
- * 
+ * @Gui Main.java
  */
 public class Main extends Application {
 

@@ -1,6 +1,6 @@
 package kodaLoss;
 
-import gui.Main;
+import gui.*;
 
 public class BlackJackDemo {
 
