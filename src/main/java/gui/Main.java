@@ -6,6 +6,7 @@ import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
+import kodaLoss.Player;
 
 /**
  * @author PatrikWebb
