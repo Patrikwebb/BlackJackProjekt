@@ -1,12 +1,14 @@
 package testBlackJack;
 
-import org.junit.Assert;
-import org.junit.Test;
 
 import kodaLoss.Card;
 import kodaLoss.Player;
 import kodaLoss.Rank;
 import kodaLoss.Suite;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
 import junit.framework.TestCase;
 
 public class testBJPlayerAndCard extends TestCase {
