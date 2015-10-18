@@ -1,12 +1,25 @@
 package gui;
 
 import javax.swing.JOptionPane;
-import javafx.application.*;
-import javafx.stage.*;
-import javafx.scene.*;
-import javafx.scene.layout.*;
-import javafx.scene.control.*;
-import kodaLoss.Player;
+
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import kodaLoss.Bank;
+import kodaLoss.Card;
+import static timTestaNat.BlackJackConstants.*;
+import timTestaNat.CardPictureData;
+
+
 
 /**
  * @author PatrikWebb
@@ -16,7 +29,43 @@ public class Main extends Application {
 
     Stage window;
     Scene scene;
+private Bank bank = new Bank(this);
 
+private CardPictureData pics = new CardPictureData();
+    
+
+private Label playerScore;
+private ImageView testpic;    
+
+public void setPlayerScore( int newScore ){
+  playerScore.setText("" + newScore);
+}
+
+public void setTestPic(Card card ){
+  
+  String s = 
+        FILE_PICTURE_PROTOKOLL 
+        + FILE_PICTURE_PATH
+        + card.getSuite().toString() + " " 
+        + card.getRank().toString() 
+        + FILE_PICTURE_FILEENDING;
+    
+  Image image = new Image( s );
+  
+  System.out.println(image.toString());
+  testpic.setImage(image);
+  
+  
+  System.out.println(testpic.isVisible());
+  System.out.println("TESTCARD SHOWN?!?!");
+}
+
+public void testPrint(){
+  System.out.println("Main.testPrint() called in Main!");
+}
+    
+    
+    // DO NOT TOUCH! 
     public static void main(String[] args) {
 
         launch(args);
@@ -35,8 +84,14 @@ public class Main extends Application {
 
         //Button 1
         Button buttonStand = new Button("Stand");
-        	buttonStand.setOnAction(e ->JOptionPane.showMessageDialog(null, 
-        									"OnClick Message: Jag står kvar"));
+        	buttonStand.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+              // TODO Auto-generated method stub
+              bank.testPrint();
+            }
+          });
         
     	//Button Test
         Button buttonTest = new Button("Test");
@@ -67,14 +122,20 @@ public class Main extends Application {
         //Right Menu
         VBox player = new VBox();
         	Label playerText = new Label("Player: ");
+        	playerScore = new Label("");
         	// String getName()
-        	Label playerCard = new Label (" ");
+        	Label playerCard = new Label ("DIAMONDS ACE");
+        	testpic = new ImageView();
+        	
+        	
+        	
         	Label playerHandsSize = new Label ("Player Hands Size: ");
         	// getPlayerHandsSize()
         	playerText.setId("playerText");
+        	playerScore.setId("playerScore");
         	playerCard.setId("playerCard");
         	playerHandsSize.setId("playerHandsSize");
-        	player.getChildren().addAll(playerText, playerCard, playerHandsSize);
+        	player.getChildren().addAll(playerText, playerScore, playerCard, testpic );
         
         //Bottom Menu (Buttons)
         HBox bottomMenu = new HBox();
