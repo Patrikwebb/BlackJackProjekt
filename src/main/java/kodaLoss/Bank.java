@@ -39,5 +39,10 @@ public class Bank {
 	public static boolean isPlayersHandABlackJack(Player player) {
 		return (player.getPlayerHandsSize() == 2 && calculateValueOfPlayersHand(player) == 21);
 	}
+	
+	public round(){
+		registeredPlayers.get(0);
+		
+	}
 
 }
