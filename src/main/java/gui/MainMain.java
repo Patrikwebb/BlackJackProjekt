@@ -9,7 +9,7 @@ public class MainMain {
 		System.out.println("make bank");
 		Bank bank = new Bank();
 		Main main = new Main();
-		main.setBank(bank);
+		//main.setBank(bank);
 		bank.setMain(main);
 	}
 
