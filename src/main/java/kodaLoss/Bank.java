@@ -58,10 +58,20 @@ public class Bank {
 	public static boolean isPlayersHandABlackJack(Player player) {
 		return (player.getPlayerHandsSize() == 2 && calculateValueOfPlayersHand(player) == 21);
 	}
+	
+	public void round(){
+		registeredPlayers.get(0);
+		
+	}
 
 	
 	public void sayHello(){
 		System.out.println("Hello, this is Bank!");
+	}
+
+	public void testPrint() {
+		System.out.println("Main.testPrint() called in Main!");
+		
 	}
 	
 	

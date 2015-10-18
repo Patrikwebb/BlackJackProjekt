@@ -1,13 +1,22 @@
 package gui;
 
 import javax.swing.JOptionPane;
-import javafx.application.*;
-import javafx.stage.*;
-import javafx.scene.*;
-import javafx.scene.layout.*;
-import javafx.scene.control.*;
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import kodaLoss.Bank;
-import kodaLoss.Player;
+import kodaLoss.Card;
+import static timTestaNat.BlackJackConstants.*;
+import timTestaNat.CardPictureData;
 
 /**
  * @author PatrikWebb
@@ -15,20 +24,47 @@ import kodaLoss.Player;
  */
 public class Main extends Application {
 
-    Stage window; 
+    Stage window;
     Scene scene;
-    
-    private Bank bank = null;
-    
-    protected Button buttonStand;
-    
-   
+private Bank bank = new Bank(this);
 
+private CardPictureData pics = new CardPictureData();
+    
+
+private Label playerScore;
+private ImageView testpic;    
+
+public void setPlayerScore( int newScore ){
+  playerScore.setText("" + newScore);
+}
+
+public void setTestPic(Card card ){
+  
+  String s = 
+        FILE_PICTURE_PROTOKOLL 
+        + FILE_PICTURE_PATH
+        + card.getSuite().toString() + " " 
+        + card.getRank().toString() 
+        + FILE_PICTURE_FILEENDING;
+    
+  Image image = new Image( s );
+  
+  System.out.println(image.toString());
+  testpic.setImage(image);
+  
+  
+  System.out.println(testpic.isVisible());
+  System.out.println("TESTCARD SHOWN?!?!");
+}
+
+public void testPrint(){
+  System.out.println("Main.testPrint() called in Main!");
+}
+    
+    
+    // DO NOT TOUCH! 
     public static void main(String[] args) {
 
-    	
-    	
-    	
         launch(args);
     }
     
@@ -44,23 +80,19 @@ public class Main extends Application {
         window = primaryStage;
 
         //Button 1
-        buttonStand = new Button("Stand");
-        	buttonStand.setOnAction(e -> 
+        Button buttonStand = new Button("Stand");
+        	buttonStand.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+              // TODO Auto-generated method stub
+              bank.testPrint();
+            }
+          });
         	
-        	this.bank.sayHello());
-        	
-        	
-        	// button.setOnAction(e -> Klassen.Metoden());
-			// button.setOnAction(e -> Metoden());
-        	
-    	//Button Test
-        Button buttonTest = new Button("Test");
-        	buttonTest.setOnAction(e -> JOptionPane.showMessageDialog(null, 
-											"OnClick Message: Jag står kvar"));
-        
         //Button 2
         	//addCardToHand(Card card)
-       Button buttonHit = new Button("Hit");
+        Button buttonHit = new Button("Hit");
         	buttonHit.setOnAction(e ->JOptionPane.showMessageDialog(null, 
         								"OnClick Message: Jag kommer vinna"));
         	
@@ -82,19 +114,25 @@ public class Main extends Application {
         //Right Menu
         VBox player = new VBox();
         	Label playerText = new Label("Player: ");
+        	playerScore = new Label("");
         	// String getName()
-        	Label playerCard = new Label (" ");
+        	Label playerCard = new Label ("DIAMONDS ACE");
+        	testpic = new ImageView();
+        	
+        	
+        	
         	Label playerHandsSize = new Label ("Player Hands Size: ");
         	// getPlayerHandsSize()
         	playerText.setId("playerText");
+        	playerScore.setId("playerScore");
         	playerCard.setId("playerCard");
         	playerHandsSize.setId("playerHandsSize");
-        	player.getChildren().addAll(playerText, playerCard, playerHandsSize);
+        	player.getChildren().addAll(playerText, playerScore, playerCard, testpic );
         
         //Bottom Menu (Buttons)
         HBox bottomMenu = new HBox();
         	bottomMenu.setId("bottomMenu");
-        	bottomMenu.getChildren().addAll(buttonStand, buttonHit, buttonTest);
+        	bottomMenu.getChildren().addAll(buttonStand, buttonHit);
         
         //Fönstret
         BorderPane borderPane = new BorderPane();
@@ -118,12 +156,6 @@ public class Main extends Application {
         window.setTitle("BlackJack Gui");
         window.show();
         
-    }
-    
-    
-    
-    public void setBank( Bank bank){
-    	this.bank = bank;
     }
     	// -- > Tips < --
     
