@@ -3,7 +3,20 @@ package kodaLoss;
 import java.util.ArrayList;
 import java.util.List;
 
+import gui.Main;
+
 public class Bank {
+	
+	private Main main = null;
+	
+	
+	public Bank(){
+		
+	}
+	
+	public Bank(Main main){
+		this.main=main;
+	}
 
 	private List<Player> registeredPlayers = new ArrayList<Player>();
 
@@ -29,6 +42,12 @@ public class Bank {
 
 		return sum;
 	}
+	
+	public void setMain(Main main)
+	{
+		this.main = main;
+	}
+	
 
 	/**
 	 * checks if players hand is a BlackJack!
@@ -40,4 +59,10 @@ public class Bank {
 		return (player.getPlayerHandsSize() == 2 && calculateValueOfPlayersHand(player) == 21);
 	}
 
+	
+	public void sayHello(){
+		System.out.println("Hello, this is Bank!");
+	}
+	
+	
 }

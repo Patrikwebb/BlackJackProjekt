@@ -6,6 +6,7 @@ import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
+import kodaLoss.Bank;
 import kodaLoss.Player;
 
 /**
@@ -14,11 +15,20 @@ import kodaLoss.Player;
  */
 public class Main extends Application {
 
-    Stage window;
+    Stage window; 
     Scene scene;
+    
+    private Bank bank = null;
+    
+    protected Button buttonStand;
+    
+   
 
     public static void main(String[] args) {
 
+    	
+    	
+    	
         launch(args);
     }
     
@@ -34,10 +44,15 @@ public class Main extends Application {
         window = primaryStage;
 
         //Button 1
-        Button buttonStand = new Button("Stand");
-        	buttonStand.setOnAction(e ->JOptionPane.showMessageDialog(null, 
-        									"OnClick Message: Jag står kvar"));
-        
+        buttonStand = new Button("Stand");
+        	buttonStand.setOnAction(e -> 
+        	
+        	this.bank.sayHello());
+        	
+        	
+        	// button.setOnAction(e -> Klassen.Metoden());
+			// button.setOnAction(e -> Metoden());
+        	
     	//Button Test
         Button buttonTest = new Button("Test");
         	buttonTest.setOnAction(e -> JOptionPane.showMessageDialog(null, 
@@ -45,7 +60,7 @@ public class Main extends Application {
         
         //Button 2
         	//addCardToHand(Card card)
-        Button buttonHit = new Button("Hit");
+       Button buttonHit = new Button("Hit");
         	buttonHit.setOnAction(e ->JOptionPane.showMessageDialog(null, 
         								"OnClick Message: Jag kommer vinna"));
         	
@@ -103,6 +118,12 @@ public class Main extends Application {
         window.setTitle("BlackJack Gui");
         window.show();
         
+    }
+    
+    
+    
+    public void setBank( Bank bank){
+    	this.bank = bank;
     }
     	// -- > Tips < --
     
