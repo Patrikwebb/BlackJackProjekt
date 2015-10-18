@@ -3,6 +3,8 @@ package kodaLoss;
 import java.util.ArrayList;
 import java.util.List;
 
+import gui.Main;
+
 public class Player {
 
 	private String name;
@@ -27,6 +29,11 @@ public class Player {
 	};
 
 	// INSTANCE METHODS
+	private Main main;
+	
+	public Player(Main main) {
+		this.main=main;
+	}
 
 	/**
 	 * Player takes another card which is added to his hand

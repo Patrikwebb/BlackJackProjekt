@@ -15,6 +15,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import kodaLoss.Bank;
 import kodaLoss.Card;
+import kodaLoss.Player;
+
 import static timTestaNat.BlackJackConstants.*;
 import timTestaNat.CardPictureData;
 
@@ -28,11 +30,24 @@ public class Main extends Application {
     Scene scene;
 private Bank bank = new Bank(this);
 
+// Referens till player
+private Player player = new Player(this);
+
+// Getters and setters
+public Player getPlayer() {
+	return player;
+}
+
+public void setPlayer(Player player) {
+	this.player = player;
+}
+
 private CardPictureData pics = new CardPictureData();
     
 
 private Label playerScore;
-private ImageView testpic;    
+private ImageView testpic;
+private Card card;    
 
 public void setPlayerScore( int newScore ){
   playerScore.setText("" + newScore);
@@ -96,7 +111,7 @@ public void testPrint(){
         //Button 2
         	//addCardToHand(Card card)
         Button buttonHit = new Button("Hit");
-        	buttonHit.setOnAction(e -> testPrint());
+        	buttonHit.setOnAction(e -> player.addCardToHand(card));
         	
         //Top Menu (header)
         HBox header = new HBox();
