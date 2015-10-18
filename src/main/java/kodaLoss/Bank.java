@@ -70,7 +70,7 @@ public class Bank {
 	}
 
 	public void testPrint() {
-		System.out.println("Main.testPrint() called in Main!");
+		System.out.println("Main.testPrint() called in Bank!");
 		
 	}
 	

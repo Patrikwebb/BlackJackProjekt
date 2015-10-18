@@ -80,21 +80,23 @@ public void testPrint(){
         window = primaryStage;
 
         //Button 1
-        Button buttonStand = new Button("Stand");
-        	buttonStand.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-              // TODO Auto-generated method stub
-              bank.testPrint();
-            }
-          });
-        	
+//        Button buttonStand = new Button("Stand");
+//        	buttonStand.setOnAction(new EventHandler<ActionEvent>() {
+//            
+//            @Override
+//            public void handle(ActionEvent event) {
+//              // TODO Auto-generated method stub
+//              bank.testPrint();
+//            }
+//          });
+        
+        //Button 1
+        	Button buttonStand = new Button("Stand");
+        	buttonStand.setOnAction(e -> bank.testPrint());
         //Button 2
         	//addCardToHand(Card card)
         Button buttonHit = new Button("Hit");
-        	buttonHit.setOnAction(e ->JOptionPane.showMessageDialog(null, 
-        								"OnClick Message: Jag kommer vinna"));
+        	buttonHit.setOnAction(e -> testPrint());
         	
         //Top Menu (header)
         HBox header = new HBox();
@@ -116,7 +118,7 @@ public void testPrint(){
         	Label playerText = new Label("Player: ");
         	playerScore = new Label("");
         	// String getName()
-        	Label playerCard = new Label ("DIAMONDS ACE");
+        	Label playerCard = new Label ("Text: DIAMONDS ACE");
         	testpic = new ImageView();
         	
         	
