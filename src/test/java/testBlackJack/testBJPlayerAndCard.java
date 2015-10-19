@@ -1,17 +1,21 @@
 package testBlackJack;
 
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import junit.framework.TestCase;
 import kodaLoss.Card;
 import kodaLoss.CardShoe;
 import kodaLoss.Deck;
 import kodaLoss.Player;
 import kodaLoss.Rank;
 import kodaLoss.Suite;
-
-import org.testng.Assert;
-import org.testng.annotations.Test;
-
-import junit.framework.TestCase;
 
 public class testBJPlayerAndCard extends TestCase {
 
@@ -50,6 +54,7 @@ public class testBJPlayerAndCard extends TestCase {
     Assert.assertTrue( player.getPlayerHandsSize() == 0 );
   }
   
+  @Test
   public void testIsBusted(){
     Player p = new Player();
     if (p.isBusted()){
@@ -59,6 +64,7 @@ public class testBJPlayerAndCard extends TestCase {
     Assert.assertTrue(p.isBusted());
   }
 
+  @Test
   public void testPlayerGetName(){
     Player p1 = new Player();
     Player p2 = new Player("TESTNAME");
@@ -66,13 +72,42 @@ public class testBJPlayerAndCard extends TestCase {
     Assert.assertTrue(p2.getName().equals("TESTNAME"));
   }
   
+  @Test
   public void testCardShoe(){
 	  CardShoe cS = new CardShoe();
 	  Assert.assertTrue(cS.getCardShoe().size() == 208);
   }
   
+  @Test
+  public void testCardShoeHas4CompleteDecks(){
+    
+    List<Card> cardShoe = CardShoe.getCardShoe();
+    // using hashmap as an unsorted map!
+    Map<Card,Integer> countMap = new HashMap<Card,Integer>();
+    
+    for ( Card card : cardShoe ){
+      
+      if ( countMap.containsKey( card ) ){
+        int count = countMap.get(card);
+        count += 1;
+        countMap.remove( card );
+        countMap.put( card , count);
+        
+      } else{
+        countMap.put( card , 1 );
+      }
+    }
+    // cardShoe contains 4 decks of 52 cards!
+    Assert.assertTrue(countMap.size() == 52);
+    
+    Collection<Integer> valueList = countMap.values();
+    for (Integer i : valueList){
+      Assert.assertTrue( i == 4 );
+    }
+  }
+  
+  @Test
   public void testDeck(){
-	  
 	  Assert.assertTrue(Deck.getDeck().size()==52);
   }
   

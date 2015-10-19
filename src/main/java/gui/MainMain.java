@@ -10,7 +10,7 @@ public class MainMain {
 		Bank bank = new Bank();
 		Main main = new Main();
 		//main.setBank(bank);
-		bank.setMain(main);
+		bank.setReferenceToGui(main);
 	}
 
 }

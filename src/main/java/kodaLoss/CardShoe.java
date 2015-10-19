@@ -38,7 +38,8 @@ public CardShoe(){
 	
 	/**
 	 * Returns the first card from CardShoe in Bank. Gets new Cards
-	 * automatically if cardshoe is empty. 
+	 * automatically if cardshoe is empty. No info is given to the players
+	 * that a new card shoe is used!!! 
 	 * @return Card - first card from Cardshoe
 	 */
 	public Card getACardFromCardShoe(){

@@ -50,7 +50,7 @@ public class Card {
 	    return true;
 	  }
 	  
-	  if (!(o instanceof Card) ){
+	  if ( !(o instanceof Card) ){
 	    return false;
 	  }
 	  
