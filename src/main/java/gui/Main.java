@@ -122,7 +122,7 @@ public void testPrint(){
         		buttonStand.setEffect(shadow);
         		buttonStand.setScaleX(1.2);
         		buttonStand.setScaleY(1.2);
-        		
+        		// Nya fina saker
         		System.out.println("Shadow");
         		});
         	
