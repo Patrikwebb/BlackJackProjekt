@@ -16,10 +16,3 @@ public class Deck { // Deck blir en arrayList med 52 kort.
 		return deck;
 	}
 }
-class shuffel{
-	public ArrayList<Card> shuffelDeck(ArrayList<Card> arrayList){
-		Collections.shuffle(arrayList);
-		ArrayList<Card> shuffeled = arrayList;
-		return shuffeled;
-	}
-}

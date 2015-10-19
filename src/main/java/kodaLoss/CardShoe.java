@@ -10,7 +10,7 @@ import java.util.Collections;
  *
  */
 
-public class CardShoe{
+public class CardShoe {
 private static int numberOfCards = 208;
 	public static ArrayList<Card> getCardShoe() {
 		ArrayList<Card> cardShoe = new ArrayList<>();
