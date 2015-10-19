@@ -10,14 +10,14 @@ import java.util.Collections;
  *
  */
 
-public class CardShoe extends Deck {
-
-	public ArrayList<Card> getCardShoe() {
+public class CardShoe {
+private static int numberOfCards = 208;
+	public static ArrayList<Card> getCardShoe() {
 		ArrayList<Card> cardShoe = new ArrayList<>();
-		int numberOfCards = 208;
+		
 		int count = 1;
 		while (count <= numberOfCards) {
-			for (Card c : getDeck()) {
+			for (Card c : Deck.getDeck()) {
 				cardShoe.add(c);
 				count++;
 			}
