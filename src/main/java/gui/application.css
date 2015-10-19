@@ -32,10 +32,10 @@
 	-fx-text-fill: white;
 }
 #bottomMenu{
-	-fx-spacing: 200;
+	-fx-padding: 50 0 0 0;
+	-fx-spacing: 100;
 }
 #playerHandsSize{
-	-fx-spacing: 40 0 0 0; 
 	-fx-padding: 100 0 0 0;
 }
 

@@ -120,8 +120,8 @@ public void testPrint(){
         	// Buttond stand Effect on Hover
         	buttonStand.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
         		buttonStand.setEffect(shadow);
-        		buttonStand.setScaleX(2);
-        		buttonStand.setScaleY(2);
+        		buttonStand.setScaleX(1.5);
+        		buttonStand.setScaleY(1.5);
         		// Nya fina saker
         		System.out.println("Shadow");
         		});
@@ -142,12 +142,13 @@ public void testPrint(){
         	buttonHit.setOnAction(e -> {
         		testPrint();
         		
+        		
         	});
     	// Button HIT Effect on Hover
         buttonHit.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
         	buttonHit.setEffect(shadow);
-        	buttonHit.setScaleX(2);
-        	buttonHit.setScaleY(2);
+        	buttonHit.setScaleX(1.5);
+        	buttonHit.setScaleY(1.5);
     		// Nya fina saker
     		System.out.println("Shadow");
     		});
