@@ -1,8 +1,8 @@
 package gui;
 
+import javafx.animation.Animation;
+import javafx.animation.RotateTransition;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,7 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
+import javafx.util.Duration;
 import kodaLoss.Bank;
 import kodaLoss.Card;
 import kodaLoss.Player;
@@ -51,6 +51,7 @@ private Label playerScore;
 private ImageView testpic;
 private Card card;  
 public Label dealerCard = new Label (" ");
+private Button buttonHit, buttonStand;
 
 public void setPlayerScore( int newScore ){
   playerScore.setText("" + newScore);
@@ -98,17 +99,7 @@ public void testPrint(){
     @Override
     public void start(Stage primaryStage) {
         window = primaryStage;
-
-        //Button 1
-//        Button buttonStand = new Button("Stand");
-//        	buttonStand.setOnAction(new EventHandler<ActionEvent>() {
-//            
-//            @Override
-//            public void handle(ActionEvent event) {
-//              // TODO Auto-generated method stub
-//              bank.testPrint();
-//            }
-//          });
+        
         // Shadow Effekt på knapparna
         DropShadow dropShadow = new DropShadow();
         	dropShadow.setRadius(3.0);
@@ -117,19 +108,25 @@ public void testPrint(){
         	//dropShadow.setColor(Color.color(0.4, 0.5, 0.5));
         	dropShadow.setColor(Color.BLACK);
         
-        //Button 1
-        	Button buttonStand = new Button("Stand");
+        //Button Stand
+        	buttonStand = new Button("Stand");
         	buttonStand.setOnAction(e -> {
-        		//bank.testPrint();
+        		bank.testPrint();
         	});
+        	// Rotation effect
+        	RotateTransition buttonStandrotation = new RotateTransition(Duration.seconds(2.0), buttonStand);
+        	buttonStandrotation.setCycleCount(Animation.INDEFINITE);
+        	buttonStandrotation.setFromAngle(0);
+        	buttonStandrotation.setToAngle(360);
+        	buttonStandrotation.setAutoReverse(true);
+        	buttonStandrotation.setCycleCount(1);
         	
-        	// Buttond stand Effect on Hover
+        	// Buttond Stand Effect on Hover
         	buttonStand.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
         		buttonStand.setEffect(dropShadow);
         		buttonStand.setScaleX(1.5);
         		buttonStand.setScaleY(1.5);
-        		// Nya fina saker
-        		System.out.println("Shadow");
+        		buttonStandrotation.play();
         		});
         	
         	// Removes shadow effect
@@ -137,26 +134,31 @@ public void testPrint(){
         		buttonStand.setEffect(null);
         		buttonStand.setScaleX(1);
         		buttonStand.setScaleY(1);
-        		
-        		
-        		System.out.println("No Shadow");
+        		buttonStandrotation.pause();
         		});
         	
-        //Button 2
+        //Button Hit
         	//addCardToHand(Card card)
-        Button buttonHit = new Button("Hit");
+        buttonHit = new Button("Hit");
         	buttonHit.setOnAction(e -> {
         		testPrint();
         		
-        		
         	});
+        	
+    	// Rotation effect
+    	RotateTransition buttonHitRotation = new RotateTransition(Duration.seconds(2.0), buttonHit);
+    	buttonHitRotation.setCycleCount(Animation.INDEFINITE);
+    	buttonHitRotation.setFromAngle(0);
+    	buttonHitRotation.setToAngle(360);
+    	buttonHitRotation.setAutoReverse(true);
+    	buttonHitRotation.setCycleCount(1);
+    	
     	// Button HIT Effect on Hover
         buttonHit.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
         	buttonHit.setEffect(dropShadow);
         	buttonHit.setScaleX(1.5);
         	buttonHit.setScaleY(1.5);
-    		// Nya fina saker
-    		System.out.println("Shadow");
+        	buttonHitRotation.play();
     		});
     	
     	// Removes shadow effect
@@ -164,15 +166,21 @@ public void testPrint(){
         	buttonHit.setEffect(null);
         	buttonHit.setScaleX(1);
         	buttonHit.setScaleY(1);
-    		
-    		System.out.println("No Shadow");
+        	buttonHitRotation.stop();
+        		
 			});
-    	
-//        // Välja antal CardShoes
-//    	ChoiceBox CardShoeChoiceBox = new ChoiceBox(FXCollections.observableArrayList(
-//    			"One Card Shoe", "Two Card Shoes", "Three Card Shoes", "Four Card Shoes")
-//    	);
-    	
+        
+//    	boolean dealersTurn = true;
+//		// Button Hit setDisable True / False
+//    	do {
+//    		buttonHit.setDisable(false);
+//        	buttonStand.setDisable(false);
+//    	}
+//        while (dealersTurn);{
+//        	buttonHit.setDisable(true);
+//        	buttonStand.setDisable(true);
+//        }
+        
         //Top Menu (header)
         HBox header = new HBox();
         	Label headerText = new Label("JavaFx BlackJack Gui!");
@@ -236,32 +244,11 @@ public void testPrint(){
         window.show();
         
     }
-    	// -- > Tips < --
-    
-	    	// Button kicka igång en metod
-	    		// button.setOnAction(e -> Klassen.Metoden());
-    			// button.setOnAction(e -> Metoden());
-	    
-    		// Id
-    			// nameLabel.setId("id-label");
-    
-    		// StÃ¤nga ner programmet
-    			// window.setOnCloseRequest(e -> {
-    			//		e.consume();
-    			//		closeProgram();
-    			//	});
-    			
-    		//	private void closeProgram(){
-    		//		TO DO
-    		//		windows.close();
-    		//	}
-    		
-		 	//An empty label
-		 	//  Label label1 = new Label();
-		    //A label with the text element
-		  	//  Label label2 = new Label("Search");
-		    //A label with the text element and graphical icon
-    		//  Image image = new Image(getClass().getResourceAsStream("labels.jpg"));
-		  	//  Label label3 = new Label("Search", new ImageView(image));
-    
+
 }
+		// <-- Tips -->
+		//
+		// Välja antal CardShoes
+		//		ChoiceBox CardShoeChoiceBox = new ChoiceBox(FXCollections.observableArrayList(
+		//		"One Card Shoe", "Two Card Shoes", "Three Card Shoes", "Four Card Shoes")
+		//);
