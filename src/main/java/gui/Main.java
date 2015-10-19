@@ -13,6 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import kodaLoss.Bank;
@@ -109,7 +110,12 @@ public void testPrint(){
 //            }
 //          });
         // Shadow Effekt på knapparna
-        DropShadow shadow = new DropShadow();
+        DropShadow dropShadow = new DropShadow();
+        	dropShadow.setRadius(3.0);
+        	dropShadow.setOffsetX(3.0);
+        	dropShadow.setOffsetY(2.0);
+        	//dropShadow.setColor(Color.color(0.4, 0.5, 0.5));
+        	dropShadow.setColor(Color.BLACK);
         
         //Button 1
         	Button buttonStand = new Button("Stand");
@@ -119,7 +125,7 @@ public void testPrint(){
         	
         	// Buttond stand Effect on Hover
         	buttonStand.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
-        		buttonStand.setEffect(shadow);
+        		buttonStand.setEffect(dropShadow);
         		buttonStand.setScaleX(1.5);
         		buttonStand.setScaleY(1.5);
         		// Nya fina saker
@@ -146,7 +152,7 @@ public void testPrint(){
         	});
     	// Button HIT Effect on Hover
         buttonHit.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
-        	buttonHit.setEffect(shadow);
+        	buttonHit.setEffect(dropShadow);
         	buttonHit.setScaleX(1.5);
         	buttonHit.setScaleY(1.5);
     		// Nya fina saker
