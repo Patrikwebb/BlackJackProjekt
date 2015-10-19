@@ -3,8 +3,10 @@ package gui;
 import javafx.animation.Animation;
 import javafx.animation.RotateTransition;
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBase;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -22,10 +24,6 @@ import kodaLoss.Player;
 import static timTestaNat.BlackJackConstants.*;
 import timTestaNat.CardPictureData;
 
-/**
- * @author PatrikWebb
- * @Gui Main.java
- */
 public class Main extends Application {
 
     Stage window;
@@ -51,7 +49,8 @@ private Label playerScore;
 private ImageView testpic;
 private Card card;  
 public Label dealerCard = new Label (" ");
-private Button buttonHit, buttonStand;
+private Button buttonHit, buttonStand, buttonPlay;
+
 
 public void setPlayerScore( int newScore ){
   playerScore.setText("" + newScore);
@@ -181,6 +180,15 @@ public void testPrint(){
 //        	buttonStand.setDisable(true);
 //        }
         
+        buttonPlay = new Button ("Play");
+        	buttonPlay.setOnAction(event -> {
+        	if (startNewGame(true)){
+        		gameIsOn();
+        	} else {
+        		gameIsOff();
+        	}
+        	});
+        
         //Top Menu (header)
         HBox header = new HBox();
         	Label headerText = new Label("JavaFx BlackJack Gui!");
@@ -218,8 +226,9 @@ public void testPrint(){
         
         //Bottom Menu (Buttons)
         HBox bottomMenu = new HBox();
+        	bottomMenu.setAlignment(Pos.CENTER);
         	bottomMenu.setId("bottomMenu");
-        	bottomMenu.getChildren().addAll(buttonStand, buttonHit);
+        	bottomMenu.getChildren().addAll(buttonStand, buttonHit, buttonPlay);
         
         //Fönstret
         BorderPane borderPane = new BorderPane();
@@ -244,6 +253,29 @@ public void testPrint(){
         window.show();
         
     }
+    /**
+	 * När spelet är slut så kan Play knappen användas igen
+	 * @author PatrikWebb
+	 * @return false
+	 */
+	private void gameIsOff() {
+		buttonPlay.setDisable(false);
+		
+	}
+	/**
+	 * När spelet har börjat så kopplats Play knappen bort
+	 * @author PatrikWebb
+	 * @return true
+	 */
+	private void gameIsOn() {
+		buttonPlay.setDisable(true);
+		
+	}
+	// Ska senare köra igång spelet och dela ut dem första korten
+	private boolean startNewGame(boolean startNewGame) {
+		return true;
+		
+	}
 
 }
 		// <-- Tips -->
