@@ -35,7 +35,8 @@
 	-fx-spacing: 200;
 }
 #playerHandsSize{
-	-fx-padding: 200 0 0 0;
+	-fx-spacing: 40 0 0 0; 
+	-fx-padding: 100 0 0 0;
 }
 
 

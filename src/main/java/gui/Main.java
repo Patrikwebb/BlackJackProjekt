@@ -1,10 +1,10 @@
 package gui;
 
 import javafx.application.Application;
-import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -120,8 +120,8 @@ public void testPrint(){
         	// Buttond stand Effect on Hover
         	buttonStand.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
         		buttonStand.setEffect(shadow);
-        		buttonStand.setScaleX(1.2);
-        		buttonStand.setScaleY(1.2);
+        		buttonStand.setScaleX(2);
+        		buttonStand.setScaleY(2);
         		// Nya fina saker
         		System.out.println("Shadow");
         		});
@@ -143,7 +143,24 @@ public void testPrint(){
         		testPrint();
         		
         	});
-        
+    	// Button HIT Effect on Hover
+        buttonHit.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
+        	buttonHit.setEffect(shadow);
+        	buttonHit.setScaleX(2);
+        	buttonHit.setScaleY(2);
+    		// Nya fina saker
+    		System.out.println("Shadow");
+    		});
+    	
+    	// Removes shadow effect
+        buttonHit.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
+        	buttonHit.setEffect(null);
+        	buttonHit.setScaleX(1);
+        	buttonHit.setScaleY(1);
+    		
+    		System.out.println("No Shadow");
+			});
+    	
 //        // Välja antal CardShoes
 //    	ChoiceBox CardShoeChoiceBox = new ChoiceBox(FXCollections.observableArrayList(
 //    			"One Card Shoe", "Two Card Shoes", "Three Card Shoes", "Four Card Shoes")
@@ -172,13 +189,17 @@ public void testPrint(){
         	Label playerCard = new Label ("Text: DIAMONDS ACE");
         	testpic = new ImageView();
         	
+        	Image image = new Image("https://i.gyazo.com/51e42d8764b188d639eaa0fbe29f14d3.png");
+        	
+		  	Label labelImage = new Label("", new ImageView(image));
+        	
         	Label playerHandsSize = new Label ("Player Hands Size: ");
         	// getPlayerHandsSize()
         	playerText.setId("playerText");
         	playerScore.setId("playerScore");
         	playerCard.setId("playerCard");
         	playerHandsSize.setId("playerHandsSize");
-        	player.getChildren().addAll(playerText, playerScore, playerCard, testpic );
+        	player.getChildren().addAll(playerText, playerScore, playerCard, testpic, labelImage);
         
         //Bottom Menu (Buttons)
         HBox bottomMenu = new HBox();
@@ -194,7 +215,7 @@ public void testPrint(){
         	
         	
         //Scene
-        Scene scene = new Scene (borderPane, 600, 600);
+        Scene scene = new Scene (borderPane, 700, 700);
         
         // StyleSheets
         scene.getStylesheets().add(getClass().getResource
