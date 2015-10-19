@@ -14,7 +14,7 @@ public class Player {
 	private List<Card> hand = new ArrayList<Card>();
 
 	private boolean isBusted = false;
-	private boolean isActive = false; // betyder att det ar spelarens tur
+	private boolean isActiveInRound = true; // betyder att det ar spelarens tur
 
 	// CONSTRUCTORS
 	/**
@@ -61,6 +61,8 @@ public class Player {
 		return hand.size();
 	}
 
+	
+	
 	/**
 	 * getter for players hand
 	 * 
@@ -97,6 +99,19 @@ public class Player {
     }
 
 	/**
+	 * Sets the player to active (true) or inactive in this round of 
+	 * the game!
+	 * @param active: boolean (true = active)
+	 */
+	
+	public void setPlayerActiveInRound( boolean active ){
+	  this.isActiveInRound = active;
+	}
+	
+	
+	
+	
+	/**
 	 * returns the name of this players scorepoints
 	 * 
 	 * @return players score
@@ -131,5 +146,11 @@ public class Player {
 	public void setBusted(boolean isBusted) {
 		this.isBusted = isBusted;
 	}
+	
+	
+	public boolean isActive(){
+	  return this.isActiveInRound;
+	}
+	
 
 }

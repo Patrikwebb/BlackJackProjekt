@@ -114,7 +114,7 @@ public void testPrint(){
         //Button 1
         	Button buttonStand = new Button("Stand");
         	buttonStand.setOnAction(e -> {
-        		bank.testPrint();
+        		//bank.testPrint();
         	});
         	
         	// Buttond stand Effect on Hover
