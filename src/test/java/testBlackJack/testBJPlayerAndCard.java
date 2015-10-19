@@ -2,6 +2,8 @@ package testBlackJack;
 
 
 import kodaLoss.Card;
+import kodaLoss.CardShoe;
+import kodaLoss.Deck;
 import kodaLoss.Player;
 import kodaLoss.Rank;
 import kodaLoss.Suite;
@@ -63,5 +65,20 @@ public class testBJPlayerAndCard extends TestCase {
     Assert.assertTrue(p1.getName().equals("Anonymous"));
     Assert.assertTrue(p2.getName().equals("TESTNAME"));
   }
+  
+  public void testCardShoe(){
+	  CardShoe cS = new CardShoe();
+	  Assert.assertTrue(cS.getCardShoe().size() == 208);
+  }
+  
+  public void testDeck(){
+	  
+	  Assert.assertTrue(Deck.getDeck().size()==52);
+  }
+  
+  
+  
+  
+  
   
 }
