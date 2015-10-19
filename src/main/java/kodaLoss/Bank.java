@@ -221,18 +221,6 @@ public class Bank {
     }
     dealer.addCardToHand( cardShoe.getACardFromCardShoe() );
   }
-<<<<<<< HEAD
-}
-=======
-
-  
-  
-  
-  
-  
-  
-  
-  
   
   // TEST SHIT MÅSTE BORT SEN!
 
@@ -250,4 +238,3 @@ public class Bank {
   
   
 }
->>>>>>> branch 'master' of https://github.com/Patrikwebb/BlackJackProjekt
