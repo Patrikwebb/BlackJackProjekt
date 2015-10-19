@@ -54,6 +54,7 @@ public class testBJBank extends TestCase {
   
   @Test
   public void testDeckHas52Cards() {
+    
     Deck deck = new Deck();
     Assert.assertTrue(deck.getDeck().size() == 52);
   }

@@ -221,4 +221,33 @@ public class Bank {
     }
     dealer.addCardToHand( cardShoe.getACardFromCardShoe() );
   }
+<<<<<<< HEAD
 }
+=======
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  // TEST SHIT MÅSTE BORT SEN!
+
+  public void sayHello() {
+    System.out.println("Hello, this is Bank!");
+  }
+
+  public void testPrint() {
+    System.out.println("Bank.testPrint() called in Bank!");
+    main.setTestPic(new Card(Suite.HEARTS, Rank.ACE));
+  }
+
+  
+  
+  
+  
+}
+>>>>>>> branch 'master' of https://github.com/Patrikwebb/BlackJackProjekt
