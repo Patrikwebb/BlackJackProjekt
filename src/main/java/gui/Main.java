@@ -1,22 +1,23 @@
 package gui;
 
-import javax.swing.JOptionPane;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.collections.FXCollections;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
 import kodaLoss.Bank;
 import kodaLoss.Card;
 import kodaLoss.Player;
-
 import static timTestaNat.BlackJackConstants.*;
 import timTestaNat.CardPictureData;
 
@@ -47,7 +48,8 @@ private CardPictureData pics = new CardPictureData();
 
 private Label playerScore;
 private ImageView testpic;
-private Card card;    
+private Card card;  
+public Label dealerCard = new Label (" ");
 
 public void setPlayerScore( int newScore ){
   playerScore.setText("" + newScore);
@@ -62,6 +64,8 @@ public void setTestPic(Card card ){
         + card.getRank().toString() 
         + FILE_PICTURE_FILEENDING;
     
+  
+  System.out.println(s);
   Image image = new Image( s );
   
   System.out.println(image.toString());
@@ -104,15 +108,47 @@ public void testPrint(){
 //              bank.testPrint();
 //            }
 //          });
+        // Shadow Effekt på knapparna
+        DropShadow shadow = new DropShadow();
         
         //Button 1
         	Button buttonStand = new Button("Stand");
-        	buttonStand.setOnAction(e -> bank.testPrint());
+        	buttonStand.setOnAction(e -> {
+        		bank.testPrint();
+        	});
+        	
+        	// Buttond stand Effect on Hover
+        	buttonStand.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
+        		buttonStand.setEffect(shadow);
+        		buttonStand.setScaleX(1.2);
+        		buttonStand.setScaleY(1.2);
+        		
+        		System.out.println("Shadow");
+        		});
+        	
+        	// Removes shadow effect
+        	buttonStand.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
+        		buttonStand.setEffect(null);
+        		buttonStand.setScaleX(1);
+        		buttonStand.setScaleY(1);
+        		
+        		
+        		System.out.println("No Shadow");
+        		});
+        	
         //Button 2
         	//addCardToHand(Card card)
         Button buttonHit = new Button("Hit");
-        	buttonHit.setOnAction(e -> player.addCardToHand(card));
-        	
+        	buttonHit.setOnAction(e -> {
+        		testPrint();
+        		
+        	});
+        
+//        // Välja antal CardShoes
+//    	ChoiceBox CardShoeChoiceBox = new ChoiceBox(FXCollections.observableArrayList(
+//    			"One Card Shoe", "Two Card Shoes", "Three Card Shoes", "Four Card Shoes")
+//    	);
+    	
         //Top Menu (header)
         HBox header = new HBox();
         	Label headerText = new Label("JavaFx BlackJack Gui!");
@@ -122,7 +158,7 @@ public void testPrint(){
         //Left Menu
         VBox dealer = new VBox();
         	Label dealerText = new Label("Dealer: ");
-        	Label dealerCard = new Label (" ");
+        //	Label dealerCard = new Label (" ");
         	// getDealersHandSize? ()
         	dealerText.setId("dealerText");
         	dealerCard.setId("dealerCard");
@@ -135,8 +171,6 @@ public void testPrint(){
         	// String getName()
         	Label playerCard = new Label ("Text: DIAMONDS ACE");
         	testpic = new ImageView();
-        	
-        	
         	
         	Label playerHandsSize = new Label ("Player Hands Size: ");
         	// getPlayerHandsSize()
