@@ -3,6 +3,7 @@ package gui;
 import javafx.animation.Animation;
 import javafx.animation.RotateTransition;
 import javafx.application.Application;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -28,73 +29,57 @@ public class Main extends Application {
 
     Stage window;
     Scene scene;
-private Bank bank = new Bank(this);
-
-// Referens till player
-private Player player = new Player(this);
-
-// Getters and setters
-public Player getPlayer() {
-	return player;
-}
-
-public void setPlayer(Player player) {
-	this.player = player;
-}
-
-private CardPictureData pics = new CardPictureData();
     
+    /**
+     * Referens till bank
+     * @return bank
+     */
+    private Bank bank = new Bank(this);
 
-private Label playerScore;
-private ImageView testpic;
-private Card card;  
-public Label dealerCard = new Label (" ");
-private Button buttonHit, buttonStand, buttonPlay;
-
-
-public void setPlayerScore( int newScore ){
-  playerScore.setText("" + newScore);
-}
-
-public void setTestPic(Card card ){
-  
-  String s = 
-        FILE_PICTURE_PROTOKOLL 
-        + FILE_PICTURE_PATH
-        + card.getSuite().toString() + " " 
-        + card.getRank().toString() 
-        + FILE_PICTURE_FILEENDING;
+    /**
+     * Referens till player
+     * @return player
+     */
+    private Player player = new Player(this);
     
-  
-  System.out.println(s);
-  Image image = new Image( s );
-  
-  System.out.println(image.toString());
-  testpic.setImage(image);
-  
-  
-  System.out.println(testpic.isVisible());
-  System.out.println("TESTCARD SHOWN?!?!");
-}
-
-public void testPrint(){
-  System.out.println("Main.testPrint() called in Main!");
-}
+    // TO DO
+    private CardPictureData pics = new CardPictureData();
     
+    private Label 		playerScore;
+    private ImageView 	testpic; 
+    private Label 		dealerCard = new Label (" ");
+    private Button 		buttonHit, buttonStand, buttonPlay;
+	private boolean 	playable;
+
+    public void setPlayerScore( int newScore ){
+    	playerScore.setText("" + newScore);
+    }
+
+	public void setTestPic(Card card ){
+	  
+	  String s = 
+	        FILE_PICTURE_PROTOKOLL 
+	        + FILE_PICTURE_PATH
+	        + card.getSuite().toString() + " " 
+	        + card.getRank().toString() 
+	        + FILE_PICTURE_FILEENDING;
+    
+	  System.out.println(s);
+	  Image image = new Image( s );
+	  
+	  System.out.println(image.toString());
+	  testpic.setImage(image);
+	  
+	  System.out.println(testpic.isVisible());
+	  System.out.println("TESTCARD SHOWN?!?!");
+	}
     
     // DO NOT TOUCH! 
     public static void main(String[] args) {
 
         launch(args);
     }
-    
-    //Exempel för setOnAction
-    /**
-     * @return text name
-     * @param text
-     */
-    
-    
+ 
     @Override
     public void start(Stage primaryStage) {
         window = primaryStage;
@@ -140,7 +125,7 @@ public void testPrint(){
         	//addCardToHand(Card card)
         buttonHit = new Button("Hit");
         	buttonHit.setOnAction(e -> {
-        		testPrint();
+        		// TO DO
         		
         	});
         	
@@ -168,26 +153,15 @@ public void testPrint(){
         	buttonHitRotation.stop();
         		
 			});
-        
-//    	boolean dealersTurn = true;
-//		// Button Hit setDisable True / False
-//    	do {
-//    		buttonHit.setDisable(false);
-//        	buttonStand.setDisable(false);
-//    	}
-//        while (dealersTurn);{
-//        	buttonHit.setDisable(true);
-//        	buttonStand.setDisable(true);
-//        }
-        
+        // Button Play
         buttonPlay = new Button ("Play");
-        	buttonPlay.setOnAction(event -> {
-        	if (startNewGame(true)){
-        		gameIsOn();
-        	} else {
-        		gameIsOff();
-        	}
-        	});
+    		buttonPlay.setOnAction(event -> {
+    		if (startNewGame(true)){
+    			gameIsOn();
+    		} else {
+    			gameIsOff();
+    		}
+    		});
         
         //Top Menu (header)
         HBox header = new HBox();
@@ -198,7 +172,6 @@ public void testPrint(){
         //Left Menu
         VBox dealer = new VBox();
         	Label dealerText = new Label("Dealer: ");
-        //	Label dealerCard = new Label (" ");
         	// getDealersHandSize? ()
         	dealerText.setId("dealerText");
         	dealerCard.setId("dealerCard");
@@ -213,7 +186,6 @@ public void testPrint(){
         	testpic = new ImageView();
         	
         	Image image = new Image("https://i.gyazo.com/51e42d8764b188d639eaa0fbe29f14d3.png");
-        	
 		  	Label labelImage = new Label("", new ImageView(image));
         	
         	Label playerHandsSize = new Label ("Player Hands Size: ");
@@ -236,16 +208,13 @@ public void testPrint(){
         	borderPane.setLeft(dealer);
         	borderPane.setRight(player);
         	borderPane.setBottom(bottomMenu);
-        	
-        	
+        		
         //Scene
         Scene scene = new Scene (borderPane, 700, 700);
         
         // StyleSheets
         scene.getStylesheets().add(getClass().getResource
         			("application.css").toExternalForm());
-        // ex.2
-        //scene.getStylesheets().add("application.css");
         
         //Display scene
         window.setScene(scene);
@@ -278,6 +247,7 @@ public void testPrint(){
 	 * 
 	 */
 	private boolean startNewGame(boolean startNewGame) {
+		playable = true;
 		return true;
 		
 	}
