@@ -1,8 +1,6 @@
 /target/
 
 *.class
-*.classpath
-*.project
 *.prefs
 /prefs
 
