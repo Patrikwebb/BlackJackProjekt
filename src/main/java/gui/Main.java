@@ -271,7 +271,12 @@ public void testPrint(){
 		buttonPlay.setDisable(true);
 		
 	}
-	// Ska senare köra igång spelet och dela ut dem första korten
+	
+	/**
+	 * Ska senare köra igång spelet och dela ut dem första korten
+	 * @author PatrikWebb
+	 * 
+	 */
 	private boolean startNewGame(boolean startNewGame) {
 		return true;
 		
