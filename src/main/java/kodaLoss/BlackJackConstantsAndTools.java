@@ -24,9 +24,10 @@ public class BlackJackConstantsAndTools {
         + filename.trim().toUpperCase() 
         + FILE_PICTURE_FILEENDING;
 
-    // replace windows slashes
+    // replace windows slashes and remove white spaces
     absolutePath = absolutePath.replace("\\" , "/");
-
+    absolutePath = absolutePath.replace(" " , "_");
+        
     return absolutePath;
   }
 
