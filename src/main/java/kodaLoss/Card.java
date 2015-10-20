@@ -1,11 +1,12 @@
 package kodaLoss;
 
+
 public class Card {
 
 	private final Suite suite;
 	private final Rank rank;
 	private final int value;
-
+	
 	public Card(Suite s, Rank r) {
 		suite = s;
 		rank = r;

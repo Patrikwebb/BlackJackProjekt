@@ -42,6 +42,12 @@ public class Main extends Application {
      */
     private Player player = new Player(this);
     
+    /**
+     * Referens till card
+     * @return player
+     */
+    // private Card card = new Card();
+    
     // TO DO
     private CardPictureData pics = new CardPictureData();
     
@@ -94,8 +100,9 @@ public class Main extends Application {
         
         //Button Stand
         	buttonStand = new Button("Stand");
+        	buttonStand.setDisable(true);
         	buttonStand.setOnAction(e -> {
-        		bank.testPrint();
+        			bank.testPrint();
         	});
         	// Rotation effect
         	RotateTransition buttonStandrotation = new RotateTransition(Duration.seconds(2.0), buttonStand);
@@ -124,6 +131,7 @@ public class Main extends Application {
         //Button Hit
         	//addCardToHand(Card card)
         buttonHit = new Button("Hit");
+    	buttonHit.setDisable(true);
         	buttonHit.setOnAction(e -> {
         		// TO DO
         		
@@ -158,6 +166,7 @@ public class Main extends Application {
     		buttonPlay.setOnAction(event -> {
     		if (startNewGame(true)){
     			gameIsOn();
+    			
     		} else {
     			gameIsOff();
     		}
@@ -228,8 +237,7 @@ public class Main extends Application {
 	 * @return false
 	 */
 	private void gameIsOff() {
-		buttonPlay.setDisable(false);
-		
+		buttonPlay.setDisable(false);	
 	}
 	/**
 	 * När spelet har börjat så kopplats Play knappen bort
@@ -238,7 +246,8 @@ public class Main extends Application {
 	 */
 	private void gameIsOn() {
 		buttonPlay.setDisable(true);
-		
+    	buttonHit.setDisable(false);
+    	buttonStand.setDisable(false);
 	}
 	
 	/**
