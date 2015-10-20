@@ -2,6 +2,7 @@ package kodaLoss;
 
 import java.util.ArrayList;
 import java.util.List;
+import static kodaLoss.UserChoiceAdapter.*;
 
 import gui.Main;
 
@@ -14,65 +15,35 @@ public class Bank {
   private Player dealer = new Player("Dealer");
   private CardShoe cardShoe = new CardShoe();
 
-  
-  private UserChoice userChoice = null;
-  
-  public enum UserChoice{
-    STAY, HIT;
-  }
-  
-  
-  
   // CONSTRUCTORS
   public Bank() {
   }
 
   public Bank(Main main) {
     this.main = main;
+
   }
 
+ 
+
+
+
   // METHODS FOR GUI
-  
+
   /**
-   * Player chooses to stay by pressing the Stay-button on his user-interface
+   * sets the reference to the gui that this Bank object holds
+   * 
+   * @param main
    */
-  public void playerChoosesToStay(){
-    
-    if( userChoice == null){
-      userChoice = UserChoice.STAY;
-    }
+  public void setReferenceToGui(Main main) {
+    this.main = main;
   }
-  
-  /**
-   * Player chooses to get another card by pressing the Hit-button on his 
-   * user-interface
-   */
-  public void playerChoosesToHit(){
-    
-    if( userChoice == null){
-      userChoice = UserChoice.HIT;
-    }
-  }
-  
-  /*
-   * resets the userChoice field for next user choice
-   */
-  private void resetUserChoice(){
-    userChoice = null;
-  }
-  
-  
-  
-  
-  
-  
-  
-  // CLASS METHODS
 
   /**
    * calculates value of players hand. Sets value of Aces in players hand to 1
-   * if players should have gone bust otherwise until players hand is under 
-   * 21 again. 
+   * if players should have gone bust otherwise until players hand is under 21
+   * again.
+   * 
    * @return value of players hand as an integer
    */
   public static int calculateValueOfPlayersHand(Player player) {
@@ -94,14 +65,6 @@ public class Bank {
     return sum;
   }
 
-  /** 
-   * sets the reference to the gui that this Bank object holds
-   * @param main
-   */
-  public void setReferenceToGui(Main main) {
-    this.main = main;
-  }
-
   /**
    * checks if players hand is a BlackJack!
    * 
@@ -112,21 +75,22 @@ public class Bank {
     return (player.getPlayerHandsSize() == 2
         && calculateValueOfPlayersHand(player) == 21);
   }
-  
+
   /**
-   * checks if a players hands value is over 21, even considering
-   * the aces rule (Ace value = 1)
+   * checks if a players hands value is over 21, even considering the aces rule
+   * (Ace value = 1)
+   * 
    * @param player
    * @return true if players hand is over 21, else false
    */
-  public static boolean isPlayersHandOver21 (Player player){
+  public static boolean isPlayersHandOver21(Player player) {
     return (calculateValueOfPlayersHand(player) > 21);
   }
-  
-/*
- * methods that controls the sequence of actions to play one round, control 
- * of the gameplay!
- */
+
+  /*
+   * methods that controls the sequence of actions to play one round, control of
+   * the gameplay!
+   */
   private void playOneRound() {
 
     // deal a card to all players and dealer
@@ -145,45 +109,49 @@ public class Bank {
     // each active player plays against bank
 
     for (Player p : registeredPlayers) {
-      
+
       if (p.isActive()) {
-        playerPlays( p );
+        playerPlays(p);
       }
     }
-    
+
     // dealer plays
     dealerPlays();
-    
+
     // TODO calculate winners
     /*
-     *  if dealer is not bust => player who are not bust, and have a higher hand than dealer. 
-     *  if dealer is bust => all players that are not bust win
-     *  
+     * if dealer is not bust => player who are not bust, and have a higher hand
+     * than dealer. if dealer is bust => all players that are not bust win
+     * 
      */
-    
+
   }
 
-
-  
   /*
-   * Player plays against Bank in one round. Sets player inactive if bust
-   * 
+   * Player plays against Bank in one round. Sets player inactive if bust. Uses
+   * class UserChoiceAdapter to get user events from the user interface
    */
-  private void playerPlays( Player player ) {
-    
-    resetUserChoice(); // prepare for input
-    
-    while( userChoice != UserChoice.STAY ){
-      
-      if (userChoice == userChoice.HIT){
-          dealOneCardToPlayer( player );
-          resetUserChoice();
-          
-          if (isPlayersHandOver21(player)){
-            player.setPlayerActiveInRound(false);
-            player.setBusted(true);
-            userChoice = UserChoice.STAY;
-          }
+  private void playerPlays(Player player) {
+
+    UserChoiceAdapter.resetUserChoice(); // prepare for input
+
+    while (getUserChoice() != UserChoice.STAY) {
+
+      player.printHandToConsole();
+       
+      if (getUserChoice() == UserChoice.HIT) {
+        dealOneCardToPlayer(player);
+        System.out.println("PLAYER HIT");
+        player.printHandToConsole();
+        resetUserChoice();
+
+        if (isPlayersHandOver21(player)) {
+          player.setPlayerActiveInRound(false);
+          player.setBusted(true);
+          System.out.println("PLAYER IS BUST NOW!");
+          player.printHandToConsole();
+          break;
+        }
       }
     }
     // finally
@@ -193,35 +161,33 @@ public class Bank {
   /*
    * dealer plays. Takes cards until its hand is over 16
    */
-  private void dealerPlays(){
-    while( calculateValueOfPlayersHand( dealer ) < 17 ) {
+  private void dealerPlays() {
+    while (calculateValueOfPlayersHand(dealer) < 17) {
       // has to be refactorized!? Method "deal out a card"?!?
-      dealer.addCardToHand( this.cardShoe.getACardFromCardShoe() ); 
+      dealer.addCardToHand(this.cardShoe.getACardFromCardShoe());
     }
   }
-  
+
   /*
-   * deals one card to a player and updates the gui for the player
+   * bank deals one card from the card shoe to a player who takes the card and
+   * adds it to his hand. (Then the gui is updated for the player)
    */
-  private void dealOneCardToPlayer (Player player){
-    player.addCardToHand( cardShoe.getACardFromCardShoe() );
-    //TODO call gui to update players hand!
+  private void dealOneCardToPlayer(Player player) {
+    player.addCardToHand(cardShoe.getACardFromCardShoe());
+    // TODO call gui to update players hand!
   }
-  
-  
-  
-  
+
   /*
    * deals one card to all players and dealer
    */
   private void dealOneCardToAll() {
-    
+
     for (Player p : registeredPlayers) {
-      p.addCardToHand(cardShoe.getACardFromCardShoe());
+      dealOneCardToPlayer(p);
     }
-    dealer.addCardToHand( cardShoe.getACardFromCardShoe() );
+    dealOneCardToPlayer(dealer);
   }
-  
+
   // TEST SHIT MÅSTE BORT SEN!
 
   public void sayHello() {
@@ -233,8 +199,4 @@ public class Bank {
     main.setTestPic(new Card(Suite.HEARTS, Rank.ACE));
   }
 
-  
-  
-  
-  
 }

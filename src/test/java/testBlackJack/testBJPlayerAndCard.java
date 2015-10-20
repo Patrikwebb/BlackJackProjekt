@@ -75,13 +75,13 @@ public class testBJPlayerAndCard extends TestCase {
   @Test
   public void testCardShoe(){
 	  CardShoe cS = new CardShoe();
-	  Assert.assertTrue(cS.getCardShoe().size() == 208);
+	  Assert.assertTrue(cS.getNewCards().size() == 208);
   }
   
   @Test
   public void testCardShoeHas4CompleteDecks(){
     
-    List<Card> cardShoe = CardShoe.getCardShoe();
+    List<Card> cardShoe = new CardShoe().getNewCards();
     // using hashmap as an unsorted map!
     Map<Card,Integer> countMap = new HashMap<Card,Integer>();
     

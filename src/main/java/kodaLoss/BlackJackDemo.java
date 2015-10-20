@@ -11,6 +11,12 @@ public class BlackJackDemo {
 		//Main guiMain = new Main(bank);
 		
 		Main.launch(Main.class , args);
+		
+		
+		
+		
+		
+		
 
 	}
 	

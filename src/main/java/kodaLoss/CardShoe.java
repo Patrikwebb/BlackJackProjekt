@@ -17,10 +17,10 @@ private List<Card> cards;
   
 
 public CardShoe(){
-  cards = getCardShoe();
+  cards = getNewCards();
 }
 
-	public static ArrayList<Card> getCardShoe() {
+	public ArrayList<Card> getNewCards() {
 		
 	  ArrayList<Card> cardShoe = new ArrayList<>();
 		final int numberOfCards = 208;
@@ -45,7 +45,7 @@ public CardShoe(){
 	public Card getACardFromCardShoe(){
 	  
 	  if ( !(cards.size() > 0)){
-	    this.cards = getCardShoe();
+	    this.cards = getNewCards();
 	  }
 	  
 	  return cards.remove(0); 
