@@ -192,7 +192,7 @@ public class Bank {
 
   public void testPrint() {
     System.out.println("Bank.testPrint() called in Bank!");
-    main.setTestPic(new Card(Suite.HEARTS, Rank.ACE));
+    main.setTestPic(new Card(Suite.SPADES, Rank.SEVEN));
   }
 
 }

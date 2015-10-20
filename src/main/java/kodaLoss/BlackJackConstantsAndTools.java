@@ -25,9 +25,13 @@ public class BlackJackConstantsAndTools {
         + FILE_PICTURE_FILEENDING;
 
     // replace windows slashes and remove white spaces
-    absolutePath = absolutePath.replace("\\" , "/");
+    if (System.getProperty("system.os").contains("window")){
+     absolutePath = absolutePath.replace("/" , "\\"); 
+    } else {
+      absolutePath = absolutePath.replace("\\" , "/");
+    }
+    // no whitespaces allowed!
     absolutePath = absolutePath.replace(" " , "_");
-        
     return absolutePath;
   }
 
