@@ -172,6 +172,20 @@ public class Main extends Application {
     		}
     		});
         
+		// Buttond Play Effect on Hover
+    	buttonPlay.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
+    		buttonPlay.setEffect(dropShadow);
+    		buttonPlay.setScaleX(1.5);
+    		buttonPlay.setScaleY(1.5);
+    		});
+    	
+    	// Removes shadow effect
+    	buttonPlay.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
+    		buttonPlay.setEffect(null);
+    		buttonPlay.setScaleX(1);
+    		buttonPlay.setScaleY(1);
+    		});
+    	
         //Top Menu (header)
         HBox header = new HBox();
         	Label headerText = new Label("JavaFx BlackJack Gui!");
