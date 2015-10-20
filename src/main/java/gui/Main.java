@@ -1,6 +1,6 @@
 package gui;
 
-import static timTestaNat.BlackJackConstants.*;
+import static kodaLoss.BlackJackConstants.*;
 
 import javafx.animation.Animation;
 import javafx.animation.RotateTransition;
@@ -36,11 +36,11 @@ public class Main extends Application {
      */
     private Bank bank = new Bank(this);
 
-    /**
-     * Referens till player
-     * @return player
-     */
-    private Player player = new Player(this);
+//    /**
+//     * Referens till player
+//     * @return player
+//     */
+//    private Player player = new Player(this);
   
    
     private Label 		playerScore;
@@ -53,23 +53,25 @@ public class Main extends Application {
     	playerScore.setText("" + newScore);
     }
 
+    /**
+     * get the picture corresponding to the game card! Using the absolute path 
+     * of the picture file in users system.
+     * @param card - The card to show
+     */
+    
 	public void setTestPic(Card card ){
-	  
+	  //create absolute path to cardpicture!
 	  String s = 
-	        FILE_PICTURE_PROTOKOLL 
+	        FILE_PICTURE_PROTOKOLL
+	        + FILE_USER_USERDIR
 	        + FILE_PICTURE_PATH
-	        + card.getSuite().toString() + " " 
+	        + card.getSuite().toString() 
+	        + " " 
 	        + card.getRank().toString() 
 	        + FILE_PICTURE_FILEENDING;
     
-	  System.out.println(s);
 	  Image image = new Image( s );
-	  
-	  System.out.println(image.toString());
 	  testpic.setImage(image);
-	  
-	  System.out.println(testpic.isVisible());
-	  System.out.println("TESTCARD SHOWN?!?!");
 	}
     
     // DO NOT TOUCH! 
@@ -94,7 +96,7 @@ public class Main extends Application {
         	buttonStand = new Button("Stand");
         	buttonStand.setDisable(true);
         	buttonStand.setOnAction(e -> {
-        			UserChoiceAdapter.playerChoosesToHit();
+        			UserChoiceAdapter.playerChoosesToStay();
         	});
         	// Rotation effect
         	RotateTransition buttonStandrotation = new RotateTransition(Duration.seconds(1.0), buttonStand);
@@ -125,8 +127,7 @@ public class Main extends Application {
         buttonHit = new Button("Hit");
     	buttonHit.setDisable(true);
         	buttonHit.setOnAction(e -> {
-        		// TO DO
-        		System.out.println("HiT");
+        	  UserChoiceAdapter.playerChoosesToStay();
         	});
         	
     	// Rotation effect
@@ -201,9 +202,9 @@ public class Main extends Application {
         	// String getName()
         	Label playerCard = new Label ("Text: DIAMONDS ACE");
         	testpic = new ImageView();
-        	
-        	Image image = new Image("https://i.gyazo.com/51e42d8764b188d639eaa0fbe29f14d3.png");
-		  	Label labelImage = new Label("", new ImageView(image));
+        	Image image1 = new Image("file://" + System.getProperty("user.dir") + "/src/CardPictures/HEARTS ACE.png");
+        	Image image2 = new Image("https://i.gyazo.com/51e42d8764b188d639eaa0fbe29f14d3.png");
+		  	Label labelImage = new Label("", new ImageView(image1));
         	
         	Label playerHandsSize = new Label ("Player Hands Size: ");
         	// getPlayerHandsSize()
