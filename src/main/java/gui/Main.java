@@ -187,7 +187,6 @@ public class Main extends Application {
         //Left Menu
         VBox dealer = new VBox();
         	Label dealerText = new Label("Dealer: ");
-        	// getDealersHandSize? ()
         	dealerText.setId("dealerText");
         	dealerCard.setId("dealerCard");
         	dealer.getChildren().addAll(dealerText, dealerCard);
@@ -196,7 +195,6 @@ public class Main extends Application {
         VBox player = new VBox();
         	Label playerText = new Label("Player: ");
         	playerScore = new Label("");
-        	// String getName()
         	Label playerCard = new Label ("Text: DIAMONDS ACE");
         	testpic = new ImageView();
         	Image image1 = new Image(BlackJackConstantsAndTools.getURLStringToFileInCardPictures("HEARTS_ACE"));
