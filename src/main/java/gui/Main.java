@@ -48,6 +48,7 @@ public class Main extends Application {
     private Label 		dealerCard = new Label (" ");
     private Button 		buttonHit, buttonStand, buttonPlay;
 	private boolean 	playable;
+	private Image		image1;
 
     public void setPlayerScore( int newScore ){
     	playerScore.setText("" + newScore);
@@ -127,7 +128,8 @@ public class Main extends Application {
         buttonHit = new Button("Hit");
     	buttonHit.setDisable(true);
         	buttonHit.setOnAction(e -> {
-        	  UserChoiceAdapter.playerChoosesToStay();
+        	  UserChoiceAdapter.playerChoosesToHit();
+        	  System.out.println(image1);
         	});
         	
     	// Rotation effect
@@ -202,7 +204,7 @@ public class Main extends Application {
         	// String getName()
         	Label playerCard = new Label ("Text: DIAMONDS ACE");
         	testpic = new ImageView();
-        	Image image1 = new Image("file://" + System.getProperty("user.dir") + "/src/CardPictures/HEARTS ACE.png");
+        	image1 = new Image("file://" + System.getProperty("user.dir") + "/src/CardPictures/HEARTS ACE.png");
         	Image image2 = new Image("https://i.gyazo.com/51e42d8764b188d639eaa0fbe29f14d3.png");
 		  	Label labelImage = new Label("", new ImageView(image1));
         	
