@@ -197,7 +197,7 @@ public class Main extends Application {
         	playerScore = new Label("");
         	Label playerCard = new Label ("Text: DIAMONDS ACE");
         	testpic = new ImageView();
-        	Image image1 = new Image(BlackJackConstantsAndTools.getURLStringToFileInCardPictures("HEARTS_ACE"));
+        	image1 = new Image(BlackJackConstantsAndTools.getURLStringToFileInCardPictures("HEARTS_ACE"));
         	//image1 = new Image("file:\\" + System.getProperty("user.dir") + "\\src\\CardPictures\\HEARTS_ACE.png");
 		  	Label labelImage = new Label("", new ImageView(image1));
         	

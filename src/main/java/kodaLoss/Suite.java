@@ -2,9 +2,9 @@ package kodaLoss;
 
 public enum Suite {
 
-  HEARTS,
   DIAMONDS,
-  CLUBS,
-  SPADES;
+  HEARTS,
+  SPADES,
+  CLUBS;
  
 }
