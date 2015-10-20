@@ -1,13 +1,13 @@
 package gui;
 
+import static timTestaNat.BlackJackConstants.*;
+
 import javafx.animation.Animation;
 import javafx.animation.RotateTransition;
 import javafx.application.Application;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBase;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -22,7 +22,7 @@ import javafx.util.Duration;
 import kodaLoss.Bank;
 import kodaLoss.Card;
 import kodaLoss.Player;
-import static timTestaNat.BlackJackConstants.*;
+import kodaLoss.UserChoiceAdapter;
 import timTestaNat.CardPictureData;
 
 public class Main extends Application {
@@ -41,16 +41,8 @@ public class Main extends Application {
      * @return player
      */
     private Player player = new Player(this);
-    
-    /**
-     * Referens till card
-     * @return player
-     */
-    // private Card card = new Card();
-    
-    // TO DO
-    private CardPictureData pics = new CardPictureData();
-    
+  
+   
     private Label 		playerScore;
     private ImageView 	testpic; 
     private Label 		dealerCard = new Label (" ");
@@ -102,7 +94,7 @@ public class Main extends Application {
         	buttonStand = new Button("Stand");
         	buttonStand.setDisable(true);
         	buttonStand.setOnAction(e -> {
-        			bank.testPrint();
+        			UserChoiceAdapter.playerChoosesToHit();
         	});
         	// Rotation effect
         	RotateTransition buttonStandrotation = new RotateTransition(Duration.seconds(2.0), buttonStand);
@@ -164,6 +156,8 @@ public class Main extends Application {
         // Button Play
         buttonPlay = new Button ("Play");
     		buttonPlay.setOnAction(event -> {
+    		  
+    		  
     		if (startNewGame(true)){
     			gameIsOn();
     			
