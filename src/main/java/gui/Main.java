@@ -1,6 +1,6 @@
 package gui;
 
-import static kodaLoss.BlackJackConstants.*;
+import static kodaLoss.BlackJackConstantsAndTools.*;
 
 import javafx.animation.Animation;
 import javafx.animation.RotateTransition;
@@ -20,7 +20,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import kodaLoss.Bank;
-import kodaLoss.BlackJackConstants;
+import kodaLoss.BlackJackConstantsAndTools;
 import kodaLoss.Card;
 import kodaLoss.Player;
 import kodaLoss.UserChoiceAdapter;
@@ -64,7 +64,7 @@ public class Main extends Application {
 	public void setTestPic(Card card ){
 	  //create absolute path to cardpicture!
 	  String cardString = card.toString();
-	  String pathToCardPicture = BlackJackConstants.getURLStringToFileInCardPictures(cardString);
+	  String pathToCardPicture = BlackJackConstantsAndTools.getURLStringToFileInCardPictures(cardString);
 	  Image image = new Image( pathToCardPicture );
 	  testpic.setImage(image);
 	}
@@ -197,7 +197,7 @@ public class Main extends Application {
         	// String getName()
         	Label playerCard = new Label ("Text: DIAMONDS ACE");
         	testpic = new ImageView();
-        	Image image1 = new Image(BlackJackConstants.getURLStringToFileInCardPictures("HEARTS_ACE"));
+        	Image image1 = new Image(BlackJackConstantsAndTools.getURLStringToFileInCardPictures("HEARTS_ACE"));
 //        	Image image2 = new Image("https://i.gyazo.com/51e42d8764b188d639eaa0fbe29f14d3.png");
 		  	Label labelImage = new Label("", new ImageView(image1));
         	
