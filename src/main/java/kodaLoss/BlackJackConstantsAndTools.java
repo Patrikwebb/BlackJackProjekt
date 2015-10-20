@@ -25,7 +25,7 @@ public class BlackJackConstantsAndTools {
         + FILE_PICTURE_FILEENDING;
 
     // replace windows slashes and remove white spaces
-    if (System.getProperty("os.name").contains("window")){
+    if (System.getProperty("os.name").toLowerCase().contains("window")){
      absolutePath = absolutePath.replace("/" , "\\"); 
     } else {
       absolutePath = absolutePath.replace("\\" , "/");
