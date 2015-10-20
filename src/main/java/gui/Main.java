@@ -49,6 +49,7 @@ public class Main extends Application {
     private Label 		dealerCard = new Label (" ");
     private Button 		buttonHit, buttonStand, buttonPlay;
 	private boolean 	playable;
+	private Image		image1;
 
     public void setPlayerScore( int newScore ){
     	playerScore.setText("" + newScore);
@@ -93,12 +94,12 @@ public class Main extends Application {
         			UserChoiceAdapter.playerChoosesToStay();
         	});
         	// Rotation effect
-        	RotateTransition buttonStandrotation = new RotateTransition(Duration.seconds(2.0), buttonStand);
+        	RotateTransition buttonStandrotation = new RotateTransition(Duration.seconds(1.0), buttonStand);
         	buttonStandrotation.setCycleCount(Animation.INDEFINITE);
         	buttonStandrotation.setFromAngle(0);
-        	buttonStandrotation.setToAngle(360);
+        	buttonStandrotation.setToAngle(20);
         	buttonStandrotation.setAutoReverse(true);
-        	buttonStandrotation.setCycleCount(1);
+        	buttonStandrotation.setCycleCount(4);
         	
         	// Buttond Stand Effect on Hover
         	buttonStand.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
