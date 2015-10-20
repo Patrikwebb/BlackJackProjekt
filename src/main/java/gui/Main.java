@@ -5,6 +5,7 @@ import static kodaLoss.BlackJackConstantsAndTools.*;
 import javafx.animation.Animation;
 import javafx.animation.RotateTransition;
 import javafx.application.Application;
+import javafx.geometry.Point3D;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -94,12 +95,12 @@ public class Main extends Application {
         			UserChoiceAdapter.playerChoosesToStay();
         	});
         	// Rotation effect
-        	RotateTransition buttonStandrotation = new RotateTransition(Duration.seconds(1.0), buttonStand);
+        	RotateTransition buttonStandrotation = new RotateTransition(Duration.seconds(0.5), buttonStand);
         	buttonStandrotation.setCycleCount(Animation.INDEFINITE);
         	buttonStandrotation.setFromAngle(0);
-        	buttonStandrotation.setToAngle(20);
+        	buttonStandrotation.setToAngle(5);
         	buttonStandrotation.setAutoReverse(true);
-        	buttonStandrotation.setCycleCount(4);
+        	buttonStandrotation.setCycleCount(20);
         	
         	// Buttond Stand Effect on Hover
         	buttonStand.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
@@ -126,12 +127,13 @@ public class Main extends Application {
         	});
         	
     	// Rotation effect
-    	RotateTransition buttonHitRotation = new RotateTransition(Duration.seconds(2.0), buttonHit);
+    	RotateTransition buttonHitRotation = new RotateTransition(Duration.seconds(0.5), buttonHit);
     	buttonHitRotation.setCycleCount(Animation.INDEFINITE);
     	buttonHitRotation.setFromAngle(0);
-    	buttonHitRotation.setToAngle(360);
+    	buttonHitRotation.setToAngle(5);
     	buttonHitRotation.setAutoReverse(true);
-    	buttonHitRotation.setCycleCount(1);
+    	buttonHitRotation.setCycleCount(20);
+    	//buttonHitRotation.setAxis(new Point3D(5, 5, 5));
     	
     	// Button HIT Effect on Hover
         buttonHit.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
@@ -198,7 +200,7 @@ public class Main extends Application {
         	Label playerCard = new Label ("Text: DIAMONDS ACE");
         	testpic = new ImageView();
         	Image image1 = new Image(BlackJackConstantsAndTools.getURLStringToFileInCardPictures("HEARTS_ACE"));
-//        	Image image2 = new Image("https://i.gyazo.com/51e42d8764b188d639eaa0fbe29f14d3.png");
+        	//image1 = new Image("file:\\" + System.getProperty("user.dir") + "\\src\\CardPictures\\HEARTS_ACE.png");
 		  	Label labelImage = new Label("", new ImageView(image1));
         	
         	Label playerHandsSize = new Label ("Player Hands Size: ");
