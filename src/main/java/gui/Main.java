@@ -97,12 +97,12 @@ public class Main extends Application {
         			UserChoiceAdapter.playerChoosesToHit();
         	});
         	// Rotation effect
-        	RotateTransition buttonStandrotation = new RotateTransition(Duration.seconds(2.0), buttonStand);
+        	RotateTransition buttonStandrotation = new RotateTransition(Duration.seconds(1.0), buttonStand);
         	buttonStandrotation.setCycleCount(Animation.INDEFINITE);
         	buttonStandrotation.setFromAngle(0);
-        	buttonStandrotation.setToAngle(360);
+        	buttonStandrotation.setToAngle(20);
         	buttonStandrotation.setAutoReverse(true);
-        	buttonStandrotation.setCycleCount(1);
+        	buttonStandrotation.setCycleCount(4);
         	
         	// Buttond Stand Effect on Hover
         	buttonStand.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
@@ -133,9 +133,9 @@ public class Main extends Application {
     	RotateTransition buttonHitRotation = new RotateTransition(Duration.seconds(2.0), buttonHit);
     	buttonHitRotation.setCycleCount(Animation.INDEFINITE);
     	buttonHitRotation.setFromAngle(0);
-    	buttonHitRotation.setToAngle(360);
+    	buttonHitRotation.setToAngle(20);
     	buttonHitRotation.setAutoReverse(true);
-    	buttonHitRotation.setCycleCount(1);
+    	buttonHitRotation.setCycleCount(4);
     	
     	// Button HIT Effect on Hover
         buttonHit.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
