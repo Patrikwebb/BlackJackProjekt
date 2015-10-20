@@ -268,6 +268,16 @@ public class Main extends Application {
 		playable = true;
 		return true;
 		
+		// TODO
+		// Dela ut 2 kort vardera till Player och Dealer
+	}
+	private void endGame(){
+		// TODO
+		// Kolla poängen bland Player och Dealer ständigt
+		// Om någon är bust eller båda har BlackJack
+		// Skriv ut vinnaren...
+		// playable = false;
+		// gameIsOff();
 	}
 
 }
