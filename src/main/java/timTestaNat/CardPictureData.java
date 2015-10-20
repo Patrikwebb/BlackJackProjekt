@@ -1,7 +1,7 @@
 package timTestaNat;
 
-import static timTestaNat.BlackJackConstants.FILE_PICTURE_FILEENDING;
-import static timTestaNat.BlackJackConstants.FILE_PICTURE_PATH;
+import static kodaLoss.BlackJackConstants.FILE_PICTURE_FILEENDING;
+import static kodaLoss.BlackJackConstants.FILE_PICTURE_PATH;
 
 import java.awt.Dimension;
 //import java.awt.Image;
