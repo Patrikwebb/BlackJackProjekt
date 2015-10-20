@@ -24,10 +24,6 @@ public class Bank {
 
   }
 
- 
-
-
-
   // METHODS FOR GUI
 
   /**

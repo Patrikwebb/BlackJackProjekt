@@ -73,8 +73,8 @@ public class Card {
 	
 	
 	@Override
-	public String toString() {
-		return suite + " " + rank;
+	public final String toString() {
+		return suite + "_" + rank;
 	}
 
 }

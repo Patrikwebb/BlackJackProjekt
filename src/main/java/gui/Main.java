@@ -20,6 +20,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import kodaLoss.Bank;
+import kodaLoss.BlackJackConstants;
 import kodaLoss.Card;
 import kodaLoss.Player;
 import kodaLoss.UserChoiceAdapter;
@@ -61,16 +62,9 @@ public class Main extends Application {
     
 	public void setTestPic(Card card ){
 	  //create absolute path to cardpicture!
-	  String s = 
-	        FILE_PICTURE_PROTOKOLL
-	        + FILE_USER_USERDIR
-	        + FILE_PICTURE_PATH
-	        + card.getSuite().toString() 
-	        + " " 
-	        + card.getRank().toString() 
-	        + FILE_PICTURE_FILEENDING;
-    
-	  Image image = new Image( s );
+	  String cardString = card.toString();
+	  String pathToCardPicture = BlackJackConstants.getURLStringToFileInCardPictures(cardString);
+	  Image image = new Image( pathToCardPicture );
 	  testpic.setImage(image);
 	}
     
@@ -202,8 +196,8 @@ public class Main extends Application {
         	// String getName()
         	Label playerCard = new Label ("Text: DIAMONDS ACE");
         	testpic = new ImageView();
-        	Image image1 = new Image("file://" + System.getProperty("user.dir") + "/src/CardPictures/HEARTS ACE.png");
-        	Image image2 = new Image("https://i.gyazo.com/51e42d8764b188d639eaa0fbe29f14d3.png");
+        	Image image1 = new Image(BlackJackConstants.getURLStringToFileInCardPictures("HEARTS_ACE"));
+//        	Image image2 = new Image("https://i.gyazo.com/51e42d8764b188d639eaa0fbe29f14d3.png");
 		  	Label labelImage = new Label("", new ImageView(image1));
         	
         	Label playerHandsSize = new Label ("Player Hands Size: ");
