@@ -2,7 +2,7 @@ package kodaLoss;
 
 public class BlackJackConstantsAndTools {
 
-  public final static String FILE_PICTURE_PROTOKOLL = "file:\\";
+  public final static String FILE_PICTURE_PROTOKOLL = "file:///" ;
   public final static String FILE_USER_USERDIR = System.getProperty("user.dir");
   public final static String FILE_PICTURE_PATH = "\\src\\CardPictures\\";
   public final static String FILE_PICTURE_FILEENDING = ".png";
@@ -23,8 +23,12 @@ public class BlackJackConstantsAndTools {
         + FILE_PICTURE_PATH
         + filename.trim().toUpperCase() 
         + FILE_PICTURE_FILEENDING;
-
-    System.out.println(absolutePath);
+    
+    // if system not windows switch '\' to '/'
+    if ( ! System.getProperty("os.name").contains("wind")){
+      absolutePath = absolutePath.replace("\\" , "/" );
+    }
+    
     return absolutePath;
   }
 
