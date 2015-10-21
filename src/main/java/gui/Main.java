@@ -123,6 +123,10 @@ public class Main extends Application {
     	buttonHit.setDisable(true);
         	buttonHit.setOnAction(e -> {
         	  UserChoiceAdapter.playerChoosesToStay();
+        	  
+        	String OS;
+      		OS = System.getProperty("os.name");
+      		System.out.println(OS);
         	});
         	
     	// Rotation effect
