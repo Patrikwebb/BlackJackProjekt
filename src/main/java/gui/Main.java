@@ -54,8 +54,8 @@ public class Main extends Application {
     private Button 		buttonHit, buttonStand, buttonPlay;
 	private SimpleBooleanProperty playable = new SimpleBooleanProperty();
 	
-    private HBox dealerCardsHBox = new HBox(50);
-    private HBox playerCardsHBox = new HBox(50);
+    private HBox dealerCardsHBox = new HBox(-45);
+    private HBox playerCardsHBox = new HBox(-45);
 	
 
     public void setPlayerScore( int newScore ){
@@ -75,7 +75,8 @@ public class Main extends Application {
 	public void setTestPic(Card card ){
 	  //create absolute path to cardpicture!
 	  String cardString = card.toString();
-	  String pathToCardPicture = BlackJackConstantsAndTools.getURLStringToFileInCardPictures(cardString);
+	  String pathToCardPicture = BlackJackConstantsAndTools.
+			  getURLStringToFileInCardPictures(cardString);
 	  Image image = new Image( pathToCardPicture );
 	  cardPicture = new ImageView();
 	  cardPicture.setImage(image);
@@ -106,7 +107,8 @@ public class Main extends Application {
         			UserChoiceAdapter.playerChoosesToStay();
         	});
         	// Rotation effect
-        	RotateTransition buttonStandrotation = new RotateTransition(Duration.seconds(0.5), buttonStand);
+        	RotateTransition buttonStandrotation = 
+        			new RotateTransition(Duration.seconds(0.5), buttonStand);
         	buttonStandrotation.setCycleCount(Animation.INDEFINITE);
         	buttonStandrotation.setFromAngle(0);
         	buttonStandrotation.setToAngle(-5);
@@ -145,7 +147,8 @@ public class Main extends Application {
         	});
         	
     	// Rotation effect
-    	RotateTransition buttonHitRotation = new RotateTransition(Duration.seconds(0.5), buttonHit);
+    	RotateTransition buttonHitRotation = 
+    			new RotateTransition(Duration.seconds(0.5), buttonHit);
     	buttonHitRotation.setCycleCount(Animation.INDEFINITE);
     	buttonHitRotation.setFromAngle(0);
     	buttonHitRotation.setToAngle(5);
@@ -195,44 +198,51 @@ public class Main extends Application {
     		});
     	
         //Top Menu (header)
-        HBox header = new HBox();
+        HBox headerHBox = new HBox();
         	Label headerText = new Label("JavaFx BlackJack Gui!");
+        	headerHBox.setId("headerHBox");
         	headerText.setId("headerText");
-        	header.getChildren().add(headerText);
+        	headerHBox.getChildren().add(headerText);
         
         //Left Menu
-        VBox dealer = new VBox();
+        VBox dealerVBox = new VBox();
+        	dealerVBox.setPrefWidth(300);
+        	dealerVBox.setAlignment(Pos.TOP_CENTER);
         	Label dealerText = new Label("Dealer: ");
+        	dealerVBox.setId("dealerVBox");
         	dealerText.setId("dealerText");
         	dealerCardsHBox.setId("dealerCard");
-        	dealer.getChildren().addAll(dealerText, dealerCardsHBox);
+        	dealerVBox.getChildren().addAll(dealerText, dealerCardsHBox);
         
         //Right Menu
-        VBox player = new VBox();
+        VBox playerVBox = new VBox();
+        	playerVBox.setPrefWidth(300);
+        	playerVBox.setAlignment(Pos.TOP_CENTER);
         	Label playerText = new Label("Player: Dude");
         	playerScore = new Label("");
         	// Add new ImageView
         	// Set image to the ImageView
         	//Label labelImage = new Label("<-- Card", testpic);
         	Label playerHandsSize = new Label ("Player Hands Size: ");
+        	playerVBox.setId("playerVBox");
         	playerText.setId("playerText");
         	playerScore.setId("playerScore");
         	playerCardsHBox.setId("playerCardsHBox");
         	playerHandsSize.setId("playerHandsSize");
-        	player.getChildren().addAll(playerText, playerScore, playerCardsHBox);
+        	playerVBox.getChildren().addAll(playerText, playerScore, playerCardsHBox);
         
         //Bottom Menu (Buttons)
-        HBox bottomMenu = new HBox();
-        	bottomMenu.setAlignment(Pos.CENTER);
-        	bottomMenu.setId("bottomMenu");
-        	bottomMenu.getChildren().addAll(buttonStand, buttonHit, buttonPlay);
+        HBox bottomMenuHBox = new HBox();
+	        bottomMenuHBox.setAlignment(Pos.CENTER);
+	        bottomMenuHBox.setId("bottomMenuHBox");
+	        bottomMenuHBox.getChildren().addAll(buttonStand, buttonHit, buttonPlay);
         
         //Fönstret
         BorderPane borderPane = new BorderPane();
-        	borderPane.setTop(header);
-        	borderPane.setLeft(dealer);
-        	borderPane.setRight(player);
-        	borderPane.setBottom(bottomMenu);
+        	borderPane.setTop(headerHBox);
+        	borderPane.setLeft(dealerVBox);
+        	borderPane.setRight(playerVBox);
+        	borderPane.setBottom(bottomMenuHBox);
         		
         //Scene
         Scene scene = new Scene (borderPane, 700, 700);
@@ -299,6 +309,10 @@ public class Main extends Application {
 		// <-- Tips -->
 		//
 		// Välja antal CardShoes
-		//		ChoiceBox CardShoeChoiceBox = new ChoiceBox(FXCollections.observableArrayList(
-		//		"One Card Shoe", "Two Card Shoes", "Three Card Shoes", "Four Card Shoes")
+		//		ChoiceBox CardShoeChoiceBox = 
+		//			new ChoiceBox(FXCollections.observableArrayList(
+		//		"One Card Shoe", 
+		//		"Two Card Shoes", 
+		//		"Three Card Shoes", 
+		//		"Four Card Shoes")
 		//);
