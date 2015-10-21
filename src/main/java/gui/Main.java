@@ -100,9 +100,9 @@ public class Main extends Application {
         	RotateTransition buttonStandrotation = new RotateTransition(Duration.seconds(0.5), buttonStand);
         	buttonStandrotation.setCycleCount(Animation.INDEFINITE);
         	buttonStandrotation.setFromAngle(0);
-        	buttonStandrotation.setToAngle(5);
+        	buttonStandrotation.setToAngle(-5);
         	buttonStandrotation.setAutoReverse(true);
-        	buttonStandrotation.setCycleCount(20);
+        	buttonStandrotation.setCycleCount(100);
         	
         	// Buttond Stand Effect on Hover
         	buttonStand.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
@@ -137,7 +137,7 @@ public class Main extends Application {
     	buttonHitRotation.setFromAngle(0);
     	buttonHitRotation.setToAngle(5);
     	buttonHitRotation.setAutoReverse(true);
-    	buttonHitRotation.setCycleCount(20);
+    	buttonHitRotation.setCycleCount(100);
     	//buttonHitRotation.setAxis(new Point3D(5, 5, 5));
     	
     	// Button HIT Effect on Hover
@@ -153,7 +153,7 @@ public class Main extends Application {
         	buttonHit.setEffect(null);
         	buttonHit.setScaleX(1);
         	buttonHit.setScaleY(1);
-        	buttonHitRotation.stop();
+        	buttonHitRotation.pause();
         		
 			});
         // Button Play
@@ -196,12 +196,12 @@ public class Main extends Application {
         VBox player = new VBox();
         	Label playerText = new Label("Player: ");
         	playerScore = new Label("");
-        	Label playerCard = new Label ("Text: DIAMONDS ACE");
+        	Label playerCard = new Label ("");
         	testpic = new ImageView();
         	image1 = new Image(BlackJackConstantsAndTools.getURLStringToFileInCardPictures("HEARTS_ACE"));
         	testpic.setImage(image1);
         	//image1 = new Image("file:\\" + System.getProperty("user.dir") + "\\src\\CardPictures\\HEARTS_ACE.png");
-		  	Label labelImage = new Label("Picture to show", testpic);
+		  	Label labelImage = new Label("<-- Card", testpic);
         	
         	Label playerHandsSize = new Label ("Player Hands Size: ");
         	// getPlayerHandsSize()
