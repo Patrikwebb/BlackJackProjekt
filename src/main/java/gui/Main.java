@@ -3,6 +3,7 @@ package gui;
 import javafx.animation.Animation;
 import javafx.animation.RotateTransition;
 import javafx.application.Application;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -46,7 +47,7 @@ public class Main extends Application {
     private ImageView 	testpic; 
     private Label 		dealerCard = new Label(" ");
     private Button 		buttonHit, buttonStand, buttonPlay;
-	private boolean 	playable;
+	private SimpleBooleanProperty playable = new SimpleBooleanProperty();
 	private Image	image1;
 
     public void setPlayerScore( int newScore ){
@@ -159,14 +160,11 @@ public class Main extends Application {
         buttonPlay = new Button ("Play");
     		buttonPlay.setOnAction(event -> {
     		 
-    		if (startNewGame(true)){
-    			gameIsOn();
-    			
-    		} else {
-    			gameIsOff();
-    		}
+    		startNewGame();
+    		
+    		gameIsOn();
+    		
     		});
-        
 		// Buttond Play Effect on Hover
     	buttonPlay.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
     		buttonPlay.setEffect(dropShadow);
@@ -271,14 +269,14 @@ public class Main extends Application {
 	 * @author PatrikWebb
 	 * 
 	 */
-	private boolean startNewGame(boolean startNewGame) {
-		playable = true;
-		return true;
+	private void startNewGame() {
+		playable.set(true);
 		
 		// TODO
 		// Dela ut 2 kort vardera till Player och Dealer
 	}
 	private void endGame(){
+		playable.set(false);
 		// TODO
 		// Kolla poängen bland Player och Dealer ständigt
 		// Om någon är bust eller båda har BlackJack
