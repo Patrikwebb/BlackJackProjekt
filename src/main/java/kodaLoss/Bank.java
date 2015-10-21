@@ -130,14 +130,14 @@ public class Bank {
   private void playerPlays(Player player) {
 
     UserChoiceAdapter.resetUserChoice(); // prepare for input
-
+    
     while (getUserChoice() != UserChoice.STAY) {
 
       player.printHandToConsole();
        
       if (getUserChoice() == UserChoice.HIT) {
         dealOneCardToPlayer(player);
-        main.setTestPic(player.getPlayersHand().get(player.getPlayerHandsSize() - 1 ));
+        //main.setTestPic(player.getPlayersHand().get(player.getPlayerHandsSize() - 1 ));
         System.out.println("PLAYER HIT");
         player.printHandToConsole();
         resetUserChoice();
@@ -164,6 +164,9 @@ public class Bank {
       dealer.addCardToHand(this.cardShoe.getACardFromCardShoe());
     }
     dealer.printHandToConsole();
+    if(isPlayersHandOver21(dealer)){
+      System.out.println("DEALER IS BUST!");
+    }
   }
 
   /*
@@ -201,15 +204,7 @@ public class Bank {
   // Testspelar en runda! med en player som hela tiden bara 
   // vill ha ett nytt kort!
   public static void main(String[] args) {
-    Thread GUI = new Thread(){
-      
-      public void run(){
-        
-        Main.launch(Main.class , args);
-        
-      } 
-    };
-    GUI.start();
+    
     
     
     System.out.println("now the Thread");
@@ -230,7 +225,9 @@ public class Bank {
     
     Bank bank = new Bank();
     Player p = new Player("TETS");
+    Player p2 = new Player("PATRIK");
     bank.registeredPlayers.add(p);
+    bank.registeredPlayers.add(p2);
 
     System.out.println("Now to the bank");
     bank.playOneRound();

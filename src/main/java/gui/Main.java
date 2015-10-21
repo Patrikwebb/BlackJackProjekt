@@ -20,6 +20,8 @@ import javafx.util.Duration;
 import kodaLoss.Bank;
 import kodaLoss.BlackJackConstantsAndTools;
 import kodaLoss.Card;
+import kodaLoss.Rank;
+import kodaLoss.Suite;
 import kodaLoss.UserChoiceAdapter;
 
 public class Main extends Application {
@@ -28,7 +30,7 @@ public class Main extends Application {
     Scene scene;
     
     /**
-     * Referens till bank
+     * Reference to bank
      * @return bank
      */
     private Bank bank = new Bank(this);
@@ -40,12 +42,12 @@ public class Main extends Application {
 //    private Player player = new Player(this);
   
    
-    private Label 		playerScore = null;
-    private ImageView 	testpic = null; 
-    private Label 		dealerCard = null;
-    private Button 		buttonHit, buttonStand, buttonPlay = null;
-	private boolean 	playable = false;
-	private Image	image1 = null;
+    private Label 		playerScore;
+    private ImageView 	testpic; 
+    private Label 		dealerCard = new Label(" ");
+    private Button 		buttonHit, buttonStand, buttonPlay;
+	private boolean 	playable;
+	private Image	image1;
 
     public void setPlayerScore( int newScore ){
     	playerScore.setText("" + newScore);
@@ -124,9 +126,8 @@ public class Main extends Application {
         	buttonHit.setOnAction(e -> {
         	  UserChoiceAdapter.playerChoosesToStay();
         	  
-        	String OS;
-      		OS = System.getProperty("os.name");
-      		System.out.println(OS);
+        	  setTestPic( getRandomCard() );
+
         	});
         	
     	// Rotation effect
@@ -158,7 +159,6 @@ public class Main extends Application {
         buttonPlay = new Button ("Play");
     		buttonPlay.setOnAction(event -> {
     		 
-    		  
     		if (startNewGame(true)){
     			gameIsOn();
     			
@@ -239,7 +239,15 @@ public class Main extends Application {
         window.show();
         
     }
-    /**
+    private Card getRandomCard() {
+  // TODO Auto-generated method stub
+      
+      int r = (int)(Math.random() * 13) ;
+      int s = (int)(Math.random() * 4 ) ;  
+      return new Card(Suite.values()[s]  ,  Rank.values()[r]) ;
+    
+}
+/**
 	 * När spelet är slut så kan Play knappen användas igen
 	 * @author PatrikWebb
 	 * @return false
