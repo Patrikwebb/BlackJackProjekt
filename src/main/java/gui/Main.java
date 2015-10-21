@@ -49,11 +49,14 @@ public class Main extends Application {
   
    
     private Label 		playerScore;
-    private ImageView 	testpic; 
-    private Label 		dealerCard = new Label(" ");
+    private Image		image1;
+    private ImageView 	cardPicture; 
     private Button 		buttonHit, buttonStand, buttonPlay;
 	private SimpleBooleanProperty playable = new SimpleBooleanProperty();
-	private Image	image1;
+	
+    private HBox dealerCardsHBox = new HBox(50);
+    private HBox playerCardsHBox = new HBox(50);
+	
 
     public void setPlayerScore( int newScore ){
     	playerScore.setText("" + newScore);
@@ -74,7 +77,8 @@ public class Main extends Application {
 	  String cardString = card.toString();
 	  String pathToCardPicture = BlackJackConstantsAndTools.getURLStringToFileInCardPictures(cardString);
 	  Image image = new Image( pathToCardPicture );
-	  testpic.setImage(image);
+	  cardPicture = new ImageView();
+	  cardPicture.setImage(image);
 	}
     
     // DO NOT TOUCH! 
@@ -133,7 +137,11 @@ public class Main extends Application {
         	  UserChoiceAdapter.playerChoosesToHit();
         	  
         	  setTestPic( getRandomCard() );
-
+        	  
+        	  // Add the Image to player HBox
+        	  playerCardsHBox.getChildren().add(cardPicture);
+        	  
+          	
         	});
         	
     	// Rotation effect
@@ -164,10 +172,12 @@ public class Main extends Application {
         // Button Play
         buttonPlay = new Button ("Play");
     		buttonPlay.setOnAction(event -> {
-    		 
+    		
     		startNewGame();
     		
     		gameIsOn();
+    		
+    		//playerCards.getChildren().add(cardPicture);
     		
     		});
 		// Buttond Play Effect on Hover
@@ -194,28 +204,22 @@ public class Main extends Application {
         VBox dealer = new VBox();
         	Label dealerText = new Label("Dealer: ");
         	dealerText.setId("dealerText");
-        	dealerCard.setId("dealerCard");
-        	dealer.getChildren().addAll(dealerText, dealerCard);
+        	dealerCardsHBox.setId("dealerCard");
+        	dealer.getChildren().addAll(dealerText, dealerCardsHBox);
         
         //Right Menu
         VBox player = new VBox();
-        	Label playerText = new Label("Player: ");
+        	Label playerText = new Label("Player: Dude");
         	playerScore = new Label("");
-        	Label playerCard = new Label ("");
         	// Add new ImageView
-        	testpic = new ImageView();
         	// Set image to the ImageView
-        	testpic.setImage(image1);
-        	// Add the Image to a Label
-        	Label labelImage = new Label("<-- Card", testpic);
+        	//Label labelImage = new Label("<-- Card", testpic);
         	Label playerHandsSize = new Label ("Player Hands Size: ");
-        	// getPlayerHandsSize()
         	playerText.setId("playerText");
         	playerScore.setId("playerScore");
-        	playerCard.setId("playerCard");
+        	playerCardsHBox.setId("playerCardsHBox");
         	playerHandsSize.setId("playerHandsSize");
-        	// Add the labelImage to the VBox(); + all the other shit
-        	player.getChildren().addAll(playerText, playerScore, playerCard, labelImage);
+        	player.getChildren().addAll(playerText, playerScore, playerCardsHBox);
         
         //Bottom Menu (Buttons)
         HBox bottomMenu = new HBox();
