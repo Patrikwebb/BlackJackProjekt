@@ -125,7 +125,7 @@ public class Main extends Application {
         buttonHit = new Button("Hit");
     	buttonHit.setDisable(true);
         	buttonHit.setOnAction(e -> {
-        	  UserChoiceAdapter.playerChoosesToStay();
+        	  UserChoiceAdapter.playerChoosesToHit();
         	  
         	  setTestPic( getRandomCard() );
 
@@ -138,7 +138,7 @@ public class Main extends Application {
     	buttonHitRotation.setToAngle(5);
     	buttonHitRotation.setAutoReverse(true);
     	buttonHitRotation.setCycleCount(100);
-    	//buttonHitRotation.setAxis(new Point3D(5, 5, 5));
+    	//buttonHitRotation.setAxis(new Point3D(1, 2, 3));
     	
     	// Button HIT Effect on Hover
         buttonHit.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
@@ -197,19 +197,20 @@ public class Main extends Application {
         	Label playerText = new Label("Player: ");
         	playerScore = new Label("");
         	Label playerCard = new Label ("");
+        	// Add new ImageView
         	testpic = new ImageView();
-        	image1 = new Image(BlackJackConstantsAndTools.getURLStringToFileInCardPictures("HEARTS_ACE"));
+        	// Set image to the ImageView
         	testpic.setImage(image1);
-        	//image1 = new Image("file:\\" + System.getProperty("user.dir") + "\\src\\CardPictures\\HEARTS_ACE.png");
-		  	Label labelImage = new Label("<-- Card", testpic);
-        	
+        	// Add the Image to a Label
+        	Label labelImage = new Label("<-- Card", testpic);
         	Label playerHandsSize = new Label ("Player Hands Size: ");
         	// getPlayerHandsSize()
         	playerText.setId("playerText");
         	playerScore.setId("playerScore");
         	playerCard.setId("playerCard");
         	playerHandsSize.setId("playerHandsSize");
-        	player.getChildren().addAll(playerText, playerScore, playerCard, testpic, labelImage);
+        	// Add the labelImage to the VBox(); + all the other shit
+        	player.getChildren().addAll(playerText, playerScore, playerCard, labelImage);
         
         //Bottom Menu (Buttons)
         HBox bottomMenu = new HBox();
