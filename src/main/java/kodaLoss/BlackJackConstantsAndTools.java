@@ -1,5 +1,7 @@
 package kodaLoss;
 
+import java.io.File;
+
 public class BlackJackConstantsAndTools {
 
   public final static String FILE_PICTURE_PROTOKOLL = "file://";
@@ -25,13 +27,14 @@ public class BlackJackConstantsAndTools {
         + FILE_PICTURE_FILEENDING;
 
     // replace windows slashes and remove white spaces
-    if (System.getProperty("os.name").toLowerCase().contains("window")){
+    if (System.getProperty("os.name").toLowerCase().contains("wind")){
      absolutePath = absolutePath.replace("/" , "\\"); 
     } else {
       absolutePath = absolutePath.replace("\\" , "/");
     }
     // no whitespaces allowed!
     absolutePath = absolutePath.replace(" " , "_");
+    System.out.println(absolutePath);
     return absolutePath;
   }
 

@@ -11,7 +11,7 @@ public class Bank {
   // MEMBERS
   private Main main = null; // reference to gui
 
-  private List<Player> registeredPlayers = new ArrayList<Player>();
+  public List<Player> registeredPlayers = new ArrayList<Player>();
   private Player dealer = new Player("Dealer");
   private CardShoe cardShoe = new CardShoe();
 
@@ -87,7 +87,7 @@ public class Bank {
    * methods that controls the sequence of actions to play one round, control of
    * the gameplay!
    */
-  private void playOneRound() {
+  public void playOneRound() {
 
     // deal a card to all players and dealer
     dealOneCardToAll();
@@ -137,6 +137,7 @@ public class Bank {
        
       if (getUserChoice() == UserChoice.HIT) {
         dealOneCardToPlayer(player);
+        main.setTestPic(player.getPlayersHand().get(player.getPlayerHandsSize() - 1 ));
         System.out.println("PLAYER HIT");
         player.printHandToConsole();
         resetUserChoice();
@@ -162,6 +163,7 @@ public class Bank {
       // has to be refactorized!? Method "deal out a card"?!?
       dealer.addCardToHand(this.cardShoe.getACardFromCardShoe());
     }
+    dealer.printHandToConsole();
   }
 
   /*
@@ -195,4 +197,48 @@ public class Bank {
     main.setTestPic(new Card(Suite.SPADES, Rank.SEVEN));
   }
 
+  
+  // Testspelar en runda! med en player som hela tiden bara 
+  // vill ha ett nytt kort!
+  public static void main(String[] args) {
+    Thread GUI = new Thread(){
+      
+      public void run(){
+        
+        Main.launch(Main.class , args);
+        
+      } 
+    };
+    GUI.start();
+    
+    
+    System.out.println("now the Thread");
+    Thread Clicker = new Thread(){
+    
+      public void run(){
+        while(true){
+        try {
+          Thread.sleep(1000);
+          UserChoiceAdapter.playerChoosesToHit();
+        } catch (InterruptedException e) {
+          System.out.println("Thread misslyckade");
+        }
+      }
+      } 
+    };
+    Clicker.start();
+    
+    Bank bank = new Bank();
+    Player p = new Player("TETS");
+    bank.registeredPlayers.add(p);
+
+    System.out.println("Now to the bank");
+    bank.playOneRound();
+    
+    
+    
+    
+  }
+  
+  
 }

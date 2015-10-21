@@ -1,11 +1,8 @@
 package gui;
 
-import static kodaLoss.BlackJackConstantsAndTools.*;
-
 import javafx.animation.Animation;
 import javafx.animation.RotateTransition;
 import javafx.application.Application;
-import javafx.geometry.Point3D;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -23,9 +20,7 @@ import javafx.util.Duration;
 import kodaLoss.Bank;
 import kodaLoss.BlackJackConstantsAndTools;
 import kodaLoss.Card;
-import kodaLoss.Player;
 import kodaLoss.UserChoiceAdapter;
-import timTestaNat.CardPictureData;
 
 public class Main extends Application {
 
@@ -45,17 +40,21 @@ public class Main extends Application {
 //    private Player player = new Player(this);
   
    
-    private Label 		playerScore;
-    private ImageView 	testpic; 
-    private Label 		dealerCard = new Label (" ");
-    private Button 		buttonHit, buttonStand, buttonPlay;
-	private boolean 	playable;
-	private Image		image1;
+    private Label 		playerScore = null;
+    private ImageView 	testpic = null; 
+    private Label 		dealerCard = null;
+    private Button 		buttonHit, buttonStand, buttonPlay = null;
+	private boolean 	playable = false;
+	private Image	image1 = null;
 
     public void setPlayerScore( int newScore ){
     	playerScore.setText("" + newScore);
     }
 
+    
+    
+    
+    
     /**
      * get the picture corresponding to the game card! Using the absolute path 
      * of the picture file in users system.
@@ -72,9 +71,9 @@ public class Main extends Application {
     
     // DO NOT TOUCH! 
     public static void main(String[] args) {
-
         launch(args);
-    }
+    } 
+    
  
     @Override
     public void start(Stage primaryStage) {
@@ -154,7 +153,7 @@ public class Main extends Application {
         // Button Play
         buttonPlay = new Button ("Play");
     		buttonPlay.setOnAction(event -> {
-    		  
+    		 
     		  
     		if (startNewGame(true)){
     			gameIsOn();
@@ -198,8 +197,9 @@ public class Main extends Application {
         	Label playerCard = new Label ("Text: DIAMONDS ACE");
         	testpic = new ImageView();
         	image1 = new Image(BlackJackConstantsAndTools.getURLStringToFileInCardPictures("HEARTS_ACE"));
+        	testpic.setImage(image1);
         	//image1 = new Image("file:\\" + System.getProperty("user.dir") + "\\src\\CardPictures\\HEARTS_ACE.png");
-		  	Label labelImage = new Label("", new ImageView(image1));
+		  	Label labelImage = new Label("Picture to show", testpic);
         	
         	Label playerHandsSize = new Label ("Player Hands Size: ");
         	// getPlayerHandsSize()
