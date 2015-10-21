@@ -25,6 +25,10 @@ import kodaLoss.Rank;
 import kodaLoss.Suite;
 import kodaLoss.UserChoiceAdapter;
 
+/**
+ * @author PatrikWebb, Tim kod kungen
+ * @version 1.0
+ */
 public class Main extends Application {
 
     Stage window;
@@ -33,6 +37,7 @@ public class Main extends Application {
     /**
      * Reference to bank
      * @return bank
+     * 
      */
     private Bank bank = new Bank(this);
 
