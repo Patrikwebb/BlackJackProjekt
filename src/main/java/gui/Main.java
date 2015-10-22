@@ -48,7 +48,7 @@ public class Main extends Application {
 //    private Player player = new Player(this);
   
    
-    private Label 		playerScore;
+    private Label 		playerScore = new Label("");
     private Image		image1;
     private ImageView 	cardPicture; 
     private Button 		buttonHit, buttonStand, buttonPlay;
@@ -104,7 +104,14 @@ public class Main extends Application {
         	buttonStand = new Button("Stand");
         	buttonStand.setDisable(true);
         	buttonStand.setOnAction(e -> {
-        			UserChoiceAdapter.playerChoosesToStay();
+        		UserChoiceAdapter.playerChoosesToStay();
+        			
+        		// TODO
+        		// Ska innehålla
+        			// Om dealerns värde på korten är mindre än 17:
+        			// Dela ut en kort till dealern (While Loop)
+        			// endGame();
+        			
         	});
         	// Rotation effect
         	RotateTransition buttonStandrotation = 
@@ -132,17 +139,19 @@ public class Main extends Application {
         		});
         	
         //Button Hit
-        	//addCardToHand(Card card)
         buttonHit = new Button("Hit");
     	buttonHit.setDisable(true);
         	buttonHit.setOnAction(e -> {
-        	  UserChoiceAdapter.playerChoosesToHit();
+        		UserChoiceAdapter.playerChoosesToHit();
         	  
-        	  setTestPic( getRandomCard() );
+        		setTestPic(getRandomCard());
         	  
-        	  // Add the Image to player HBox
-        	  playerCardsHBox.getChildren().add(cardPicture);
-        	  
+        		// Add the Image to player HBox
+        		playerCardsHBox.getChildren().add(cardPicture);
+        		
+        		// TODO
+        		// Ska innehålla
+        			// Dela ut ett kort till spelare
           	
         	});
         	
@@ -180,8 +189,6 @@ public class Main extends Application {
     		
     		gameIsOn();
     		
-    		//playerCards.getChildren().add(cardPicture);
-    		
     		});
 		// Buttond Play Effect on Hover
     	buttonPlay.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
@@ -216,10 +223,9 @@ public class Main extends Application {
         
         //Right Menu
         VBox playerVBox = new VBox();
-        	playerVBox.setPrefWidth(300);
+        	playerVBox.setPrefWidth(400);
         	playerVBox.setAlignment(Pos.TOP_CENTER);
         	Label playerText = new Label("Player: Dude");
-        	playerScore = new Label("");
         	// Add new ImageView
         	// Set image to the ImageView
         	//Label labelImage = new Label("<-- Card", testpic);
@@ -229,7 +235,7 @@ public class Main extends Application {
         	playerScore.setId("playerScore");
         	playerCardsHBox.setId("playerCardsHBox");
         	playerHandsSize.setId("playerHandsSize");
-        	playerVBox.getChildren().addAll(playerText, playerScore, playerCardsHBox);
+        	playerVBox.getChildren().addAll(playerText, playerCardsHBox, playerScore);
         
         //Bottom Menu (Buttons)
         HBox bottomMenuHBox = new HBox();
@@ -245,7 +251,7 @@ public class Main extends Application {
         	borderPane.setBottom(bottomMenuHBox);
         		
         //Scene
-        Scene scene = new Scene (borderPane, 700, 700);
+        Scene scene = new Scene (borderPane, 1000, 700);
         
         // StyleSheets
         scene.getStylesheets().add(getClass().getResource
@@ -272,6 +278,8 @@ public class Main extends Application {
 	 */
 	private void gameIsOff() {
 		buttonPlay.setDisable(false);	
+		
+		
 	}
 	/**
 	 * När spelet har börjat så kopplats Play knappen bort
@@ -282,6 +290,8 @@ public class Main extends Application {
 		buttonPlay.setDisable(true);
     	buttonHit.setDisable(false);
     	buttonStand.setDisable(false);
+    	
+    	
 	}
 	
 	/**
@@ -293,16 +303,19 @@ public class Main extends Application {
 		playable.set(true);
 		
 		// TODO
-		// Dela ut 2 kort vardera till Player och Dealer
+		// Ska innehålla
+			// Dela ut 2 kort vardera till Player och Dealer
+		
 	}
 	private void endGame(){
 		playable.set(false);
 		// TODO
-		// Kolla poängen bland Player och Dealer ständigt
-		// Om någon är bust eller båda har BlackJack
-		// Skriv ut vinnaren...
-		// playable = false;
-		// gameIsOff();
+		// Ska innehålla
+			// Kolla poängen bland Player och Dealer ständigt
+			// Om någon är bust eller båda har BlackJack
+			// Skriv ut vinnaren...
+			// playable = false;
+			// gameIsOff();
 	}
 
 }
