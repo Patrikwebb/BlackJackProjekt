@@ -25,6 +25,10 @@ import kodaLoss.Rank;
 import kodaLoss.Suite;
 import kodaLoss.UserChoiceAdapter;
 
+import org.omg.DynamicAny.NameDynAnyPair;
+
+import gui.NameAlertBox;
+
 /**
  * @author PatrikWebb, Tim kod kungen
  * @version 1.0
@@ -51,7 +55,7 @@ public class Main extends Application {
     private Label 		playerScore = new Label("");
     private Image		image1;
     private ImageView 	cardPicture; 
-    private Button 		buttonHit, buttonStand, buttonPlay;
+    private Button 		buttonHit, buttonStand, buttonPlay, buttonRegister;
 	private SimpleBooleanProperty playable = new SimpleBooleanProperty();
 	
     private HBox dealerCardsHBox = new HBox(-45);
@@ -183,8 +187,9 @@ public class Main extends Application {
 			});
         // Button Play
         buttonPlay = new Button ("Play");
+        	buttonPlay.setDisable(true);
     		buttonPlay.setOnAction(event -> {
-    		
+    			
     		startNewGame();
     		
     		gameIsOn();
@@ -204,6 +209,17 @@ public class Main extends Application {
     		buttonPlay.setScaleY(1);
     		});
     	
+    	// Button Register
+    	buttonRegister = new Button ("Registrera Spelare");
+    		buttonRegister.setOnAction(event -> {
+ 			
+    			NameAlertBox name = new NameAlertBox();
+    			// Kör igång NameAlertBox();
+    			name.NameDisplay();
+    			// JavaDoc -->
+    			registreraSpelare();
+ 		
+ 		});
         //Top Menu (header)
         HBox headerHBox = new HBox();
         	Label headerText = new Label("JavaFx BlackJack Gui!");
@@ -225,7 +241,7 @@ public class Main extends Application {
         VBox playerVBox = new VBox();
         	playerVBox.setPrefWidth(400);
         	playerVBox.setAlignment(Pos.TOP_CENTER);
-        	Label playerText = new Label("Player: Dude");
+        	Label playerText = new Label("Player: ");
         	// Add new ImageView
         	// Set image to the ImageView
         	//Label labelImage = new Label("<-- Card", testpic);
@@ -241,7 +257,8 @@ public class Main extends Application {
         HBox bottomMenuHBox = new HBox();
 	        bottomMenuHBox.setAlignment(Pos.CENTER);
 	        bottomMenuHBox.setId("bottomMenuHBox");
-	        bottomMenuHBox.getChildren().addAll(buttonStand, buttonHit, buttonPlay);
+	        bottomMenuHBox.getChildren().addAll(buttonStand, buttonHit, 
+	        									buttonPlay, buttonRegister);
         
         //Fönstret
         BorderPane borderPane = new BorderPane();
@@ -271,20 +288,29 @@ public class Main extends Application {
       return new Card(Suite.values()[s]  ,  Rank.values()[r]) ;
     
 }
-/**
+    /**
+     * Så länge en spelare inte har registrerat 
+     * sig så kan man inte börja spela
+     * @author PatrikWebb
+     */
+    private void registreraSpelare(){
+    	buttonPlay.setDisable(false);
+    	// TODO
+    }
+    /**
 	 * När spelet är slut så kan Play knappen användas igen
 	 * @author PatrikWebb
-	 * @return false
+	 * 
 	 */
 	private void gameIsOff() {
 		buttonPlay.setDisable(false);	
-		
+		// TODO
 		
 	}
 	/**
 	 * När spelet har börjat så kopplats Play knappen bort
 	 * @author PatrikWebb
-	 * @return true
+	 * 
 	 */
 	private void gameIsOn() {
 		buttonPlay.setDisable(true);
@@ -314,7 +340,7 @@ public class Main extends Application {
 			// Kolla poängen bland Player och Dealer ständigt
 			// Om någon är bust eller båda har BlackJack
 			// Skriv ut vinnaren...
-			// playable = false;
+			// playable.(false);
 			// gameIsOff();
 	}
 
