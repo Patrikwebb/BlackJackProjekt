@@ -10,9 +10,10 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import junit.framework.TestCase;
-import junit.framework.
+import junit.framework.*;
 import kodaLoss.Bank;
 import kodaLoss.Card;
+import kodaLoss.CardShoe;
 import kodaLoss.Deck;
 import kodaLoss.Player;
 import kodaLoss.Rank;

@@ -145,6 +145,11 @@ public class testBJBank extends TestCase {
   }
 
   
+  @Test
+  public void testCalculateWinnersDealerAndBankBUST(){
+    // kan inte testa void som returntyp?!
+  }
+  
   
   
 }

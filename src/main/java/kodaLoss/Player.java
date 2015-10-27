@@ -7,15 +7,19 @@ import gui.Main;
 
 public class Player {
 
-	private String name;
-	private int score = 0;
-	// private int cash = 100; // implemented in later sprints! Tim
+	private String name; // alla spelare har ett namn
+	private int playersCash = 100; // alla spelare startar med 100 dollar
+	private int betForThisRound = 0 ; // vad spelare satsar denna runda
 
-	private List<Card> hand = new ArrayList<Card>();
+	
+	
+	
+	private List<Card> hand = new ArrayList<Card>(); //Players hand
 
 	private boolean isBusted = false;
-	private boolean isActiveInRound = true; // betyder att det ar spelarens tur
+	private boolean isActiveInRound = true; 
 
+	
 	// CONSTRUCTORS
 	/**
 	 * creates an new, anonymous player with default settings
@@ -29,12 +33,7 @@ public class Player {
 	};
 
 	// INSTANCE METHODS
-	private Main main;
 	
-	public Player(Main main) {
-		this.main=main;
-	}
-
 	/**
 	 * Player takes another card which is added to his hand
 	 * 
@@ -92,11 +91,7 @@ public class Player {
 	public String getName() {
 		return this.name;
 	}
-	
-	public String text(){
-    	String text = "Dude";
-    	return text;
-    }
+
 
 	/**
 	 * Sets the player to active (true) or inactive in this round of 
@@ -110,23 +105,52 @@ public class Player {
 	
 	
 	
+	/**
+	 * User makes a bet via the ui. This method checks if users player-object
+	 * has enough cash to make that bet. Reduces players cash by the desired amount
+	 * or with all of players cash if the desired amount exceeds players cash. 
+	 * Moves players cash to the betting pot for this round. 
+	 * @param requestedBet - amount user wants to bet
+	 */
+	public void setPlayersBet(int requestedBet){
+	  
+	  if (requestedBet > playersCash){
+	    // just set bet to max bet! "ALL IN"!
+	    betForThisRound = playersCash;
+	    playersCash = 0;
+	    
+	  } else {
+	   betForThisRound =requestedBet;
+	   playersCash -= requestedBet;
+	  }
+	}
+	
+	
 	
 	/**
-	 * returns the name of this players scorepoints
+	 * returns the amount of cash this player has
 	 * 
 	 * @return players score
 	 */
-	public int getPlayersScore() {
-		return this.score;
+	public int getPlayersCash() {
+		return this.playersCash;
 	}
 
 	/**
-	 * sets the Players score
-	 * 
-	 * @param newScore
+	 * returns the amount of money the player has bet in 
+	 * this round
+	 * @return amount of players bet in dollar
 	 */
-	public void setPlayersScore(int newScore) {
-		this.score = newScore;
+	public int getPlayersBet(){
+	  return this.betForThisRound;
+	}
+	
+	/**
+	 * adds money to the players cash ( if he won any)
+	 * @param amount
+	 */
+	public void addToPlayersCash(int amount) {
+		this.playersCash += amount;
 	}
 
 	/**
@@ -146,11 +170,14 @@ public class Player {
 	public void setBusted(boolean isBusted) {
 		this.isBusted = isBusted;
 	}
+		
 	
-	
+	/**
+	 * returns true if the player is set to active in this round. else false;
+	 * @return
+	 */
 	public boolean isActive(){
 	  return this.isActiveInRound;
 	}
-	
 
 }

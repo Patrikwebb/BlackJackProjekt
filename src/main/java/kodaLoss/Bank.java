@@ -114,7 +114,6 @@ public class Bank {
 		// dealer plays
 		dealerPlays();
 
-		// TODO calculate winners
 		/*
 		 * if dealer is not bust => player who are not bust, and have a higher
 		 * hand than dealer. if dealer is bust => all players that are not bust
@@ -122,6 +121,7 @@ public class Bank {
 		 * 
 		 */
 
+		calculateWinners();
 	}
 
 	/*
@@ -289,7 +289,6 @@ public class Bank {
 
 		System.out.println("Now to the bank");
 		bank.playOneRound();
-
 	}
 
 }
