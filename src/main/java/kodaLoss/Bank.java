@@ -182,11 +182,16 @@ public class Bank {
 			// has to be refactorized!? Method "deal out a card"?!?
 			dealer.addCardToHand(this.cardShoe.getACardFromCardShoe());
 			setDealerIsBust(false);
-		}
-		dealer.printHandToConsole();
-		if (isPlayersHandOver21(dealer)) {
-			System.out.println("DEALER IS BUST!");
-			setDealerIsBust(true);
+
+			dealer.printHandToConsole();
+			if (isPlayersHandOver21(dealer)) {
+				//temporary until we send to GUI
+				System.out.println("DEALER IS BUST!");
+				setDealerIsBust(true);
+			}else{
+				//temporary until we send to GUI
+				System.out.println("DEALER has " + calculateValueOfPlayersHand(dealer));
+			}
 		}
 	}
 
@@ -227,7 +232,7 @@ public class Bank {
 					System.out.println("Sorry, you lost.");
 				}
 			}
-		}else{
+		} else {
 			for (Player p : registeredPlayers) {
 				playerpoints = calculateValueOfPlayersHand(p);
 				if (playerpoints <= 21 && playerpoints > calculateValueOfPlayersHand(dealer)) {

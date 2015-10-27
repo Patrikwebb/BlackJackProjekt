@@ -19,6 +19,7 @@ public class Round extends Bank {
 		for (Player p : registeredPlayers) {
 			if (isPlayersHandABlackJack(p)) {
 				p.setPlayerActiveInRound(false);
+				System.out.println("BlackJack");
 			}
 		}
 
@@ -28,7 +29,7 @@ public class Round extends Bank {
 
 			if (p.isActive()) {
 				playerPlays(p);
-				// System.out.println(p.getPlayersHand().addAll(arg0));
+				System.out.println(p.getPlayersHand());
 			}
 		}
 
