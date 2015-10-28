@@ -44,32 +44,19 @@ public class Main extends Application {
      * 
      */
     private Bank bank = new Bank(this);
-
-//    /**
-//     * Referens till player
-//     * @return player
-//     */
-//    private Player player = new Player(this);
-  
    
     private Label 		playerScore = new Label("");
-    private Image		image1;
     private ImageView 	cardPicture; 
     private Button 		buttonHit, buttonStand, buttonPlay, buttonRegister;
 	private SimpleBooleanProperty playable = new SimpleBooleanProperty();
 	
     private HBox dealerCardsHBox = new HBox(-45);
     private HBox playerCardsHBox = new HBox(-45);
-	
 
     public void setPlayerScore( int newScore ){
     	playerScore.setText("" + newScore);
     }
 
-    
-    
-    
-    
     /**
      * get the picture corresponding to the game card! Using the absolute path 
      * of the picture file in users system.
@@ -91,58 +78,29 @@ public class Main extends Application {
         launch(args);
     } 
     
- 
     @Override
     public void start(Stage primaryStage) {
         window = primaryStage;
         
-        // Shadow Effekt på knapparna
-        DropShadow dropShadow = new DropShadow();
-        	dropShadow.setRadius(3.0);
-        	dropShadow.setOffsetX(3.0);
-        	dropShadow.setOffsetY(2.0);
-        	//dropShadow.setColor(Color.color(0.4, 0.5, 0.5));
-        	dropShadow.setColor(Color.BLACK);
+    /*
+     * 		Buttons
+     */
         
-        //Button Stand
-        	buttonStand = new Button("Stand");
-        	buttonStand.setDisable(true);
-        	buttonStand.setOnAction(e -> {
-        		UserChoiceAdapter.playerChoosesToStay();
-        			
-        		// TODO
-        		// Ska innehålla
-        			// Om dealerns värde på korten är mindre än 17:
-        			// Dela ut en kort till dealern (While Loop)
-        			// endGame();
-        			
-        	});
-        	// Rotation effect
-        	RotateTransition buttonStandrotation = 
-        			new RotateTransition(Duration.seconds(0.5), buttonStand);
-        	buttonStandrotation.setCycleCount(Animation.INDEFINITE);
-        	buttonStandrotation.setFromAngle(0);
-        	buttonStandrotation.setToAngle(-5);
-        	buttonStandrotation.setAutoReverse(true);
-        	buttonStandrotation.setCycleCount(100);
-        	
-        	// Buttond Stand Effect on Hover
-        	buttonStand.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
-        		buttonStand.setEffect(dropShadow);
-        		buttonStand.setScaleX(1.5);
-        		buttonStand.setScaleY(1.5);
-        		buttonStandrotation.play();
-        		});
-        	
-        	// Removes shadow effect
-        	buttonStand.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
-        		buttonStand.setEffect(null);
-        		buttonStand.setScaleX(1);
-        		buttonStand.setScaleY(1);
-        		buttonStandrotation.pause();
-        		});
-        	
-        //Button Hit
+        // Button Stand
+    	buttonStand = new Button("Stand");
+    	buttonStand.setDisable(true);
+    	buttonStand.setOnAction(e -> {
+    		UserChoiceAdapter.playerChoosesToStay();
+    			
+    		// TODO
+    		// Ska innehålla
+    			// Om dealerns värde på korten är mindre än 17:
+    			// Dela ut en kort till dealern (While Loop)
+    			// endGame();
+    			
+    	});
+    	
+    	//Button Hit
         buttonHit = new Button("Hit");
     	buttonHit.setDisable(true);
         	buttonHit.setOnAction(e -> {
@@ -157,35 +115,9 @@ public class Main extends Application {
         		// Ska innehålla
         			// Dela ut ett kort till spelare
           	
-        	});
+        });
         	
-    	// Rotation effect
-    	RotateTransition buttonHitRotation = 
-    			new RotateTransition(Duration.seconds(0.5), buttonHit);
-    	buttonHitRotation.setCycleCount(Animation.INDEFINITE);
-    	buttonHitRotation.setFromAngle(0);
-    	buttonHitRotation.setToAngle(5);
-    	buttonHitRotation.setAutoReverse(true);
-    	buttonHitRotation.setCycleCount(100);
-    	//buttonHitRotation.setAxis(new Point3D(1, 2, 3));
-    	
-    	// Button HIT Effect on Hover
-        buttonHit.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
-        	buttonHit.setEffect(dropShadow);
-        	buttonHit.setScaleX(1.5);
-        	buttonHit.setScaleY(1.5);
-        	buttonHitRotation.play();
-    		});
-    	
-    	// Removes shadow effect
-        buttonHit.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
-        	buttonHit.setEffect(null);
-        	buttonHit.setScaleX(1);
-        	buttonHit.setScaleY(1);
-        	buttonHitRotation.pause();
-        		
-			});
-        // Button Play
+    	// Button Play
         buttonPlay = new Button ("Play");
         	buttonPlay.setDisable(true);
     		buttonPlay.setOnAction(event -> {
@@ -194,22 +126,9 @@ public class Main extends Application {
     		
     		gameIsOn();
     		
-    		});
-		// Buttond Play Effect on Hover
-    	buttonPlay.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
-    		buttonPlay.setEffect(dropShadow);
-    		buttonPlay.setScaleX(1.5);
-    		buttonPlay.setScaleY(1.5);
-    		});
-    	
-    	// Removes shadow effect
-    	buttonPlay.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
-    		buttonPlay.setEffect(null);
-    		buttonPlay.setScaleX(1);
-    		buttonPlay.setScaleY(1);
-    		});
-    	
-    	// Button Register
+    	});
+    		
+		// Button Register
     	buttonRegister = new Button ("Registrera Spelare");
     		buttonRegister.setOnAction(event -> {
  			
@@ -218,8 +137,92 @@ public class Main extends Application {
     			name.NameDisplay();
     			// JavaDoc -->
     			registreraSpelare();
+    			System.out.println(bank.registeredPlayers);
  		
  		});
+    		
+    /*
+     * 		Button Effects
+     */
+    		
+        // Shadow Effect on all buttons
+        DropShadow dropShadow = new DropShadow();
+        	dropShadow.setRadius(3.0);
+        	dropShadow.setOffsetX(3.0);
+        	dropShadow.setOffsetY(2.0);
+        	dropShadow.setColor(Color.BLACK);
+        
+    	// Rotation effect - Button Stand
+    	RotateTransition buttonStandrotation = 
+    			new RotateTransition(Duration.seconds(0.5), buttonStand);
+    		buttonStandrotation.setCycleCount(Animation.INDEFINITE);
+    		buttonStandrotation.setFromAngle(0);
+    		buttonStandrotation.setToAngle(-5);
+    		buttonStandrotation.setAutoReverse(true);
+    		buttonStandrotation.setCycleCount(100);
+        	
+    	// Effect on Hover - Buttond Stand 
+    	buttonStand.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
+    		buttonStand.setEffect(dropShadow);
+    		buttonStand.setScaleX(1.5);
+    		buttonStand.setScaleY(1.5);
+    		buttonStandrotation.play();
+    		});
+    	
+    	// Removes shadow effect - Button Stand
+    	buttonStand.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
+    		buttonStand.setEffect(null);
+    		buttonStand.setScaleX(1);
+    		buttonStand.setScaleY(1);
+    		buttonStandrotation.pause();
+    		});
+        	
+    	// Rotation effect - Button Hit
+    	RotateTransition buttonHitRotation = 
+    			new RotateTransition(Duration.seconds(0.5), buttonHit);
+    		buttonHitRotation.setCycleCount(Animation.INDEFINITE);
+    		buttonHitRotation.setFromAngle(0);
+    		buttonHitRotation.setToAngle(5);
+    		buttonHitRotation.setAutoReverse(true);
+    		buttonHitRotation.setCycleCount(100);
+    		//buttonHitRotation.setAxis(new Point3D(1, 2, 3));
+    	
+    	// Effect on Hover - Button Hit
+        buttonHit.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
+        	buttonHit.setEffect(dropShadow);
+        	buttonHit.setScaleX(1.5);
+        	buttonHit.setScaleY(1.5);
+        	buttonHitRotation.play();
+    		});
+    	
+    	// Removes shadow effect - Button Hit
+        buttonHit.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
+        	buttonHit.setEffect(null);
+        	buttonHit.setScaleX(1);
+        	buttonHit.setScaleY(1);
+        	buttonHitRotation.pause();
+        		
+			});
+    		
+		// Effect on Hover - Button Play
+    	buttonPlay.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
+    		buttonPlay.setEffect(dropShadow);
+    		buttonPlay.setScaleX(1.5);
+    		buttonPlay.setScaleY(1.5);
+    		});
+    	
+    	// Removes shadow effect - Button Play
+    	buttonPlay.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
+    		buttonPlay.setEffect(null);
+    		buttonPlay.setScaleX(1);
+    		buttonPlay.setScaleY(1);
+    		
+    	});
+    
+    /*
+     *		BorderPane
+     */
+    	
         //Top Menu (header)
         HBox headerHBox = new HBox();
         	Label headerText = new Label("JavaFx BlackJack Gui!");
@@ -280,6 +283,7 @@ public class Main extends Application {
         window.show();
         
     }
+    
     private Card getRandomCard() {
   // TODO Auto-generated method stub
       
@@ -297,6 +301,7 @@ public class Main extends Application {
     	buttonPlay.setDisable(false);
     	// TODO
     }
+    
     /**
 	 * När spelet är slut så kan Play knappen användas igen
 	 * @author PatrikWebb
