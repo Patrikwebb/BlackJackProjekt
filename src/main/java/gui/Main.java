@@ -1,5 +1,7 @@
 package gui;
 
+import java.util.List;
+
 import javafx.animation.Animation;
 import javafx.animation.RotateTransition;
 import javafx.application.Application;
@@ -24,10 +26,6 @@ import kodaLoss.Card;
 import kodaLoss.Rank;
 import kodaLoss.Suite;
 import kodaLoss.UserChoiceAdapter;
-
-import org.omg.DynamicAny.NameDynAnyPair;
-
-import gui.NameAlertBox;
 
 /**
  * @author PatrikWebb, Tim kod kungen
@@ -63,7 +61,7 @@ public class Main extends Application {
      * @param card - The card to show
      */
     
-	public void setTestPic(Card card ){
+	public ImageView setTestPic(Card card ){
 	  //create absolute path to cardpicture!
 	  String cardString = card.toString();
 	  String pathToCardPicture = BlackJackConstantsAndTools.
@@ -71,6 +69,7 @@ public class Main extends Application {
 	  Image image = new Image( pathToCardPicture );
 	  cardPicture = new ImageView();
 	  cardPicture.setImage(image);
+	  return cardPicture;
 	}
     
     // DO NOT TOUCH! 
@@ -106,10 +105,10 @@ public class Main extends Application {
         	buttonHit.setOnAction(e -> {
         		UserChoiceAdapter.playerChoosesToHit();
         	  
-        		setTestPic(getRandomCard());
+        		//setTestPic(getRandomCard());
         	  
         		// Add the Image to player HBox
-        		playerCardsHBox.getChildren().add(cardPicture);
+        		//playerCardsHBox.getChildren().add(cardPicture);
         		
         		// TODO
         		// Ska innehålla
@@ -138,7 +137,7 @@ public class Main extends Application {
     			// JavaDoc -->
     			registreraSpelare();
     			System.out.println(bank.registeredPlayers);
- 		
+    			bank.playOneRound();
  		});
     		
     /*
@@ -347,7 +346,26 @@ public class Main extends Application {
 			// Skriv ut vinnaren...
 			// playable.(false);
 			// gameIsOff();
-	}
+	}		
+    
+//  public void ShowDealersHand(List<Card> playersHand) {
+//  	
+//  	for ( Card c : playersHand){
+//  		ImageView v = setTestPic(c);
+//  		
+//  		dealerCardsHBox.getChildren().add(v);    	
+//  	}
+//  }
+	
+//  public void ShowPlayersHand( List<Card> playersHand ){
+//  	
+//  	for ( Card c : playersHand){
+//  		ImageView v = setTestPic(c);
+//  		
+//  		playerCardsHBox.getChildren().add(v);
+//  		
+//  	}
+//  }
 
 }
 		// <-- Tips -->

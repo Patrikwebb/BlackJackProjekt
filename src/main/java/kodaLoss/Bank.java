@@ -22,7 +22,14 @@ public class Bank {
 
 	public Bank(Main main) {
 		this.main = main;
-
+		
+		// TEST OCH DEMO 
+		
+		registeredPlayers.add(new Player("Peter"));
+		
+		
+		
+		
 	}
 
 	// METHODS FOR GUI
@@ -91,6 +98,7 @@ public class Bank {
 
 		// deal a card to all players and dealer
 		dealOneCardToAll();
+		
 
 		dealOneCardToAll();
 		// TODO dealers other card to gui ska bli covered!
@@ -213,6 +221,7 @@ public class Bank {
 			dealOneCardToPlayer(p);
 		}
 		dealOneCardToPlayer(dealer);
+		//main.ShowDealersHand(dealer.getPlayersHand());
 	}
 
 	/*
