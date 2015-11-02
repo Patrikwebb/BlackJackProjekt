@@ -14,12 +14,12 @@ public class Bank {
   
   private UserChoiceAdapter uca = UserChoiceAdapter.getInstance();
   
-  private Controller controller;
+  private static Controller controller;
   
   
 
 	public List<Player> registeredPlayers = new ArrayList<Player>();
-	private Player dealer = new Player("Dealer");
+	private Player dealer ;
 	private Player activePlayerOnGui;
 	
 	private CardShoe cardShoe = new CardShoe();
@@ -27,15 +27,24 @@ public class Bank {
 
 	// CONSTRUCTORS
 	public Bank() {
-	  System.out.println("Bank started!");
+	  
+	  System.out.println("Bank started in a testMode!");
+	  
+	  registeredPlayers.add(new Player("TESTPLAYER"));
+	  activePlayerOnGui = registeredPlayers.get(0);
+	  dealer =  new Player("Dealer");
+	  
+	 
 	  
 	}
 
 
 	// METHODS TO REGISTER CONTROLLER
 	
-	public void registerController(Controller cont){
-	  this.controller = cont;
+	public static void registerController(Controller cont){
+	  controller = cont;
+	  controller.test();
+	  
 	}
 	
 	
@@ -46,9 +55,11 @@ public class Bank {
 	 */
 	
 	private void updateGuiAfterChangeInDataModel(){
-	  
+	  if (controller != null){
 	  controller.updatePlayer( activePlayerOnGui);
 	  controller.updateDealer( dealer );
+	  } else
+	    System.out.println("controller not set in bank!");
 	}
 	
 	
@@ -58,7 +69,7 @@ public class Bank {
 	 * of the gameplay!
 	 */
 	public void playOneRound() {
-
+	  
 		// deal a card to all players and dealer
 		dealOneCardToAll();
 
@@ -108,21 +119,24 @@ public class Bank {
 
 		while (getUserChoice() != UserChoice.STAY) {
 
-			player.printHandToConsole();
+//			player.printHandToConsole();
 
 			if (getUserChoice() == UserChoice.HIT) {
 				dealOneCardToPlayer(player);
 				// main.setTestPic(player.getPlayersHand().get(player.getPlayerHandsSize()
 				// - 1 ));
+				updateGuiAfterChangeInDataModel();
+				
 				System.out.println("PLAYER HIT");
-				player.printHandToConsole();
+//				player.printHandToConsole();
 				UserChoiceAdapter.getInstance().resetUserChoice();
 
 				if (isPlayersHandOver21(player)) {
+				  updateGuiAfterChangeInDataModel();
 					player.setPlayerActiveInRound(false);
 					player.setBusted(true);
 					System.out.println("PLAYER IS BUST NOW!");
-					player.printHandToConsole();
+//					player.printHandToConsole();
 					break;
 				}
 			}

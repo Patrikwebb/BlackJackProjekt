@@ -15,7 +15,7 @@ public class UserChoiceAdapter {
     STAY, HIT;
   }
   
-  
+  //Singleton Pattern
   private static UserChoiceAdapter uca = new UserChoiceAdapter();
   
   private static UserChoice userChoice = null;
@@ -35,7 +35,7 @@ public class UserChoiceAdapter {
    * Player chooses to stay by pressing the Stay-button on his user-interface
    */
   public  void playerChoosesToStay(){
-    
+    System.out.println("Player choose STAY");
     if( userChoice == null){
       userChoice = UserChoice.STAY;
     }
@@ -46,6 +46,7 @@ public class UserChoiceAdapter {
    * user-interface
    */
   public  void playerChoosesToHit(){
+    System.out.println("Player choose HIT");
     
     if( userChoice == null){
       userChoice = UserChoice.HIT;

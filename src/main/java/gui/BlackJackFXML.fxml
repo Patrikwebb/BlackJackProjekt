@@ -7,8 +7,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #383838;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #383838;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kodaLoss.Controller">
    <left>
       <HBox prefHeight="436.0" prefWidth="454.0" BorderPane.alignment="CENTER">
          <children>
@@ -17,13 +16,10 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="64.0" prefWidth="75.0">
+            <HBox fx:id="dealerCard" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="64.0" prefWidth="75.0">
                <HBox.margin>
                   <Insets right="10.0" top="40.0" />
                </HBox.margin>
-               <children>
-                  <ImageView fx:id="dealerCard" fitHeight="100.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
-               </children>
             </HBox>
             <Label prefHeight="25.0" prefWidth="159.0" text="Label" />
          </children>
@@ -35,19 +31,12 @@
    <right>
       <HBox prefHeight="436.0" prefWidth="466.0" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" prefHeight="25.0" prefWidth="227.0" text="Player:   Anonymous" textFill="WHITE">
+            <Label fx:id="labelPlayerName" alignment="CENTER" prefHeight="25.0" prefWidth="227.0" text="Player:   Anonymous" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="64.0" prefWidth="75.0">
-               <HBox.margin>
-                  <Insets right="10.0" top="40.0" />
-               </HBox.margin>
-               <children>
-                  <ImageView fx:id="playerCard" fitHeight="100.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
-               </children>
-            </HBox>
+            <HBox fx:id="playerCard" prefHeight="247.0" prefWidth="111.0" />
             <Label fx:id="labelPlayerName" prefHeight="25.0" prefWidth="159.0" text="Label" />
          </children>
       </HBox>
