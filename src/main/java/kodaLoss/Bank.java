@@ -6,83 +6,53 @@ import static kodaLoss.UserChoiceAdapter.*;
 
 import gui.Main;
 
+import static kodaLoss.Bank_HelpersAndTools.*;
+
 public class Bank {
 
 	// MEMBERS
-	private Main main = null; // reference to gui
+	
+  
+  private UserChoiceAdapter uca = UserChoiceAdapter.getInstance();
+  
+  private Controller controller;
+  
+  
 
 	public List<Player> registeredPlayers = new ArrayList<Player>();
 	private Player dealer = new Player("Dealer");
+	private Player activePlayerOnGui;
+	
 	private CardShoe cardShoe = new CardShoe();
-	private boolean dealerIsBust = true;
+//	private boolean dealerIsBust = true;
 
 	// CONSTRUCTORS
 	public Bank() {
+	  System.out.println("Bank started!");
+	  
 	}
 
-	public Bank(Main main) {
-		this.main = main;
-
+	// METHODS TO REGISTER CONTROLLER
+	
+	public void registerController(Controller cont){
+	  this.controller = cont;
 	}
-
+	
+	
 	// METHODS FOR GUI
 
-	/**
-	 * sets the reference to the gui that this Bank object holds
-	 * 
-	 * @param main
+	/* called after changes in player or dealer model. Updates the gui by
+	 * directly calling methods in Controller. 
 	 */
-	public void setReferenceToGui(Main main) {
-		this.main = main;
+	
+	private void updateGuiAfterChangeInDataModel(){
+	  
+	  controller.updatePlayer( activePlayerOnGui);
+	  controller.updateDealer( dealer );
 	}
-
-	/**
-	 * calculates value of players hand. Sets value of Aces in players hand to 1
-	 * if players should have gone bust otherwise until players hand is under 21
-	 * again.
-	 * 
-	 * @return value of players hand as an integer
-	 */
-	public static int calculateValueOfPlayersHand(Player player) {
-		int sum = 0;
-		int numberOfAces = 0;
-
-		for (Card card : player.getPlayersHand()) {
-			sum += card.getValue();
-			if (card.getRank() == Rank.ACE) {
-				numberOfAces++;
-			}
-		}
-
-		while (sum > 21 && numberOfAces > 0) {
-			sum -= 10;
-			numberOfAces--;
-		}
-
-		return sum;
-	}
-
-	/**
-	 * checks if players hand is a BlackJack!
-	 * 
-	 * @param player
-	 * @return true if Player has a BlackJack
-	 */
-	public static boolean isPlayersHandABlackJack(Player player) {
-		return (player.getPlayerHandsSize() == 2 && calculateValueOfPlayersHand(player) == 21);
-	}
-
-	/**
-	 * checks if a players hands value is over 21, even considering the aces
-	 * rule (Ace value = 1)
-	 * 
-	 * @param player
-	 * @return true if players hand is over 21, else false
-	 */
-	public static boolean isPlayersHandOver21(Player player) {
-		return (calculateValueOfPlayersHand(player) > 21);
-	}
-
+	
+	
+	
 	/*
 	 * methods that controls the sequence of actions to play one round, control
 	 * of the gameplay!
@@ -91,8 +61,10 @@ public class Bank {
 
 		// deal a card to all players and dealer
 		dealOneCardToAll();
-
+		updateGuiAfterChangeInDataModel();
+		
 		dealOneCardToAll();
+		updateGuiAfterChangeInDataModel();
 		// TODO dealers other card to gui ska bli covered!
 
 		// check if a player has a BlackJack from start!
@@ -109,6 +81,7 @@ public class Bank {
 			if (p.isActive()) {
 				playerPlays(p);
 			}
+			
 		}
 
 		// dealer plays
@@ -130,7 +103,7 @@ public class Bank {
 	 */
 	protected void playerPlays(Player player) {
 
-		UserChoiceAdapter.resetUserChoice(); // prepare for input
+		UserChoiceAdapter.getInstance().resetUserChoice(); // prepare for input
 
 		while (getUserChoice() != UserChoice.STAY) {
 
@@ -142,7 +115,7 @@ public class Bank {
 				// - 1 ));
 				System.out.println("PLAYER HIT");
 				player.printHandToConsole();
-				resetUserChoice();
+				UserChoiceAdapter.getInstance().resetUserChoice();
 
 				if (isPlayersHandOver21(player)) {
 					player.setPlayerActiveInRound(false);
@@ -154,40 +127,33 @@ public class Bank {
 			}
 		}
 		// finally
-		resetUserChoice();
+		UserChoiceAdapter.getInstance().resetUserChoice();
 	}
 
-	/**
-	 * Setter och Getter to dealerIsBust =>
-	 * 
-	 * @return the dealerIsBust
-	 */
-	public boolean isDealerIsBust() {
-		return dealerIsBust;
-	}
 
-	/**
-	 * @param dealerIsBust
-	 *            the dealerIsBust to set
-	 */
-	public void setDealerIsBust(boolean dealerIsBust) {
-		this.dealerIsBust = dealerIsBust;
-	}
+	
 
 	/*
 	 * dealer plays. Takes cards until its hand is over 16
 	 */
 	protected void dealerPlays() {
 		while (calculateValueOfPlayersHand(dealer) < 17) {
-			// has to be refactorized!? Method "deal out a card"?!?
-			dealer.addCardToHand(this.cardShoe.getACardFromCardShoe());
-			setDealerIsBust(false);
 
-			dealer.printHandToConsole();
+		  dealOneCardToPlayer(dealer);
+			
+			// update gui now
+			updateGuiAfterChangeInDataModel();
+			
+			setPlayerToBust(dealer, false);
+
+//			dealer.printHandToConsole();
+			
 			if (isPlayersHandOver21(dealer)) {
 				//temporary until we send to GUI
 				System.out.println("DEALER IS BUST!");
-				setDealerIsBust(true);
+				setPlayerToBust(dealer, true);
+				updateGuiAfterChangeInDataModel();
+
 			}else{
 				//temporary until we send to GUI
 				System.out.println("DEALER has " + calculateValueOfPlayersHand(dealer));
@@ -221,9 +187,12 @@ public class Bank {
 	//
 	public void calculateWinners() {
 		int playerpoints;
-		if (dealerIsBust) {
+		
+		if (isPlayerBust(dealer)) {
+		  
 			for (Player p : registeredPlayers) {
 				playerpoints = calculateValueOfPlayersHand(p);
+				
 				if (playerpoints <= 21) {
 					// TO GUI Player WINNS
 					System.out.println("Congratulations! You won.");
@@ -233,11 +202,14 @@ public class Bank {
 				}
 			}
 		} else {
+		  
 			for (Player p : registeredPlayers) {
 				playerpoints = calculateValueOfPlayersHand(p);
+				
 				if (playerpoints <= 21 && playerpoints > calculateValueOfPlayersHand(dealer)) {
 					// TO GUI Player WINNS
 					System.out.println("Congratulations! You won.");
+					
 				} else {
 					// To Gui YOU lost!
 					System.out.println("Sorry, you lost.");
@@ -246,22 +218,7 @@ public class Bank {
 		}
 	}
 
-	//////////////////////////////////////////////////////////////
-	//////////////////////////////////////////////////////////////
-	// TEST SHIT MÅSTE BORT SEN!
-	//////////////////////////////////////////////////////////////
-	//////////////////////////////////////////////////////////////
-	public void sayHello() {
-		System.out.println("Hello, this is Bank!");
-	}
 
-	public void testPrint() {
-		System.out.println("Bank.testPrint() called in Bank!");
-		main.setTestPic(new Card(Suite.SPADES, Rank.SEVEN));
-	}
-
-	// Testspelar en runda! med en player som hela tiden bara
-	// vill ha ett nytt kort!
 
 	public static void main(String[] args) {
 
@@ -272,7 +229,7 @@ public class Bank {
 				while (true) {
 					try {
 						Thread.sleep(1000);
-						UserChoiceAdapter.playerChoosesToHit();
+						UserChoiceAdapter.getInstance().playerChoosesToHit();
 					} catch (InterruptedException e) {
 						System.out.println("Thread misslyckade");
 					}

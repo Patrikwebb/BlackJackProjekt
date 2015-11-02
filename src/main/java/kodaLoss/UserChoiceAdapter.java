@@ -10,9 +10,13 @@ public class UserChoiceAdapter {
   
   
   
+  
   public enum UserChoice{
     STAY, HIT;
   }
+  
+  
+  private static UserChoiceAdapter uca = new UserChoiceAdapter();
   
   private static UserChoice userChoice = null;
   
@@ -20,10 +24,17 @@ public class UserChoiceAdapter {
   private UserChoiceAdapter(){
   }
   
+  
+  public static UserChoiceAdapter getInstance(){
+    return uca;
+  }
+  
+  
+  
   /**
    * Player chooses to stay by pressing the Stay-button on his user-interface
    */
-  public static void playerChoosesToStay(){
+  public  void playerChoosesToStay(){
     
     if( userChoice == null){
       userChoice = UserChoice.STAY;
@@ -34,7 +45,7 @@ public class UserChoiceAdapter {
    * Player chooses to get another card by pressing the Hit-button on his 
    * user-interface
    */
-  public static void playerChoosesToHit(){
+  public  void playerChoosesToHit(){
     
     if( userChoice == null){
       userChoice = UserChoice.HIT;
@@ -45,7 +56,7 @@ public class UserChoiceAdapter {
   /**
    * resets the userChoice field for next user choice
    */
-  public static void resetUserChoice(){
+  public void resetUserChoice(){
     userChoice = null;
   }
   
