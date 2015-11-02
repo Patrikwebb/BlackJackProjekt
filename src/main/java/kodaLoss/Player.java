@@ -3,7 +3,6 @@ package kodaLoss;
 import java.util.ArrayList;
 import java.util.List;
 
-import gui.Main;
 
 public class Player {
 

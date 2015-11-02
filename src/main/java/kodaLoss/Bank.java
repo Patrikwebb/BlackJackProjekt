@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import static kodaLoss.UserChoiceAdapter.*;
 
-import gui.Main;
 
 import static kodaLoss.Bank_HelpersAndTools.*;
 
@@ -31,6 +30,7 @@ public class Bank {
 	  System.out.println("Bank started!");
 	  
 	}
+
 
 	// METHODS TO REGISTER CONTROLLER
 	
@@ -61,8 +61,9 @@ public class Bank {
 
 		// deal a card to all players and dealer
 		dealOneCardToAll();
+
 		updateGuiAfterChangeInDataModel();
-		
+	
 		dealOneCardToAll();
 		updateGuiAfterChangeInDataModel();
 		// TODO dealers other card to gui ska bli covered!
@@ -179,6 +180,7 @@ public class Bank {
 			dealOneCardToPlayer(p);
 		}
 		dealOneCardToPlayer(dealer);
+		//main.ShowDealersHand(dealer.getPlayersHand());
 	}
 
 	/*
