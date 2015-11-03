@@ -6,6 +6,10 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+/**
+ * Loads BlackJack FXML file and Launches the Gui Application
+ * @author PatrikWebb
+ */
 public class Gui extends Application{
 
 	@Override

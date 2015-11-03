@@ -46,7 +46,7 @@ public class Bank {
     activePlayerOnGui = registeredPlayers.get(0);
     dealer = new Player("Dealer");
     System.out.println("TestPlayer and Dealer added...");
-    System.out.println("No of Players: " + registeredPlayers.size());
+    System.out.println("Number of Players: " + registeredPlayers.size());
   }
 
   /**
@@ -140,9 +140,11 @@ public class Bank {
           dealerPlays();
 
           /*
-           * if dealer is not bust => player who are not bust, and have a higher
-           * hand than dealer. if dealer is bust => all players that are not
-           * bust win
+           * 
+           * Checks if dealer and players isn't bust,
+           * Checks the higher hand and give us the winner 
+           * 
+           * If dealer is bust => all players that isn't bust win
            */
           calculateWinners();
           
@@ -160,8 +162,10 @@ public class Bank {
 
 
   /*
-   * Player plays against Bank in one round. Sets player inactive if bust. Uses
-   * class UserChoiceAdapter to get user events from the user interface
+   * Player plays against Bank in one round. 
+   * Sets player inactive if bust. 
+   * 
+   * Uses class UserChoiceAdapter to get user events from the user interface
    */
   private void playerPlays( Player player ) {
     
