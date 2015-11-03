@@ -3,13 +3,10 @@ package kodaLoss;
 public class UserChoiceAdapter {
 
   /**
-   * 
+   * one solution to handle user input. Not the best one!
    * @author timlanghans
    *
    */
-  
-  
-  
   
   public enum UserChoice{
     STAY, HIT , START_ROUND;
@@ -18,7 +15,7 @@ public class UserChoiceAdapter {
   //Singleton Pattern
   private static UserChoiceAdapter uca = new UserChoiceAdapter();
   
-  private static UserChoice userChoice = null;
+  private  UserChoice userChoice = null;
   
   // private constructor, no objects!
   private UserChoiceAdapter(){
@@ -75,7 +72,7 @@ public class UserChoiceAdapter {
    * get the choosen UserChoice enum at this time
    * @return UserChoice
    */
-  public static UserChoice getUserChoice(){
+  public UserChoice getUserChoice(){
     return userChoice;
   }
   

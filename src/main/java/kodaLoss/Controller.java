@@ -70,16 +70,14 @@ public class Controller implements Initializable {
       public void run() {
 
         labelPlayerName.setText(activePlayerOnGui.getName()); // name label
-        System.out.println(labelPlayerName.getText());
         setPics(activePlayerOnGui, playerCard);
-
       }
     });
 
   }
 
   /**
-   * updates the Dealers variables in gui
+   * updates the Dealers variables in GUI
    * 
    * @param dealer
    *          - Player-object received from Bank
@@ -139,7 +137,7 @@ public class Controller implements Initializable {
   /// JUST A TEST
 
   public void test() {
-    System.out.println("CONTROLLER TEST: CONT says hi!");
+    System.out.println("CONTROLLER TEST: Controller says hi!");
 
   }
 

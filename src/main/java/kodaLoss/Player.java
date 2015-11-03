@@ -7,15 +7,16 @@ import java.util.List;
 public class Player {
 
 	private String name; // alla spelare har ett namn
+	
 	private int playersCash = 100; // alla spelare startar med 100 dollar
+	
 	private int betForThisRound = 0 ; // vad spelare satsar denna runda
-
-	
-	
 	
 	private List<Card> hand = new ArrayList<Card>(); //Players hand
 
 	private boolean isBusted = false;
+	
+	// TODO Do we need this?
 	private boolean isActiveInRound = true; 
 
 	
@@ -31,6 +32,7 @@ public class Player {
 		this.name = name;
 	};
 
+	
 	// INSTANCE METHODS
 	
 	/**
@@ -45,6 +47,8 @@ public class Player {
 	/**
 	 * clears the hand, removes all cards, after each round. !!! Assumes that
 	 * played cards just are erased and not added to another container!!!
+	 * 
+	 *TODO Do we save played cards? Or do we just erase them? 
 	 */
 	public void clearPlayersHand() {
 		this.hand.clear();
@@ -60,7 +64,6 @@ public class Player {
 	}
 
 	
-	
 	/**
 	 * getter for players hand
 	 * 
@@ -75,6 +78,7 @@ public class Player {
 	 */
 	public void printHandToConsole() {
 		System.out.print("Player " + this.getName() + ": ");
+		
 		for (Card c : hand) {
 			System.out.print(c + ", ");
 		}
@@ -105,7 +109,7 @@ public class Player {
 	
 	
 	/**
-	 * User makes a bet via the ui. This method checks if users player-object
+	 * User makes a bet via the UI. This method checks if users player-object
 	 * has enough cash to make that bet. Reduces players cash by the desired amount
 	 * or with all of players cash if the desired amount exceeds players cash. 
 	 * Moves players cash to the betting pot for this round. 
