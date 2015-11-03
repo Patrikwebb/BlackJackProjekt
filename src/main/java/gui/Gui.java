@@ -13,7 +13,7 @@ public class Gui extends Application{
 		
 		try {
 			BorderPane page = (BorderPane) FXMLLoader.load(Gui.class.getResource("BlackJackFXML.fxml"));
-			
+																				
 			Scene scene = new Scene(page);
 				primaryStage.setScene(scene); 
 				primaryStage.show();
