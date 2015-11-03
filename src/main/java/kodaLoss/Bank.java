@@ -34,11 +34,11 @@ public class Bank {
   */
   private Player dealer;
   private Player activePlayerOnGui;
-
+  
   
   // CONSTRUCTORS
   private Bank() {
-
+	
     // DEMO VERSION
     System.out.println("Bank started in a testMode for Demo!!!");
 
@@ -103,7 +103,10 @@ public class Bank {
         public void run() {
 
           System.out.println("Round started...");
-
+          
+          //TODO HIT, STAY = enable		PLAY = disable
+          controller.gameIson();
+          
           // clear last hand from clean Table!
           dealer.clearPlayersHand();
           for (Player p : registeredPlayers){
@@ -148,6 +151,8 @@ public class Bank {
            */
           calculateWinners();
           
+          //TODO HIT, STAY = disable		PLAY = enable
+          controller.gameIsoff();
           // reset Thread and Players for next round! 
 //          roundThread = null;
         }
@@ -158,8 +163,8 @@ public class Bank {
       // roundThread is still alive!
       System.out.println("Already running a round");
     }
+    
   }
-
 
   /*
    * Player plays against Bank in one round. 
@@ -297,4 +302,5 @@ public class Bank {
     player.addCardToHand(cardShoe.getACardFromCardShoe());
     // TODO call gui to update players hand!
   }
+  
 }

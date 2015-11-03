@@ -40,11 +40,10 @@ public class Controller implements Initializable {
 
   private Bank bank;
   
-  
   @Override
   public void initialize(URL location, ResourceBundle resources) {
 
-
+	  
     // Register Controller on Bank
     bank = Bank.getInstance();
     Bank.registerController(this);
@@ -140,5 +139,30 @@ public class Controller implements Initializable {
     System.out.println("CONTROLLER TEST: Controller says hi!");
 
   }
-
+  
+  /**
+   * <p>
+   * Sets the default value on the buttons when the game is off.
+   * </p>
+   * <b>HIT</b>, <b>STAY</b> = enable		<b>PLAY</b> = disable
+   */
+  public void gameIson(){
+	  
+	  buttonHit.setDisable(false);
+	  buttonStay.setDisable(false);
+	  buttonPlay.setDisable(true);
+  }
+  
+  /**
+   * <p>
+   * Sets the default value on the buttons when the game is off.
+   * </p>
+   * HIT, STAY = disable		PLAY = enable
+   */
+  public void gameIsoff(){
+	  
+	  buttonHit.setDisable(true);
+	  buttonStay.setDisable(true);
+	  buttonPlay.setDisable(false);
+  }
 }
