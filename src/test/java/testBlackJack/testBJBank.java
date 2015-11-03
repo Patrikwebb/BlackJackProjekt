@@ -11,6 +11,8 @@ import kodaLoss.Deck;
 import kodaLoss.Player;
 import kodaLoss.Rank;
 import kodaLoss.Suite;
+import kodaLoss.UserChoiceAdapter;
+import kodaLoss.UserChoiceAdapter.UserChoice;
 import junit.framework.TestCase;
 
 public class testBJBank extends TestCase {
@@ -150,6 +152,14 @@ public class testBJBank extends TestCase {
     // kan inte testa void som returntyp?!
   }
   
+  @Test
+  public void testUserChoiceAdapterGetters(){
+    
+    UserChoiceAdapter.getInstance().playerChoosesToHit();
+    Assert.assertTrue (UserChoiceAdapter.getInstance().getUserChoice() == UserChoice.HIT);
+    Assert.assertFalse(UserChoiceAdapter.getInstance().getUserChoice() != UserChoice.HIT);
+    
+  }
   
   
 }

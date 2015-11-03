@@ -12,7 +12,7 @@ public class UserChoiceAdapter {
   
   
   public enum UserChoice{
-    STAY, HIT;
+    STAY, HIT , START_ROUND;
   }
   
   //Singleton Pattern
@@ -52,6 +52,16 @@ public class UserChoiceAdapter {
       userChoice = UserChoice.HIT;
     }
   }
+  
+  
+  public void playerChoosesToStartNewRound(){
+    System.out.println("Player Choose to Start new Round");
+    
+    if (userChoice == null){
+      userChoice = UserChoice.START_ROUND;
+    }
+  }
+  
   
 
   /**

@@ -28,7 +28,7 @@ public class BlackJackConstantsAndTools {
     if ( ! System.getProperty("os.name").contains("wind")){
       absolutePath = absolutePath.replace("\\" , "/" );
     }
-    System.out.println(absolutePath);
+//    System.out.println(absolutePath);
     return absolutePath;
   }
 

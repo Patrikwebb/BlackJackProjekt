@@ -16,7 +16,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <HBox fx:id="dealerCard" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="64.0" prefWidth="75.0">
+            <HBox fx:id="dealerCard" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="65.0" prefWidth="100.0">
                <HBox.margin>
                   <Insets right="10.0" top="40.0" />
                </HBox.margin>
@@ -36,7 +36,10 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <HBox fx:id="playerCard" prefHeight="247.0" prefWidth="111.0" />
+            <HBox fx:id="playerCard" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="65.0" prefWidth="100.0">
+               <HBox.margin>
+                  <Insets right="10.0" top="40.0" />
+               </HBox.margin></HBox>
             <Label fx:id="labelPlayerName" prefHeight="25.0" prefWidth="159.0" text="Label" />
          </children>
       </HBox>

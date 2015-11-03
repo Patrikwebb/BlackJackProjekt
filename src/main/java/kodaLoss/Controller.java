@@ -38,26 +38,25 @@ public class Controller implements Initializable {
 
   private UserChoiceAdapter uca = UserChoiceAdapter.getInstance();
 
+  private Bank bank;
+  
+  
   @Override
   public void initialize(URL location, ResourceBundle resources) {
 
-    buttonStay.setOnAction(new EventHandler<ActionEvent>() {
-      
-      @Override
-      public void handle(ActionEvent event) {
-        uca.playerChoosesToStay();
-      }
-    });
-    
-    buttonHit.setOnAction( e ->  uca.playerChoosesToHit());
-
-     buttonPlay.setOnAction( e -> System.out.println() );
 
     // Register Controller on Bank
+    bank = Bank.getInstance();
     Bank.registerController(this);
 
+    buttonStay.setOnAction( e -> uca.playerChoosesToStay());
+      
+    buttonHit.setOnAction( e ->  uca.playerChoosesToHit());
+    
+    buttonPlay.setOnAction( e -> bank.playOneRound());
   }
 
+  
   /**
    * updates the Players variables in gui
    * 
@@ -71,6 +70,7 @@ public class Controller implements Initializable {
       public void run() {
 
         labelPlayerName.setText(activePlayerOnGui.getName()); // name label
+        System.out.println(labelPlayerName.getText());
         setPics(activePlayerOnGui, playerCard);
 
       }
@@ -108,13 +108,14 @@ public class Controller implements Initializable {
     Platform.runLater(new Runnable() {
       public void run() {
 
-        playerCard.getChildren().clear();
+        target.getChildren().clear();
 
         if (player != null) {
           List<Card> hand = player.getPlayersHand();
 
           for (Card card : hand) {
             Image image;
+            
             try {
               String cardString = card.toString();
               String pathToCardPicture = BlackJackConstantsAndTools
