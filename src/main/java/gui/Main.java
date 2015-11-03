@@ -135,9 +135,9 @@ public class Main extends Application {
     			// Kör igång NameAlertBox();
     			name.NameDisplay();
     			// JavaDoc -->
-    			registreraSpelare();
-    			System.out.println(bank.registeredPlayers);
-    			bank.playOneRound();
+//    			registreraSpelare();
+//    			System.out.println(bank.registeredPlayers);
+//    			bank.playOneRound();
  		});
     		
     /*
