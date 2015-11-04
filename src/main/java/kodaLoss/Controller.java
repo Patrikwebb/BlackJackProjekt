@@ -45,102 +45,99 @@ public class Controller implements Initializable {
   private UserChoiceAdapter uca = UserChoiceAdapter.getInstance();
 
   private Bank bank;
-  
+
   @Override
   public void initialize(URL location, ResourceBundle resources) {
 
-	  
     // Register Controller on Bank
     bank = Bank.getInstance();
     Bank.registerController(this);
 
-    buttonStay.setOnAction( e -> uca.playerChoosesToStay());
-      
-    buttonHit.setOnAction( e ->  uca.playerChoosesToHit());
-    
-    buttonPlay.setOnAction( e -> bank.playOneRound());
-    
-	
-	 /*
-    * 		Button Effects
-    */
-   		
-       // Shadow Effect on all buttons
-       DropShadow dropShadow = new DropShadow();
-       	dropShadow.setRadius(3.0);
-       	dropShadow.setOffsetX(3.0);
-       	dropShadow.setOffsetY(2.0);
-       	dropShadow.setColor(Color.BLACK);
-       
-   	// Rotation effect - Button Stand
-   	RotateTransition buttonStandrotation = 
-   			new RotateTransition(Duration.seconds(0.5), buttonStay);
-   		buttonStandrotation.setCycleCount(Animation.INDEFINITE);
-   		buttonStandrotation.setFromAngle(0);
-   		buttonStandrotation.setToAngle(-5);
-   		buttonStandrotation.setAutoReverse(true);
-   		buttonStandrotation.setCycleCount(100);
-       	
-   	// Effect on Hover - Buttond Stand 
-   	buttonStay.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
-   		buttonStay.setEffect(dropShadow);
-   		buttonStay.setScaleX(1.5);
-   		buttonStay.setScaleY(1.5);
-   		buttonStandrotation.play();
-   		});
-   	
-   	// Removes shadow effect - Button Stand
-   	buttonStay.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
-   		buttonStay.setEffect(null);
-   		buttonStay.setScaleX(1);
-   		buttonStay.setScaleY(1);
-   		buttonStandrotation.pause();
-   		});
-       	
-   	// Rotation effect - Button Hit
-   	RotateTransition buttonHitRotation = 
-   			new RotateTransition(Duration.seconds(0.5), buttonHit);
-   		buttonHitRotation.setCycleCount(Animation.INDEFINITE);
-   		buttonHitRotation.setFromAngle(0);
-   		buttonHitRotation.setToAngle(5);
-   		buttonHitRotation.setAutoReverse(true);
-   		buttonHitRotation.setCycleCount(100);
-   		//buttonHitRotation.setAxis(new Point3D(1, 2, 3));
-   	
-   	// Effect on Hover - Button Hit
-       buttonHit.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
-       	buttonHit.setEffect(dropShadow);
-       	buttonHit.setScaleX(1.5);
-       	buttonHit.setScaleY(1.5);
-       	buttonHitRotation.play();
-   		});
-   	
-   	// Removes shadow effect - Button Hit
-       buttonHit.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
-       	buttonHit.setEffect(null);
-       	buttonHit.setScaleX(1);
-       	buttonHit.setScaleY(1);
-       	buttonHitRotation.pause();
-       		
-			});
-   		
-		// Effect on Hover - Button Play
-   	buttonPlay.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
-   		buttonPlay.setEffect(dropShadow);
-   		buttonPlay.setScaleX(1.5);
-   		buttonPlay.setScaleY(1.5);
-   		});
-   	
-   	// Removes shadow effect - Button Play
-   	buttonPlay.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
-   		buttonPlay.setEffect(null);
-   		buttonPlay.setScaleX(1);
-   		buttonPlay.setScaleY(1);
-   		
-   	});
+    buttonStay.setOnAction(e -> uca.playerChoosesToStay());
+
+    buttonHit.setOnAction(e -> uca.playerChoosesToHit());
+
+    buttonPlay.setOnAction(e -> bank.playOneRound());
+
+    /*
+     * Button Effects
+     */
+
+    // Shadow Effect on all buttons
+    DropShadow dropShadow = new DropShadow();
+    dropShadow.setRadius(3.0);
+    dropShadow.setOffsetX(3.0);
+    dropShadow.setOffsetY(2.0);
+    dropShadow.setColor(Color.BLACK);
+
+    // Rotation effect - Button Stand
+    RotateTransition buttonStandrotation = new RotateTransition(
+        Duration.seconds(0.5), buttonStay);
+    buttonStandrotation.setCycleCount(Animation.INDEFINITE);
+    buttonStandrotation.setFromAngle(0);
+    buttonStandrotation.setToAngle(-5);
+    buttonStandrotation.setAutoReverse(true);
+    buttonStandrotation.setCycleCount(100);
+
+    // Effect on Hover - Buttond Stand
+    buttonStay.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
+      buttonStay.setEffect(dropShadow);
+      buttonStay.setScaleX(1.5);
+      buttonStay.setScaleY(1.5);
+      buttonStandrotation.play();
+    });
+
+    // Removes shadow effect - Button Stand
+    buttonStay.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
+      buttonStay.setEffect(null);
+      buttonStay.setScaleX(1);
+      buttonStay.setScaleY(1);
+      buttonStandrotation.pause();
+    });
+
+    // Rotation effect - Button Hit
+    RotateTransition buttonHitRotation = new RotateTransition(
+        Duration.seconds(0.5), buttonHit);
+    buttonHitRotation.setCycleCount(Animation.INDEFINITE);
+    buttonHitRotation.setFromAngle(0);
+    buttonHitRotation.setToAngle(5);
+    buttonHitRotation.setAutoReverse(true);
+    buttonHitRotation.setCycleCount(100);
+    // buttonHitRotation.setAxis(new Point3D(1, 2, 3));
+
+    // Effect on Hover - Button Hit
+    buttonHit.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
+      buttonHit.setEffect(dropShadow);
+      buttonHit.setScaleX(1.5);
+      buttonHit.setScaleY(1.5);
+      buttonHitRotation.play();
+    });
+
+    // Removes shadow effect - Button Hit
+    buttonHit.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
+      buttonHit.setEffect(null);
+      buttonHit.setScaleX(1);
+      buttonHit.setScaleY(1);
+      buttonHitRotation.pause();
+
+    });
+
+    // Effect on Hover - Button Play
+    buttonPlay.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
+      buttonPlay.setEffect(dropShadow);
+      buttonPlay.setScaleX(1.5);
+      buttonPlay.setScaleY(1.5);
+    });
+
+    // Removes shadow effect - Button Play
+    buttonPlay.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
+      buttonPlay.setEffect(null);
+      buttonPlay.setScaleX(1);
+      buttonPlay.setScaleY(1);
+
+    });
   }
 
-  
   /**
    * updates the Players variables in gui
    * 
@@ -157,7 +154,6 @@ public class Controller implements Initializable {
         setPics(activePlayerOnGui, playerCard);
       }
     });
-
   }
 
   /**
@@ -197,7 +193,7 @@ public class Controller implements Initializable {
 
           for (Card card : hand) {
             Image image;
-            
+
             try {
               String cardString = card.toString();
               String pathToCardPicture = BlackJackConstantsAndTools
@@ -217,37 +213,42 @@ public class Controller implements Initializable {
       }
     });
   }
-  
+
   /// JUST A TEST
 
   public void test() {
     System.out.println("CONTROLLER TEST: Controller says hi!");
 
   }
-  
+
   /**
    * <p>
    * Sets the default value on the buttons when the game is off.
    * </p>
-   * <b>HIT</b>, <b>STAY</b> = enable		<b>PLAY</b> = disable
+   * <b>HIT</b>, <b>STAY</b> = enable <b>PLAY</b> = disable
    */
-  public void gameIson(){
-	  
-	  buttonHit.setDisable(false);
-	  buttonStay.setDisable(false);
-	  buttonPlay.setDisable(true);
+  public void gameIson() {
+
+    Platform.runLater(() -> {
+      buttonHit.setDisable(false);
+      buttonStay.setDisable(false);
+      buttonPlay.setDisable(true);
+    });
   }
-  
+
   /**
    * <p>
    * Sets the default value on the buttons when the game is off.
    * </p>
-   * HIT, STAY = disable		PLAY = enable
+   * HIT, STAY = disable PLAY = enable
    */
-  public void gameIsoff(){
-	  
-	  buttonHit.setDisable(true);
-	  buttonStay.setDisable(true);
-	  buttonPlay.setDisable(false);
+  public void gameIsoff() {
+    Platform.runLater(new Runnable() {
+      public void run() {
+        buttonHit.setDisable(true);
+        buttonStay.setDisable(true);
+        buttonPlay.setDisable(false);
+      }
+    });
   }
 }

@@ -185,6 +185,8 @@ public class Bank {
       // TODO Why does whileLoop not run without some statement here?
       System.out.print("");
       
+      
+      
       if (uca.getUserChoice() == UserChoice.HIT) {
         dealOneCardToPlayer(player);
        
