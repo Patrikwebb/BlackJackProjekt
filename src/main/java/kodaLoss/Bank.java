@@ -125,7 +125,7 @@ public class Bank {
           // TODO dealers other card to gui shall be covered!
           
           // Get the dealer and players handscore in a toString metod
-          controller.setdealersHandScore(dealersHandScore(dealerscore));
+          controller.setdealersHandScore("");
           controller.setplayersHandScore(playersHandScore(playerscore));
           
           // System out Dealer score
