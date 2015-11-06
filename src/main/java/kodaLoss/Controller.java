@@ -45,13 +45,31 @@ public class Controller implements Initializable {
   
   @FXML
   private TextField dealersHandScore;
-  
+
   @FXML
   private TextField playersHandScore;
 
   private UserChoiceAdapter uca = UserChoiceAdapter.getInstance();
 
   private Bank bank;
+  
+  /**
+   * Setter for playersHandScore
+   * @param score
+   */
+  public void setplayersHandScore(String score){
+	  
+	  playersHandScore.setText(score);
+  }
+  
+  /**
+   * Setter for dealersHandScore
+   * @param score
+   */
+  public void setdealersHandScore(String score){
+	  
+	  dealersHandScore.setText(score);
+  }
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -65,11 +83,7 @@ public class Controller implements Initializable {
     buttonHit.setOnAction(e -> uca.playerChoosesToHit());
 
     buttonPlay.setOnAction(e -> bank.playOneRound());
-    // Test
-//    buttonStay.setDisable(true);
-//    buttonHit.setDisable(true);
-    dealersHandScore.setText("21");
-
+    
     /*
      * Button Effects
      */
@@ -262,4 +276,5 @@ public class Controller implements Initializable {
       }
     });
   }
+  
 }

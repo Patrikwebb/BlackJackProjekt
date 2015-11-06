@@ -122,6 +122,11 @@ public class Bank {
           updateGuiAfterChangeInDataModel();
           // TODO dealers other card to gui shall be covered!
           
+          // set Dealer and Player Score 
+          // än så länge bara som en String
+          controller.setplayersHandScore("21");
+          controller.setdealersHandScore("17");
+          
           // check if a player has a BlackJack from start!
           for (Player p : registeredPlayers) {
 
