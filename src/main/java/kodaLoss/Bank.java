@@ -11,8 +11,7 @@ public class Bank {
 
   // MEMBERS
 
-  /*
-   * Reference to UserChoiceAdapter just because its easier to write 'uca' than
+  /* Reference to UserChoiceAdapter just because its easier to write 'uca' than 
    * 'UserChoiceAdapter.getInstance().xxx' all the time
    */
   private static UserChoiceAdapter uca = UserChoiceAdapter.getInstance();
@@ -24,20 +23,23 @@ public class Bank {
   private static Controller controller;
 
   public List<Player> registeredPlayers = new ArrayList<Player>();
-
-  // 4 Decks of shuffled cards
+  
+  // 4 Decks of shuffled cards  
   private CardShoe cardShoe = new CardShoe();
 
   // a round plays in its own thread for GUI-responsivity
   private Thread roundThread = null;
-
-  /*
-   * reference to the Player objects of dealer and the active player to be shown
-   * on the GUI. Needed for updating the GUI.
-   */
+  
+  /* reference to the Player objects of dealer and the active player 
+   * to be shown on the GUI. Needed for updating the GUI. 
+  */
   public Player dealer;
   private Player activePlayerOnGui;
 
+  
+  String dealerscore = "0";
+  String playerscore = "0";
+  
   // CONSTRUCTORS
   private Bank() {
 
@@ -53,7 +55,6 @@ public class Bank {
 
   /**
    * Returns a reference to the one and only Bank object
-   * 
    * @return reference to Bank-object singleton
    */
   public static Bank getInstance() {
@@ -61,28 +62,26 @@ public class Bank {
   }
 
   // METHODS TO REGISTER CONTROLLER
-  /**
-   * Adds a reference to the controller class to the Bank object. Needed for
-   * Bank to be able to request changes in GUI.
-   * 
-   * @param control
-   *          - a controller object
-   */
+/**
+ * Adds a reference to the controller class to the Bank object. Needed for 
+ * Bank to be able to request changes in GUI. 
+ * @param control - a controller object
+ */
   public static void registerController(Controller control) {
 
     controller = control;
     controller.test();
   }
 
+  
   // METHODS FOR GUI
 
   /*
    * called after changes in player or dealer model. Updates the GUI by directly
-   * calling methods in Controller. Bank decides this way when GUI should be
-   * changed
+   * calling methods in Controller. Bank decides this way when GUI should be changed
    */
   private void updateGuiAfterChangeInDataModel() {
-
+   
     if (controller != null) {
       controller.updatePlayer(activePlayerOnGui);
       controller.updateDealer(dealer);
@@ -92,16 +91,15 @@ public class Bank {
 
   /**
    * This method controls the sequence of actions to play one round, control of
-   * the gameplay! Has to run in its own thread because method blocks while
-   * waiting for user input!
+   * the gameplay! Has to run in its own thread because method blocks while 
+   * waiting for user input! 
    */
   public void playOneRound() {
 
-    // TODO is there a better solution than userChoiceAdapter for user inputs?
-    // blocking?
-
-    if (roundThread == null || !roundThread.isAlive()) {
-
+    //TODO is there a better solution than userChoiceAdapter for user inputs? blocking?
+    
+    if (  roundThread == null ||  !roundThread.isAlive()) {
+      
       roundThread = new Thread(new Runnable() {
 
         @Override
@@ -131,6 +129,18 @@ public class Bank {
           dealOneCardToAll();
           updateGuiAfterChangeInDataModel();
 
+          // Get the dealer and players handscore in a toString metod
+          controller.setdealersHandScore("");
+          controller.setplayersHandScore(playersHandScore(playerscore));
+          
+          // System out Dealer score
+          System.out.println("Dealer score " + 
+        		  Bank_HelpersAndTools.calculateValueOfPlayersHand(dealer));
+          // System out Player score
+          System.out.println("Player score " + 
+        		  Bank_HelpersAndTools.calculateValueOfPlayersHand(activePlayerOnGui));
+          
+          
           // check if a player has a BlackJack from start!
           for (Player p : registeredPlayers) {
 
@@ -170,6 +180,9 @@ public class Bank {
            * 
            * If dealer is bust => all players that isn't bust win
            */
+          controller.setdealersHandScore(dealersHandScore(dealerscore));
+          controller.setplayersHandScore(playersHandScore(playerscore));
+          
           calculateWinners();
 
           // TODO HIT, STAY = disable PLAY = enable
@@ -215,6 +228,8 @@ public class Bank {
 
       if (uca.getUserChoice() == UserChoice.HIT) {
         dealOneCardToPlayer(player);
+        
+        controller.setplayersHandScore(playersHandScore(playerscore));
         updateGuiAfterChangeInDataModel();
 
         System.out.println("PLAYER HIT");
@@ -246,6 +261,7 @@ public class Bank {
       while (calculateValueOfPlayersHand(dealer) < 17) {
 
         Thread.sleep(1000);
+      controller.setdealersHandScore(dealersHandScore(dealerscore));
 
         dealOneCardToPlayer(dealer);
 
@@ -348,4 +364,28 @@ public class Bank {
 
   }
 
+  /**
+   * Reads the Bank_HelpersAndTools.calculateValueOfPlayersHand metod </br >
+   * and converts it from an int to String
+   * @return dealerscore
+   */
+  public String dealersHandScore(String dealerscore){
+	  
+	int input = Bank_HelpersAndTools.calculateValueOfPlayersHand(dealer);
+	dealerscore = Integer.toString(input);
+	return dealerscore;
+	  
+  }
+  /**
+   * Reads the Bank_HelpersAndTools.calculateValueOfPlayersHand metod </br >
+   * and converts it from an int to String
+   * @return playerscore
+   */
+  public String playersHandScore(String playerscore){
+	  
+		int input = Bank_HelpersAndTools.calculateValueOfPlayersHand(activePlayerOnGui);
+		playerscore = Integer.toString(input);
+		return playerscore;
+		  
+	  }
 }

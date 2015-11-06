@@ -45,7 +45,7 @@ public class Controller implements Initializable {
   
   @FXML
   private TextField dealersHandScore;
-  
+
   @FXML
   private TextField playersHandScore;
 
@@ -56,6 +56,24 @@ public class Controller implements Initializable {
   private Bank bank;
   
   private boolean hideDealers2ndCard = true;
+  
+  /**
+   * Setter for playersHandScore
+   * @param score
+   */
+  public void setplayersHandScore(String score){
+	  
+	  playersHandScore.setText(score);
+  }
+  
+  /**
+   * Setter for dealersHandScore
+   * @param score
+   */
+  public void setdealersHandScore(String score){
+	  
+	  dealersHandScore.setText(score);
+  }
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -311,5 +329,8 @@ public class Controller implements Initializable {
       buttonPlay.setDisable(true);
     });
   }
+  
+  
+  
   
 }
