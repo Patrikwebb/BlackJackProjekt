@@ -24,7 +24,7 @@ public class Bank_HelpersAndTools {
       sum -= 10;
       numberOfAces--;
     }
-
+    
     return sum;
   }
 

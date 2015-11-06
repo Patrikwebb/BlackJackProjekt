@@ -36,6 +36,8 @@ public class Bank {
   public Player dealer;
   private Player activePlayerOnGui;
   
+  String dealerscore = "0";
+  String playerscore = "0";
   
   // CONSTRUCTORS
   private Bank() {
@@ -122,10 +124,17 @@ public class Bank {
           updateGuiAfterChangeInDataModel();
           // TODO dealers other card to gui shall be covered!
           
-          // set Dealer and Player Score 
-          // än så länge bara som en String
-          controller.setplayersHandScore("21");
-          controller.setdealersHandScore("17");
+          // Get the dealer and players handscore in a toString metod
+          controller.setdealersHandScore(dealersHandScore(dealerscore));
+          controller.setplayersHandScore(playersHandScore(playerscore));
+          
+          // System out Dealer score
+          System.out.println("Dealer score " + 
+        		  Bank_HelpersAndTools.calculateValueOfPlayersHand(dealer));
+          // System out Player score
+          System.out.println("Player score " + 
+        		  Bank_HelpersAndTools.calculateValueOfPlayersHand(activePlayerOnGui));
+          
           
           // check if a player has a BlackJack from start!
           for (Player p : registeredPlayers) {
@@ -155,6 +164,9 @@ public class Bank {
            * 
            * If dealer is bust => all players that isn't bust win
            */
+          controller.setdealersHandScore(dealersHandScore(dealerscore));
+          controller.setplayersHandScore(playersHandScore(playerscore));
+          
           calculateWinners();
           
           //TODO HIT, STAY = disable		PLAY = enable
@@ -194,6 +206,8 @@ public class Bank {
       
       if (uca.getUserChoice() == UserChoice.HIT) {
         dealOneCardToPlayer(player);
+        
+        controller.setplayersHandScore(playersHandScore(playerscore));
        
         updateGuiAfterChangeInDataModel();
 
@@ -228,6 +242,7 @@ public class Bank {
         e.printStackTrace();
       }
       dealOneCardToPlayer(dealer);
+      controller.setdealersHandScore(dealersHandScore(dealerscore));
 
       // update gui now
       updateGuiAfterChangeInDataModel();
@@ -326,5 +341,28 @@ public class Bank {
     cardShoe = new CardShoe();
     
   }
-  
+  /**
+   * Reads the Bank_HelpersAndTools.calculateValueOfPlayersHand metod </br >
+   * and converts it from an int to String
+   * @return dealerscore
+   */
+  public String dealersHandScore(String dealerscore){
+	  
+	int input = Bank_HelpersAndTools.calculateValueOfPlayersHand(dealer);
+	dealerscore = Integer.toString(input);
+	return dealerscore;
+	  
+  }
+  /**
+   * Reads the Bank_HelpersAndTools.calculateValueOfPlayersHand metod </br >
+   * and converts it from an int to String
+   * @return playerscore
+   */
+  public String playersHandScore(String playerscore){
+	  
+		int input = Bank_HelpersAndTools.calculateValueOfPlayersHand(activePlayerOnGui);
+		playerscore = Integer.toString(input);
+		return playerscore;
+		  
+	  }
 }
