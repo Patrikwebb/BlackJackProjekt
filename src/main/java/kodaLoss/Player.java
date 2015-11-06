@@ -5,8 +5,9 @@ import java.util.List;
 
 
 public class Player {
-
-	private String name; // alla spelare har ett namn
+  
+  
+  private String name; // alla spelare har ett namn
 	
 	private int playersCash = 100; // alla spelare startar med 100 dollar
 	
@@ -16,7 +17,19 @@ public class Player {
 
 	private boolean isBusted = false;
 	
-	// TODO Do we need this?
+	// THIS IS NEW!
+	private RoundResult roundResult;
+	
+	public RoundResult getRoundResult() {
+    return roundResult;
+  }
+
+  public void setRoundResult(RoundResult roundResult) {
+    this.roundResult = roundResult;
+  }
+
+
+  // TODO Do we need this?
 	private boolean isActiveInRound = true; 
 
 	

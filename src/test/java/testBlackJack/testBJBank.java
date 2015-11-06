@@ -6,6 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import kodaLoss.Bank;
+import kodaLoss.Bank_HelpersAndTools;
 import kodaLoss.Card;
 import kodaLoss.Deck;
 import kodaLoss.Player;
@@ -24,7 +25,7 @@ public class testBJBank extends TestCase {
     p.addCardToHand(new Card(Suite.CLUBS , Rank.ACE));
     p.addCardToHand(new Card(Suite.CLUBS , Rank.ACE));
     p.addCardToHand(new Card(Suite.CLUBS , Rank.ACE));
-    int valueOfHand = Bank.calculateValueOfPlayersHand(p);
+    int valueOfHand = Bank_HelpersAndTools.calculateValueOfPlayersHand(p);
     // value = 11 + 1 + 1 + 1 = 14
     Assert.assertTrue(valueOfHand == 14);
   }
@@ -34,7 +35,7 @@ public class testBJBank extends TestCase {
     Player p = new Player();
     p.addCardToHand(new Card(Suite.HEARTS , Rank.TEN));
     p.addCardToHand(new Card(Suite.CLUBS , Rank.ACE));
-    int valueOfHand = Bank.calculateValueOfPlayersHand(p);
+    int valueOfHand = Bank_HelpersAndTools.calculateValueOfPlayersHand(p);
     Assert.assertTrue(valueOfHand == 21);
   }
   
@@ -43,15 +44,15 @@ public class testBJBank extends TestCase {
     Player p = new Player();
     p.addCardToHand(new Card(Suite.SPADES , Rank.TEN));
     p.addCardToHand(new Card(Suite.DIAMONDS , Rank.ACE));
-    Assert.assertTrue(Bank.isPlayersHandABlackJack(p));
+    Assert.assertTrue(Bank_HelpersAndTools.isPlayersHandABlackJack(p));
     
     p.clearPlayersHand();
     p.addCardToHand(new Card(Suite.HEARTS , Rank.KING));
-    Assert.assertFalse(Bank.isPlayersHandABlackJack(p));
+    Assert.assertFalse(Bank_HelpersAndTools.isPlayersHandABlackJack(p));
     
     p.addCardToHand(new Card(Suite.CLUBS , Rank.FOUR));
     p.addCardToHand(new Card(Suite.SPADES, Rank.SEVEN));
-    Assert.assertFalse(Bank.isPlayersHandABlackJack(p));
+    Assert.assertFalse(Bank_HelpersAndTools.isPlayersHandABlackJack(p));
   }
   
   @Test
@@ -147,10 +148,7 @@ public class testBJBank extends TestCase {
   }
 
   
-  @Test
-  public void testCalculateWinnersDealerAndBankBUST(){
-    // kan inte testa void som returntyp?!
-  }
+
   
   @Test
   public void testUserChoiceAdapterGetters(){

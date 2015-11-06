@@ -2,6 +2,7 @@ package kodaLoss;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import static kodaLoss.UserChoiceAdapter.*;
 
 import static kodaLoss.Bank_HelpersAndTools.*;
@@ -32,7 +33,7 @@ public class Bank {
   /* reference to the Player objects of dealer and the active player 
    * to be shown on the GUI. Needed for updating the GUI. 
   */
-  private Player dealer;
+  public Player dealer;
   private Player activePlayerOnGui;
   
   
@@ -172,7 +173,7 @@ public class Bank {
    * 
    * Uses class UserChoiceAdapter to get user events from the user interface
    */
-  private void playerPlays( Player player ) {
+  private  void playerPlays( Player player ) {
     
     // TODO alternative to UserCHoiceAdapter???
     System.out.println("Player plays started...");
@@ -184,7 +185,6 @@ public class Bank {
       // has to be run!?!? Why is that? 
       // TODO Why does whileLoop not run without some statement here?
       System.out.print("");
-      
       
       
       if (uca.getUserChoice() == UserChoice.HIT) {
@@ -258,7 +258,8 @@ public class Bank {
    * Calculate winners 
    */
   // TODO update GUI who won
-  private void calculateWinners() {
+  // TODO update Player CASH i annan metod => returnTyp måste ändras!
+  public void calculateWinners() {
     int playerpoints;
 
     if (isPlayerBust(dealer)) {
@@ -269,9 +270,11 @@ public class Bank {
         if (playerpoints <= 21) {
           // TO GUI Player WINNS
           System.out.println("Congratulations! You won.");
+          p.setRoundResult(RoundResult.WIN);
         } else {
           // To Gui YOU lost!
           System.out.println("Sorry, you lost.");
+          p.setRoundResult(RoundResult.LOOSE);
         }
       }
     } else {
@@ -283,10 +286,12 @@ public class Bank {
             && playerpoints > calculateValueOfPlayersHand(dealer)) {
           // TO GUI Player WINNS
           System.out.println("Congratulations! You won.");
+          p.setRoundResult(RoundResult.WIN);
 
         } else {
           // To Gui YOU lost!
           System.out.println("Sorry, you lost.");
+          p.setRoundResult(RoundResult.LOOSE);
         }
       }
     }
@@ -303,6 +308,18 @@ public class Bank {
   private void dealOneCardToPlayer(Player player) {
     player.addCardToHand(cardShoe.getACardFromCardShoe());
     // TODO call gui to update players hand!
+  }
+
+  
+  /*
+   * Method to reset Bank to a default start state. 
+   * Clears all players and dealer, gets a new Card Shoe.  
+   */
+  public void clearAllPlayersAndDealer() {
+    registeredPlayers.clear();
+    dealer = null;
+    cardShoe = new CardShoe();
+    
   }
   
 }
