@@ -11,7 +11,8 @@ public class Bank {
 
   // MEMBERS
 
-  /* Reference to UserChoiceAdapter just because its easier to write 'uca' than 
+  /*
+   * Reference to UserChoiceAdapter just because its easier to write 'uca' than
    * 'UserChoiceAdapter.getInstance().xxx' all the time
    */
   private static UserChoiceAdapter uca = UserChoiceAdapter.getInstance();
@@ -23,23 +24,23 @@ public class Bank {
   private static Controller controller;
 
   public List<Player> registeredPlayers = new ArrayList<Player>();
-  
-  // 4 Decks of shuffled cards  
+
+  // 4 Decks of shuffled cards
   private CardShoe cardShoe = new CardShoe();
-  
+
   // a round plays in its own thread for GUI-responsivity
   private Thread roundThread = null;
-  
-  /* reference to the Player objects of dealer and the active player 
-   * to be shown on the GUI. Needed for updating the GUI. 
-  */
+
+  /*
+   * reference to the Player objects of dealer and the active player to be shown
+   * on the GUI. Needed for updating the GUI.
+   */
   public Player dealer;
   private Player activePlayerOnGui;
-  
-  
+
   // CONSTRUCTORS
   private Bank() {
-	
+
     // DEMO VERSION
     System.out.println("Bank started in a testMode for Demo!!!");
 
@@ -52,34 +53,36 @@ public class Bank {
 
   /**
    * Returns a reference to the one and only Bank object
+   * 
    * @return reference to Bank-object singleton
    */
   public static Bank getInstance() {
     return bank;
   }
 
-  
   // METHODS TO REGISTER CONTROLLER
-/**
- * Adds a reference to the controller class to the Bank object. Needed for 
- * Bank to be able to request changes in GUI. 
- * @param control - a controller object
- */
+  /**
+   * Adds a reference to the controller class to the Bank object. Needed for
+   * Bank to be able to request changes in GUI.
+   * 
+   * @param control
+   *          - a controller object
+   */
   public static void registerController(Controller control) {
 
     controller = control;
     controller.test();
   }
 
-  
   // METHODS FOR GUI
 
   /*
    * called after changes in player or dealer model. Updates the GUI by directly
-   * calling methods in Controller. Bank decides this way when GUI should be changed
+   * calling methods in Controller. Bank decides this way when GUI should be
+   * changed
    */
   private void updateGuiAfterChangeInDataModel() {
-   
+
     if (controller != null) {
       controller.updatePlayer(activePlayerOnGui);
       controller.updateDealer(dealer);
@@ -89,15 +92,16 @@ public class Bank {
 
   /**
    * This method controls the sequence of actions to play one round, control of
-   * the gameplay! Has to run in its own thread because method blocks while 
-   * waiting for user input! 
+   * the gameplay! Has to run in its own thread because method blocks while
+   * waiting for user input!
    */
   public void playOneRound() {
 
-    //TODO is there a better solution than userChoiceAdapter for user inputs? blocking?
-    
-    if (  roundThread == null ||  !roundThread.isAlive()) {
-      
+    // TODO is there a better solution than userChoiceAdapter for user inputs?
+    // blocking?
+
+    if (roundThread == null || !roundThread.isAlive()) {
+
       roundThread = new Thread(new Runnable() {
 
         @Override
@@ -105,91 +109,112 @@ public class Bank {
 
           System.out.println("Round started...");
           
-          //TODO HIT, STAY = enable		PLAY = disable
-          controller.gameIson();
-          
+
           // clear last hand from clean Table!
-          dealer.clearPlayersHand();
-          for (Player p : registeredPlayers){
+          for (Player p : registeredPlayers) {
             p.clearPlayersHand();
           }
+          dealer.clearPlayersHand();
           
+          // buttons off while dealing cards
+          controller.allButtonsOff();
+
           // deal a card to all players and dealer
           dealOneCardToAll();
           updateGuiAfterChangeInDataModel();
 
+          
+          BlackJackConstantsAndTools.sleepFor1Second();
+          
+          // deal second card and hide dealers second card
+          controller.setHideDealersSecondCard(true);
           dealOneCardToAll();
           updateGuiAfterChangeInDataModel();
-          // TODO dealers other card to gui shall be covered!
-          
+
           // check if a player has a BlackJack from start!
           for (Player p : registeredPlayers) {
 
-            if (isPlayersHandABlackJack(p)) {
-              p.setPlayerActiveInRound(false);
+            // if (isPlayersHandABlackJack(p)) {
+            // p.setPlayerActiveInRound(false);
+            // } else{
+            // p.setPlayerActiveInRound(true);
+            // }
+
+            // tänkte visa nåt snyggt!
+            boolean active = isPlayerBust(p) ? true : false;
+            p.setPlayerActiveInRound(active);
+          }
+
+          // each player without a Blackjack plays against bank
+          for (Player p : registeredPlayers) {
+
+            if (!isPlayersHandABlackJack(p)) {
+              // TODO HIT, STAY = enable PLAY = disable
+               controller.gameIson();
+              playerPlays(p);
+            } else {
+              // TODO inform player about BlackJack!!!
             }
           }
 
-          // each active player plays against bank
-          // FOR DEMO: ALL PLAYERS ARE ACTIVE!
-          System.out.println(activePlayerOnGui.isActive());
-          for (Player p : registeredPlayers) {
-
-//            if (p.isActive()) {
-              playerPlays(p);
-//            }
-          }
-
-          // dealer plays
+          // dealer plays after one second break
+          // deactivate all buttons while dealer plays
+          controller.allButtonsOff();
+          BlackJackConstantsAndTools.sleepFor1Second();
           dealerPlays();
 
           /*
            * 
-           * Checks if dealer and players isn't bust,
-           * Checks the higher hand and give us the winner 
+           * Checks if dealer and players isn't bust, Checks the higher hand and
+           * give us the winner
            * 
            * If dealer is bust => all players that isn't bust win
            */
           calculateWinners();
-          
-          //TODO HIT, STAY = disable		PLAY = enable
+
+          // TODO HIT, STAY = disable PLAY = enable
           controller.gameIsoff();
-          // reset Thread and Players for next round! 
-//          roundThread = null;
+          // reset Thread and Players for next round!
+          // roundThread = null;
         }
       });
       roundThread.start();
-      
+
     } else {
       // roundThread is still alive!
       System.out.println("Already running a round");
+      controller.gameIson();
     }
-    
+
   }
 
   /*
-   * Player plays against Bank in one round. 
-   * Sets player inactive if bust. 
+   * Player plays against Bank in one round. Sets player inactive if bust.
    * 
    * Uses class UserChoiceAdapter to get user events from the user interface
    */
-  private  void playerPlays( Player player ) {
-    
+  private void playerPlays(Player player) {
     // TODO alternative to UserCHoiceAdapter???
     System.out.println("Player plays started...");
     
+    // activate players buttons
+    controller.gameIson();
+
     uca.resetUserChoice(); // prepare for input
-    
+
     while (uca.getUserChoice() != UserChoice.STAY) {
-      
-      // has to be run!?!? Why is that? 
+
+      // has to be run!?!? Why is that?
       // TODO Why does whileLoop not run without some statement here?
-      System.out.print("");
-      
-      
+      try {
+        Thread.sleep(10);
+      } catch (InterruptedException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+
       if (uca.getUserChoice() == UserChoice.HIT) {
         dealOneCardToPlayer(player);
-       
         updateGuiAfterChangeInDataModel();
 
         System.out.println("PLAYER HIT");
@@ -197,11 +222,8 @@ public class Bank {
         uca.resetUserChoice();
 
         if (isPlayersHandOver21(player)) {
-          player.printHandToConsole();
           System.out.println("PLAYER IS BUST!");
           updateGuiAfterChangeInDataModel();
-          player.setPlayerActiveInRound(false);
-          player.setBusted(true);
           break;
         }
       }
@@ -215,30 +237,37 @@ public class Bank {
    */
   protected void dealerPlays() {
     
-    while (calculateValueOfPlayersHand(dealer) < 17) {
-      
-      try {
-        Thread.sleep(1000);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
-      dealOneCardToPlayer(dealer);
-
-      // update gui now
+    try {
+      // show dealers second card
+      controller.setHideDealersSecondCard(false);
       updateGuiAfterChangeInDataModel();
 
-      setPlayerToBust(dealer, false);
+      // take cards while hand less than 17
+      while (calculateValueOfPlayersHand(dealer) < 17) {
 
-      if (isPlayersHandOver21(dealer)) {
-        // temporary until we send to GUI
-        System.out.println("DEALER IS BUST!");
-        setPlayerToBust(dealer, true);
+        Thread.sleep(1000);
+
+        dealOneCardToPlayer(dealer);
+
+        // update gui now
         updateGuiAfterChangeInDataModel();
 
-      } else {
-        // temporary until we send to GUI
-        System.out.println("DEALER has " + calculateValueOfPlayersHand(dealer));
+        setPlayerToBust(dealer, false);
+
+        if (isPlayersHandOver21(dealer)) {
+          // temporary until we send to GUI
+          System.out.println("DEALER IS BUST!");
+          setPlayerToBust(dealer, true);
+          updateGuiAfterChangeInDataModel();
+
+        } else {
+          // temporary until we send to GUI
+          System.out
+              .println("DEALER has " + calculateValueOfPlayersHand(dealer));
+        }
       }
+    } catch (InterruptedException e) {
+      e.printStackTrace();
     }
   }
 
@@ -251,11 +280,10 @@ public class Bank {
       dealOneCardToPlayer(p);
     }
     dealOneCardToPlayer(dealer);
-    // main.ShowDealersHand(dealer.getPlayersHand());
   }
 
   /*
-   * Calculate winners 
+   * Calculate winners
    */
   // TODO update GUI who won
   // TODO update Player CASH i annan metod => returnTyp måste ändras!
@@ -275,7 +303,7 @@ public class Bank {
           // To Gui YOU lost!
           System.out.println("Sorry, you lost.");
           p.setRoundResult(RoundResult.LOOSE);
-         
+
         }
       }
     } else {
@@ -298,10 +326,8 @@ public class Bank {
     }
   }
 
-  
-  
   // NON STATIC HELPER FUNCTIONS
-  
+
   /*
    * bank deals one card from the card shoe to a player who takes the card and
    * adds it to his hand. (Then the gui is updated for the player)
@@ -311,16 +337,15 @@ public class Bank {
     // TODO call gui to update players hand!
   }
 
-  
   /*
-   * Method to reset Bank to a default start state. 
-   * Clears all players and dealer, gets a new Card Shoe.  
+   * Method to reset Bank to a default start state. Clears all players and
+   * dealer, gets a new Card Shoe.
    */
   public void clearAllPlayersAndDealer() {
     registeredPlayers.clear();
     dealer = null;
     cardShoe = new CardShoe();
-    
+
   }
-  
+
 }

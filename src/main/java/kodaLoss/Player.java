@@ -22,8 +22,7 @@ public class Player {
 	private boolean isBusted = false;
 	
 
-
-  // TODO Do we need this?
+  // TODO do we need this?
 	private boolean isActiveInRound = true; 
 
 	

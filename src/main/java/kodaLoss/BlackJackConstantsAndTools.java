@@ -7,6 +7,22 @@ public class BlackJackConstantsAndTools {
   public final static String FILE_PICTURE_PATH = "\\src\\CardPictures\\";
   public final static String FILE_PICTURE_FILEENDING = ".png";
 
+  public final static long ONE_SECOND_SLEEP = 1000;
+  
+  
+  public static void sleepFor1Second(){
+    try{
+      Thread.sleep(ONE_SECOND_SLEEP);
+    } catch (InterruptedException e){
+      e.printStackTrace();
+      System.out.println("BJConstantsAndTools.sleepFor1Second: problems with animation");
+    }
+  }
+  
+  
+  
+  
+  
   
   /**
    * help method to loading pictures in JavaFX via a URL to the 

@@ -32,7 +32,7 @@
    <right>
       <Pane prefHeight="436.0" prefWidth="467.0">
          <children>
-            <Label fx:id="labelPlayerName" alignment="CENTER" prefHeight="25.0" prefWidth="466.0" text="Player:   Anonymous" textFill="WHITE">
+            <Label fx:id="labelPlayerName" alignment="CENTER" prefHeight="25.0" prefWidth="466.0" text="Player: Anonymous" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
