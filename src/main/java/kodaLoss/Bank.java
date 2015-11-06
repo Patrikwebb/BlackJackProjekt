@@ -275,6 +275,7 @@ public class Bank {
           // To Gui YOU lost!
           System.out.println("Sorry, you lost.");
           p.setRoundResult(RoundResult.LOOSE);
+         
         }
       }
     } else {
