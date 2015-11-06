@@ -121,7 +121,7 @@ public class Bank {
           dealOneCardToAll();
           updateGuiAfterChangeInDataModel();
           // TODO dealers other card to gui shall be covered!
-
+          
           // check if a player has a BlackJack from start!
           for (Player p : registeredPlayers) {
 

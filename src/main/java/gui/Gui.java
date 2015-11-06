@@ -22,7 +22,7 @@ public class Gui extends Application{
 	public void start(Stage primaryStage) throws Exception {
 		
 		try {
-			BorderPane page = (BorderPane) FXMLLoader.load(Gui.class.getResource("BlackJackFXMLVersion1.fxml"));
+			BorderPane page = (BorderPane) FXMLLoader.load(Gui.class.getResource("BlackJackFXMLVersion2.fxml"));
 																				
 			Scene scene = new Scene(page);
 				primaryStage.setScene(scene); 
