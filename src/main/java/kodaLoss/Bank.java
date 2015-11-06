@@ -274,7 +274,7 @@ public class Bank {
         System.out.println("DEALER IS BUST!");
         controller.setlabelWinnerText("DEALER IS BUST!");
         setPlayerToBust(dealer, true);
-
+      	}
         Thread.sleep(1000);
         controller.setdealersHandScore(dealersHandScore(dealerscore));
 
@@ -296,7 +296,6 @@ public class Bank {
           System.out
               .println("DEALER has " + calculateValueOfPlayersHand(dealer));
         }
-      }
       }
     } catch (InterruptedException e) {
       e.printStackTrace();
