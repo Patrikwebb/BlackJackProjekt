@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -41,6 +42,12 @@ public class Controller implements Initializable {
 
   @FXML
   private HBox dealerCard;
+  
+  @FXML
+  private TextField dealersHandScore;
+  
+  @FXML
+  private TextField playersHandScore;
 
   private UserChoiceAdapter uca = UserChoiceAdapter.getInstance();
 
@@ -58,6 +65,10 @@ public class Controller implements Initializable {
     buttonHit.setOnAction(e -> uca.playerChoosesToHit());
 
     buttonPlay.setOnAction(e -> bank.playOneRound());
+    // Test
+//    buttonStay.setDisable(true);
+//    buttonHit.setDisable(true);
+    dealersHandScore.setText("21");
 
     /*
      * Button Effects
