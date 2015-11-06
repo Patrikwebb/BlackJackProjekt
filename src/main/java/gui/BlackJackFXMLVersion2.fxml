@@ -9,23 +9,19 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #383838;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <left>
-      <HBox prefHeight="436.0" prefWidth="454.0" BorderPane.alignment="CENTER">
+      <Pane prefHeight="436.0" prefWidth="457.0">
          <children>
-            <Pane prefHeight="436.0" prefWidth="465.0">
-               <children>
-                  <Label alignment="CENTER" layoutX="1.0" layoutY="14.0" prefHeight="25.0" prefWidth="452.0" text="Dealer" textFill="WHITE">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <HBox fx:id="dealerCard" layoutX="191.0" layoutY="54.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="49.0" prefWidth="72.0" />
-                  <TextField layoutX="439.0" layoutY="391.0" prefHeight="31.0" prefWidth="31.0" promptText="0" />
-                  <TextField layoutX="207.0" layoutY="391.0" prefHeight="31.0" prefWidth="40.0" promptText="Sc" />
-                  <TextField alignment="CENTER" layoutX="404.0" layoutY="347.0" prefHeight="31.0" prefWidth="108.0" text="Rounds" />
-               </children>
-            </Pane>
+            <Label alignment="CENTER" layoutX="1.0" layoutY="14.0" prefHeight="25.0" prefWidth="454.0" text="Dealer" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <HBox fx:id="dealerCard" layoutX="191.0" layoutY="54.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="49.0" prefWidth="72.0" />
+            <TextField layoutX="440.0" layoutY="391.0" prefHeight="31.0" prefWidth="31.0" promptText="0" />
+            <TextField layoutX="207.0" layoutY="391.0" prefHeight="31.0" prefWidth="40.0" promptText="Sc" />
+            <TextField alignment="CENTER" layoutX="404.0" layoutY="347.0" prefHeight="31.0" prefWidth="108.0" text="Rounds" />
          </children>
-      </HBox>
+      </Pane>
    </left>
    <top>
       <Label prefHeight="84.0" prefWidth="1000.0" style="-fx-font-size: 24; -fx-text-fill: red; -fx-font-family: verdana;" text="Black Jack Gui" textFill="WHITE" BorderPane.alignment="CENTER" />
@@ -58,7 +54,7 @@
       <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
    </padding>
    <right>
-      <Pane prefHeight="436.0" prefWidth="465.0" BorderPane.alignment="CENTER">
+      <Pane prefHeight="436.0" prefWidth="463.0" BorderPane.alignment="CENTER">
          <children>
             <Label fx:id="labelPlayerName" alignment="CENTER" layoutX="1.0" layoutY="14.0" prefHeight="25.0" prefWidth="464.0" text="Player:   Anonymous" textFill="WHITE">
                <font>
