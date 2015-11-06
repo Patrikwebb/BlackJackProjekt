@@ -15,21 +15,14 @@ public class Player {
 	
 	private List<Card> hand = new ArrayList<Card>(); //Players hand
 
-	private boolean isBusted = false;
-	
 	// THIS IS NEW!
 	private RoundResult roundResult;
+
+	// TODO Do we need this???
+	private boolean isBusted = false;
 	
-	public RoundResult getRoundResult() {
-    return roundResult;
-  }
 
-  public void setRoundResult(RoundResult roundResult) {
-    this.roundResult = roundResult;
-  }
-
-
-  // TODO Do we need this?
+  // TODO do we need this?
 	private boolean isActiveInRound = true; 
 
 	
@@ -120,7 +113,6 @@ public class Player {
 	}
 	
 	
-	
 	/**
 	 * User makes a bet via the UI. This method checks if users player-object
 	 * has enough cash to make that bet. Reduces players cash by the desired amount
@@ -141,8 +133,7 @@ public class Player {
 	  }
 	}
 	
-	
-	
+
 	/**
 	 * returns the amount of cash this player has
 	 * 
@@ -168,7 +159,22 @@ public class Player {
 	public void addToPlayersCash(int amount) {
 		this.playersCash += amount;
 	}
-
+	
+	/**
+	 * method to be called by bank for calculating money amount won  
+	 * @return result of last played Round as enum type RoundResult
+	 */
+	public RoundResult getRoundResult() {
+	  return roundResult;
+	}
+	
+	/**
+	 * method to be called by bank when calculating results of a round
+	 * @param roundResult - set players result for the last round
+	 */
+	public void setRoundResult(RoundResult roundResult) {
+	  this.roundResult = roundResult;
+	}
 	/**
 	 * getter to see if this player is busted, hand > 21 points!
 	 * 

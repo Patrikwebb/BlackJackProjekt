@@ -52,9 +52,13 @@ public class Controller implements Initializable {
   @FXML
   private Label labelWinnerText;
 
+  // reference to UserChoiceAdapter for players button-events
   private UserChoiceAdapter uca = UserChoiceAdapter.getInstance();
 
+  // reference to Bank singleton-object
   private Bank bank;
+  
+  private boolean hideDealers2ndCard = true;
   
   /**
    * Setter for playersHandScore
@@ -99,13 +103,26 @@ public class Controller implements Initializable {
     buttonStay.setOnAction(e -> uca.playerChoosesToStay());
 
     buttonHit.setOnAction(e -> uca.playerChoosesToHit());
-
+    
     buttonPlay.setOnAction(e -> bank.playOneRound());
+    // Test
+   buttonStay.setDisable(true);
+    buttonHit.setDisable(true);
+   
+
+   initButtonEffects(); 
+  }
+    
+    
+    
+    
     
     /*
      * Button Effects
      */
-
+    public void initButtonEffects(){
+    
+    
     // Shadow Effect on all buttons
     DropShadow dropShadow = new DropShadow();
     dropShadow.setRadius(3.0);
@@ -180,7 +197,20 @@ public class Controller implements Initializable {
 
     });
   }
+    
 
+    /** 
+     * activate and deactivates hiding the dealers second card
+     * @param hide
+     */
+    public void setHideDealersSecondCard(boolean hide){
+      this.hideDealers2ndCard = hide;
+    }
+    
+    
+    
+    
+    
   /**
    * updates the Players variables in gui
    * 
@@ -192,8 +222,10 @@ public class Controller implements Initializable {
     Platform.runLater(new Runnable() {
 
       public void run() {
-
-        labelPlayerName.setText(activePlayerOnGui.getName()); // name label
+        String handValue= Bank_HelpersAndTools.isPlayersHandABlackJack(activePlayerOnGui) ? 
+            "BJ!" : Bank_HelpersAndTools.calculateValueOfPlayersHand(activePlayerOnGui) + "";
+        playersHandScore.setText(handValue);
+        labelPlayerName.setText(activePlayerOnGui.getName() ); // name label
         setPics(activePlayerOnGui, playerCard);
       }
     });
@@ -210,8 +242,14 @@ public class Controller implements Initializable {
     Platform.runLater(new Runnable() {
 
       public void run() {
-
         setPics(dealer, dealerCard);
+        
+        String handValue= Bank_HelpersAndTools.isPlayersHandABlackJack(dealer) ? 
+            "BJ!" : Bank_HelpersAndTools.calculateValueOfPlayersHand(dealer) + "";
+        
+        if (!hideDealers2ndCard){
+          dealersHandScore.setText( handValue );
+        }
       }
     });
   }
@@ -234,20 +272,24 @@ public class Controller implements Initializable {
         if (player != null) {
           List<Card> hand = player.getPlayersHand();
 
-          for (Card card : hand) {
+          for (int i = 0 ; i < hand.size() ; i++) {
             Image image;
 
             try {
-              String cardString = card.toString();
+              String cardString = hand.get(i).toString();
+              
+              if (i > 0 && hideDealers2ndCard && target == dealerCard){
+                cardString = "BACKSIDE";
+              }
               String pathToCardPicture = BlackJackConstantsAndTools
                   .getURLStringToFileInCardPictures(cardString);
               image = new Image(pathToCardPicture);
               ImageView view = new ImageView(image);
               target.getChildren().add(view);
               target.setSpacing(-45);
-
+              
             } catch (Exception e) {
-              System.out.println("pic Funkade inte");
+              System.out.println("Controller.setPics: Cannot load picture!");
             }
           }
         } else {
@@ -294,5 +336,19 @@ public class Controller implements Initializable {
       }
     });
   }
+  
+  /**
+   * All buttons off, e.g. while dealer plays!
+   */ 
+  public void allButtonsOff(){
+    Platform.runLater(() -> {
+      buttonHit.setDisable(true);
+      buttonStay.setDisable(true);
+      buttonPlay.setDisable(true);
+    });
+  }
+  
+  
+  
   
 }
