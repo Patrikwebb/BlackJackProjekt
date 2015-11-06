@@ -1,16 +1,10 @@
 package gui;
 
-import javafx.animation.Animation;
-import javafx.animation.RotateTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 /**
  * Loads BlackJack FXML file and Launches the Gui Application

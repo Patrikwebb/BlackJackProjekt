@@ -23,12 +23,14 @@
             </Label>
             <TextField fx:id="dealersHandScore" editable="false" focusTraversable="false" layoutX="207.0" layoutY="391.0" prefHeight="31.0" prefWidth="40.0" promptText="Sc" />
             <TextField editable="false" focusTraversable="false" layoutX="436.0" layoutY="391.0" prefHeight="31.0" prefWidth="31.0" promptText="0" />
+            <Label fx:id="labelWinnerText" alignment="CENTER" layoutX="208.0" layoutY="210.0" prefHeight="101.0" prefWidth="486.0" textFill="WHITE">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
    </left>
-   <top>
-      <Label prefHeight="84.0" prefWidth="1000.0" style="-fx-font-size: 24; -fx-text-fill: red; -fx-font-family: verdana;" text="Black Jack Gui" textFill="WHITE" BorderPane.alignment="CENTER" />
-   </top>
    <right>
       <Pane prefHeight="436.0" prefWidth="467.0">
          <children>
@@ -74,4 +76,11 @@
    <padding>
       <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
    </padding>
+   <top>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label prefHeight="84.0" prefWidth="225.0" style="-fx-font-size: 24; -fx-text-fill: red; -fx-font-family: verdana;" text="Black Jack Gui" textFill="WHITE" />
+         </children>
+      </HBox>
+   </top>
 </BorderPane>

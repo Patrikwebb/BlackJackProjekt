@@ -36,6 +36,7 @@ public class Bank {
   public Player dealer;
   private Player activePlayerOnGui;
   
+  // Default value for dealer & playersHandScore
   String dealerscore = "0";
   String playerscore = "0";
   
@@ -124,6 +125,8 @@ public class Bank {
           updateGuiAfterChangeInDataModel();
           // TODO dealers other card to gui shall be covered!
           
+          // Set Winner Text Label empty
+          controller.setlabelWinnerText("");
           // Get the dealer and players handscore in a toString metod
           controller.setdealersHandScore("");
           controller.setplayersHandScore(playersHandScore(playerscore));
@@ -205,6 +208,7 @@ public class Bank {
       
       
       if (uca.getUserChoice() == UserChoice.HIT) {
+    	
         dealOneCardToPlayer(player);
         
         controller.setplayersHandScore(playersHandScore(playerscore));
@@ -218,6 +222,7 @@ public class Bank {
         if (isPlayersHandOver21(player)) {
           player.printHandToConsole();
           System.out.println("PLAYER IS BUST!");
+          controller.setlabelWinnerText("PLAYER IS BUST!");
           updateGuiAfterChangeInDataModel();
           player.setPlayerActiveInRound(false);
           player.setBusted(true);
@@ -252,6 +257,7 @@ public class Bank {
       if (isPlayersHandOver21(dealer)) {
         // temporary until we send to GUI
         System.out.println("DEALER IS BUST!");
+        controller.setlabelWinnerText("DEALER IS BUST!");
         setPlayerToBust(dealer, true);
         updateGuiAfterChangeInDataModel();
 
@@ -290,10 +296,12 @@ public class Bank {
         if (playerpoints <= 21) {
           // TO GUI Player WINNS
           System.out.println("Congratulations! You won.");
+          controller.setlabelWinnerText("Congratulations! You won.");
           p.setRoundResult(RoundResult.WIN);
         } else {
           // To Gui YOU lost!
           System.out.println("Sorry, you lost.");
+          controller.setlabelWinnerText("Sorry, you lost.");
           p.setRoundResult(RoundResult.LOOSE);
         }
       }
@@ -306,11 +314,13 @@ public class Bank {
             && playerpoints > calculateValueOfPlayersHand(dealer)) {
           // TO GUI Player WINNS
           System.out.println("Congratulations! You won.");
+          controller.setlabelWinnerText("Congratulations! You won.");
           p.setRoundResult(RoundResult.WIN);
 
         } else {
           // To Gui YOU lost!
           System.out.println("Sorry, you lost.");
+          controller.setlabelWinnerText("Sorry, you lost.");
           p.setRoundResult(RoundResult.LOOSE);
         }
       }

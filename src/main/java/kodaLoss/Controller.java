@@ -48,6 +48,9 @@ public class Controller implements Initializable {
 
   @FXML
   private TextField playersHandScore;
+  
+  @FXML
+  private Label labelWinnerText;
 
   private UserChoiceAdapter uca = UserChoiceAdapter.getInstance();
 
@@ -59,7 +62,9 @@ public class Controller implements Initializable {
    */
   public void setplayersHandScore(String score){
 	  
+	  Platform.runLater(() -> { 
 	  playersHandScore.setText(score);
+	  });
   }
   
   /**
@@ -68,7 +73,20 @@ public class Controller implements Initializable {
    */
   public void setdealersHandScore(String score){
 	  
+	  Platform.runLater(() -> { 
 	  dealersHandScore.setText(score);
+	  });
+  }
+  
+  /**
+   * Setter for labelWinnerText
+   * @param winnerText
+   */
+  public void setlabelWinnerText(String winnerText){
+	  
+	  Platform.runLater(() -> { 
+	  labelWinnerText.setText(winnerText);
+	  });
   }
 
   @Override
