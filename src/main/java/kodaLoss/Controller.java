@@ -104,13 +104,14 @@ public class Controller implements Initializable {
 
     buttonHit.setOnAction(e -> uca.playerChoosesToHit());
     
-    buttonPlay.setOnAction(e -> bank.playOneRound());  
+    buttonPlay.setOnAction(e -> bank.playOneRound());
+    // Test
+   buttonStay.setDisable(true);
+    buttonHit.setDisable(true);
+   
 
    initButtonEffects(); 
   }
-    
-    
-    
     
     
     /*
@@ -202,9 +203,6 @@ public class Controller implements Initializable {
     public void setHideDealersSecondCard(boolean hide){
       this.hideDealers2ndCard = hide;
     }
-    
-    
-    
     
     
   /**

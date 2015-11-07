@@ -52,8 +52,8 @@ public class Bank {
     // DEMO VERSION
     System.out.println("Bank started in a testMode for Demo!!!");
 
-    registeredPlayers.add(new Player("TESTPLAYER"));
-    activePlayerOnGui = registeredPlayers.get(0);
+    registeredPlayers.add(new Player("Testing Demoplayer"));
+//    activePlayerOnGui = registeredPlayers.get(0);
     dealer = new Player("Dealer");
     System.out.println("TestPlayer and Dealer added...");
     System.out.println("Number of Players: " + registeredPlayers.size());
@@ -366,8 +366,54 @@ public class Bank {
     }
   }
 
+  /*
+   * uses players bets and result of played round to calculate money 
+   * to be payed back to players. Loosing players loose their bet, Tie 
+   * players get their bet back, winning players get the double amount of their
+   * bet, winning players with a Blackjack even get an extra 50% of their bet! 
+   */
+  public void handlePlayersBetsAndPayWinners(){
+    
+    int playersBet;
+    
+    for (Player player  :  registeredPlayers ){
+
+      playersBet = player.getPlayersBet();
+      
+      if (player.getRoundResult() == RoundResult.TIE){
+        player.addToPlayersCash(playersBet);
+      
+      } else if (player.getRoundResult() == RoundResult.WIN){
+        player.addToPlayersCash(playersBet * 2);
+          
+        if (isPlayersHandABlackJack(player)){
+            player.addToPlayersCash((int) Math.round( playersBet / 2.0d ) );
+          }
+        
+      }
+      
+      // just reset players bet for round
+      // TODO would a whole method to reset players for next round? 
+      player.setPlayersBet(0);
+      player.setRoundResult(null);
+    }
+      
+      
+    }
+   
+  
   // NON STATIC HELPER FUNCTIONS
 
+  public void addPlayerToBank( Player player ){
+    this.registeredPlayers.add(player);
+  }
+  
+  
+  
+  
+  
+  
+  
   /*
    * bank deals one card from the card shoe to a player who takes the card and
    * adds it to his hand. (Then the gui is updated for the player)
