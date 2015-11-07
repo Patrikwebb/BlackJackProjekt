@@ -1,4 +1,4 @@
-package gui;
+	package gui;
 
 import javafx.stage.*;
 import javafx.scene.*;
@@ -7,12 +7,43 @@ import javafx.scene.control.*;
 
 import com.sun.javafx.scene.EnteredExitedHandler;
 
+import javafx.application.Platform;
 import javafx.geometry.*;
 
 
+/**
+ * This is an input window for the players name </Br >
+ * It will popup when you start our application
+ * @author PatrikWebb
+ */
 public class NameAlertBox {
 
-    public void NameDisplay() {
+	TextField nameInput;
+	String name;
+    
+	/**
+	 * Getter for name Input
+	 * @return name
+	 */
+    public String getName() {
+		return name;
+	}
+    
+    /**
+	 * Setter for name Input
+	 * @return name
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	/**
+	 * Here is our whole stage with layout, </Br >
+	 * ( Grid, TextField and Buttons)
+	 * 
+	 * @author PatrikWebb
+	 */
+	public void NameDisplay() {
         Stage nameWindow = new Stage();
 
         //Block events to other windows
@@ -31,7 +62,7 @@ public class NameAlertBox {
         GridPane.setConstraints(nameLabel, 0, 0);
         
         //Name Input
-        TextField nameInput = new TextField();
+        nameInput = new TextField();
         nameInput.setPromptText("Name");
         GridPane.setConstraints(nameInput, 1, 0);
         
@@ -45,13 +76,32 @@ public class NameAlertBox {
         GridPane.setConstraints(cancelButton, 2, 2);
         
         enterButton.setOnAction(e -> {
-        	// TODO
-        	nameInput.getText();	
+
+        	Platform.runLater(() -> {
+        	// Get the input from the TextField
+        	String input = nameInput.getText();
+        	// Set the input in our setter for setName metod
+        	setName(input);
+        	
+        	//TODO
+        	/*
+        	 * **************
+        	 * Add the name input to the registred player array list
+        	 * **************
+        	 * If Succes ! ! ---->
+        	 * nameWindow.close();
+        	 * **************
+        	 */
+        	
+        	System.out.println(getName());
+        	});
         });
         
         cancelButton.setOnAction(e -> {
         	// TODO
+        	Platform.runLater(() -> {
         	nameWindow.close();
+        	});
         });
 
         //Add everything to grid
