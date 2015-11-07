@@ -104,16 +104,12 @@ public class Controller implements Initializable {
 
     buttonHit.setOnAction(e -> uca.playerChoosesToHit());
     
-<<<<<<< HEAD
     buttonPlay.setOnAction(e -> bank.playOneRound());
     // Test
    buttonStay.setDisable(true);
     buttonHit.setDisable(true);
    
-=======
-    buttonPlay.setOnAction(e -> bank.playOneRound());  
 
->>>>>>> branch 'master' of https://github.com/Patrikwebb/BlackJackProjekt.git
    initButtonEffects(); 
   }
     
