@@ -465,4 +465,10 @@ public class Bank {
 		  registeredPlayers.get(i).setName(nameAlertBox.getName());
 	  }
   }
+  /**Method that fetches bettingAmount from NameAlertBox(GUI) and puts it in player-object*/
+  public void setBettingAmountToRegisteredPlayers(){
+	  for(int i=0;i<registeredPlayers.size();i++){
+		  registeredPlayers.get(i).setPlayersBet(Integer.parseInt(nameAlertBox.getBettingAmount()));
+	  }
+  }
 }
