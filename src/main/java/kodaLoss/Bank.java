@@ -275,7 +275,7 @@ public class Bank {
         controller.setlabelWinnerText("DEALER IS BUST!");
         setPlayerToBust(dealer, true);
       	}
-        Thread.sleep(3000);
+        Thread.sleep(2000);
         controller.setdealersHandScore(dealersHandScore(dealerscore));
 
         dealOneCardToPlayer(dealer);
