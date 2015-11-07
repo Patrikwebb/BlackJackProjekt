@@ -109,12 +109,8 @@ public class Controller implements Initializable {
    buttonStay.setDisable(true);
     buttonHit.setDisable(true);
    
-
    initButtonEffects(); 
   }
-    
-    
-    
     
     
     /*
@@ -206,9 +202,6 @@ public class Controller implements Initializable {
     public void setHideDealersSecondCard(boolean hide){
       this.hideDealers2ndCard = hide;
     }
-    
-    
-    
     
     
   /**
