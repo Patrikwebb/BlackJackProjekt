@@ -53,6 +53,7 @@ public class Bank {
     System.out.println("Bank started in a testMode for Demo!!!");
 
     registeredPlayers.add(new Player("Testing Demoplayer"));
+    //registeredPlayers.add(new Player(nameAlertBox.getName()));
 //    activePlayerOnGui = registeredPlayers.get(0);
     dealer = new Player("Dealer");
     System.out.println("TestPlayer and Dealer added...");
