@@ -18,9 +18,25 @@ import javafx.geometry.*;
  */
 public class NameAlertBox {
 
-	TextField nameInput;
-	String name;
-    
+	TextField nameInput, bettsInput;
+	String name, bettingAmount;
+	
+	/**
+	 * Getter for the betting amount the player entered
+	 * @return bettingAmount
+	 */
+	public String getBettingAmount() {
+		return bettingAmount;
+	}
+	
+	/**
+	 * Setter for the betting amount the player entered
+	 * @return bettingAmount
+	 */
+	public void setBettingAmount(String bettingAmount) {
+		this.bettingAmount = bettingAmount;
+	}
+
 	/**
 	 * Getter for name Input
 	 * @return name
@@ -64,24 +80,42 @@ public class NameAlertBox {
         //Name Input
         nameInput = new TextField();
         nameInput.setPromptText("Name");
+        nameInput.setFocusTraversable(false);
         GridPane.setConstraints(nameInput, 1, 0);
+        
+        // Betting Label
+        Label bettingLabel = new Label("Betting amount: ");
+        GridPane.setConstraints(bettingLabel, 0, 1);
+        
+        // Bett Input
+        bettsInput = new TextField();
+        bettsInput.setFocusTraversable(false);
+        bettsInput.setPromptText("Betting amount");
+        GridPane.setConstraints(bettsInput, 1, 1);
         
         // Enter button
         Button enterButton = new Button("Enter");
+        enterButton.setFocusTraversable(false);
         //setPercentWidth(50);
         GridPane.setConstraints(enterButton, 1, 2);
         
         // Cancel button
         Button cancelButton = new Button("Cancel");
+        cancelButton.setFocusTraversable(false);
         GridPane.setConstraints(cancelButton, 2, 2);
         
         enterButton.setOnAction(e -> {
 
         	Platform.runLater(() -> {
-        	// Get the input from the TextField
+        	// Get the input from the nameInput TextField
         	String input = nameInput.getText();
         	// Set the input in our setter for setName metod
         	setName(input);
+        	
+        	// Get the betting input from the bettsInput TextField
+        	String bettInput = bettsInput.getText();
+        	// Set the betting input in our setter for setBettingAmount metod
+        	setBettingAmount(bettInput);
         	
         	//TODO
         	/*
@@ -93,7 +127,8 @@ public class NameAlertBox {
         	 * **************
         	 */
         	
-        	System.out.println(getName());
+        	System.out.println("\nPlayer Name: " + getName());
+        	System.out.println("\nBetting Amount: " + getBettingAmount());
         	});
         });
         
@@ -105,10 +140,10 @@ public class NameAlertBox {
         });
 
         //Add everything to grid
-        grid.getChildren().addAll(nameLabel, nameInput, enterButton, cancelButton);
+        grid.getChildren().addAll(nameLabel, nameInput, bettingLabel, bettsInput, enterButton, cancelButton);
 
         //Display window and wait for it to be closed before returning
-        Scene scene = new Scene(grid, 400, 150);
+        Scene scene = new Scene(grid, 420, 150);
         nameWindow.setScene(scene);
         nameWindow.showAndWait();
     }
