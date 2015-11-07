@@ -3,6 +3,8 @@ package kodaLoss;
 import java.util.ArrayList;
 import java.util.List;
 
+import gui.NameAlertBox;
+
 import static kodaLoss.UserChoiceAdapter.*;
 
 import static kodaLoss.Bank_HelpersAndTools.*;
@@ -26,7 +28,10 @@ public class Bank {
   
   // 4 Decks of shuffled cards  
   private CardShoe cardShoe = new CardShoe();
-
+  
+  // Player name input in GUI
+  private NameAlertBox nameAlertBox = new NameAlertBox();
+  
   // a round plays in its own thread for GUI-responsivity
   private Thread roundThread = null;
   
@@ -407,4 +412,10 @@ public class Bank {
 		return playerscore;
 		  
 	  }
+  /**Method that fetches name from NameAlertBox(GUI) and puts it in player-object*/
+  public void setNameToRegisteredPlayers(){
+	  for(int i = 0;i<registeredPlayers.size();i++){
+		  registeredPlayers.get(i).setName(nameAlertBox.getName());
+	  }
+  }
 }
