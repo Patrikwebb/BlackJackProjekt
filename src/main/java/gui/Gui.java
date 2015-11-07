@@ -17,10 +17,14 @@ public class Gui extends Application{
 		
 		try {
 			BorderPane page = (BorderPane) FXMLLoader.load(Gui.class.getResource("BlackJackFXMLVersion2.fxml"));
-																				
-			Scene scene = new Scene(page);
+			
+			Scene scene = new Scene(page, 1280, 720);
 				primaryStage.setScene(scene); 
+				primaryStage.setResizable(false);
 				primaryStage.show();
+				
+				NameAlertBox nameAlertBox = new NameAlertBox();
+				nameAlertBox.NameDisplay();
 			    	
 		} catch (Exception e) {
 			e.printStackTrace();
