@@ -39,6 +39,7 @@ public class Bank {
    * to be shown on the GUI. Needed for updating the GUI. 
   */
   public Player dealer;
+  public Player testplayer;
   private Player activePlayerOnGui;
 
   
@@ -51,12 +52,10 @@ public class Bank {
 
     // DEMO VERSION
     System.out.println("Bank started in a testMode for Demo!!!");
-
     registeredPlayers.add(new Player("Testing Demoplayer"));
-    //registeredPlayers.add(new Player(nameAlertBox.getName()));
-//    activePlayerOnGui = registeredPlayers.get(0);
+    activePlayerOnGui = registeredPlayers.get(0);
     dealer = new Player("Dealer");
-    System.out.println("TestPlayer and Dealer added...");
+    System.out.println("Testing Demoplayer and Dealer added...");
     System.out.println("Number of Players: " + registeredPlayers.size());
   }
 
@@ -108,12 +107,18 @@ public class Bank {
     if (  roundThread == null ||  !roundThread.isAlive()) {
       
       roundThread = new Thread(new Runnable() {
-
+    	  
         @Override
         public void run() {
-
-          System.out.println("Round started...");
+        	
+          // Lägga till spelare
+          //System.out.println("Hämta ny spelare: " + nameAlertBox.getName());
+          //System.out.println("Kollar spelaren betts: " + nameAlertBox.getBettingAmount());
+          //System.out.println(nameAlertBox.getName() + " and Dealer added...");
           
+          System.out.println("Number of Players: " + registeredPlayers.size());
+          
+          System.out.println("Round started...");
 
           // clear last hand from clean Table!
           for (Player p : registeredPlayers) {

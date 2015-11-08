@@ -129,7 +129,8 @@ public class NameAlertBox {
         	nameWindow.close();
         	
         	System.out.println("\nPlayer Name: " + getName());
-        	System.out.println("\nBetting Amount: " + getBettingAmount());
+        	System.out.println("Betting Amount: " + getBettingAmount() + "\n");
+        	
         	});
         });
         
