@@ -39,7 +39,6 @@ public class Bank {
    * to be shown on the GUI. Needed for updating the GUI. 
   */
   public Player dealer;
-  public Player testplayer;
   private Player activePlayerOnGui;
 
   
@@ -52,13 +51,12 @@ public class Bank {
 
     // DEMO VERSION
     System.out.println("Bank started in a testMode for Demo!!!");
-    registeredPlayers.add(new Player("Testing Demoplayer"));
-    activePlayerOnGui = registeredPlayers.get(0);
+//    registeredPlayers.add(new Player("Testing Demoplayer"));
+//    activePlayerOnGui = registeredPlayers.get(0);
     dealer = new Player("Dealer");
-    System.out.println("Testing Demoplayer and Dealer added...");
-    System.out.println("Number of Players: " + registeredPlayers.size());
+    System.out.println("Bank Constructor saying -- > Number of Players: " + registeredPlayers.size());
   }
-
+  
   /**
    * Returns a reference to the one and only Bank object
    * @return reference to Bank-object singleton
@@ -111,12 +109,17 @@ public class Bank {
         @Override
         public void run() {
         	
-          // Lägga till spelare
-          //System.out.println("Hämta ny spelare: " + nameAlertBox.getName());
-          //System.out.println("Kollar spelaren betts: " + nameAlertBox.getBettingAmount());
-          //System.out.println(nameAlertBox.getName() + " and Dealer added...");
+        	// Retunerar NULL
+        	System.out.println("Innan new player: " + nameAlertBox.getName());
+        	registeredPlayers.add(new Player(nameAlertBox.getName()));
+        	// Så hade lika väl kunnat skriva 
+        	registeredPlayers.add(new Player());
+        	// Men nu har vi flera spelare som kan leka iallafall
+        	
+        	//registeredPlayers.add(new Player("Test Player"));
+        	System.out.println("Number of Players: " + registeredPlayers.size());
+            activePlayerOnGui = registeredPlayers.get(0);
           
-          System.out.println("Number of Players: " + registeredPlayers.size());
           
           System.out.println("Round started...");
 
@@ -143,8 +146,6 @@ public class Bank {
 
           // TODO dealers other card to gui shall be covered!
           
-          // Set Winner Text Label empty
-          controller.setlabelWinnerText("");
 
           // Get the dealer and players handscore in a toString metod
           controller.setdealersHandScore("");

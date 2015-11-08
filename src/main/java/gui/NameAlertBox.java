@@ -128,8 +128,8 @@ public class NameAlertBox {
         	 */
         	nameWindow.close();
         	
-        	System.out.println("\nPlayer Name: " + getName());
-        	System.out.println("Betting Amount: " + getBettingAmount() + "\n");
+//        	System.out.println("\nPlayer Name: " + getName());
+//        	System.out.println("Betting Amount: " + getBettingAmount() + "\n");
         	
         	});
         });

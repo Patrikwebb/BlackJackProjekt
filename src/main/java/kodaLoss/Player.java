@@ -31,7 +31,7 @@ public class Player {
 	 * creates an new, anonymous player with default settings
 	 */
 	public Player() {
-		name = "Anonymous";
+		
 	}
 
 	public Player(String name) {

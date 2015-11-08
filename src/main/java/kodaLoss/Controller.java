@@ -105,10 +105,6 @@ public class Controller implements Initializable {
     buttonHit.setOnAction(e -> uca.playerChoosesToHit());
     
     buttonPlay.setOnAction(e -> bank.playOneRound());
-    // Test
-   buttonStay.setDisable(true);
-    buttonHit.setDisable(true);
-   
 
    initButtonEffects(); 
   }
