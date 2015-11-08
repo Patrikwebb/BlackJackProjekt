@@ -110,13 +110,13 @@ public class Bank {
         public void run() {
         	
         	// Retunerar NULL
-        	System.out.println("Innan new player: " + nameAlertBox.getName());
-        	registeredPlayers.add(new Player(nameAlertBox.getName()));
+        	//System.out.println("Innan new player: " + nameAlertBox.getName());
+        	//registeredPlayers.add(new Player(nameAlertBox.getName()));
         	// Så hade lika väl kunnat skriva 
-        	registeredPlayers.add(new Player());
+        	//registeredPlayers.add(new Player());
         	// Men nu har vi flera spelare som kan leka iallafall
         	
-        	//registeredPlayers.add(new Player("Test Player"));
+        	registeredPlayers.add(new Player("Test Player"));
         	System.out.println("Number of Players: " + registeredPlayers.size());
             activePlayerOnGui = registeredPlayers.get(0);
           

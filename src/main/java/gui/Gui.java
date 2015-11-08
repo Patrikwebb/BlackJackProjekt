@@ -16,9 +16,11 @@ public class Gui extends Application{
 	public void start(Stage primaryStage) throws Exception {
 		
 		try {
-			BorderPane page = (BorderPane) FXMLLoader.load(Gui.class.getResource("BlackJackFXMLVersion2.fxml"));
+			//BorderPane page = (BorderPane) FXMLLoader.load(Gui.class.getResource("BlackJackFXML1280x720.fxml"));
+			BorderPane page = (BorderPane) FXMLLoader.load(Gui.class.getResource("BlackJackFXML1024x576.fxml"));
 			
-			Scene scene = new Scene(page, 1280, 720);
+			//Scene scene = new Scene(page, 1280, 720);
+			Scene scene = new Scene(page, 1024, 576);
 				primaryStage.setScene(scene); 
 				primaryStage.setResizable(false);
 				primaryStage.show();

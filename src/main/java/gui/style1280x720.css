@@ -1,0 +1,34 @@
+
+/* JavaFX CSS fil till mitt Black Jack Gui */
+
+#borderPane{
+	-fx-background-color: #383838;
+	-fx-background-image: url("Table1280x720.png");
+	-fx-background-repeat: no-repeat;
+	-fx-background-size: cover, auto;
+	-fx-background-position: center center;
+	-fx-padding: 30;
+}
+	/* HBOX --> Label  */
+	#headerText{
+		-fx-font-size: 24;
+		-fx-text-fill: red;
+		-fx-font-family: verdana;
+	}
+	
+		
+		#labelWinnerText{
+			-fx-text-fill: red;
+		    -fx-effect: dropshadow( gaussian , black , 1,1,1,3 );
+		}
+
+
+
+
+
+
+
+
+
+
+

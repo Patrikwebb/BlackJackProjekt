@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1024.0" stylesheets="@style1024x576.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kodaLoss.Controller">
+   <left>
+      <Pane id="PaneLeftBorderPane" prefHeight="290.0" prefWidth="353.0" />
+   </left>
+   <right>
+      <Pane id="PaneRightBorderPane" prefHeight="290.0" prefWidth="353.0">
+         <children>
+            <Pane id="player1" layoutY="78.0">
+               <children>
+                  <Label fx:id="labelPlayerName2" alignment="CENTER" layoutX="-60.0" layoutY="-5.0" prefHeight="30.0" prefWidth="215.0" rotate="-26.0" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <HBox fx:id="playerCard2" layoutX="27.0" layoutY="21.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="89.0" prefWidth="82.0" rotate="-27.0" />
+               </children>
+            </Pane>
+         </children></Pane>
+   </right>
+   <bottom>
+      <Pane id="PaneBottomBorderPane" prefHeight="128.0" prefWidth="964.0">
+         <children>
+            <Button fx:id="buttonHit" disable="true" layoutX="442.0" layoutY="16.0" mnemonicParsing="false" style="-fx-background-color: linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%),linear-gradient(#020b02, #3a3a3a),linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%); -fx-background-insets: 0,1,4,5,6;; -fx-background-radius: 9,8,5,4,3;; -fx-padding: 15 30 15 30;; -fx-font-family: Helvetica; -fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;" text="Hit">
+               <HBox.margin>
+                  <Insets left="140.0" top="20.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="buttonStay" disable="true" layoutX="245.0" layoutY="16.0" mnemonicParsing="false" style="-fx-background-color: linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%),linear-gradient(#020b02, #3a3a3a),linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%); -fx-background-insets: 0,1,4,5,6; -fx-background-radius: 9,8,5,4,3; -fx-padding: 15 30 15 30; -fx-font-family: Helvetica; -fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;" text="Stay">
+               <HBox.margin>
+                  <Insets left="175.0" top="20.0" />
+               </HBox.margin>
+            </Button>
+            <TextField fx:id="TextFieldRounds" editable="false" focusTraversable="false" layoutX="128.0" prefHeight="31.0" prefWidth="31.0" promptText="0">
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </TextField>
+            <TextField alignment="CENTER" editable="false" focusTraversable="false" prefHeight="31.0" prefWidth="108.0" text="Rounds" />
+            <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutY="39.0" prefHeight="31.0" prefWidth="108.0" text="Betts" />
+            <TextField fx:id="TextFieldBetts" editable="false" focusTraversable="false" layoutX="130.0" layoutY="39.0" prefHeight="31.0" prefWidth="58.0" promptText="0" />
+            <Button fx:id="buttonPlay" layoutX="624.0" layoutY="16.0" mnemonicParsing="false" style="-fx-background-color: linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%),linear-gradient(#020b02, #3a3a3a),linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%); -fx-background-insets: 0,1,4,5,6;; -fx-background-radius: 9,8,5,4,3;; -fx-padding: 15 30 15 30;; -fx-font-family: Helvetica; -fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;" text="Play" />
+         </children>
+      </Pane>
+   </bottom>
+   <padding>
+      <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+   </padding>
+   <top>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label id="headerText" prefHeight="84.0" prefWidth="225.0" text="Black Jack Gui" textFill="WHITE" />
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <Pane id="PaneCenterBorderPane">
+         <children>
+            <TextField id="dealersHandScore" fx:id="dealersHandScore" editable="false" focusTraversable="false" layoutX="216.0" layoutY="22.0" prefHeight="31.0" prefWidth="40.0" promptText="Sc" />
+            <HBox id="dealerCard" fx:id="dealerCard" layoutX="83.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="75.0" prefWidth="93.0" />
+            <Pane id="player1" layoutX="22.0" layoutY="117.0" prefHeight="138.0" prefWidth="215.0">
+               <children>
+                  <Label id="labelPlayerName1" fx:id="labelPlayerName1" alignment="CENTER" prefHeight="26.0" prefWidth="215.0" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <HBox id="playerCard1" fx:id="playerCard1" layoutX="61.0" layoutY="25.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="80.0" prefWidth="93.0" />
+                  <TextField id="playersHandScore" fx:id="playersHandScore" editable="false" focusTraversable="false" layoutX="88.0" layoutY="123.0" prefHeight="31.0" prefWidth="39.0" promptText="Sc" />
+               </children>
+            </Pane>
+            <Label id="labelWinnerText" fx:id="labelWinnerText" alignment="CENTER" layoutX="-111.0" layoutY="262.0" prefHeight="48.0" prefWidth="474.0" textFill="WHITE">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </center>
+</BorderPane>

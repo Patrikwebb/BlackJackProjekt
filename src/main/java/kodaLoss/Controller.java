@@ -35,10 +35,10 @@ public class Controller implements Initializable {
   private Button buttonPlay;
 
   @FXML
-  private Label labelPlayerName;
+  private Label labelPlayerName1, labelPlayerName2;
 
   @FXML
-  private HBox playerCard;
+  private HBox playerCard1, playerCard2;
 
   @FXML
   private HBox dealerCard;
@@ -51,6 +51,12 @@ public class Controller implements Initializable {
   
   @FXML
   private Label labelWinnerText;
+  
+  @FXML
+  private TextField TextFieldRounds;
+
+  @FXML
+  private TextField TextFieldBetts;
 
   // reference to UserChoiceAdapter for players button-events
   private UserChoiceAdapter uca = UserChoiceAdapter.getInstance();
@@ -215,8 +221,8 @@ public class Controller implements Initializable {
         String handValue= Bank_HelpersAndTools.isPlayersHandABlackJack(activePlayerOnGui) ? 
             "BJ!" : Bank_HelpersAndTools.calculateValueOfPlayersHand(activePlayerOnGui) + "";
         playersHandScore.setText(handValue);
-        labelPlayerName.setText(activePlayerOnGui.getName() ); // name label
-        setPics(activePlayerOnGui, playerCard);
+        labelPlayerName1.setText(activePlayerOnGui.getName() ); // name label
+        setPics(activePlayerOnGui, playerCard1);
       }
     });
   }
