@@ -106,8 +106,12 @@ public class Bank {
    * waiting for user input!
    */
   public void playOneRound() {
-
-    if (roundThread != null) {
+	  
+	if (roundThread != null) {
+		
+		// Jätte konstigt att detta inte funkar --->
+//	if (roundThread != null || roundThread.isAlive()) {
+		
       // roundThread is still alive!
       System.out.println("Already running a round");
       controller.gameIson();
