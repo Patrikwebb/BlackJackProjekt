@@ -1,6 +1,7 @@
 	package gui;
 
 import javafx.stage.*;
+import kodaLoss.Bank;
 import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
@@ -19,9 +20,8 @@ import javafx.geometry.*;
 public class NameAlertBox {
 
 	TextField nameInput, bettsInput;
-	String name, bettingAmount;
-	
-	
+	String name;
+	int playerCash;
 	
 	/**
 	 * Here is our whole stage with layout, </Br >
@@ -78,14 +78,12 @@ public class NameAlertBox {
 
         	Platform.runLater(() -> {
         	// Get the input from the nameInput TextField
-        	String input = nameInput.getText();
-        	// Set the input in our setter for setName metod
-        	
+        	name = nameInput.getText();
         	
         	// Get the betting input from the bettsInput TextField
-        	String bettInput = bettsInput.getText();
-        	// Set the betting input in our setter for setBettingAmount metod
+        	playerCash = Integer.parseInt(bettsInput.getText());
         	
+        	Bank.getInstance().addPlayerToBank(name, playerCash);
         	
         	//TODO
         	/*
@@ -98,6 +96,8 @@ public class NameAlertBox {
         	 */
         	nameWindow.close();
         	
+        	System.out.println("\nPlayer Name: " + name);
+        	System.out.println("Betting Amount: " + playerCash + "\n");
         	
         	});
         });
