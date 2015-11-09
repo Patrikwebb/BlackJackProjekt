@@ -100,10 +100,6 @@ public class Player {
 	public String getName() {
 		return this.name;
 	}
-	public void setName(String name){
-		this.name = name;
-	}
-
 
 	/**
 	 * Sets the player to active (true) or inactive in this round of 
