@@ -19,7 +19,7 @@ import javafx.geometry.*;
  */
 public class NameAlertBox {
 
-	TextField nameInput, bettsInput;
+	TextField nameInput, playerCashInput;
 	String name;
 	int playerCash;
 	
@@ -58,10 +58,10 @@ public class NameAlertBox {
         GridPane.setConstraints(bettingLabel, 0, 1);
         
         // Bett Input
-        bettsInput = new TextField();
-        bettsInput.setFocusTraversable(false);
-        bettsInput.setPromptText("Betting amount");
-        GridPane.setConstraints(bettsInput, 1, 1);
+        playerCashInput = new TextField();
+        playerCashInput.setFocusTraversable(false);
+        playerCashInput.setPromptText("Betting amount");
+        GridPane.setConstraints(playerCashInput, 1, 1);
         
         // Enter button
         Button enterButton = new Button("Enter");
@@ -79,21 +79,13 @@ public class NameAlertBox {
         	Platform.runLater(() -> {
         	// Get the input from the nameInput TextField
         	name = nameInput.getText();
-        	
         	// Get the betting input from the bettsInput TextField
-        	playerCash = Integer.parseInt(bettsInput.getText());
-        	
+        	playerCash = Integer.parseInt(playerCashInput.getText());
+        	// Add name and playerCash input to a new player
         	Bank.getInstance().addPlayerToBank(name, playerCash);
-        	
-        	//TODO
-        	/*
-        	 * **************
-        	 * Add the name input to the registred player array list
-        	 * **************
-        	 * If Succes ! ! ---->
-        	 * nameWindow.close();
-        	 * **************
-        	 */
+        	// Add the player to the table
+        	Bank.getInstance().addPlayersToTheTable();
+        	// Close the stage
         	nameWindow.close();
         	
         	System.out.println("\nPlayer Name: " + name);
@@ -110,7 +102,7 @@ public class NameAlertBox {
         });
 
         //Add everything to grid
-        grid.getChildren().addAll(nameLabel, nameInput, bettingLabel, bettsInput, enterButton, cancelButton);
+        grid.getChildren().addAll(nameLabel, nameInput, bettingLabel, playerCashInput, enterButton, cancelButton);
 
         //Display window and wait for it to be closed before returning
         Scene scene = new Scene(grid, 420, 150);

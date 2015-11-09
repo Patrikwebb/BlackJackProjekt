@@ -50,10 +50,16 @@ public class Bank {
     System.out.println("Bank started in a testMode for Demo!!!");
     
     dealer = new Player("Dealer", 0);
-   // registeredPlayers.add(new Player("Test Player", 0));
-//    activePlayerOnGui = registeredPlayers.get(0);
     
     System.out.println("Bank Constructor saying -- > Number of Players: " + registeredPlayers.size());
+  }
+  
+  public void addPlayersToTheTable(){
+	  
+	  int rp = registeredPlayers.size() -1;
+	  activePlayerOnGui = registeredPlayers.get(rp);
+	  updateGuiAfterChangeInDataModel();
+	  
   }
   
   /**
@@ -107,7 +113,7 @@ public class Bank {
     	  
         @Override
         public void run() {
-        	activePlayerOnGui = registeredPlayers.get(0);
+        
           System.out.println("Round started...");
           
           System.out.println("Round -- > Number of Players: " + registeredPlayers.size());
