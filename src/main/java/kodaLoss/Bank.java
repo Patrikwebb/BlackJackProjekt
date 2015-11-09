@@ -22,7 +22,7 @@ public class Bank {
   private static Bank bank = new Bank();
 
   // Banks reference to the Controller object
-  private static Controller controller;
+  protected static Controller controller;
 
   public List<Player> registeredPlayers = new ArrayList<Player>();
   
@@ -215,7 +215,7 @@ public class Bank {
    * 
    * Uses class UserChoiceAdapter to get user events from the user interface
    */
-  private void playerPlays(Player player) {
+  protected void playerPlays(Player player) {
     // TODO alternative to UserCHoiceAdapter???
     System.out.println("Player plays started...");
     
