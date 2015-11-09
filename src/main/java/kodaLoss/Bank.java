@@ -11,9 +11,10 @@ import static kodaLoss.Bank_HelpersAndTools.*;
 
 public class Bank {
 
-  // MEMBERS
+  // MEMBERS PATRIC, TIM, Johannes , Johan
 
-  /* Reference to UserChoiceAdapter just because its easier to write 'uca' than 
+  /*
+   * Reference to UserChoiceAdapter just because its easier to write 'uca' than
    * 'UserChoiceAdapter.getInstance().xxx' all the time
    */
   private static UserChoiceAdapter uca = UserChoiceAdapter.getInstance();
@@ -25,45 +26,47 @@ public class Bank {
   protected static Controller controller;
 
   public List<Player> registeredPlayers = new ArrayList<Player>();
-  
-  // 4 Decks of shuffled cards  
+
+  // 4 Decks of shuffled cards
   private CardShoe cardShoe = new CardShoe();
-  
+
   // a round plays in its own thread for GUI-responsivity
   private Thread roundThread = null;
-  
-  /* reference to the Player objects of dealer and the active player 
-   * to be shown on the GUI. Needed for updating the GUI. 
-  */
+
+  /*
+   * reference to the Player objects of dealer and the active player to be shown
+   * on the GUI. Needed for updating the GUI.
+   */
   public Player dealer;
   private Player activePlayerOnGui;
 
-  
   // Default value for dealer & playersHandScore
   String dealerscore = "0";
   String playerscore = "0";
-  
+
   // CONSTRUCTORS
   private Bank() {
 
     // DEMO VERSION
     System.out.println("Bank started in a testMode for Demo!!!");
-    
+
     dealer = new Player("Dealer", 0);
-    
-    System.out.println("Bank Constructor saying -- > Number of Players: " + registeredPlayers.size());
+
+    System.out.println("Bank Constructor saying -- > Number of Players: "
+        + registeredPlayers.size());
   }
-  
-  public void addPlayersToTheTable(){
-	  
-	  int rp = registeredPlayers.size() -1;
-	  activePlayerOnGui = registeredPlayers.get(rp);
-	  updateGuiAfterChangeInDataModel();
-	  
+
+  public void addPlayersToTheTable() {
+
+    int rp = registeredPlayers.size() - 1;
+    activePlayerOnGui = registeredPlayers.get(rp);
+    updateGuiAfterChangeInDataModel();
+
   }
-  
+
   /**
    * Returns a reference to the one and only Bank object
+   * 
    * @return reference to Bank-object singleton
    */
   public static Bank getInstance() {
@@ -71,26 +74,27 @@ public class Bank {
   }
 
   // METHODS TO REGISTER CONTROLLER
-/**
- * Adds a reference to the controller class to the Bank object. Needed for 
- * Bank to be able to request changes in GUI. 
- * @param control - a controller object
- */
+  /**
+   * Adds a reference to the controller class to the Bank object. Needed for
+   * Bank to be able to request changes in GUI.
+   * 
+   * @param control
+   *          - a controller object
+   */
   public static void registerController(Controller control) {
 
     controller = control;
-    controller.test();
   }
 
-  
   // METHODS FOR GUI
 
   /*
    * called after changes in player or dealer model. Updates the GUI by directly
-   * calling methods in Controller. Bank decides this way when GUI should be changed
+   * calling methods in Controller. Bank decides this way when GUI should be
+   * changed
    */
   private void updateGuiAfterChangeInDataModel() {
-   
+
     if (controller != null) {
       controller.updatePlayer(activePlayerOnGui);
       controller.updateDealer(dealer);
@@ -100,29 +104,34 @@ public class Bank {
 
   /**
    * This method controls the sequence of actions to play one round, control of
-   * the gameplay! Has to run in its own thread because method blocks while 
-   * waiting for user input! 
+   * the gameplay! Has to run in its own thread because method blocks while
+   * waiting for user input!
    */
   public void playOneRound() {
 
-    //TODO is there a better solution than userChoiceAdapter for user inputs? blocking?
-    
-    if (  roundThread == null ||  !roundThread.isAlive()) {
-      
+    if (roundThread != null || roundThread.isAlive()) {
+      // roundThread is still alive!
+      System.out.println("Already running a round");
+      controller.gameIson();
+
+    } else {
+      // start a new Round in its own Thread for not freezing the GUI!
       roundThread = new Thread(new Runnable() {
-    	  
+
         @Override
         public void run() {
-        
+
           System.out.println("Round started...");
-          
-          System.out.println("Round -- > Number of Players: " + registeredPlayers.size());
+
+          System.out.println(
+              "Round -- > Number of Players: " + registeredPlayers.size());
+
           // clear last hand from clean Table!
           for (Player p : registeredPlayers) {
             p.clearPlayersHand();
           }
           dealer.clearPlayersHand();
-          
+
           // buttons off while dealing cards
           controller.allButtonsOff();
 
@@ -130,85 +139,68 @@ public class Bank {
           dealOneCardToAll();
           updateGuiAfterChangeInDataModel();
 
-          
           BlackJackConstantsAndTools.sleepFor1Second();
-          
+
           // deal second card and hide dealers second card
           controller.setHideDealersSecondCard(true);
           dealOneCardToAll();
           updateGuiAfterChangeInDataModel();
 
-          // TODO dealers other card to gui shall be covered!
-          
-
-          // Get the dealer and players handscore in a toString metod
+          // Get the dealer and players hands score in a toString metod
+          // TODO Can this be added to updateGuiAfterChange...() method!?
           controller.setdealersHandScore("");
           controller.setplayersHandScore(playersHandScore(playerscore));
-          
+
           // System out Dealer score
-          System.out.println("Dealer score " + 
-        		  Bank_HelpersAndTools.calculateValueOfPlayersHand(dealer));
+          System.out.println("Dealer score "
+              + Bank_HelpersAndTools.calculateValueOfPlayersHand(dealer));
           // System out Player score
-          System.out.println("Player score " + 
-        		  Bank_HelpersAndTools.calculateValueOfPlayersHand(activePlayerOnGui));
-          
-          
+          System.out.println("Player score " + Bank_HelpersAndTools
+              .calculateValueOfPlayersHand(activePlayerOnGui));
+
           // check if a player has a BlackJack from start!
           for (Player p : registeredPlayers) {
 
-            // if (isPlayersHandABlackJack(p)) {
-            // p.setPlayerActiveInRound(false);
-            // } else{
-            // p.setPlayerActiveInRound(true);
-            // }
-
-            // tänkte visa nåt snyggt!
-            boolean active = isPlayerBust(p) ? true : false;
-            p.setPlayerActiveInRound(active);
+            if (isPlayersHandABlackJack(p)) {
+              p.setPlayerActiveInRound(false);
+            } else {
+              p.setPlayerActiveInRound(true);
+            }
           }
 
-          // each player without a Blackjack plays against bank
+          // each player who does not have a Blackjack plays against bank
           for (Player p : registeredPlayers) {
 
             if (!isPlayersHandABlackJack(p)) {
-              // TODO HIT, STAY = enable PLAY = disable
-               controller.gameIson();
+
+              controller.gameIson();
               playerPlays(p);
+              // TODO Change GUI to next Player!
             } else {
               // TODO inform player about BlackJack!!!
             }
           }
 
-          // dealer plays after one second break
-          // deactivate all buttons while dealer plays
-          controller.allButtonsOff();
-          BlackJackConstantsAndTools.sleepFor1Second();
-          dealerPlays();
-
           /*
+           * dealer plays after one second break / deactivate all buttons while
+           * dealer plays controller.allButtonsOff();
+           * BlackJackConstantsAndTools.sleepFor1Second(); dealerPlays();
            * 
-           * Checks if dealer and players isn't bust, Checks the higher hand and
-           * give us the winner
+           * controller.setdealersHandScore(dealersHandScore(dealerscore));
+           * controller.setplayersHandScore(playersHandScore(playerscore));
            * 
-           * If dealer is bust => all players that isn't bust win
+           * /* Checks if dealer and players isn't bust, Checks the higher hand
+           * and give us the winner
            */
-          controller.setdealersHandScore(dealersHandScore(dealerscore));
-          controller.setplayersHandScore(playersHandScore(playerscore));
-          
           calculateWinners();
 
-          // TODO HIT, STAY = disable PLAY = enable
           controller.gameIsoff();
+          // TODO RESET BEFORE NEXT ROUND!
           // reset Thread and Players for next round!
           // roundThread = null;
         }
       });
       roundThread.start();
-
-    } else {
-      // roundThread is still alive!
-      System.out.println("Already running a round");
-      controller.gameIson();
     }
 
   }
@@ -219,18 +211,16 @@ public class Bank {
    * Uses class UserChoiceAdapter to get user events from the user interface
    */
   protected void playerPlays(Player player) {
-    // TODO alternative to UserCHoiceAdapter???
+
     System.out.println("Player plays started...");
-    
+
     // activate players buttons
     controller.gameIson();
 
-    uca.resetUserChoice(); // prepare for input
+    uca.resetUserChoice(); // prepare UCA for input
 
     while (uca.getUserChoice() != UserChoice.STAY) {
 
-      // has to be run!?!? Why is that?
-      // TODO Why does whileLoop not run without some statement here?
       try {
         Thread.sleep(10);
       } catch (InterruptedException e) {
@@ -239,9 +229,10 @@ public class Bank {
       }
 
       if (uca.getUserChoice() == UserChoice.HIT) {
-    	
+
         dealOneCardToPlayer(player);
-        
+        // TODO Can setPlayerHandScore be moved in
+        // updateGuiAfterChangeInDataModel()???
         controller.setplayersHandScore(playersHandScore(playerscore));
         updateGuiAfterChangeInDataModel();
 
@@ -257,7 +248,7 @@ public class Bank {
         }
       }
     }
-    // finally reset last choice
+    // finally reset last choice in UCA
     uca.resetUserChoice();
   }
 
@@ -265,22 +256,22 @@ public class Bank {
    * dealer plays. Takes cards until its hand is over 16
    */
   protected void dealerPlays() {
-    
+
     try {
-      // show dealers second card
+      // to show dealers second card, set to false
       controller.setHideDealersSecondCard(false);
       updateGuiAfterChangeInDataModel();
 
       // take cards while hand less than 17
       while (calculateValueOfPlayersHand(dealer) < 17) {
 
+        if (isPlayersHandOver21(dealer)) {
 
-      if (isPlayersHandOver21(dealer)) {
-        // temporary until we send to GUI
-        System.out.println("DEALER IS BUST!");
-        controller.setlabelWinnerText("DEALER IS BUST!");
-        setPlayerToBust(dealer, true);
-      	}
+          System.out.println("DEALER IS BUST!");
+          controller.setlabelWinnerText("DEALER IS BUST!");
+          setPlayerToBust(dealer, true); // TODO Do we need this?!
+        }
+
         Thread.sleep(2000);
         controller.setdealersHandScore(dealersHandScore(dealerscore));
 
@@ -324,8 +315,8 @@ public class Bank {
    * Calculate winners
    */
   // TODO update GUI who won
-  // TODO update Player CASH i annan metod => returnTyp måste ändras!
-  public void calculateWinners() {
+  protected void calculateWinners() {
+
     int playerpoints;
 
     if (isPlayerBust(dealer)) {
@@ -334,16 +325,14 @@ public class Bank {
         playerpoints = calculateValueOfPlayersHand(p);
 
         if (playerpoints <= 21) {
-          // TO GUI Player WINNS
           System.out.println("Congratulations! You won.");
           controller.setlabelWinnerText("Congratulations! You won.");
           p.setRoundResult(RoundResult.WIN);
+
         } else {
-          // To Gui YOU lost!
           System.out.println("Sorry, you lost.");
           controller.setlabelWinnerText("Sorry, you lost.");
           p.setRoundResult(RoundResult.LOOSE);
-
         }
       }
     } else {
@@ -353,19 +342,17 @@ public class Bank {
 
         if (playerpoints <= 21
             && playerpoints > calculateValueOfPlayersHand(dealer)) {
-          // TO GUI Player WINNS
           System.out.println("Congratulations! You won.");
           controller.setlabelWinnerText("Congratulations! You won.");
           p.setRoundResult(RoundResult.WIN);
 
         }
-        if (playerpoints == calculateValueOfPlayersHand(dealer)){
-        	System.out.println("Tie");
-        	controller.setlabelWinnerText("it´s a tie");
-        	p.setRoundResult(RoundResult.TIE);
-        }
-        else {
-          // To Gui YOU lost!
+        if (playerpoints == calculateValueOfPlayersHand(dealer)) {
+          System.out.println("Tie");
+          controller.setlabelWinnerText("it´s a tie");
+          p.setRoundResult(RoundResult.TIE);
+
+        } else {
           System.out.println("Sorry, you lost.");
           controller.setlabelWinnerText("Sorry, you lost.");
           p.setRoundResult(RoundResult.LOOSE);
@@ -375,53 +362,53 @@ public class Bank {
   }
 
   /*
-   * uses players bets and result of played round to calculate money 
-   * to be payed back to players. Loosing players loose their bet, Tie 
-   * players get their bet back, winning players get the double amount of their
-   * bet, winning players with a Blackjack even get an extra 50% of their bet! 
+   * uses players bets and result of played round to calculate money to be payed
+   * back to players. Loosing players loose their bet, Tie players get their bet
+   * back, winning players get the double amount of their bet, winning players
+   * with a Blackjack even get an extra 50% of their bet!
    */
-  public void handlePlayersBetsAndPayWinners(){
-    
+  public void handlePlayersBetsAndPayWinners() {
+
     int playersBet;
-    
-    for (Player player  :  registeredPlayers ){
+
+    for (Player player : registeredPlayers) {
 
       playersBet = player.getPlayersBet();
-      
-      if (player.getRoundResult() == RoundResult.TIE){
+
+      if (player.getRoundResult() == RoundResult.TIE) {
         player.addToPlayersCash(playersBet);
-      
-      } else if (player.getRoundResult() == RoundResult.WIN){
+
+      } else if (player.getRoundResult() == RoundResult.WIN) {
         player.addToPlayersCash(playersBet * 2);
-          
-        if (isPlayersHandABlackJack(player)){
-            player.addToPlayersCash((int) Math.round( playersBet / 2.0d ) );
-          }
-        
+
+        // Win with Black Jack adds another 50% of bet!
+        if (isPlayersHandABlackJack(player)) {
+          player.addToPlayersCash((int) Math.round(playersBet / 2.0d));
+        }
       }
-      
       // just reset players bet for round
-      // TODO would a whole method to reset players for next round? 
+      // TODO would a whole method to reset players for next round?
       player.setPlayersBet(0);
       player.setRoundResult(null);
     }
-      
-      
-    }
-   
-  
+  }
+
   // NON STATIC HELPER FUNCTIONS
 
-  public void addPlayerToBank( Player player ){
+  public void addPlayerToBank(Player player) {
     this.registeredPlayers.add(player);
   }
-  
-  
-  
-  
-  
-  
-  
+
+  /**
+   * Use for AlertBox
+   * 
+   * @param name
+   * @param playerCash
+   */
+  public void addPlayerToBank(String name, Integer playerCash) {
+    this.registeredPlayers.add(new Player(name, playerCash));
+  }
+
   /*
    * bank deals one card from the card shoe to a player who takes the card and
    * adds it to his hand. (Then the gui is updated for the player)
@@ -445,33 +432,28 @@ public class Bank {
   /**
    * Reads the Bank_HelpersAndTools.calculateValueOfPlayersHand metod </br >
    * and converts it from an int to String
+   * 
    * @return dealerscore
    */
-  public String dealersHandScore(String dealerscore){
-	  
-	int input = Bank_HelpersAndTools.calculateValueOfPlayersHand(dealer);
-	dealerscore = Integer.toString(input);
-	return dealerscore;
-	  
+  public String dealersHandScore(String dealerscore) {
+
+    int input = Bank_HelpersAndTools.calculateValueOfPlayersHand(dealer);
+    dealerscore = Integer.toString(input);
+    return dealerscore;
+
   }
+
   /**
    * Reads the Bank_HelpersAndTools.calculateValueOfPlayersHand metod </br >
    * and converts it from an int to String
+   * 
    * @return playerscore
    */
-  public String playersHandScore(String playerscore){
-	  
-		int input = Bank_HelpersAndTools.calculateValueOfPlayersHand(activePlayerOnGui);
-		playerscore = Integer.toString(input);
-		return playerscore;
-		  
-	  }
-  /**
-   * Use for AlertBox
-   * @param name
-   * @param playerCash
-   */
-  public void addPlayerToBank( String name, Integer playerCash ){
-	    this.registeredPlayers.add(new Player(name, playerCash));
-	  }
+  public String playersHandScore(String playerscore) {
+
+    int input = Bank_HelpersAndTools
+        .calculateValueOfPlayersHand(activePlayerOnGui);
+    playerscore = Integer.toString(input);
+    return playerscore;
+  }
 }
