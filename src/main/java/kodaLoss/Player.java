@@ -9,8 +9,13 @@ public class Player {
   
   private String name; // alla spelare har ett namn
 	
-	private int playersCash = 100; // alla spelare startar med 100 dollar
+	private int playersCash; // alla spelare startar med 100 dollar
 	
+	public void setPlayersCash(int playersCash) {
+		this.playersCash = playersCash;
+	}
+
+
 	private int betForThisRound = 0 ; // vad spelare satsar denna runda
 	
 	private List<Card> hand = new ArrayList<Card>(); //Players hand
@@ -33,8 +38,13 @@ public class Player {
 	public Player() {
 		
 	}
-
-	public Player(String name) {
+	/**
+	 * Constructor to player, starts with name and playersCash
+	 * @param name
+	 * @param playersCash
+	 */
+	public Player(String name, Integer playersCash) {
+		this.playersCash = playersCash;
 		this.name = name;
 	};
 

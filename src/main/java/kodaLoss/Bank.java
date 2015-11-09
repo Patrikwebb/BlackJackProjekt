@@ -52,8 +52,8 @@ public class Bank {
     // DEMO VERSION
     System.out.println("Bank started in a testMode for Demo!!!");
     
-    dealer = new Player("Dealer");
-    registeredPlayers.add(new Player("Test Player"));
+    dealer = new Player("Dealer", null);
+    registeredPlayers.add(new Player("Test Player", null));
 	System.out.println("Number of Players: " + registeredPlayers.size());
     activePlayerOnGui = registeredPlayers.get(0);
     
@@ -354,7 +354,13 @@ public class Bank {
           controller.setlabelWinnerText("Congratulations! You won.");
           p.setRoundResult(RoundResult.WIN);
 
-        } else {
+        }
+        if (playerpoints == calculateValueOfPlayersHand(dealer)){
+        	System.out.println("Tie");
+        	controller.setlabelWinnerText("it´s a tie");
+        	p.setRoundResult(RoundResult.TIE);
+        }
+        else {
           // To Gui YOU lost!
           System.out.println("Sorry, you lost.");
           controller.setlabelWinnerText("Sorry, you lost.");
@@ -455,5 +461,9 @@ public class Bank {
 		playerscore = Integer.toString(input);
 		return playerscore;
 		  
+	  }
+  
+  public void addPlayerToBank( String name, Integer playerCash ){
+	    this.registeredPlayers.add(new Player(name, playerCash));
 	  }
 }
