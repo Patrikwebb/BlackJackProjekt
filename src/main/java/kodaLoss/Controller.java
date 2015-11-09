@@ -32,7 +32,7 @@ public class Controller implements Initializable {
   private Button buttonStay;
 
   @FXML
-  private Button buttonPlay;
+  private Button buttonDeal;
 
   @FXML
   private Label labelPlayerName1, labelPlayerName2;
@@ -110,7 +110,7 @@ public class Controller implements Initializable {
 
     buttonHit.setOnAction(e -> uca.playerChoosesToHit());
     
-    buttonPlay.setOnAction(e -> bank.playOneRound());
+    buttonDeal.setOnAction(e -> bank.playOneRound());
 
    initButtonEffects(); 
   }
@@ -182,17 +182,17 @@ public class Controller implements Initializable {
     });
 
     // Effect on Hover - Button Play
-    buttonPlay.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
-      buttonPlay.setEffect(dropShadow);
-      buttonPlay.setScaleX(1.5);
-      buttonPlay.setScaleY(1.5);
+    buttonDeal.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
+      buttonDeal.setEffect(dropShadow);
+      buttonDeal.setScaleX(1.5);
+      buttonDeal.setScaleY(1.5);
     });
 
     // Removes shadow effect - Button Play
-    buttonPlay.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
-      buttonPlay.setEffect(null);
-      buttonPlay.setScaleX(1);
-      buttonPlay.setScaleY(1);
+    buttonDeal.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
+      buttonDeal.setEffect(null);
+      buttonDeal.setScaleX(1);
+      buttonDeal.setScaleY(1);
 
     });
   }
@@ -313,7 +313,7 @@ public class Controller implements Initializable {
     Platform.runLater(() -> {
       buttonHit.setDisable(false);
       buttonStay.setDisable(false);
-      buttonPlay.setDisable(true);
+      buttonDeal.setDisable(true);
     });
   }
 
@@ -328,7 +328,7 @@ public class Controller implements Initializable {
       public void run() {
         buttonHit.setDisable(true);
         buttonStay.setDisable(true);
-        buttonPlay.setDisable(false);
+        buttonDeal.setDisable(false);
       }
     });
   }
@@ -340,7 +340,7 @@ public class Controller implements Initializable {
     Platform.runLater(() -> {
       buttonHit.setDisable(true);
       buttonStay.setDisable(true);
-      buttonPlay.setDisable(true);
+      buttonDeal.setDisable(true);
     });
   }
   
