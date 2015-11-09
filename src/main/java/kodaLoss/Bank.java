@@ -110,7 +110,7 @@ public class Bank {
 	if (roundThread != null) {
 		
 		// Jätte konstigt att detta inte funkar --->
-//	if (roundThread != null || roundThread.isAlive()) {
+//if (roundThread != null || roundThread.isAlive()) {
 		
       // roundThread is still alive!
       System.out.println("Already running a round");

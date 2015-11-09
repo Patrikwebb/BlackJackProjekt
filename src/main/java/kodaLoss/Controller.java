@@ -221,7 +221,11 @@ public class Controller implements Initializable {
         String handValue= Bank_HelpersAndTools.isPlayersHandABlackJack(activePlayerOnGui) ? 
             "BJ!" : Bank_HelpersAndTools.calculateValueOfPlayersHand(activePlayerOnGui) + "";
         playersHandScore.setText(handValue);
-        labelPlayerName1.setText(activePlayerOnGui.getName() ); // name label
+        labelPlayerName1.setText(activePlayerOnGui.getName()); // name label
+        // TypeCasta playerCash with Interger.toString
+        String playerCashString = Integer.toString(activePlayerOnGui.getPlayersCash());
+        // Sets the playerCash in the TextField
+        TextFieldBetts.setText(playerCashString);
         setPics(activePlayerOnGui, playerCard1);
       }
     });
