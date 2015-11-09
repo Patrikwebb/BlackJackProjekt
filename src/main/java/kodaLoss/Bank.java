@@ -459,7 +459,11 @@ public class Bank {
 		return playerscore;
 		  
 	  }
-  
+  /**
+   * Use for AlertBox
+   * @param name
+   * @param playerCash
+   */
   public void addPlayerToBank( String name, Integer playerCash ){
 	    this.registeredPlayers.add(new Player(name, playerCash));
 	  }
