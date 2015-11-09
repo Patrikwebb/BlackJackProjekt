@@ -51,9 +51,12 @@ public class Bank {
 
     // DEMO VERSION
     System.out.println("Bank started in a testMode for Demo!!!");
-//    registeredPlayers.add(new Player("Testing Demoplayer"));
-//    activePlayerOnGui = registeredPlayers.get(0);
+    
     dealer = new Player("Dealer");
+    registeredPlayers.add(new Player("Test Player"));
+	System.out.println("Number of Players: " + registeredPlayers.size());
+    activePlayerOnGui = registeredPlayers.get(0);
+    
     System.out.println("Bank Constructor saying -- > Number of Players: " + registeredPlayers.size());
   }
   
@@ -108,19 +111,7 @@ public class Bank {
     	  
         @Override
         public void run() {
-        	
-        	// Retunerar NULL
-        	//System.out.println("Innan new player: " + nameAlertBox.getName());
-        	//registeredPlayers.add(new Player(nameAlertBox.getName()));
-        	// Så hade lika väl kunnat skriva 
-        	//registeredPlayers.add(new Player());
-        	// Men nu har vi flera spelare som kan leka iallafall
-        	
-        	registeredPlayers.add(new Player("Test Player"));
-        	System.out.println("Number of Players: " + registeredPlayers.size());
-            activePlayerOnGui = registeredPlayers.get(0);
-          
-          
+       
           System.out.println("Round started...");
 
           // clear last hand from clean Table!
@@ -465,16 +456,4 @@ public class Bank {
 		return playerscore;
 		  
 	  }
-  /**Method that fetches name from NameAlertBox(GUI) and puts it in player-object*/
-  public void setNameToRegisteredPlayers(){
-	  for(int i = 0;i<registeredPlayers.size();i++){
-		  registeredPlayers.get(i).setName(nameAlertBox.getName());
-	  }
-  }
-  /**Method that fetches bettingAmount from NameAlertBox(GUI) and puts it in player-object*/
-  public void setBettingAmountToRegisteredPlayers(){
-	  for(int i=0;i<registeredPlayers.size();i++){
-		  registeredPlayers.get(i).setPlayersBet(Integer.parseInt(nameAlertBox.getBettingAmount()));
-	  }
-  }
 }

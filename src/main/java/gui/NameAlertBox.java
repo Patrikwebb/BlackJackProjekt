@@ -21,37 +21,7 @@ public class NameAlertBox {
 	TextField nameInput, bettsInput;
 	String name, bettingAmount;
 	
-	/**
-	 * Getter for the betting amount the player entered
-	 * @return bettingAmount
-	 */
-	public String getBettingAmount() {
-		return bettingAmount;
-	}
 	
-	/**
-	 * Setter for the betting amount the player entered
-	 * @return bettingAmount
-	 */
-	public void setBettingAmount(String bettingAmount) {
-		this.bettingAmount = bettingAmount;
-	}
-
-	/**
-	 * Getter for name Input
-	 * @return name
-	 */
-    public String getName() {
-		return name;
-	}
-    
-    /**
-	 * Setter for name Input
-	 * @return name
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
 	
 	/**
 	 * Here is our whole stage with layout, </Br >
@@ -110,12 +80,12 @@ public class NameAlertBox {
         	// Get the input from the nameInput TextField
         	String input = nameInput.getText();
         	// Set the input in our setter for setName metod
-        	setName(input);
+        	
         	
         	// Get the betting input from the bettsInput TextField
         	String bettInput = bettsInput.getText();
         	// Set the betting input in our setter for setBettingAmount metod
-        	setBettingAmount(bettInput);
+        	
         	
         	//TODO
         	/*
@@ -128,8 +98,6 @@ public class NameAlertBox {
         	 */
         	nameWindow.close();
         	
-//        	System.out.println("\nPlayer Name: " + getName());
-//        	System.out.println("Betting Amount: " + getBettingAmount() + "\n");
         	
         	});
         });
