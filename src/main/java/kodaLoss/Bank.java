@@ -313,7 +313,8 @@ public class Bank {
     dealOneCardToPlayer(dealer);
   }
 
-  /*
+  /**
+   * 
    * Calculate winners
    */
   // TODO update GUI who won
