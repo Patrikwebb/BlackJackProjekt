@@ -29,9 +29,6 @@ public class Bank {
   // 4 Decks of shuffled cards  
   private CardShoe cardShoe = new CardShoe();
   
-  // Player name input in GUI
-  private NameAlertBox nameAlertBox = new NameAlertBox();
-  
   // a round plays in its own thread for GUI-responsivity
   private Thread roundThread = null;
   
@@ -113,7 +110,7 @@ public class Bank {
         public void run() {
        
           System.out.println("Round started...");
-
+          System.out.println("Bank Constructor saying -- > Number of Players: " + registeredPlayers.size());
           // clear last hand from clean Table!
           for (Player p : registeredPlayers) {
             p.clearPlayersHand();
