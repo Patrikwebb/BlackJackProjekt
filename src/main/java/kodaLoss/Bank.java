@@ -49,10 +49,9 @@ public class Bank {
     // DEMO VERSION
     System.out.println("Bank started in a testMode for Demo!!!");
     
-    dealer = new Player("Dealer", null);
-    registeredPlayers.add(new Player("Test Player", null));
-	System.out.println("Number of Players: " + registeredPlayers.size());
-    activePlayerOnGui = registeredPlayers.get(0);
+    dealer = new Player("Dealer", 0);
+   // registeredPlayers.add(new Player("Test Player", 0));
+//    activePlayerOnGui = registeredPlayers.get(0);
     
     System.out.println("Bank Constructor saying -- > Number of Players: " + registeredPlayers.size());
   }
@@ -108,9 +107,10 @@ public class Bank {
     	  
         @Override
         public void run() {
-       
+        	activePlayerOnGui = registeredPlayers.get(0);
           System.out.println("Round started...");
-          System.out.println("Bank Constructor saying -- > Number of Players: " + registeredPlayers.size());
+          
+          System.out.println("Round -- > Number of Players: " + registeredPlayers.size());
           // clear last hand from clean Table!
           for (Player p : registeredPlayers) {
             p.clearPlayersHand();
