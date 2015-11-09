@@ -3,8 +3,6 @@ package kodaLoss;
 import java.util.ArrayList;
 import java.util.List;
 
-import gui.NameAlertBox;
-
 import static kodaLoss.UserChoiceAdapter.*;
 
 import static kodaLoss.Bank_HelpersAndTools.*;
@@ -109,7 +107,7 @@ public class Bank {
    */
   public void playOneRound() {
 
-    if (roundThread != null || roundThread.isAlive()) {
+    if (roundThread != null) {
       // roundThread is still alive!
       System.out.println("Already running a round");
       controller.gameIson();
