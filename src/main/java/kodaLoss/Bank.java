@@ -113,7 +113,7 @@ public class Bank {
         public void run() {
        
           System.out.println("Round started...");
-
+          System.out.println("Bank Constructor saying -- > Number of Players: " + registeredPlayers.size());
           // clear last hand from clean Table!
           for (Player p : registeredPlayers) {
             p.clearPlayersHand();
