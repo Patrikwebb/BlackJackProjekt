@@ -133,7 +133,7 @@ public class Bank {
           dealOneCardToAll();
           updateGuiAfterChangeInDataModel();
 
-          BlackJackConstantsAndTools.sleepFor1Second();
+          BlackJackConstantsAndTools.sleepForXSeconds();
 
           // deal second card and hide dealers second card
           controller.setHideDealersSecondCard(true);
@@ -175,30 +175,28 @@ public class Bank {
             }
           }
 
-          
-          
-          
-          
-          
-          
            // dealer plays after one second break / deactivate all buttons while
            //dealer plays
-           
            controller.allButtonsOff();
-           BlackJackConstantsAndTools.sleepFor1Second(); dealerPlays();
+           BlackJackConstantsAndTools.sleepForXSeconds();
+           dealerPlays();
             
-           controller.setdealersHandScore(dealersHandScore(dealerscore));
-           controller.setplayersHandScore(playersHandScore(playerscore));
-           
+//           controller.setdealersHandScore(dealersHandScore(dealerscore));
+//           controller.setplayersHandScore(playersHandScore(playerscore));
+//           
            /* Checks if dealer and players isn't bust, Checks the higher hand
            * and give us the winner
            */
           calculateWinners();
-
-          controller.gameIsoff();
+          controller.allButtonsOff();
+          
+          BlackJackConstantsAndTools.sleepForXSeconds(2000);
+          
+          
           // TODO RESET BEFORE NEXT ROUND!
           // reset Thread and Players for next round!
-          // roundThread = null;
+          
+          resetBeforeNextRound();
         }
       });
       roundThread.start();
@@ -208,6 +206,19 @@ public class Bank {
 
   }
 
+  
+  /*
+   * reset Bank before next round can start, inform GUI. 
+   */
+  private void resetBeforeNextRound() {
+    controller.setlabelWinnerText("");
+    roundThread = null;
+    controller.gameIsoff(); //for player to choose DEAL! DONT FORGET! 
+    }
+  
+  
+  
+  
   /*
    * Player plays against Bank in one round. Sets player inactive if bust.
    * 
@@ -350,9 +361,9 @@ public class Bank {
           p.setRoundResult(RoundResult.WIN);
 
         }
-        if (playerpoints == calculateValueOfPlayersHand(dealer)) {
+        else if (playerpoints == calculateValueOfPlayersHand(dealer)) {
           System.out.println("Tie");
-          controller.setlabelWinnerText("it´s a tie");
+          controller.setlabelWinnerText("It´s a tie");
           p.setRoundResult(RoundResult.TIE);
 
         } else {

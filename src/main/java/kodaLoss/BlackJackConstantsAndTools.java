@@ -10,7 +10,8 @@ public class BlackJackConstantsAndTools {
   public final static long ONE_SECOND_SLEEP = 1000;
   
   
-  public static void sleepFor1Second(){
+  public static void sleepForXSeconds( ){
+
     try{
       Thread.sleep(ONE_SECOND_SLEEP);
     } catch (InterruptedException e){
@@ -19,7 +20,15 @@ public class BlackJackConstantsAndTools {
     }
   }
   
-  
+  public static void sleepForXSeconds( long x ){
+
+    try{
+      Thread.sleep( x );
+    } catch (InterruptedException e){
+      e.printStackTrace();
+      System.out.println("BJConstantsAndTools.sleepFor1Second: problems with animation");
+    }
+  }
   
   
   
