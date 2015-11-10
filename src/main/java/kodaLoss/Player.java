@@ -7,13 +7,10 @@ import java.util.List;
 public class Player {
   
   
-  private String name; // alla spelare har ett namn
+  private String name = "Anonymous"; // alla spelare har ett namn
 	
-	private int playersCash; // alla spelare startar med 100 dollar
+	private int playersCash = 100; // alla spelare startar med 100 dollar
 	
-	public void setPlayersCash(int playersCash) {
-		this.playersCash = playersCash;
-	}
 
 
 	private int betForThisRound = 0 ; // vad spelare satsar denna runda
@@ -36,20 +33,17 @@ public class Player {
 	 * creates an new, anonymous player with default settings
 	 */
 	public Player() {
-		
 	}
 	/**
 	 * Constructor to player, starts with name and playersCash
 	 * @param name
 	 * @param playersCash
 	 */
-	public Player(String name, Integer playersCash) {
+	public Player(String name, int playersCash) {
 		this.playersCash = playersCash;
 		this.name = name;
 	};
 
-	
-	// INSTANCE METHODS
 	
 	/**
 	 * Player takes another card which is added to his hand
@@ -143,7 +137,20 @@ public class Player {
 	}
 	
 
+	// INSTANCE METHODS
+  
+	
+	
 	/**
+	 * set the players Cash amount
+	 * @param playersCash
+	 */
+  public void setPlayersCash(int playersCash) {
+    this.playersCash = playersCash;
+  }
+  
+  
+  /**
 	 * returns the amount of cash this player has
 	 * 
 	 * @return players score

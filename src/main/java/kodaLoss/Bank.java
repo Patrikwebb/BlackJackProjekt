@@ -37,7 +37,7 @@ public class Bank {
    * reference to the Player objects of dealer and the active player to be shown
    * on the GUI. Needed for updating the GUI.
    */
-  public Player dealer;
+  public Player dealer = new Player("Dealer" , 0 );
   private Player activePlayerOnGui;
 
   // Default value for dealer & playersHandScore
@@ -46,14 +46,7 @@ public class Bank {
 
   // CONSTRUCTORS
   private Bank() {
-
-    // DEMO VERSION
-    System.out.println("Bank started in a testMode for Demo!!!");
-
-    dealer = new Player("Dealer", 0);
-
-    System.out.println("Bank Constructor saying -- > Number of Players: "
-        + registeredPlayers.size());
+    System.out.println("Bank started...");
   }
 
   public void addPlayersToTheTable() {
@@ -109,12 +102,11 @@ public class Bank {
    */
   public void playOneRound() {
 
-    if (roundThread != null || roundThread.isAlive()) {
+    if ( roundThread != null && roundThread.isAlive() ) {
       // roundThread is still alive!
       System.out.println("Already running a round");
-      controller.gameIson();
 
-    } else {
+    } else if (roundThread == null || !roundThread.isAlive()){
       // start a new Round in its own Thread for not freezing the GUI!
       roundThread = new Thread(new Runnable() {
 
@@ -181,15 +173,22 @@ public class Bank {
             }
           }
 
-          /*
-           * dealer plays after one second break / deactivate all buttons while
-           * dealer plays controller.allButtonsOff();
-           * BlackJackConstantsAndTools.sleepFor1Second(); dealerPlays();
-           * 
-           * controller.setdealersHandScore(dealersHandScore(dealerscore));
-           * controller.setplayersHandScore(playersHandScore(playerscore));
-           * 
-           * /* Checks if dealer and players isn't bust, Checks the higher hand
+          
+          
+          
+          
+          
+          
+           // dealer plays after one second break / deactivate all buttons while
+           //dealer plays
+           
+           controller.allButtonsOff();
+           BlackJackConstantsAndTools.sleepFor1Second(); dealerPlays();
+            
+           controller.setdealersHandScore(dealersHandScore(dealerscore));
+           controller.setplayersHandScore(playersHandScore(playerscore));
+           
+           /* Checks if dealer and players isn't bust, Checks the higher hand
            * and give us the winner
            */
           calculateWinners();
@@ -201,6 +200,8 @@ public class Bank {
         }
       });
       roundThread.start();
+    } else {
+      System.out.println("WRONT STATE in ROUND THREAD !");
     }
 
   }
@@ -315,7 +316,7 @@ public class Bank {
    * Calculate winners
    */
   // TODO update GUI who won
-  protected void calculateWinners() {
+  public void calculateWinners() {
 
     int playerpoints;
 

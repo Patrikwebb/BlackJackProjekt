@@ -17,6 +17,7 @@ import kodaLoss.CardShoe;
 import kodaLoss.Deck;
 import kodaLoss.Player;
 import kodaLoss.Rank;
+import kodaLoss.RoundResult;
 import kodaLoss.Suite;
 
 public class testBJPlayerAndCard extends TestCase {
@@ -69,10 +70,26 @@ public class testBJPlayerAndCard extends TestCase {
   @Test
   public void testPlayerGetName(){
     Player p1 = new Player();
-    Player p2 = new Player("TESTNAME");
+    Player p2 = new Player("TESTNAME" , 0 );
     Assert.assertTrue(p1.getName().equals("Anonymous"));
     Assert.assertTrue(p2.getName().equals("TESTNAME"));
   }
+  
+  
+  @Test
+  public void testPlayerGetRoundResutl(){
+    Player p1 = new Player();
+    p1.setRoundResult(RoundResult.LOOSE);
+    Assert.assertTrue(p1.getRoundResult() == RoundResult.LOOSE);
+  }
+  
+  
+  @Test
+  public void testPlayerStartsWithRoundResultNull(){
+    Player p1 = new Player();
+    Assert.assertTrue(p1.getRoundResult() == null);
+  }
+  
   
   @Test
   public void testCardShoe(){

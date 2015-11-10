@@ -222,6 +222,8 @@ public class Controller implements Initializable {
             "BJ!" : Bank_HelpersAndTools.calculateValueOfPlayersHand(activePlayerOnGui) + "";
         playersHandScore.setText(handValue);
         labelPlayerName1.setText(activePlayerOnGui.getName() ); // name label
+        
+        
         setPics(activePlayerOnGui, playerCard1);
       }
     });

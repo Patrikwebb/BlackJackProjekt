@@ -11,20 +11,18 @@ import kodaLoss.RoundResult;
 
 public class testBJBankBettingSystem extends TestCase {
 
-  private Player player;
-  private Bank bank = Bank.getInstance();
-  private static final int PLAYER_BET = 100;
+   Player player;
+   Bank bank = Bank.getInstance();
+  public  static final int PLAYER_BET = 100;
   
   
   @Before
   public void buildUp() {
     
-     player = new Player();
+     player = new Player("TESTPLAYER" , PLAYER_BET);
      player.setPlayersBet( PLAYER_BET);
-     
+     System.out.println(player.getPlayersBet());
      bank.addPlayerToBank(player);
-    
-  
   }
   
   
@@ -32,7 +30,7 @@ public class testBJBankBettingSystem extends TestCase {
   public void testWinnerWithoutBJGetsRightWinAmount(){
     
     player.setRoundResult(RoundResult.WIN);
-    
+    System.out.println(player.getRoundResult());
     int cashBefore = player.getPlayersCash();
     
     bank.handlePlayersBetsAndPayWinners();

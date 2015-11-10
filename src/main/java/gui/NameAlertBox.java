@@ -74,6 +74,8 @@ public class NameAlertBox {
         cancelButton.setFocusTraversable(false);
         GridPane.setConstraints(cancelButton, 2, 2);
         
+        
+        // 
         enterButton.setOnAction(e -> {
 
         	Platform.runLater(() -> {
