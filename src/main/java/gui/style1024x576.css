@@ -6,8 +6,7 @@
 	-fx-background-image: url("Table1024x576.png");
 	-fx-background-repeat: no-repeat;
 	-fx-background-size: cover, auto;
-	-fx-background-position: center center;
-	-fx-padding: 30;
+	-fx-padding: 0 10 0 10;
 }
 	/* HBOX --> Label  */
 	#headerText{
