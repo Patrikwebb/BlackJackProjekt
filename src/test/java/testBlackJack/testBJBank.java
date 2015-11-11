@@ -148,8 +148,6 @@ public class testBJBank extends TestCase {
   }
 
   
-
-  
   @Test
   public void testUserChoiceAdapterGetters(){
     
@@ -157,6 +155,16 @@ public class testBJBank extends TestCase {
     Assert.assertTrue (UserChoiceAdapter.getInstance().getUserChoice() == UserChoice.HIT);
     Assert.assertFalse(UserChoiceAdapter.getInstance().getUserChoice() != UserChoice.HIT);
     
+  }
+  
+  
+  @Test
+  public void testAddPlayerToBank(){
+    Bank bank = Bank.getInstance();
+    bank.addPlayerToBank(new Player("TEST", 100));
+    Assert.assertTrue(bank.registeredPlayers.size() == 1);
+    Assert.assertTrue(bank.registeredPlayers.get(0).getPlayersCash() == 100);
+    Assert.assertTrue(bank.registeredPlayers.get(0).getName().equals("TEST")); 
   }
   
   

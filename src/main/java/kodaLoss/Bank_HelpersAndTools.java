@@ -58,6 +58,7 @@ public class Bank_HelpersAndTools {
     player.setBusted(playerIsBust);
   }
   
+  
   /**
    * Setter och Getter to dealerIsBust =>
    * 

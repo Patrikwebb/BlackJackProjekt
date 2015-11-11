@@ -1,16 +1,21 @@
 package testBlackJack;
 
+import static kodaLoss.RoundResult.LOOSE;
+import static kodaLoss.RoundResult.TIE;
+import static kodaLoss.RoundResult.WIN;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import kodaLoss.Bank;
+import kodaLoss.Bank_HelpersAndTools;
 import kodaLoss.Card;
 import kodaLoss.Player;
 import kodaLoss.Rank;
+import kodaLoss.RoundResult;
 import kodaLoss.Suite;
-import static  kodaLoss.RoundResult.*;
 
 public class testBJBankWinnerAndCashSprint3 {
 
@@ -22,9 +27,12 @@ public class testBJBankWinnerAndCashSprint3 {
   Player playerBUST;
   Player player21;
   Player player17;
+  
+  Bank bank; 
 
   @Before
   public void buildUp() {
+    
     playerBJ = new Player();
     playerBJ.addCardToHand(new Card(Suite.HEARTS, Rank.ACE));
     playerBJ.addCardToHand(new Card(Suite.DIAMONDS, Rank.KING));
@@ -43,78 +51,97 @@ public class testBJBankWinnerAndCashSprint3 {
     player17.addCardToHand(new Card(Suite.SPADES, Rank.JACK));
     player17.addCardToHand(new Card(Suite.SPADES, Rank.SEVEN));
 
-    dealerBJ = playerBJ;
-    dealerBUST = playerBUST;
-    dealer21 = player21;
-    dealer17 = player17;
-
+   
+    
   }
 
+  
   @Test
-  public void testCalculateWinners_DealerAndBankBUST() {
-    Bank.getInstance().registeredPlayers.add(playerBUST);
-    Bank.getInstance().dealer = dealerBUST;
-    Bank.getInstance().calculateWinners();
-    Assert.assertTrue(playerBUST.getRoundResult() == TIE);
+  public void testCalculateWinners_DealerAndPlayerBUST() {
+    bank = new Bank();
+    bank.addPlayerToBank(playerBUST);
+    System.out.println("TESTING");
+    System.out.println(playerBUST);
+    System.out.println(bank.registeredPlayers +  " is the same???");
+    bank.dealer.addCardToHand(new Card(Suite.HEARTS, Rank.QUEEN));
+    bank.dealer.addCardToHand(new Card(Suite.DIAMONDS, Rank.KING));
+    bank.dealer.addCardToHand(new Card(Suite.DIAMONDS, Rank.TEN));
+    System.out.println(Bank_HelpersAndTools.isPlayersHandOver21(bank.dealer));
+    RoundResult result = bank.registeredPlayers.get(0).getRoundResult();
+    System.out.println("RESULT IS : " + result);
+    bank.calculateWinners();
+     result = bank.registeredPlayers.get(0).getRoundResult();
+    System.out.println("RESULT IS : " + result);
+    Assert.assertTrue(result == RoundResult.LOOSE);
   }
 
   @Test
   public void testCalculateWinners_DealerBUSTPlayerNot() {
-    Bank.getInstance().registeredPlayers.add(player17);
-    Bank.getInstance().dealer = dealerBUST;
-    Bank.getInstance().calculateWinners();
+    bank.registeredPlayers.add(player17);
+    bank.dealer = dealerBUST;
+    bank.calculateWinners();
+    
     Assert.assertTrue(player17.getRoundResult() == WIN);
   }
-
+  
+  @Test
   public void testCalculateWinners_DealerlowerThanPlayer() {
-    Bank.getInstance().registeredPlayers.add(player21);
-    Bank.getInstance().dealer = dealer17;
-    Bank.getInstance().calculateWinners();
+    bank.registeredPlayers.add(player21);
+    bank.dealer = dealer17;
+    bank.calculateWinners();
+    
     Assert.assertTrue(player21.getRoundResult() == WIN);
-
   }
 
+  @Test
   public void testCalculateWinners_DealerhigherThanPlayer() {
-    Bank.getInstance().registeredPlayers.add(player17);
-    Bank.getInstance().dealer = dealer21;
-    Bank.getInstance().calculateWinners();
+    bank.registeredPlayers.add(player17);
+    bank.dealer = dealer21;
+    bank.calculateWinners();
+    
     Assert.assertTrue(player17.getRoundResult() == LOOSE);
   }
 
+  @Test
   public void testCalculateWinners_DealerSameValueAsPlayer() {
-    Bank.getInstance().registeredPlayers.add(player21);
-    Bank.getInstance().dealer = dealer21;
-    Bank.getInstance().calculateWinners();
+    bank.registeredPlayers.add(player21);
+    bank.dealer = dealer21;
+    bank.calculateWinners();
     Assert.assertTrue(player21.getRoundResult() == LOOSE);
   }
 
+  @Test
   public void testCalculateWinners_DealerBJPlayerNotBJ() {
-    Bank.getInstance().registeredPlayers.add(player17);
-    Bank.getInstance().dealer = dealerBJ;
-    Bank.getInstance().calculateWinners();
+    bank.registeredPlayers.add(player17);
+    bank.dealer = dealerBJ;
+    bank.calculateWinners();
+    
     Assert.assertTrue(player17.getRoundResult() == LOOSE);
   }
 
+  @Test
   public void testCalculateWinners_DealernotPlayerBJ() {
-    Bank.getInstance().registeredPlayers.add(playerBJ);
-    Bank.getInstance().dealer = dealer21;
-    Bank.getInstance().calculateWinners();
+    bank.registeredPlayers.add(playerBJ);
+    bank.dealer = dealer21;
+    bank.calculateWinners();
+    
     Assert.assertTrue(playerBJ.getRoundResult() == WIN);
   }
 
+  @Test
   public void testCalculateWinners_DealerAndPlayerBJ() {
-    Bank.getInstance().registeredPlayers.add(playerBJ);
-    Bank.getInstance().dealer = dealerBJ;
-    Bank.getInstance().calculateWinners();
+    bank.registeredPlayers.add(playerBJ);
+    bank.dealer = dealerBJ;
+    bank.calculateWinners();
+    
     Assert.assertTrue(playerBJ.getRoundResult() == TIE);
   }
 
   
   @After
   public void cleanUp(){
-    Bank.getInstance().clearAllPlayersAndDealer();
+    bank.clearAllPlayersAndDealer();
+    bank = null;
   }
-  
-  
   
 }

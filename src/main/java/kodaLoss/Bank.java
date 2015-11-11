@@ -43,7 +43,7 @@ public class Bank {
   String playerscore = "0";
 
   // CONSTRUCTORS
-  private Bank() {
+  public Bank() {
     System.out.println("Bank started...");
   }
 
@@ -283,23 +283,17 @@ public class Bank {
 
           System.out.println("DEALER IS BUST!");
           controller.setlabelWinnerText("DEALER IS BUST!");
-          setPlayerToBust(dealer, true); // TODO Do we need this?!
         }
 
         Thread.sleep(2000);
         controller.setdealersHandScore(dealersHandScore(dealerscore));
-
         dealOneCardToPlayer(dealer);
-
         // update gui now
         updateGuiAfterChangeInDataModel();
-
-        setPlayerToBust(dealer, false);
 
         if (isPlayersHandOver21(dealer)) {
           // temporary until we send to GUI
           System.out.println("DEALER IS BUST!");
-          setPlayerToBust(dealer, true);
           updateGuiAfterChangeInDataModel();
 
         } else {
@@ -325,52 +319,75 @@ public class Bank {
   }
 
   /**
-   * 
    * Calculate winners
    */
-  // TODO update GUI who won
+  
   public void calculateWinners() {
-
+    /*
+     * possible Combinations by basic rules :
+     * DEALER BUST   -> PLayer not bust => WIN = CASE 1
+     *               -> Player bust => Loose = CASE 2
+     * Dealer BJ      -> Player BJ => TIE = CASE 3
+     *                -> Player <= 21 => Loose = CASE 4
+     * Dealer <= 21   -> Player Bust => Loose = CASE 5
+     *                -> Player < dealer => Loose = CASE 6
+     *                -> Player > dealer => WIN = CASE 7
+     *                -> Player = dealer => TIE = CASE 8
+     */
+    
     int playerpoints;
 
-    if (isPlayerBust(dealer)) {
+    System.out.println("Dealer: " + dealer);
+    System.out.println("Player: " + registeredPlayers.get(0));
+    
+    // 1. dealer is bust
+    if (isPlayersHandOver21(dealer)) {
 
       for (Player p : registeredPlayers) {
         playerpoints = calculateValueOfPlayersHand(p);
 
+        // player not Bust - CASE 1
         if (playerpoints <= 21) {
           System.out.println("Congratulations! You won.");
           controller.setlabelWinnerText("Congratulations! You won.");
           p.setRoundResult(RoundResult.WIN);
 
+          // player also bust - CASE 2
         } else {
           System.out.println("Sorry, you lost.");
           controller.setlabelWinnerText("Sorry, you lost.");
           p.setRoundResult(RoundResult.LOOSE);
         }
       }
+      
+      // 2. dealer is not bust
     } else {
 
       for (Player p : registeredPlayers) {
         playerpoints = calculateValueOfPlayersHand(p);
 
+        // player not bust and higher hand than dealer - CASE 7
         if (playerpoints <= 21
             && playerpoints > calculateValueOfPlayersHand(dealer)) {
           System.out.println("Congratulations! You won.");
           controller.setlabelWinnerText("Congratulations! You won.");
           p.setRoundResult(RoundResult.WIN);
-
         }
-        else if (playerpoints == calculateValueOfPlayersHand(dealer)) {
+        // players hand has same hand as dealers - CASE 8
+        else if (playerpoints <= 21 && playerpoints == calculateValueOfPlayersHand(dealer)) {
+          // TODO not tie but LOOSE
           System.out.println("Tie");
           controller.setlabelWinnerText("It´s a tie");
           p.setRoundResult(RoundResult.TIE);
 
+          // players hand is lower than Banks - CASE 6         
         } else {
           System.out.println("Sorry, you lost.");
           controller.setlabelWinnerText("Sorry, you lost.");
           p.setRoundResult(RoundResult.LOOSE);
         }
+        
+        // TODO CASE 3 , 4 , 5 are missing 
       }
     }
   }
@@ -383,6 +400,12 @@ public class Bank {
    */
   public void handlePlayersBetsAndPayWinners() {
 
+    /*
+     * TIE => return betting amount
+     * WIN => return 2 * bet
+     * WIN + BJ => return 2.5 * bet
+     * Loose => bet is lost
+     */
     int playersBet;
 
     for (Player player : registeredPlayers) {
@@ -398,6 +421,7 @@ public class Bank {
         // Win with Black Jack adds another 50% of bet!
         if (isPlayersHandABlackJack(player)) {
           player.addToPlayersCash((int) Math.round(playersBet / 2.0d));
+          System.out.println("BLACKJACK");
         }
       }
       // just reset players bet for round
@@ -438,7 +462,7 @@ public class Bank {
    */
   public void clearAllPlayersAndDealer() {
     registeredPlayers.clear();
-    dealer = null;
+    dealer = new Player("Dealer" , 0);
     cardShoe = new CardShoe();
 
   }
