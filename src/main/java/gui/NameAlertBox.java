@@ -99,6 +99,15 @@ public class NameAlertBox {
         cancelButton.setOnAction(e -> {
         	// TODO
         	Platform.runLater(() -> {
+        	
+        	/* * * * * * * * * * * * *
+        	 * If you press cancel you still want a player to join
+        	 * the table so I add a test player insted of 
+        	 * getting the error, Exception JavaFX Application THREAD ;)
+        	 *  * * * * * * * * * * * */
+    		Bank.getInstance().addPlayerToBank("Demo Player", 500);
+        	// Add the player to the table
+        	Bank.getInstance().addPlayersToTheTable();
         	nameWindow.close();
         	});
         });

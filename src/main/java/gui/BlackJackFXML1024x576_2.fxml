@@ -40,17 +40,23 @@
                   <Insets left="175.0" top="20.0" />
                </HBox.margin>
             </Button>
-            <TextField fx:id="TextFieldRounds" editable="false" focusTraversable="false" layoutX="142.0" layoutY="14.0" prefHeight="31.0" prefWidth="31.0" promptText="0">
+            <TextField id="textFieldRoundInt" fx:id="TextFieldRounds" alignment="CENTER" editable="false" focusTraversable="false" layoutX="121.0" layoutY="9.0" opacity="0.83" prefHeight="46.0" prefWidth="43.0" promptText="0">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin>
             </TextField>
-            <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="26.0" layoutY="14.0" prefHeight="31.0" prefWidth="108.0" text="Round" />
-            <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="26.0" layoutY="83.0" prefHeight="31.0" prefWidth="108.0" text="Round Bett" />
-            <TextField editable="false" focusTraversable="false" layoutX="144.0" layoutY="83.0" prefHeight="31.0" prefWidth="58.0" promptText="0" />
+            <TextField id="textFieldRound" alignment="CENTER" editable="false" focusTraversable="false" layoutX="-1.0" layoutY="-1.0" opacity="0.84" prefHeight="65.0" prefWidth="135.0" text="Round" />
+            <TextField id="textFieldRoundBett" editable="false" focusTraversable="false" layoutX="-3.0" layoutY="65.0" prefHeight="65.0" prefWidth="197.0" text="Round Bett" />
+            <TextField id="textFieldRoundBettInt" alignment="CENTER" focusTraversable="false" layoutX="173.0" layoutY="76.0" opacity="0.7" prefHeight="33.0" prefWidth="73.0" promptText="0" />
             <Button id="buttonDeal" fx:id="buttonDeal" layoutX="621.0" layoutY="70.0" mnemonicParsing="false" text="Deal" />
-            <TextField fx:id="TextFieldBetts" editable="false" focusTraversable="false" layoutX="913.0" layoutY="83.0" prefHeight="31.0" prefWidth="58.0" promptText="0" />
-            <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="795.0" layoutY="83.0" prefHeight="31.0" prefWidth="108.0" text="Player Cash" />
+            <TextField id="textFieldPlayerCashInt" fx:id="TextFieldBetts" alignment="CENTER" editable="false" focusTraversable="false" layoutX="903.0" layoutY="77.0" opacity="0.7" prefHeight="33.0" prefWidth="88.0" promptText="0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets></TextField>
+            <TextField id="textFieldPlayerCash" alignment="CENTER" editable="false" focusTraversable="false" layoutX="725.0" layoutY="67.0" prefHeight="65.0" prefWidth="192.0" text="Player Cash">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets></TextField>
             <Label id="labelWinnerText" fx:id="labelWinnerText" alignment="CENTER" layoutX="275.0" layoutY="3.0" prefHeight="48.0" prefWidth="474.0" textFill="WHITE">
                <font>
                   <Font size="36.0" />
@@ -65,9 +71,9 @@
    <center>
       <Pane id="PaneCenterBorderPane">
          <children>
-            <TextField id="dealersHandScore" fx:id="dealersHandScore" editable="false" focusTraversable="false" layoutX="244.0" layoutY="54.0" prefHeight="25.0" prefWidth="35.0" promptText="Sc" />
-            <HBox id="dealerCard" fx:id="dealerCard" layoutX="120.0" layoutY="47.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="96.0" prefWidth="72.0" />
-            <Pane id="player1" layoutX="90.0" layoutY="143.0">
+            <TextField id="dealersHandScore" fx:id="dealersHandScore" editable="false" focusTraversable="false" layoutX="145.0" layoutY="10.0" prefHeight="25.0" prefWidth="35.0" promptText="Sc" />
+            <HBox id="dealerCard" fx:id="dealerCard" layoutX="115.0" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="96.0" prefWidth="72.0" />
+            <Pane id="player1" layoutX="85.0" layoutY="140.0">
                <children>
                   <Label id="labelPlayerName1" fx:id="labelPlayerName1" alignment="CENTER" layoutY="5.0" prefHeight="16.0" prefWidth="150.0" textFill="WHITE">
                      <font>
@@ -77,7 +83,7 @@
                   <HBox id="playerCard1" fx:id="playerCard1" layoutX="30.0" layoutY="25.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="96.0" prefWidth="72.0" />
                </children>
             </Pane>
-            <TextField id="playersHandScore" fx:id="playersHandScore" editable="false" focusTraversable="false" layoutX="148.0" layoutY="264.0" prefHeight="25.0" prefWidth="35.0" promptText="Sc" />
+            <TextField id="playersHandScore" fx:id="playersHandScore" editable="false" focusTraversable="false" layoutX="145.0" layoutY="265.0" prefHeight="25.0" prefWidth="35.0" promptText="Sc" />
          </children>
       </Pane>
    </center>
