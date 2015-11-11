@@ -9,7 +9,7 @@ import static kodaLoss.Bank_HelpersAndTools.*;
 
 public class Bank {
 
-  // MEMBERS PATRIC, TIM, Johannes , Johan
+  // MEMBERS Patrik, Tim, Johannes , Johan
 
   /*
    * Reference to UserChoiceAdapter just because its easier to write 'uca' than
