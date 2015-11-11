@@ -44,6 +44,7 @@ public class Bank {
   // Default value for dealer & playersHandScore
   String dealerscore = "0";
   String playerscore = "0";
+  int round = 0;
 
   // CONSTRUCTORS
   public Bank() {
@@ -119,10 +120,15 @@ public class Bank {
         public void run() {
         
           System.out.println("Round started...");
-
+          
           System.out.println(
               "Round -- > Number of Players: " + registeredPlayers.size());
-
+          
+          // Updaterar runda DIRTY TEST
+          String roundString = Integer.toString(++round);
+          controller.updateRound(roundString);
+          
+          
           // clear last hand from clean Table!
           for (Player p : registeredPlayers) {
             p.clearPlayersHand();

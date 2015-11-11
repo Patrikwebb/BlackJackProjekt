@@ -57,6 +57,9 @@ public class Controller implements Initializable {
 
   @FXML
   private TextField TextFieldBetts;
+  
+  @FXML
+  private TextField TextFieldRoundBett;
 
   // reference to UserChoiceAdapter for players button-events
   private UserChoiceAdapter uca = UserChoiceAdapter.getInstance();
@@ -110,11 +113,14 @@ public class Controller implements Initializable {
 
     buttonHit.setOnAction(e -> uca.playerChoosesToHit());
     
-    buttonDeal.setOnAction(e -> bank.playOneRound());
-
-   initButtonEffects(); 
-  }
+    buttonDeal.setOnAction(e -> {
     
+    bank.playOneRound();
+    
+    initButtonEffects(); 
+    
+    });
+  }
     
     /*
      * Button Effects
@@ -228,7 +234,6 @@ public class Controller implements Initializable {
         TextFieldBetts.setText(playerCashString);
         setPics(activePlayerOnGui, playerCard1);
         
-        // 72x96 pixlar
       }
     });
   }
@@ -254,6 +259,12 @@ public class Controller implements Initializable {
         }
       }
     });
+  }
+  
+  public void updateRound(String round){
+	  Platform.runLater(() -> {
+		  TextFieldRounds.setText(round);
+	  });
   }
 
   /*
@@ -320,6 +331,10 @@ public class Controller implements Initializable {
       buttonHit.setDisable(false);
       buttonStay.setDisable(false);
       buttonDeal.setDisable(true);
+      // Sets the Round betts node to Editable -> false
+      // During the round
+//       TextFieldRoundBett.setEditable(false);
+      // Får null pointer så får kolla vidare på de här ;)
     });
   }
 
@@ -335,6 +350,10 @@ public class Controller implements Initializable {
         buttonHit.setDisable(true);
         buttonStay.setDisable(true);
         buttonDeal.setDisable(false);
+        // Sets the Round betts node to Editable -> true
+        // So you can add bett again after the round is over
+//         TextFieldRoundBett.setEditable(true);
+        // Får null pointer så får kolla vidare på de här ;)
       }
     });
   }
