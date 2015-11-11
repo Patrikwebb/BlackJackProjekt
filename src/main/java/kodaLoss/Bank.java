@@ -22,7 +22,7 @@ public class Bank {
   private static Bank bank = new Bank();
 
   // Banks reference to the Controller object
-  protected static Controller controller;
+  protected static Controller controller = null;
 
   public List<Player> registeredPlayers = new ArrayList<Player>();
 
@@ -385,15 +385,13 @@ public class Bank {
           winnerText = BlackJackConstantsAndTools.RESULT_YOU_LOOSE;
           p.setRoundResult(RoundResult.LOOSE);
         }
-        
-        if (Bank.controller != null){
-          controller.setlabelWinnerText(winnerText);
-        }
-        
-        
+     
         
         // TODO CASE 3 , 4 , 5 are missing 
       }
+    }
+    if (Bank.controller != null){
+      controller.setlabelWinnerText(winnerText);
     }
   }
 
