@@ -34,6 +34,9 @@ public class Player {
 	 */
 	public Player() {
 	}
+	
+	
+	
 	/**
 	 * Constructor to player, starts with name and playersCash
 	 * @param name
@@ -125,7 +128,7 @@ public class Player {
 	 */
 	public void setPlayersBet(int requestedBet){
 	  
-	  if (requestedBet > playersCash){
+	  if (requestedBet >= playersCash){
 	    // just set bet to max bet! "ALL IN"!
 	    betForThisRound = playersCash;
 	    playersCash = 0;

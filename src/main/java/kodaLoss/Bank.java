@@ -9,9 +9,10 @@ import static kodaLoss.UserChoiceAdapter.*;
 
 import static kodaLoss.Bank_HelpersAndTools.*;
 
+
 public class Bank {
 
-  // MEMBERS PATRIC, TIM, Johannes , Johan
+  // MEMBERS Patrik, Tim, Johannes , Johan
 
   /*
    * Reference to UserChoiceAdapter just because its easier to write 'uca' than
@@ -23,7 +24,7 @@ public class Bank {
   private static Bank bank = new Bank();
 
   // Banks reference to the Controller object
-  protected static Controller controller;
+  protected static Controller controller = null;
 
   public List<Player> registeredPlayers = new ArrayList<Player>();
 
@@ -45,7 +46,7 @@ public class Bank {
   String playerscore = "0";
 
   // CONSTRUCTORS
-  private Bank() {
+  public Bank() {
     System.out.println("Bank started...");
   }
 
@@ -135,7 +136,7 @@ public class Bank {
           dealOneCardToAll();
           updateGuiAfterChangeInDataModel();
 
-          BlackJackConstantsAndTools.sleepFor1Second();
+          BlackJackConstantsAndTools.sleepForXSeconds();
 
           // deal second card and hide dealers second card
           controller.setHideDealersSecondCard(true);
@@ -177,30 +178,28 @@ public class Bank {
             }
           }
 
-          
-          
-          
-          
-          
-          
            // dealer plays after one second break / deactivate all buttons while
            //dealer plays
-           
            controller.allButtonsOff();
-           BlackJackConstantsAndTools.sleepFor1Second(); dealerPlays();
+           BlackJackConstantsAndTools.sleepForXSeconds();
+           dealerPlays();
             
-           controller.setdealersHandScore(dealersHandScore(dealerscore));
-           controller.setplayersHandScore(playersHandScore(playerscore));
-           
+//           controller.setdealersHandScore(dealersHandScore(dealerscore));
+//           controller.setplayersHandScore(playersHandScore(playerscore));
+//           
            /* Checks if dealer and players isn't bust, Checks the higher hand
            * and give us the winner
            */
           calculateWinners();
-
-          controller.gameIsoff();
+          controller.allButtonsOff();
+          
+          BlackJackConstantsAndTools.sleepForXSeconds(2000);
+          
+          
           // TODO RESET BEFORE NEXT ROUND!
           // reset Thread and Players for next round!
-          // roundThread = null;
+          
+          resetBeforeNextRound();
         }
       });
       roundThread.start();
@@ -210,6 +209,19 @@ public class Bank {
 
   }
 
+  
+  /*
+   * reset Bank before next round can start, inform GUI. 
+   */
+  private void resetBeforeNextRound() {
+    controller.setlabelWinnerText("");
+    roundThread = null;
+    controller.gameIsoff(); //for player to choose DEAL! DONT FORGET! 
+    }
+  
+  
+  
+  
   /*
    * Player plays against Bank in one round. Sets player inactive if bust.
    * 
@@ -274,23 +286,17 @@ public class Bank {
 
           System.out.println("DEALER IS BUST!");
           controller.setlabelWinnerText("DEALER IS BUST!");
-          setPlayerToBust(dealer, true); // TODO Do we need this?!
         }
 
         Thread.sleep(2000);
         controller.setdealersHandScore(dealersHandScore(dealerscore));
-
         dealOneCardToPlayer(dealer);
-
         // update gui now
         updateGuiAfterChangeInDataModel();
-
-        setPlayerToBust(dealer, false);
 
         if (isPlayersHandOver21(dealer)) {
           // temporary until we send to GUI
           System.out.println("DEALER IS BUST!");
-          setPlayerToBust(dealer, true);
           updateGuiAfterChangeInDataModel();
 
         } else {
@@ -316,53 +322,78 @@ public class Bank {
   }
 
   /**
-   * 
    * Calculate winners
    */
-  // TODO update GUI who won
+  
   public void calculateWinners() {
-
+    /*
+     * possible Combinations by basic rules :
+     * DEALER BUST   -> PLayer not bust => WIN = CASE 1
+     *               -> Player bust => Loose = CASE 2
+     * Dealer BJ      -> Player BJ => TIE = CASE 3
+     *                -> Player <= 21 => Loose = CASE 4
+     * Dealer <= 21   -> Player Bust => Loose = CASE 5
+     *                -> Player < dealer => Loose = CASE 6
+     *                -> Player > dealer => WIN = CASE 7
+     *                -> Player = dealer => TIE = CASE 8
+     */
+    
     int playerpoints;
-
-    if (isPlayerBust(dealer)) {
+    String winnerText = null;
+    
+    // 1. dealer is bust
+    if (isPlayersHandOver21(dealer)) {
 
       for (Player p : registeredPlayers) {
         playerpoints = calculateValueOfPlayersHand(p);
 
+        // player not Bust - CASE 1
         if (playerpoints <= 21) {
           System.out.println("Congratulations! You won.");
-          controller.setlabelWinnerText("Congratulations! You won.");
+          winnerText = BlackJackConstantsAndTools.RESULT_YOU_WON;
           p.setRoundResult(RoundResult.WIN);
 
+          // player also bust - CASE 2
         } else {
           System.out.println("Sorry, you lost.");
-          controller.setlabelWinnerText("Sorry, you lost.");
+          winnerText = BlackJackConstantsAndTools.RESULT_YOU_LOOSE;
           p.setRoundResult(RoundResult.LOOSE);
         }
       }
+      
+      // 2. dealer is not bust
     } else {
 
       for (Player p : registeredPlayers) {
         playerpoints = calculateValueOfPlayersHand(p);
 
+        // player not bust and higher hand than dealer - CASE 7
         if (playerpoints <= 21
             && playerpoints > calculateValueOfPlayersHand(dealer)) {
           System.out.println("Congratulations! You won.");
-          controller.setlabelWinnerText("Congratulations! You won.");
+          winnerText = BlackJackConstantsAndTools.RESULT_YOU_WON;
           p.setRoundResult(RoundResult.WIN);
-
         }
-        if (playerpoints == calculateValueOfPlayersHand(dealer)) {
+        // players hand has same hand as dealers - CASE 8
+        else if (playerpoints <= 21 && playerpoints == calculateValueOfPlayersHand(dealer)) {
+          // TODO not tie but LOOSE
           System.out.println("Tie");
-          controller.setlabelWinnerText("it´s a tie");
+          winnerText = BlackJackConstantsAndTools.RESULT_A_TIE;
           p.setRoundResult(RoundResult.TIE);
 
+          // players hand is lower than Banks - CASE 6         
         } else {
           System.out.println("Sorry, you lost.");
-          controller.setlabelWinnerText("Sorry, you lost.");
+          winnerText = BlackJackConstantsAndTools.RESULT_YOU_LOOSE;
           p.setRoundResult(RoundResult.LOOSE);
         }
+     
+        
+        // TODO CASE 3 , 4 , 5 are missing 
       }
+    }
+    if (Bank.controller != null){
+      controller.setlabelWinnerText(winnerText);
     }
   }
 
@@ -374,6 +405,12 @@ public class Bank {
    */
   public void handlePlayersBetsAndPayWinners() {
 
+    /*
+     * TIE => return betting amount
+     * WIN => return 2 * bet
+     * WIN + BJ => return 2.5 * bet
+     * Loose => bet is lost
+     */
     int playersBet;
 
     for (Player player : registeredPlayers) {
@@ -389,6 +426,7 @@ public class Bank {
         // Win with Black Jack adds another 50% of bet!
         if (isPlayersHandABlackJack(player)) {
           player.addToPlayersCash((int) Math.round(playersBet / 2.0d));
+          System.out.println("BLACKJACK");
         }
       }
       // just reset players bet for round
@@ -429,7 +467,7 @@ public class Bank {
    */
   public void clearAllPlayersAndDealer() {
     registeredPlayers.clear();
-    dealer = null;
+    dealer = new Player("Dealer" , 0);
     cardShoe = new CardShoe();
 
   }
