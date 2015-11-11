@@ -141,9 +141,9 @@ public class Controller implements Initializable {
     // Effect on Hover - Buttond Stand
     buttonStay.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
       buttonStay.setEffect(dropShadow);
-      buttonStay.setScaleX(1.5);
-      buttonStay.setScaleY(1.5);
-      buttonStandrotation.play();
+      buttonStay.setScaleX(1.2);
+      buttonStay.setScaleY(1.2);
+//      buttonStandrotation.play();
     });
 
     // Removes shadow effect - Button Stand
@@ -151,7 +151,7 @@ public class Controller implements Initializable {
       buttonStay.setEffect(null);
       buttonStay.setScaleX(1);
       buttonStay.setScaleY(1);
-      buttonStandrotation.pause();
+//      buttonStandrotation.pause();
     });
 
     // Rotation effect - Button Hit
@@ -167,9 +167,9 @@ public class Controller implements Initializable {
     // Effect on Hover - Button Hit
     buttonHit.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
       buttonHit.setEffect(dropShadow);
-      buttonHit.setScaleX(1.5);
-      buttonHit.setScaleY(1.5);
-      buttonHitRotation.play();
+      buttonHit.setScaleX(1.2);
+      buttonHit.setScaleY(1.2);
+//      buttonHitRotation.play();
     });
 
     // Removes shadow effect - Button Hit
@@ -177,15 +177,15 @@ public class Controller implements Initializable {
       buttonHit.setEffect(null);
       buttonHit.setScaleX(1);
       buttonHit.setScaleY(1);
-      buttonHitRotation.pause();
+//      buttonHitRotation.pause();
 
     });
 
     // Effect on Hover - Button Play
     buttonDeal.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
       buttonDeal.setEffect(dropShadow);
-      buttonDeal.setScaleX(1.5);
-      buttonDeal.setScaleY(1.5);
+      buttonDeal.setScaleX(1.2);
+      buttonDeal.setScaleY(1.2);
     });
 
     // Removes shadow effect - Button Play
@@ -227,6 +227,8 @@ public class Controller implements Initializable {
         // Sets the playerCash in the TextField
         TextFieldBetts.setText(playerCashString);
         setPics(activePlayerOnGui, playerCard1);
+        
+        // 72x96 pixlar
       }
     });
   }

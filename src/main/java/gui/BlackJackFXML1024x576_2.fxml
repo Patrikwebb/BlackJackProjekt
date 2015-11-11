@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1024.0" stylesheets="@style1024x576.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kodaLoss.Controller">
+   <left>
+      <Pane id="PaneLeftBorderPane" prefHeight="290.0" prefWidth="353.0" />
+   </left>
+   <right>
+      <Pane id="PaneRightBorderPane" prefHeight="290.0" prefWidth="353.0">
+         <children>
+            <Pane id="player1" layoutX="-48.0" layoutY="102.0">
+               <children>
+                  <Label fx:id="labelPlayerName2" alignment="CENTER" prefHeight="16.0" prefWidth="150.0" rotate="-27.0" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <HBox fx:id="playerCard2" layoutX="54.0" layoutY="28.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="96.0" prefWidth="72.0" rotate="-27.0" />
+               </children>
+            </Pane>
+         </children></Pane>
+   </right>
+   <bottom>
+      <Pane id="PaneBottomBorderPane" prefHeight="128.0" prefWidth="964.0">
+         <children>
+            <Button id="buttonHit" fx:id="buttonHit" disable="true" layoutX="439.0" layoutY="70.0" mnemonicParsing="false" text="Hit">
+               <HBox.margin>
+                  <Insets left="140.0" top="20.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="buttonStay" disable="true" layoutX="253.0" layoutY="70.0" mnemonicParsing="false" style="-fx-text-fill: white;" text="Stay">
+               <HBox.margin>
+                  <Insets left="175.0" top="20.0" />
+               </HBox.margin>
+            </Button>
+            <TextField fx:id="TextFieldRounds" editable="false" focusTraversable="false" layoutX="142.0" layoutY="14.0" prefHeight="31.0" prefWidth="31.0" promptText="0">
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </TextField>
+            <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="26.0" layoutY="14.0" prefHeight="31.0" prefWidth="108.0" text="Round" />
+            <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="26.0" layoutY="83.0" prefHeight="31.0" prefWidth="108.0" text="Round Bett" />
+            <TextField editable="false" focusTraversable="false" layoutX="144.0" layoutY="83.0" prefHeight="31.0" prefWidth="58.0" promptText="0" />
+            <Button id="buttonDeal" fx:id="buttonDeal" layoutX="621.0" layoutY="70.0" mnemonicParsing="false" text="Deal" />
+            <TextField fx:id="TextFieldBetts" editable="false" focusTraversable="false" layoutX="913.0" layoutY="83.0" prefHeight="31.0" prefWidth="58.0" promptText="0" />
+            <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="795.0" layoutY="83.0" prefHeight="31.0" prefWidth="108.0" text="Player Cash" />
+            <Label id="labelWinnerText" fx:id="labelWinnerText" alignment="CENTER" layoutX="275.0" layoutY="3.0" prefHeight="48.0" prefWidth="474.0" textFill="WHITE">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </bottom>
+   <top>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </top>
+   <center>
+      <Pane id="PaneCenterBorderPane">
+         <children>
+            <TextField id="dealersHandScore" fx:id="dealersHandScore" editable="false" focusTraversable="false" layoutX="244.0" layoutY="54.0" prefHeight="25.0" prefWidth="35.0" promptText="Sc" />
+            <HBox id="dealerCard" fx:id="dealerCard" layoutX="120.0" layoutY="47.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="96.0" prefWidth="72.0" />
+            <Pane id="player1" layoutX="90.0" layoutY="143.0">
+               <children>
+                  <Label id="labelPlayerName1" fx:id="labelPlayerName1" alignment="CENTER" layoutY="5.0" prefHeight="16.0" prefWidth="150.0" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <HBox id="playerCard1" fx:id="playerCard1" layoutX="30.0" layoutY="25.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="96.0" prefWidth="72.0" />
+               </children>
+            </Pane>
+            <TextField id="playersHandScore" fx:id="playersHandScore" editable="false" focusTraversable="false" layoutX="148.0" layoutY="264.0" prefHeight="25.0" prefWidth="35.0" promptText="Sc" />
+         </children>
+      </Pane>
+   </center>
+</BorderPane>

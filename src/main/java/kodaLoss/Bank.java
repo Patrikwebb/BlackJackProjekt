@@ -3,6 +3,8 @@ package kodaLoss;
 import java.util.ArrayList;
 import java.util.List;
 
+import gui.NameAlertBox;
+
 import static kodaLoss.UserChoiceAdapter.*;
 
 import static kodaLoss.Bank_HelpersAndTools.*;
@@ -99,11 +101,11 @@ public class Bank {
    * waiting for user input!
    */
   public void playOneRound() {
-	  
+	
+	// Kolla om en runda redan är startad men kan vara Alive
 	if (roundThread != null) {
 		
-		// Jätte konstigt att detta inte funkar --->
-//  if (roundThread != null || roundThread.isAlive()) {
+	//if (roundThread.isAlive()){
 		
       // roundThread is still alive!
       System.out.println("Already running a round");
@@ -114,7 +116,7 @@ public class Bank {
 
         @Override
         public void run() {
-
+        
           System.out.println("Round started...");
 
           System.out.println(
