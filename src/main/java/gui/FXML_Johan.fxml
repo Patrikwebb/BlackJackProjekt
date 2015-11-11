@@ -30,12 +30,12 @@
    <bottom>
       <Pane id="PaneBottomBorderPane" prefHeight="128.0" prefWidth="964.0">
          <children>
-            <Button fx:id="buttonHit" disable="true" layoutX="439.0" layoutY="62.0" mnemonicParsing="false" style="-fx-background-color: linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%),linear-gradient(#020b02, #3a3a3a),linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%); -fx-background-insets: 0,1,4,5,6;; -fx-background-radius: 9,8,5,4,3;; -fx-padding: 15 30 15 30;; -fx-font-family: Helvetica; -fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;" text="Hit">
+            <Button fx:id="buttonHit" disable="true" layoutX="439.0" layoutY="59.0" mnemonicParsing="false" style="-fx-background-color: linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%),linear-gradient(#020b02, #3a3a3a),linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%); -fx-background-insets: 0,1,4,5,6;; -fx-background-radius: 9,8,5,4,3;; -fx-padding: 15 30 15 30;; -fx-font-family: Helvetica; -fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;" text="Hit">
                <HBox.margin>
                   <Insets left="140.0" top="20.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="buttonStay" disable="true" layoutX="253.0" layoutY="62.0" mnemonicParsing="false" style="-fx-background-color: linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%),linear-gradient(#020b02, #3a3a3a),linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%); -fx-background-insets: 0,1,4,5,6; -fx-background-radius: 9,8,5,4,3; -fx-padding: 15 30 15 30; -fx-font-family: Helvetica; -fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;" text="Stay">
+            <Button fx:id="buttonStay" disable="true" layoutX="261.0" layoutY="59.0" mnemonicParsing="false" style="-fx-background-color: linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%),linear-gradient(#020b02, #3a3a3a),linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%); -fx-background-insets: 0,1,4,5,6; -fx-background-radius: 9,8,5,4,3; -fx-padding: 15 30 15 30; -fx-font-family: Helvetica; -fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;" text="Stay">
                <HBox.margin>
                   <Insets left="175.0" top="20.0" />
                </HBox.margin>
@@ -46,11 +46,11 @@
                </HBox.margin>
             </TextField>
             <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="26.0" layoutY="14.0" prefHeight="31.0" prefWidth="108.0" text="Round" />
-            <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="26.0" layoutY="75.0" prefHeight="31.0" prefWidth="108.0" text="Round Bett" />
-            <TextField editable="false" focusTraversable="false" layoutX="142.0" layoutY="75.0" prefHeight="31.0" prefWidth="58.0" promptText="0" />
-            <Button fx:id="buttonDeal" layoutX="618.0" layoutY="62.0" mnemonicParsing="false" style="-fx-background-color: linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%),linear-gradient(#020b02, #3a3a3a),linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%); -fx-background-insets: 0,1,4,5,6;; -fx-background-radius: 9,8,5,4,3;; -fx-padding: 15 30 15 30;; -fx-font-family: Helvetica; -fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;" text="Deal" />
-            <TextField fx:id="TextFieldBetts" editable="false" focusTraversable="false" layoutX="911.0" layoutY="75.0" prefHeight="31.0" prefWidth="58.0" promptText="0" />
-            <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="795.0" layoutY="75.0" prefHeight="31.0" prefWidth="108.0" text="Player Cash" />
+            <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="26.0" layoutY="72.0" prefHeight="31.0" prefWidth="108.0" text="Round Bett" />
+            <TextField editable="false" focusTraversable="false" layoutX="142.0" layoutY="72.0" prefHeight="31.0" prefWidth="58.0" promptText="0" />
+            <Button fx:id="buttonDeal" layoutX="610.0" layoutY="59.0" mnemonicParsing="false" style="-fx-background-color: linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%),linear-gradient(#020b02, #3a3a3a),linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%); -fx-background-insets: 0,1,4,5,6;; -fx-background-radius: 9,8,5,4,3;; -fx-padding: 15 30 15 30;; -fx-font-family: Helvetica; -fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;" text="Deal" />
+            <TextField fx:id="TextFieldBetts" editable="false" focusTraversable="false" layoutX="886.0" layoutY="73.0" prefHeight="31.0" prefWidth="58.0" promptText="0" />
+            <TextField alignment="CENTER" editable="false" focusTraversable="false" layoutX="770.0" layoutY="73.0" prefHeight="31.0" prefWidth="108.0" text="Player Cash" />
             <Label id="labelWinnerText" fx:id="labelWinnerText" alignment="CENTER" layoutX="275.0" layoutY="3.0" prefHeight="48.0" prefWidth="474.0" textFill="WHITE">
                <font>
                   <Font size="36.0" />
