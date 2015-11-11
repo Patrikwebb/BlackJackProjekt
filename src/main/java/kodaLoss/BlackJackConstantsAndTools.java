@@ -2,12 +2,19 @@ package kodaLoss;
 
 public class BlackJackConstantsAndTools {
 
+  // FILE PATH TO CARD PICTURES
   public final static String FILE_PICTURE_PROTOKOLL = "file:///" ;
   public final static String FILE_USER_USERDIR = System.getProperty("user.dir");
   public final static String FILE_PICTURE_PATH = "\\src\\CardPictures\\";
   public final static String FILE_PICTURE_FILEENDING = ".png";
 
+  // Animation
   public final static long ONE_SECOND_SLEEP = 1000;
+  
+  // TEXTs
+  public final static  String RESULT_YOU_WON =  "Congratulations! You won.";
+  public final static String RESULT_YOU_LOOSE = "Sorry, you lost.";
+  public final static String RESULT_A_TIE = "It´s a tie";
   
   
   public static void sleepForXSeconds( ){

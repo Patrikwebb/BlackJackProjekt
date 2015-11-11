@@ -7,6 +7,7 @@ import static kodaLoss.UserChoiceAdapter.*;
 
 import static kodaLoss.Bank_HelpersAndTools.*;
 
+
 public class Bank {
 
   // MEMBERS PATRIC, TIM, Johannes , Johan
@@ -336,9 +337,7 @@ public class Bank {
      */
     
     int playerpoints;
-
-    System.out.println("Dealer: " + dealer);
-    System.out.println("Player: " + registeredPlayers.get(0));
+    String winnerText = null;
     
     // 1. dealer is bust
     if (isPlayersHandOver21(dealer)) {
@@ -349,13 +348,13 @@ public class Bank {
         // player not Bust - CASE 1
         if (playerpoints <= 21) {
           System.out.println("Congratulations! You won.");
-          controller.setlabelWinnerText("Congratulations! You won.");
+          winnerText = BlackJackConstantsAndTools.RESULT_YOU_WON;
           p.setRoundResult(RoundResult.WIN);
 
           // player also bust - CASE 2
         } else {
           System.out.println("Sorry, you lost.");
-          controller.setlabelWinnerText("Sorry, you lost.");
+          winnerText = BlackJackConstantsAndTools.RESULT_YOU_LOOSE;
           p.setRoundResult(RoundResult.LOOSE);
         }
       }
@@ -370,22 +369,28 @@ public class Bank {
         if (playerpoints <= 21
             && playerpoints > calculateValueOfPlayersHand(dealer)) {
           System.out.println("Congratulations! You won.");
-          controller.setlabelWinnerText("Congratulations! You won.");
+          winnerText = BlackJackConstantsAndTools.RESULT_YOU_WON;
           p.setRoundResult(RoundResult.WIN);
         }
         // players hand has same hand as dealers - CASE 8
         else if (playerpoints <= 21 && playerpoints == calculateValueOfPlayersHand(dealer)) {
           // TODO not tie but LOOSE
           System.out.println("Tie");
-          controller.setlabelWinnerText("It´s a tie");
+          winnerText = BlackJackConstantsAndTools.RESULT_A_TIE;
           p.setRoundResult(RoundResult.TIE);
 
           // players hand is lower than Banks - CASE 6         
         } else {
           System.out.println("Sorry, you lost.");
-          controller.setlabelWinnerText("Sorry, you lost.");
+          winnerText = BlackJackConstantsAndTools.RESULT_YOU_LOOSE;
           p.setRoundResult(RoundResult.LOOSE);
         }
+        
+        if (Bank.controller != null){
+          controller.setlabelWinnerText(winnerText);
+        }
+        
+        
         
         // TODO CASE 3 , 4 , 5 are missing 
       }
