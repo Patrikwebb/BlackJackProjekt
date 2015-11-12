@@ -9,7 +9,6 @@ import static kodaLoss.UserChoiceAdapter.*;
 
 import static kodaLoss.Bank_HelpersAndTools.*;
 
-
 public class Bank {
 
   // MEMBERS Patrik, Tim, Johannes , Johan
@@ -38,7 +37,7 @@ public class Bank {
    * reference to the Player objects of dealer and the active player to be shown
    * on the GUI. Needed for updating the GUI.
    */
-  public Player dealer = new Player("Dealer" , 0 );
+  public Player dealer = new Player("Dealer", 0);
   private Player activePlayerOnGui;
 
   // Default value for dealer & playersHandScore
@@ -103,31 +102,31 @@ public class Bank {
    * waiting for user input!
    */
   public void playOneRound() {
-	
-	// Kolla om en runda redan är startad men kan vara Alive
-	if (roundThread != null) {
-		
-	//if (roundThread.isAlive()){
-		
+
+    // Kolla om en runda redan är startad men kan vara Alive
+    if (roundThread != null) {
+
+      // if (roundThread.isAlive()){
+
       // roundThread is still alive!
       System.out.println("Already running a round");
 
-    } else if (roundThread == null || !roundThread.isAlive()){
+    } else if (roundThread == null || !roundThread.isAlive()) {
       // start a new Round in its own Thread for not freezing the GUI!
       roundThread = new Thread(new Runnable() {
 
         @Override
         public void run() {
-        
+
           System.out.println("Round started...");
-          
+
           System.out.println(
               "Round -- > Number of Players: " + registeredPlayers.size());
-          
+
           // Updaterar runda DIRTY TEST
           String roundString = Integer.toString(++round);
           controller.updateRound(roundString);
-          
+
           
           // clear last hand from clean Table!
           for (Player p : registeredPlayers) {
@@ -138,6 +137,12 @@ public class Bank {
           // buttons off while dealing cards
           controller.allButtonsOff();
 
+          
+          // ask all players for bet before dealing!
+          askPlayersForBetsForThisRound();
+          
+          BlackJackConstantsAndTools.sleepForXSeconds();
+          
           // deal a card to all players and dealer
           dealOneCardToAll();
           updateGuiAfterChangeInDataModel();
@@ -184,27 +189,25 @@ public class Bank {
             }
           }
 
-           // dealer plays after one second break / deactivate all buttons while
-           //dealer plays
-           controller.allButtonsOff();
-           BlackJackConstantsAndTools.sleepForXSeconds();
-           dealerPlays();
-            
-//           controller.setdealersHandScore(dealersHandScore(dealerscore));
-//           controller.setplayersHandScore(playersHandScore(playerscore));
-//           
-           /* Checks if dealer and players isn't bust, Checks the higher hand
-           * and give us the winner
-           */
-          calculateWinners();
+          // dealer plays after one second break / deactivate all buttons while
+          // dealer plays
           controller.allButtonsOff();
+          BlackJackConstantsAndTools.sleepForXSeconds();
+          dealerPlays();
           
+          // get winners and inform active player 
+          calculateWinners();
+          
+          // handle the cash in pot and pay out players
+          handlePlayersBetsAndPayWinners();
+          
+          controller.allButtonsOff();
+
           BlackJackConstantsAndTools.sleepForXSeconds(2000);
-          
-          
+
           // TODO RESET BEFORE NEXT ROUND!
           // reset Thread and Players for next round!
-          
+
           resetBeforeNextRound();
         }
       });
@@ -215,19 +218,48 @@ public class Bank {
 
   }
 
-  
   /*
-   * reset Bank before next round can start, inform GUI. 
+   * reset Bank before next round can start, inform GUI.
    */
   private void resetBeforeNextRound() {
     controller.setlabelWinnerText("");
     roundThread = null;
-    controller.gameIsoff(); //for player to choose DEAL! DONT FORGET! 
+    controller.gameIsoff(); // for player to choose DEAL! DONT FORGET!
+  }
+
+  /*
+   * method which blocks starting the dealing of cards until all players set
+   * their bets
+   */
+  // TODO public just for testing!
+  public void askPlayersForBetsForThisRound() {
+
+    for (Player p : registeredPlayers) {
+      
+      // METHOD TO CHANGE ACTIVEPLAYERINGUI COMES HERE
+      
+      controller.activatePlayersBetField();
+
+      controller.setlabelWinnerText(
+          p.getName() + ", " + BlackJackConstantsAndTools.ASK_FOR_BETS);
+
+      final int bet;
+
+      while (true) {
+
+        if (uca.getUserChoice() == UserChoice.LAY_BET) {
+          bet = controller.getBetFromPlayersTextField();
+          break;
+        }
+        BlackJackConstantsAndTools.sleepForXSeconds(10);
+      }
+
+      p.setPlayersBet(bet);
+      updateGuiAfterChangeInDataModel();
     }
-  
-  
-  
-  
+
+  }
+
   /*
    * Player plays against Bank in one round. Sets player inactive if bust.
    * 
@@ -330,23 +362,19 @@ public class Bank {
   /**
    * Calculate winners
    */
-  
+
   public void calculateWinners() {
     /*
-     * possible Combinations by basic rules :
-     * DEALER BUST   -> PLayer not bust => WIN = CASE 1
-     *               -> Player bust => Loose = CASE 2
-     * Dealer BJ      -> Player BJ => TIE = CASE 3
-     *                -> Player <= 21 => Loose = CASE 4
-     * Dealer <= 21   -> Player Bust => Loose = CASE 5
-     *                -> Player < dealer => Loose = CASE 6
-     *                -> Player > dealer => WIN = CASE 7
-     *                -> Player = dealer => TIE = CASE 8
+     * possible Combinations by basic rules : DEALER BUST -> PLayer not bust =>
+     * WIN = CASE 1 -> Player bust => Loose = CASE 2 Dealer BJ -> Player BJ =>
+     * TIE = CASE 3 -> Player <= 21 => Loose = CASE 4 Dealer <= 21 -> Player
+     * Bust => Loose = CASE 5 -> Player < dealer => Loose = CASE 6 -> Player >
+     * dealer => WIN = CASE 7 -> Player = dealer => TIE = CASE 8
      */
-    
+
     int playerpoints;
     String winnerText = null;
-    
+
     // 1. dealer is bust
     if (isPlayersHandOver21(dealer)) {
 
@@ -366,7 +394,7 @@ public class Bank {
           p.setRoundResult(RoundResult.LOOSE);
         }
       }
-      
+
       // 2. dealer is not bust
     } else {
 
@@ -381,24 +409,24 @@ public class Bank {
           p.setRoundResult(RoundResult.WIN);
         }
         // players hand has same hand as dealers - CASE 8
-        else if (playerpoints <= 21 && playerpoints == calculateValueOfPlayersHand(dealer)) {
+        else if (playerpoints <= 21
+            && playerpoints == calculateValueOfPlayersHand(dealer)) {
           // TODO not tie but LOOSE
           System.out.println("Tie");
           winnerText = BlackJackConstantsAndTools.RESULT_A_TIE;
           p.setRoundResult(RoundResult.TIE);
 
-          // players hand is lower than Banks - CASE 6         
+          // players hand is lower than Banks - CASE 6
         } else {
           System.out.println("Sorry, you lost.");
           winnerText = BlackJackConstantsAndTools.RESULT_YOU_LOOSE;
           p.setRoundResult(RoundResult.LOOSE);
         }
-     
-        
-        // TODO CASE 3 , 4 , 5 are missing 
+
+        // TODO CASE 3 , 4 , 5 are missing
       }
     }
-    if (Bank.controller != null){
+    if (Bank.controller != null) {
       controller.setlabelWinnerText(winnerText);
     }
   }
@@ -413,9 +441,9 @@ public class Bank {
 
     /*
      * TIE => return betting amount
-     * WIN => return 2 * bet
-     * WIN + BJ => return 2.5 * bet
-     * Loose => bet is lost
+     * WIN => return 2 * bet 
+     * WIN + BJ => return 2.5
+     * bet Loose => players bet is not returned
      */
     int playersBet;
 
@@ -439,6 +467,7 @@ public class Bank {
       // TODO would a whole method to reset players for next round?
       player.setPlayersBet(0);
       player.setRoundResult(null);
+      updateGuiAfterChangeInDataModel();
     }
   }
 
@@ -473,7 +502,7 @@ public class Bank {
    */
   public void clearAllPlayersAndDealer() {
     registeredPlayers.clear();
-    dealer = new Player("Dealer" , 0);
+    dealer = new Player("Dealer", 0);
     cardShoe = new CardShoe();
 
   }

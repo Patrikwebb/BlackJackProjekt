@@ -9,7 +9,7 @@ public class UserChoiceAdapter {
    */
   
   public enum UserChoice{
-    STAY, HIT , START_ROUND;
+    STAY, HIT , START_ROUND, LAY_BET;
   }
   
   //Singleton Pattern
@@ -59,6 +59,16 @@ public class UserChoiceAdapter {
     }
   }
   
+/**
+ * called when player has made a bet in his betting textfield  
+ */
+  public void playerChoosesToLayHisBet() {
+System.out.println("Player Choose to Lay his Bet");
+    
+    if (userChoice == null){
+      userChoice = UserChoice.LAY_BET;
+    }
+  }
   
 
   /**
@@ -75,6 +85,7 @@ public class UserChoiceAdapter {
   public UserChoice getUserChoice(){
     return userChoice;
   }
-  
+
+
   
 }
