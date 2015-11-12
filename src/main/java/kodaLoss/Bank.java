@@ -103,12 +103,7 @@ public class Bank {
    */
   public void playOneRound() {
 
-    // Kolla om en runda redan är startad men kan vara Alive
     if (roundThread != null) {
-
-      // if (roundThread.isAlive()){
-
-      // roundThread is still alive!
       System.out.println("Already running a round");
 
     } else if (roundThread == null || !roundThread.isAlive()) {
@@ -129,10 +124,7 @@ public class Bank {
 
           
           // clear last hand from clean Table!
-          for (Player p : registeredPlayers) {
-            p.clearPlayersHand();
-          }
-          dealer.clearPlayersHand();
+          clearHandsOffTheTable();
 
           // buttons off while dealing cards
           controller.allButtonsOff();
@@ -145,14 +137,13 @@ public class Bank {
           
           // deal a card to all players and dealer
           dealOneCardToAll();
-          updateGuiAfterChangeInDataModel();
+          
 
           BlackJackConstantsAndTools.sleepForXSeconds();
 
           // deal second card and hide dealers second card
           controller.setHideDealersSecondCard(true);
           dealOneCardToAll();
-          updateGuiAfterChangeInDataModel();
 
           // Get the dealer and players hands score in a toString metod
           // TODO Can this be added to updateGuiAfterChange...() method!?
@@ -167,32 +158,16 @@ public class Bank {
               .calculateValueOfPlayersHand(activePlayerOnGui));
 
           // check if a player has a BlackJack from start!
-          for (Player p : registeredPlayers) {
-
-            if (isPlayersHandABlackJack(p)) {
-              p.setPlayerActiveInRound(false);
-            } else {
-              p.setPlayerActiveInRound(true);
-            }
-          }
+          // TODO do we need this??? included in next method
+          deactivatePlayersWithABlackJackFromPlaying();
+          
 
           // each player who does not have a Blackjack plays against bank
-          for (Player p : registeredPlayers) {
+          allPlayersPlayAgainstTheDealer();
 
-            if (!isPlayersHandABlackJack(p)) {
-
-              controller.gameIson();
-              playerPlays(p);
-              // TODO Change GUI to next Player!
-            } else {
-              // TODO inform player about BlackJack!!!
-            }
-          }
-
-          // dealer plays after one second break / deactivate all buttons while
-          // dealer plays
-          controller.allButtonsOff();
           BlackJackConstantsAndTools.sleepForXSeconds();
+
+          // dealer plays
           dealerPlays();
           
           // get winners and inform active player 
@@ -201,7 +176,7 @@ public class Bank {
           // handle the cash in pot and pay out players
           handlePlayersBetsAndPayWinners();
           
-          controller.allButtonsOff();
+          //controller.allButtonsOff();
 
           BlackJackConstantsAndTools.sleepForXSeconds(2000);
 
@@ -210,6 +185,8 @@ public class Bank {
 
           resetBeforeNextRound();
         }
+
+
       });
       roundThread.start();
     } else {
@@ -217,7 +194,48 @@ public class Bank {
     }
 
   }
+  
+  // take all cards off the table
+  private void clearHandsOffTheTable() {
+    // TODO Auto-generated method stub
+    for (Player p : registeredPlayers) {
+      p.clearPlayersHand();
+    }
+    dealer.clearPlayersHand();
+    updateGuiAfterChangeInDataModel();
+  }
 
+  /* set the players who start with a blackjack to not active
+   *  => not playing this round
+   */
+  private void deactivatePlayersWithABlackJackFromPlaying() {
+    
+    for (Player p : registeredPlayers) {
+      
+      if (isPlayersHandABlackJack(p)) {
+        p.setPlayerActiveInRound(false);
+      } else {
+        p.setPlayerActiveInRound(true);
+      }
+    }
+  }
+
+  // all players without a BlackJack play against the bank
+  private void allPlayersPlayAgainstTheDealer() {
+    
+    for (Player p : registeredPlayers) {
+      
+      if (!isPlayersHandABlackJack(p)) {
+        controller.gameIson();
+        playerPlays(p);
+        // TODO Change GUI to next Player!
+      } else {
+        // TODO inform player about BlackJack!!!
+      }
+      controller.allButtonsOff();
+    }
+  }
+  
   /*
    * reset Bank before next round can start, inform GUI.
    */
@@ -249,6 +267,8 @@ public class Bank {
 
         if (uca.getUserChoice() == UserChoice.LAY_BET) {
           bet = controller.getBetFromPlayersTextField();
+          // switch off asking for a bet!
+          controller.setlabelWinnerText("");
           break;
         }
         BlackJackConstantsAndTools.sleepForXSeconds(10);
@@ -357,6 +377,16 @@ public class Bank {
       dealOneCardToPlayer(p);
     }
     dealOneCardToPlayer(dealer);
+    updateGuiAfterChangeInDataModel();
+  }
+
+  /*
+   * bank deals one card from the card shoe to a player who takes the card and
+   * adds it to his hand. (Then the gui is updated for the player)
+   */
+  private void dealOneCardToPlayer(Player player) {
+    player.addCardToHand(cardShoe.getACardFromCardShoe());
+    // TODO call gui to update players hand!
   }
 
   /**
@@ -488,19 +518,10 @@ public class Bank {
   }
 
   /*
-   * bank deals one card from the card shoe to a player who takes the card and
-   * adds it to his hand. (Then the gui is updated for the player)
-   */
-  private void dealOneCardToPlayer(Player player) {
-    player.addCardToHand(cardShoe.getACardFromCardShoe());
-    // TODO call gui to update players hand!
-  }
-
-  /*
    * Method to reset Bank to a default start state. Clears all players and
    * dealer, gets a new Card Shoe.
    */
-  public void clearAllPlayersAndDealer() {
+  public void resetBank() {
     registeredPlayers.clear();
     dealer = new Player("Dealer", 0);
     cardShoe = new CardShoe();
