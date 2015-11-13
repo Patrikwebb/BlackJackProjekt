@@ -21,7 +21,7 @@ public class Gui extends Application{
 			BorderPane page = (BorderPane) FXMLLoader.load(Gui.class.getResource("BlackJackFXML1024x576_2.fxml"));
 			
 			//Scene scene = new Scene(page, 1280, 720);
-			Scene scene = new Scene(page, 1039, 576);
+			Scene scene = new Scene(page, 1034, 576);
 				primaryStage.setScene(scene); 
 				primaryStage.setResizable(false);
 				primaryStage.show();

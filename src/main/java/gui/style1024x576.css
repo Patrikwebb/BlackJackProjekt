@@ -37,7 +37,44 @@
 			-fx-font-weight: bold;
 			-fx-text-fill: white;
 		}
-
+		
+		@font-face {
+	    font-family: Smokum-Regular;
+	    src: url("Smokum-Regular.ttf");
+		}
+		#textFieldPlayerCash, #textFieldRoundBett{
+			-fx-text-fill: #9a653d;
+			-fx-effect: dropshadow( gaussian ,#5c340d , 1,1,1,1 );
+			-fx-font-size: 30px;
+			-fx-background-color: rgba(0, 0, 0, 0);
+			-fx-font-family: Helvetica, Smokum-Regular;
+			
+		}
+			
+		#textFieldPlayerCashInt, #textFieldRoundBettInt{
+			-fx-background-color: #683b0d;
+			-fx-border-radius:  9,8,5,4,3;
+			-fx-border-color: #4c340d;
+			-fx-text-fill: rgb(255,0,0);
+			-fx-font-size: 20px;
+		}
+		
+		#textFieldRound{
+			-fx-text-fill: #3cd42c;
+			-fx-font-size: 30px;
+			-fx-background-color: rgba(0, 0, 0, 0);
+			-fx-effect: dropshadow( gaussian ,black , 1,1,1,1 );
+			-fx-font-family: Helvetica, Smokum-Regular;
+		}
+		
+		#textFieldRoundInt{
+			-fx-background-color: rgb(33,162,33);
+			-fx-border-radius:  6,8,5,7,9;
+			-fx-border-color: #4c340d;
+			-fx-text-fill: rgb(255,0,0);
+			-fx-font-size: 20px;
+		}
+			
 
 
 

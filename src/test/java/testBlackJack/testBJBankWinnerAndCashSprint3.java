@@ -165,7 +165,7 @@ public class testBJBankWinnerAndCashSprint3 {
   
   @After
   public void cleanUp(){
-    bank.clearAllPlayersAndDealer();
+    bank.resetBank();
     bank = null;
   }
   

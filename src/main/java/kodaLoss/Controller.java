@@ -42,61 +42,67 @@ public class Controller implements Initializable {
 
   @FXML
   private HBox dealerCard;
-  
+
   @FXML
   private TextField dealersHandScore;
 
   @FXML
   private TextField playersHandScore;
-  
+
   @FXML
   private Label labelWinnerText;
-  
+
   @FXML
   private TextField TextFieldRounds;
 
   @FXML
   private TextField TextFieldBetts;
 
+  @FXML
+  private TextField TextFieldRoundBett;
+
   // reference to UserChoiceAdapter for players button-events
   private UserChoiceAdapter uca = UserChoiceAdapter.getInstance();
 
   // reference to Bank singleton-object
   private Bank bank;
-  
+
   private boolean hideDealers2ndCard = true;
-  
+
   /**
    * Setter for playersHandScore
+   * 
    * @param score
    */
-  public void setplayersHandScore(String score){
-	  
-	  Platform.runLater(() -> { 
-	  playersHandScore.setText(score);
-	  });
+  public void setplayersHandScore(String score) {
+
+    Platform.runLater(() -> {
+      playersHandScore.setText(score);
+    });
   }
-  
+
   /**
    * Setter for dealersHandScore
+   * 
    * @param score
    */
-  public void setdealersHandScore(String score){
-	  
-	  Platform.runLater(() -> { 
-	  dealersHandScore.setText(score);
-	  });
+  public void setdealersHandScore(String score) {
+
+    Platform.runLater(() -> {
+      dealersHandScore.setText(score);
+    });
   }
-  
+
   /**
    * Setter for labelWinnerText
+   * 
    * @param winnerText
    */
-  public void setlabelWinnerText(String winnerText){
-	  
-	  Platform.runLater(() -> { 
-	  labelWinnerText.setText(winnerText);
-	  });
+  public void setlabelWinnerText(String winnerText) {
+
+    Platform.runLater(() -> {
+      labelWinnerText.setText(winnerText);
+    });
   }
 
   @Override
@@ -106,22 +112,34 @@ public class Controller implements Initializable {
     bank = Bank.getInstance();
     Bank.registerController(this);
 
-    buttonStay.setOnAction(e -> uca.playerChoosesToStay());
+    initControls();
 
+    initButtonEffects();
+  }
+
+  
+  private void initControls() {
+
+    // Field for player making bets
+    TextFieldRoundBett.setOnAction(e -> {
+      uca.playerChoosesToLayHisBet();
+    });
+    
+    TextFieldRoundBett.setDisable(true);
+
+    
+    buttonStay.setOnAction(e -> uca.playerChoosesToStay());
+    
     buttonHit.setOnAction(e -> uca.playerChoosesToHit());
     
     buttonDeal.setOnAction(e -> bank.playOneRound());
-
-   initButtonEffects(); 
   }
-    
-    
-    /*
-     * Button Effects
-     */
-    public void initButtonEffects(){
-    
-    
+
+  /*
+   * Button Effects
+   */
+  public void initButtonEffects() {
+
     // Shadow Effect on all buttons
     DropShadow dropShadow = new DropShadow();
     dropShadow.setRadius(3.0);
@@ -143,7 +161,7 @@ public class Controller implements Initializable {
       buttonStay.setEffect(dropShadow);
       buttonStay.setScaleX(1.2);
       buttonStay.setScaleY(1.2);
-//      buttonStandrotation.play();
+      // buttonStandrotation.play();
     });
 
     // Removes shadow effect - Button Stand
@@ -151,7 +169,7 @@ public class Controller implements Initializable {
       buttonStay.setEffect(null);
       buttonStay.setScaleX(1);
       buttonStay.setScaleY(1);
-//      buttonStandrotation.pause();
+      // buttonStandrotation.pause();
     });
 
     // Rotation effect - Button Hit
@@ -169,7 +187,7 @@ public class Controller implements Initializable {
       buttonHit.setEffect(dropShadow);
       buttonHit.setScaleX(1.2);
       buttonHit.setScaleY(1.2);
-//      buttonHitRotation.play();
+      // buttonHitRotation.play();
     });
 
     // Removes shadow effect - Button Hit
@@ -177,7 +195,7 @@ public class Controller implements Initializable {
       buttonHit.setEffect(null);
       buttonHit.setScaleX(1);
       buttonHit.setScaleY(1);
-//      buttonHitRotation.pause();
+      // buttonHitRotation.pause();
 
     });
 
@@ -196,17 +214,16 @@ public class Controller implements Initializable {
 
     });
   }
-    
 
-    /** 
-     * activate and deactivates hiding the dealers second card
-     * @param hide
-     */
-    public void setHideDealersSecondCard(boolean hide){
-      this.hideDealers2ndCard = hide;
-    }
-    
-    
+  /**
+   * activate and deactivates hiding the dealers second card
+   * 
+   * @param hide
+   */
+  public void setHideDealersSecondCard(boolean hide) {
+    this.hideDealers2ndCard = hide;
+  }
+
   /**
    * updates the Players variables in gui
    * 
@@ -218,21 +235,32 @@ public class Controller implements Initializable {
     Platform.runLater(new Runnable() {
 
       public void run() {
-        String handValue= Bank_HelpersAndTools.isPlayersHandABlackJack(activePlayerOnGui) ? 
-            "BJ!" : Bank_HelpersAndTools.calculateValueOfPlayersHand(activePlayerOnGui) + "";
-        playersHandScore.setText(handValue);
-        labelPlayerName1.setText(activePlayerOnGui.getName()); // name label
-        // TypeCasta playerCash with Interger.toString
-        String playerCashString = Integer.toString(activePlayerOnGui.getPlayersCash());
-        // Sets the playerCash in the TextField
-        TextFieldBetts.setText(playerCashString);
-        setPics(activePlayerOnGui, playerCard1);
         
-        // 72x96 pixlar
+        setPlayersHandScore(activePlayerOnGui);
+        
+        labelPlayerName1.setText(activePlayerOnGui.getName()); // name label
+        
+        // Sets the playerCash in the TextField
+        TextFieldBetts.setText( activePlayerOnGui.getPlayersCash() + "" );
+        TextFieldRoundBett.setText( activePlayerOnGui.getPlayersBet() + "" );
+        setPics(activePlayerOnGui, playerCard1);
       }
+
     });
   }
 
+  // must be called within main application thread, or Platform.runLater()
+  private void setPlayersHandScore( Player player ) {
+    String handValue = Bank_HelpersAndTools
+        .isPlayersHandABlackJack(player) ? "BJ!"
+            : Bank_HelpersAndTools
+            .calculateValueOfPlayersHand(player) + "";
+    playersHandScore.setText(handValue);
+    
+  }
+
+  
+  
   /**
    * updates the Dealers variables in GUI
    * 
@@ -245,14 +273,21 @@ public class Controller implements Initializable {
 
       public void run() {
         setPics(dealer, dealerCard);
-        
-        String handValue= Bank_HelpersAndTools.isPlayersHandABlackJack(dealer) ? 
-            "BJ!" : Bank_HelpersAndTools.calculateValueOfPlayersHand(dealer) + "";
-        
-        if (!hideDealers2ndCard){
-          dealersHandScore.setText( handValue );
+
+        String handValue = Bank_HelpersAndTools.isPlayersHandABlackJack(dealer)
+            ? "BJ!"
+            : Bank_HelpersAndTools.calculateValueOfPlayersHand(dealer) + "";
+
+        if (!hideDealers2ndCard) {
+          dealersHandScore.setText(handValue);
         }
       }
+    });
+  }
+
+  public void updateRound(String round) {
+    Platform.runLater(() -> {
+      TextFieldRounds.setText(round);
     });
   }
 
@@ -274,13 +309,13 @@ public class Controller implements Initializable {
         if (player != null) {
           List<Card> hand = player.getPlayersHand();
 
-          for (int i = 0 ; i < hand.size() ; i++) {
+          for (int i = 0; i < hand.size(); i++) {
             Image image;
 
             try {
               String cardString = hand.get(i).toString();
-              
-              if (i > 0 && hideDealers2ndCard && target == dealerCard){
+
+              if (i > 0 && hideDealers2ndCard && target == dealerCard) {
                 cardString = "BACKSIDE";
               }
               String pathToCardPicture = BlackJackConstantsAndTools
@@ -289,7 +324,7 @@ public class Controller implements Initializable {
               ImageView view = new ImageView(image);
               target.getChildren().add(view);
               target.setSpacing(-45);
-              
+
             } catch (Exception e) {
               System.out.println("Controller.setPics: Cannot load picture!");
             }
@@ -320,6 +355,10 @@ public class Controller implements Initializable {
       buttonHit.setDisable(false);
       buttonStay.setDisable(false);
       buttonDeal.setDisable(true);
+      // Sets the Round betts node to Editable -> false
+      // During the round
+      // TextFieldRoundBett.setEditable(false);
+      // Får null pointer så får kolla vidare på de här ;)
     });
   }
 
@@ -335,22 +374,53 @@ public class Controller implements Initializable {
         buttonHit.setDisable(true);
         buttonStay.setDisable(true);
         buttonDeal.setDisable(false);
+        // Sets the Round betts node to Editable -> true
+        // So you can add bett again after the round is over
+        // TextFieldRoundBett.setEditable(true);
+        // Får null pointer så får kolla vidare på de här ;)
       }
     });
   }
-  
+
   /**
    * All buttons off, e.g. while dealer plays!
-   */ 
-  public void allButtonsOff(){
+   */
+  public void allButtonsOff() {
     Platform.runLater(() -> {
       buttonHit.setDisable(true);
       buttonStay.setDisable(true);
       buttonDeal.setDisable(true);
     });
   }
-  
-  
-  
-  
+
+  /**
+   * Bank opens players betting textfield for entering a bet
+   */
+  public void activatePlayersBetField() {
+    Platform.runLater(() -> {
+      TextFieldRoundBett.setDisable(false);
+    });
+  }
+
+  /**
+   * get the bet Player has entered and deactivate textField after that!
+   */
+  public int getBetFromPlayersTextField() {
+    Integer bet = null;
+    
+    do{ 
+      try {
+        bet = Integer.parseInt(TextFieldRoundBett.getText());
+        break;
+      } catch (Exception e) {
+      }
+    } while (bet == null);
+    
+    Platform.runLater(() -> {
+      TextFieldRoundBett.setDisable(true);
+    });
+    
+    return bet;
+  }
+
 }
