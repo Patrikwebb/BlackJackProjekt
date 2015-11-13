@@ -19,14 +19,6 @@ public class Player {
 
 	// THIS IS NEW!
 	private RoundResult roundResult;
-
-	// TODO Do we need this???
-	private boolean isBusted = false;
-	
-
-  // TODO do we need this?
-	private boolean isActiveInRound = true; 
-
 	
 	// CONSTRUCTORS
 	/**
@@ -34,8 +26,6 @@ public class Player {
 	 */
 	public Player() {
 	}
-	
-	
 	
 	/**
 	 * Constructor to player, starts with name and playersCash
@@ -47,6 +37,8 @@ public class Player {
 		this.name = name;
 	};
 
+	
+	// INSTANCE METHODS
 	
 	/**
 	 * Player takes another card which is added to his hand
@@ -60,8 +52,6 @@ public class Player {
 	/**
 	 * clears the hand, removes all cards, after each round. !!! Assumes that
 	 * played cards just are erased and not added to another container!!!
-	 * 
-	 *TODO Do we save played cards? Or do we just erase them? 
 	 */
 	public void clearPlayersHand() {
 		this.hand.clear();
@@ -107,17 +97,6 @@ public class Player {
 	public String getName() {
 		return this.name;
 	}
-
-	/**
-	 * Sets the player to active (true) or inactive in this round of 
-	 * the game!
-	 * @param active: boolean (true = active)
-	 */
-	
-	public void setPlayerActiveInRound( boolean active ){
-	  this.isActiveInRound = active;
-	}
-	
 	
 	/**
 	 * User makes a bet via the UI. This method checks if users player-object
@@ -141,8 +120,6 @@ public class Player {
 	
 
 	// INSTANCE METHODS
-  
-	
 	
 	/**
 	 * set the players Cash amount
@@ -151,7 +128,6 @@ public class Player {
   public void setPlayersCash(int playersCash) {
     this.playersCash = playersCash;
   }
-  
   
   /**
 	 * returns the amount of cash this player has
@@ -194,31 +170,4 @@ public class Player {
 	public void setRoundResult(RoundResult roundResult) {
 	  this.roundResult = roundResult;
 	}
-	/**
-	 * getter to see if this player is busted, hand > 21 points!
-	 * 
-	 * @return true if player is busted
-	 */
-	public boolean isBusted() {
-		return isBusted;
-	}
-
-	/**
-	 * sets the player to busted, hand > 21 points, the bank decides!
-	 * 
-	 * @param isBusted
-	 */
-	public void setBusted(boolean isBusted) {
-		this.isBusted = isBusted;
-	}
-		
-	
-	/**
-	 * returns true if the player is set to active in this round. else false;
-	 * @return
-	 */
-	public boolean isActive(){
-	  return this.isActiveInRound;
-	}
-
 }

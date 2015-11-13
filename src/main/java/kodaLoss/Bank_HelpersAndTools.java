@@ -48,25 +48,4 @@ public class Bank_HelpersAndTools {
   public static boolean isPlayersHandOver21(Player player) {
     return (calculateValueOfPlayersHand(player) > 21);
   }
-
-  
-  /**
-   * @param dealerIsBust
-   *            the dealerIsBust to set
-   */
-  public static void setPlayerToBust(Player player , boolean playerIsBust) {
-    player.setBusted(playerIsBust);
-  }
-  
-  
-  /**
-   * Setter och Getter to dealerIsBust =>
-   * 
-   * @return the dealerIsBust
-   */
-  public static boolean isPlayerBust( Player player) {
-    return player.isBusted();
-  }
-  
-  
 }

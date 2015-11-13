@@ -40,22 +40,11 @@ public class Bank {
   public Player dealer = new Player("Dealer", 0);
   private Player activePlayerOnGui;
 
-  // Default value for dealer & playersHandScore
-  String dealerscore = "0";
-  String playerscore = "0";
-  int round = 0;
+  private int round = 0;
 
   // CONSTRUCTORS
-  public Bank() {
+  private Bank() {
     System.out.println("Bank started...");
-  }
-
-  public void addPlayersToTheTable() {
-
-    int rp = registeredPlayers.size() - 1;
-    activePlayerOnGui = registeredPlayers.get(rp);
-    updateGuiAfterChangeInDataModel();
-
   }
 
   /**
@@ -102,33 +91,30 @@ public class Bank {
    * waiting for user input!
    */
   public void playOneRound() {
-
+    
+    // A ROUND CANNOT BE PLAYED WITHOUT A REGISTERED CONTROLLER!
+    if (controller == null){
+      System.out.println("CONTROLLER has to be set!");
+      throw new IllegalStateException("Controller has to be set! ");
+    }
+    
+    // DO not start a new game, when a game is running! 
     if (roundThread != null) {
       System.out.println("Already running a round");
 
     } else if (roundThread == null || !roundThread.isAlive()) {
       // start a new Round in its own Thread for not freezing the GUI!
-      roundThread = new Thread(new Runnable() {
-
-        @Override
-        public void run() {
-
-          System.out.println("Round started...");
-
-          System.out.println(
-              "Round -- > Number of Players: " + registeredPlayers.size());
+      roundThread = new Thread( () -> {
 
           // Updaterar runda DIRTY TEST
           String roundString = Integer.toString(++round);
           controller.updateRound(roundString);
 
-          
           // clear last hand from clean Table!
           clearHandsOffTheTable();
 
           // buttons off while dealing cards
           controller.allButtonsOff();
-
           
           // ask all players for bet before dealing!
           askPlayersForBetsForThisRound();
@@ -138,29 +124,11 @@ public class Bank {
           // deal a card to all players and dealer
           dealOneCardToAll();
           
-
           BlackJackConstantsAndTools.sleepForXSeconds();
 
           // deal second card and hide dealers second card
           controller.setHideDealersSecondCard(true);
           dealOneCardToAll();
-
-          // Get the dealer and players hands score in a toString metod
-          // TODO Can this be added to updateGuiAfterChange...() method!?
-          controller.setdealersHandScore("");
-          controller.setplayersHandScore(playersHandScore(playerscore));
-
-          // System out Dealer score
-          System.out.println("Dealer score "
-              + Bank_HelpersAndTools.calculateValueOfPlayersHand(dealer));
-          // System out Player score
-          System.out.println("Player score " + Bank_HelpersAndTools
-              .calculateValueOfPlayersHand(activePlayerOnGui));
-
-          // check if a player has a BlackJack from start!
-          // TODO do we need this??? included in next method
-          deactivatePlayersWithABlackJackFromPlaying();
-          
 
           // each player who does not have a Blackjack plays against bank
           allPlayersPlayAgainstTheDealer();
@@ -175,49 +143,29 @@ public class Bank {
           
           // handle the cash in pot and pay out players
           handlePlayersBetsAndPayWinners();
-          
-          //controller.allButtonsOff();
 
           BlackJackConstantsAndTools.sleepForXSeconds(2000);
 
-          // TODO RESET BEFORE NEXT ROUND!
           // reset Thread and Players for next round!
-
           resetBeforeNextRound();
-        }
-
-
       });
       roundThread.start();
+      
     } else {
-      System.out.println("WRONT STATE in ROUND THREAD !");
+      System.out.println("WRONG STATE in ROUND THREAD !");
+      throw new RuntimeException("Round Thread in an impossible state!");
     }
-
   }
   
-  // take all cards off the table
+  /* take all cards off the table 
+  * (clear dealer and players hands and update gui)*/
   private void clearHandsOffTheTable() {
-    // TODO Auto-generated method stub
+
     for (Player p : registeredPlayers) {
       p.clearPlayersHand();
     }
     dealer.clearPlayersHand();
     updateGuiAfterChangeInDataModel();
-  }
-
-  /* set the players who start with a blackjack to not active
-   *  => not playing this round
-   */
-  private void deactivatePlayersWithABlackJackFromPlaying() {
-    
-    for (Player p : registeredPlayers) {
-      
-      if (isPlayersHandABlackJack(p)) {
-        p.setPlayerActiveInRound(false);
-      } else {
-        p.setPlayerActiveInRound(true);
-      }
-    }
   }
 
   // all players without a BlackJack play against the bank
@@ -299,16 +247,12 @@ public class Bank {
       try {
         Thread.sleep(10);
       } catch (InterruptedException e) {
-        // TODO Auto-generated catch block
         e.printStackTrace();
       }
 
       if (uca.getUserChoice() == UserChoice.HIT) {
 
         dealOneCardToPlayer(player);
-        // TODO Can setPlayerHandScore be moved in
-        // updateGuiAfterChangeInDataModel()???
-        controller.setplayersHandScore(playersHandScore(playerscore));
         updateGuiAfterChangeInDataModel();
 
         System.out.println("PLAYER HIT");
@@ -332,7 +276,7 @@ public class Bank {
    */
   protected void dealerPlays() {
 
-    try {
+    
       // to show dealers second card, set to false
       controller.setHideDealersSecondCard(false);
       updateGuiAfterChangeInDataModel();
@@ -346,10 +290,8 @@ public class Bank {
           controller.setlabelWinnerText("DEALER IS BUST!");
         }
 
-        Thread.sleep(2000);
-        controller.setdealersHandScore(dealersHandScore(dealerscore));
+        BlackJackConstantsAndTools.sleepForXSeconds(2000);
         dealOneCardToPlayer(dealer);
-        // update gui now
         updateGuiAfterChangeInDataModel();
 
         if (isPlayersHandOver21(dealer)) {
@@ -363,9 +305,6 @@ public class Bank {
               .println("DEALER has " + calculateValueOfPlayersHand(dealer));
         }
       }
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
   }
 
   /*
@@ -386,20 +325,23 @@ public class Bank {
    */
   private void dealOneCardToPlayer(Player player) {
     player.addCardToHand(cardShoe.getACardFromCardShoe());
-    // TODO call gui to update players hand!
   }
 
   /**
    * Calculate winners
    */
-
   public void calculateWinners() {
     /*
-     * possible Combinations by basic rules : DEALER BUST -> PLayer not bust =>
-     * WIN = CASE 1 -> Player bust => Loose = CASE 2 Dealer BJ -> Player BJ =>
-     * TIE = CASE 3 -> Player <= 21 => Loose = CASE 4 Dealer <= 21 -> Player
-     * Bust => Loose = CASE 5 -> Player < dealer => Loose = CASE 6 -> Player >
-     * dealer => WIN = CASE 7 -> Player = dealer => TIE = CASE 8
+     * possible Combinations by basic rules : 
+     * DEALER BUST -> PLayer not bust => WIN = CASE 1
+     * DEALER BUST -> Player bust => Loose = CASE 2 
+     * Dealer BJ -> Player BJ => TIE = CASE 3 
+     * DEALER BJ -> Player <= 21 => Loose = CASE 4 
+     * Dealer <= 21 -> Player Bust => Loose = CASE 5
+     * Dealer <= 21 -> Player < dealer => Loose = CASE 6 
+     * DEALER <= 21 -> Player > dealer => WIN = CASE 7 
+     * DEALER <= 21 -> Player = dealer => TIE = CASE 8
+     * Dealer <=21 -> Player = BJ => WIN = case 9
      */
 
     int playerpoints;
@@ -441,8 +383,6 @@ public class Bank {
         // players hand has same hand as dealers - CASE 8
         else if (playerpoints <= 21
             && playerpoints == calculateValueOfPlayersHand(dealer)) {
-          // TODO not tie but LOOSE
-          System.out.println("Tie");
           winnerText = BlackJackConstantsAndTools.RESULT_A_TIE;
           p.setRoundResult(RoundResult.TIE);
 
@@ -453,12 +393,10 @@ public class Bank {
           p.setRoundResult(RoundResult.LOOSE);
         }
 
-        // TODO CASE 3 , 4 , 5 are missing
+        // TODO CASE 3 , 4 , 5 , 9 are missing
       }
     }
-    if (Bank.controller != null) {
       controller.setlabelWinnerText(winnerText);
-    }
   }
 
   /*
@@ -502,9 +440,11 @@ public class Bank {
   }
 
   // NON STATIC HELPER FUNCTIONS
-
   public void addPlayerToBank(Player player) {
-    this.registeredPlayers.add(player);
+    
+    if (registeredPlayers.size() <= BlackJackConstantsAndTools.PLAYERS_MAX_COUNT ){
+      this.registeredPlayers.add(player);
+    }
   }
 
   /**
@@ -517,6 +457,14 @@ public class Bank {
     this.registeredPlayers.add(new Player(name, playerCash));
   }
 
+  
+  public void addPlayersToTheTable() {
+    int rp = registeredPlayers.size() - 1;
+    activePlayerOnGui = registeredPlayers.get(rp);
+    updateGuiAfterChangeInDataModel();
+  }
+  
+
   /*
    * Method to reset Bank to a default start state. Clears all players and
    * dealer, gets a new Card Shoe.
@@ -525,34 +473,5 @@ public class Bank {
     registeredPlayers.clear();
     dealer = new Player("Dealer", 0);
     cardShoe = new CardShoe();
-
-  }
-
-  /**
-   * Reads the Bank_HelpersAndTools.calculateValueOfPlayersHand metod </br >
-   * and converts it from an int to String
-   * 
-   * @return dealerscore
-   */
-  public String dealersHandScore(String dealerscore) {
-
-    int input = Bank_HelpersAndTools.calculateValueOfPlayersHand(dealer);
-    dealerscore = Integer.toString(input);
-    return dealerscore;
-
-  }
-
-  /**
-   * Reads the Bank_HelpersAndTools.calculateValueOfPlayersHand metod </br >
-   * and converts it from an int to String
-   * 
-   * @return playerscore
-   */
-  public String playersHandScore(String playerscore) {
-
-    int input = Bank_HelpersAndTools
-        .calculateValueOfPlayersHand(activePlayerOnGui);
-    playerscore = Integer.toString(input);
-    return playerscore;
   }
 }

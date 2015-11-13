@@ -117,21 +117,17 @@ public class Controller implements Initializable {
     initButtonEffects();
   }
 
-  
   private void initControls() {
 
     // Field for player making bets
-    TextFieldRoundBett.setOnAction(e -> {
-      uca.playerChoosesToLayHisBet();
-    });
-    
+    TextFieldRoundBett.setOnAction(e -> uca.playerChoosesToLayHisBet());
+
     TextFieldRoundBett.setDisable(true);
 
-    
     buttonStay.setOnAction(e -> uca.playerChoosesToStay());
-    
+
     buttonHit.setOnAction(e -> uca.playerChoosesToHit());
-    
+
     buttonDeal.setOnAction(e -> bank.playOneRound());
   }
 
@@ -232,35 +228,31 @@ public class Controller implements Initializable {
    */
   public void updatePlayer(Player activePlayerOnGui) {
 
-    Platform.runLater(new Runnable() {
+    Platform.runLater(() -> {
 
-      public void run() {
-        
-        setPlayersHandScore(activePlayerOnGui);
-        
-        labelPlayerName1.setText(activePlayerOnGui.getName()); // name label
-        
-        // Sets the playerCash in the TextField
-        TextFieldBetts.setText( activePlayerOnGui.getPlayersCash() + "" );
-        TextFieldRoundBett.setText( activePlayerOnGui.getPlayersBet() + "" );
-        setPics(activePlayerOnGui, playerCard1);
-      }
+      setPlayersHandScore(activePlayerOnGui);
 
+      labelPlayerName1.setText(activePlayerOnGui.getName()); // name label
+
+      // Sets the playerCash in the TextField
+      TextFieldBetts.setText(activePlayerOnGui.getPlayersCash() + "");
+      TextFieldRoundBett.setText(activePlayerOnGui.getPlayersBet() + "");
+      setPics(activePlayerOnGui, playerCard1);
     });
   }
 
   // must be called within main application thread, or Platform.runLater()
-  private void setPlayersHandScore( Player player ) {
-    String handValue = Bank_HelpersAndTools
-        .isPlayersHandABlackJack(player) ? "BJ!"
-            : Bank_HelpersAndTools
-            .calculateValueOfPlayersHand(player) + "";
+  private void setPlayersHandScore(Player player) {
+    String handValue;
+
+    if (Bank_HelpersAndTools.isPlayersHandABlackJack(player)) {
+      handValue = "BJ!";
+    } else {
+      handValue = Bank_HelpersAndTools.calculateValueOfPlayersHand(player) + "";
+    }
     playersHandScore.setText(handValue);
-    
   }
 
-  
-  
   /**
    * updates the Dealers variables in GUI
    * 
@@ -374,10 +366,6 @@ public class Controller implements Initializable {
         buttonHit.setDisable(true);
         buttonStay.setDisable(true);
         buttonDeal.setDisable(false);
-        // Sets the Round betts node to Editable -> true
-        // So you can add bett again after the round is over
-        // TextFieldRoundBett.setEditable(true);
-        // Får null pointer så får kolla vidare på de här ;)
       }
     });
   }
@@ -407,19 +395,19 @@ public class Controller implements Initializable {
    */
   public int getBetFromPlayersTextField() {
     Integer bet = null;
-    
-    do{ 
+
+    do {
       try {
         bet = Integer.parseInt(TextFieldRoundBett.getText());
         break;
       } catch (Exception e) {
       }
     } while (bet == null);
-    
+
     Platform.runLater(() -> {
       TextFieldRoundBett.setDisable(true);
     });
-    
+
     return bet;
   }
 
