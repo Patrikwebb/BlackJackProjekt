@@ -17,6 +17,7 @@
 	
 		
 		#labelWinnerText{
+			-fx-font-size: 30px;
 			-fx-text-fill: green;
 		    -fx-effect: dropshadow( gaussian , black , 1,1,1,3 );
 		}
