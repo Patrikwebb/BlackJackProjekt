@@ -107,6 +107,9 @@ public class Player {
 	 */
 	public void setPlayersBet(int requestedBet){
 	  
+	  
+	  
+	  
 	  if (requestedBet >= playersCash){
 	    // just set bet to max bet! "ALL IN"!
 	    betForThisRound = playersCash;

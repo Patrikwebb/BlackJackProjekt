@@ -57,7 +57,7 @@
                <opaqueInsets>
                   <Insets />
                </opaqueInsets></TextField>
-            <Label id="labelWinnerText" fx:id="labelWinnerText" alignment="CENTER" layoutX="180.0" layoutY="3.0" prefHeight="48.0" prefWidth="642.0" textFill="WHITE">
+            <Label id="labelWinnerText" fx:id="labelWinnerText" alignment="CENTER" layoutX="275.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="48.0" prefWidth="474.0" textFill="WHITE" wrapText="true">
                <font>
                   <Font size="36.0" />
                </font>
