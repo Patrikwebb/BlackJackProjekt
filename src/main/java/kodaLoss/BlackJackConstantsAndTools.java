@@ -16,7 +16,11 @@ public class BlackJackConstantsAndTools {
   public final static String RESULT_YOU_LOOSE = "Sorry, you lost.";
   public final static String RESULT_A_TIE = "It´s a tie";
   public static final String ASK_FOR_BETS = "please enter your bet!";
+  
+  // GAME SETTINGS
   public static final int PLAYERS_MAX_COUNT = 5;
+  public static final int MAX_BET = 500;
+  
   
   
   public static void sleepForXSeconds( ){

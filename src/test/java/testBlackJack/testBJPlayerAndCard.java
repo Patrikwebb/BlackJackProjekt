@@ -57,16 +57,7 @@ public class testBJPlayerAndCard extends TestCase {
     Assert.assertTrue( player.getPlayerHandsSize() == 0 );
   }
   
-  @Test
-  public void testIsBusted(){
-    Player p = new Player();
-    if (p.isBusted()){
-      fail("Player initialized as isBusted!");
-    }
-    p.setBusted(true);
-    Assert.assertTrue(p.isBusted());
-  }
-
+  
   @Test
   public void testPlayerGetName(){
     Player p1 = new Player();
