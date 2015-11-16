@@ -310,10 +310,10 @@ public class Controller implements Initializable {
               if (i > 0 && hideDealers2ndCard && target == dealerCard) {
                 cardString = "BACKSIDE";
               }
-              String pathToCardPicture = BlackJackConstantsAndTools
-                  .getURLStringToFileInCardPictures(cardString);
-              image = new Image(pathToCardPicture);
-              ImageView view = new ImageView(image);
+              URL url = Controller.class.getResource("/CardPictures/" + cardString + ".png");
+
+              image = new Image(url.toString());
+            		  ImageView view = new ImageView(image);
               target.getChildren().add(view);
               target.setSpacing(-45);
 
