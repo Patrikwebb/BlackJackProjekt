@@ -10,9 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import kodaLoss.Bank;
-import kodaLoss.Bank_HelpersAndTools;
 import kodaLoss.Card;
-import kodaLoss.Controller;
 import kodaLoss.Player;
 import kodaLoss.Rank;
 import kodaLoss.RoundResult;
@@ -54,7 +52,6 @@ public class testBJBankWinnerAndCashSprint3 {
     player17.addCardToHand(new Card(Suite.SPADES, Rank.SEVEN));
     
     bank = bank.getInstance();
-    
   }
 
   
@@ -67,13 +64,15 @@ public class testBJBankWinnerAndCashSprint3 {
     bank.dealer.addCardToHand(new Card(Suite.DIAMONDS, Rank.KING));
     bank.dealer.addCardToHand(new Card(Suite.DIAMONDS, Rank.TEN));
     
-    bank.calculateWinners();
+    bank.roundOutcome();
     
     RoundResult result = bank.registeredPlayers.get(0).getRoundResult();
    
     Assert.assertTrue(result == RoundResult.LOOSE);
   }
 
+    
+  
   @Test
   public void testCalculateWinners_DealerBUSTPlayerNot() {
     bank.registeredPlayers.add(player17);
@@ -82,7 +81,7 @@ public class testBJBankWinnerAndCashSprint3 {
     bank.dealer.addCardToHand(new Card(Suite.DIAMONDS, Rank.KING));
     bank.dealer.addCardToHand(new Card(Suite.DIAMONDS, Rank.TEN));
     
-    bank.calculateWinners();
+    bank.roundOutcome();
     
     Assert.assertTrue(player17.getRoundResult() == WIN);
   }
@@ -94,11 +93,12 @@ public class testBJBankWinnerAndCashSprint3 {
     bank.dealer.addCardToHand(new Card(Suite.SPADES, Rank.JACK));
     bank.dealer.addCardToHand(new Card(Suite.SPADES, Rank.SEVEN));
     
-    bank.calculateWinners();
+    bank.roundOutcome();
     
     Assert.assertTrue(player21.getRoundResult() == WIN);
   }
 
+  
   @Test
   public void testCalculateWinners_DealerhigherThanPlayer() {
     bank.registeredPlayers.add(player17);
@@ -107,7 +107,7 @@ public class testBJBankWinnerAndCashSprint3 {
     bank.dealer.addCardToHand(new Card(Suite.DIAMONDS, Rank.SEVEN));
     bank.dealer.addCardToHand(new Card(Suite.DIAMONDS, Rank.FOUR));
     
-    bank.calculateWinners();
+    bank.roundOutcome();
     
     Assert.assertTrue(player17.getRoundResult() == LOOSE);
   }
@@ -120,7 +120,7 @@ public class testBJBankWinnerAndCashSprint3 {
     bank.dealer.addCardToHand(new Card(Suite.DIAMONDS, Rank.SEVEN));
     bank.dealer.addCardToHand(new Card(Suite.DIAMONDS, Rank.FOUR));
     
-    bank.calculateWinners();
+    bank.roundOutcome();
     
     Assert.assertTrue(player21.getRoundResult() == TIE);
   }
@@ -132,7 +132,7 @@ public class testBJBankWinnerAndCashSprint3 {
     bank.dealer.addCardToHand(new Card(Suite.HEARTS, Rank.ACE));
     bank.dealer.addCardToHand(new Card(Suite.DIAMONDS, Rank.KING));
     
-    bank.calculateWinners();
+    bank.roundOutcome();
     
     Assert.assertTrue(player17.getRoundResult() == LOOSE);
   }
@@ -145,7 +145,7 @@ public class testBJBankWinnerAndCashSprint3 {
     bank.dealer.addCardToHand(new Card(Suite.DIAMONDS, Rank.SEVEN));
     bank.dealer.addCardToHand(new Card(Suite.DIAMONDS, Rank.FOUR));
     
-    bank.calculateWinners();
+    bank.roundOutcome();
     
     Assert.assertTrue(playerBJ.getRoundResult() == WIN);
   }
@@ -157,7 +157,7 @@ public class testBJBankWinnerAndCashSprint3 {
     bank.dealer.addCardToHand(new Card(Suite.HEARTS, Rank.ACE));
     bank.dealer.addCardToHand(new Card(Suite.DIAMONDS, Rank.KING));
     
-    bank.calculateWinners();
+    bank.roundOutcome();
     
     Assert.assertTrue(playerBJ.getRoundResult() == TIE);
   }
