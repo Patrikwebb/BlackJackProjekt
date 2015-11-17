@@ -17,12 +17,12 @@ public class BlackJackConstantsAndTools {
   public final static String RESULT_A_TIE = "It´s a tie";
   public static final String ASK_FOR_BETS = ", please enter your bet!";
   
+
   // GAME SETTINGS
   public static final int PLAYERS_MAX_COUNT = 1; // SPRINT 3 - Not multiplayer yet!
-  public static final int MAX_BET = 500;
+  public static final int MAX_BET = 5000;
   public static final int BANK_LIMIT = 50000;
   public static final int MIN_BET = 5;
-  
   
   
   public static void sleepForXSeconds( ){
@@ -44,9 +44,6 @@ public class BlackJackConstantsAndTools {
       System.out.println("BJConstantsAndTools.sleepFor1Second: problems with animation");
     }
   }
-  
-  
-  
   
   /**
    * help method to loading pictures in JavaFX via a URL to the 

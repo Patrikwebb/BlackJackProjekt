@@ -398,7 +398,12 @@ public class Controller implements Initializable , IController {
 
     do {
       try {
+    	
         bet = Integer.parseInt(TextFieldRoundBett.getText());
+        
+        if (bet < 0 ){
+        	bet = new Integer(Math.abs(bet));
+        }
         break;
       } catch (Exception e) {
       }
