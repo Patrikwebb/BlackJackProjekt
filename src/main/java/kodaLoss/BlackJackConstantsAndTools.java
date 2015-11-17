@@ -18,8 +18,10 @@ public class BlackJackConstantsAndTools {
   public static final String ASK_FOR_BETS = "please enter your bet!";
   
   // GAME SETTINGS
-  public static final int PLAYERS_MAX_COUNT = 5;
-  public static final int MAX_BET = 500;
+  public static final int PLAYERS_MAX_COUNT = 1;
+  public static final int MAX_BET = 5000;
+  public static final int MIN_BET = 5;
+  
   
   
   

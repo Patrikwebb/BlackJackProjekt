@@ -86,7 +86,7 @@ public class testBJPlayerAndCard extends TestCase {
   public void testCardShoe(){
 	  CardShoe cS = new CardShoe();
 	  Assert.assertTrue(cS.getNewCards().size() == 208);
-  }
+  } 
   
   @Test
   public void testCardShoeHas4CompleteDecks(){

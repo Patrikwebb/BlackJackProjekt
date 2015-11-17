@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static kodaLoss.UserChoiceAdapter.*;
-
+import static kodaLoss.BlackJackConstantsAndTools.*;
 import static kodaLoss.Bank_HelpersAndTools.*;
 
 public class Bank {
@@ -207,7 +207,7 @@ public class Bank {
       controller.setlabelWinnerText(
           p.getName() + ", " + BlackJackConstantsAndTools.ASK_FOR_BETS);
 
-      final int bet;
+      int bet;
 
       while (true) {
 
@@ -219,7 +219,17 @@ public class Bank {
         }
         BlackJackConstantsAndTools.sleepForXSeconds(10);
       }
+      if(bet > MAX_BET){
+    	  bet = MAX_BET;
+    	  controller.setlabelWinnerText("Max bet " + MAX_BET + " on table!");
+      }
+      if(bet<BlackJackConstantsAndTools.MIN_BET){
+    	  bet=BlackJackConstantsAndTools.MIN_BET;
+    	  controller.setlabelWinnerText("Min bet "+BlackJackConstantsAndTools.MIN_BET+" on table!");
+    	
+      }
 
+      
       p.setPlayersBet(bet);
       updateGuiAfterChangeInDataModel();
     }
