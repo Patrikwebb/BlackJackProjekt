@@ -20,6 +20,8 @@ public class BlackJackConstantsAndTools {
   // GAME SETTINGS
   public static final int PLAYERS_MAX_COUNT = 1; // SPRINT 3 - Not multiplayer yet!
   public static final int MAX_BET = 500;
+  public static final int BANK_LIMIT = 50000;
+  public static final int MIN_BET = 5;
   
   
   

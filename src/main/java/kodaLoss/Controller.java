@@ -23,7 +23,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
-public class Controller implements Initializable {
+public class Controller implements Initializable , IController {
 
   @FXML
   private Button buttonHit;

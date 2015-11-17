@@ -1,6 +1,7 @@
 package kodaLoss;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -173,4 +174,14 @@ public class Player {
 	public void setRoundResult(RoundResult roundResult) {
 	  this.roundResult = roundResult;
 	}
+	
+	@Override
+	public String toString(){
+	  return String.format("Player %s,Cash: %d, Bet: %d%nPlayers hand: %s ", 
+	      this.getName() ,
+	      this.getPlayersCash() ,
+	      this.getPlayersBet(), 
+	      Arrays.deepToString(this.getPlayersHand().toArray()) );
+	}
+	
 }

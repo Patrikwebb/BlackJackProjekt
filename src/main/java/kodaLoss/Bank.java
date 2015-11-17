@@ -5,7 +5,7 @@ import java.util.List;
 
 import static kodaLoss.UserChoiceAdapter.*;
 import static kodaLoss.RoundResult.*;
-
+import static kodaLoss.BlackJackConstantsAndTools.*;
 import static kodaLoss.Bank_HelpersAndTools.*;
 
 public class Bank {
@@ -22,7 +22,7 @@ public class Bank {
   private static Bank bank = new Bank();
 
   // Banks reference to the Controller object
-  protected static Controller controller = null;
+  protected static IController controller = null;
 
   public List<Player> registeredPlayers = new ArrayList<Player>();
 
@@ -64,7 +64,7 @@ public class Bank {
    * @param control
    *          - a controller object
    */
-  public static void registerController(Controller control) {
+  public static void registerController(IController control) {
 
     controller = control;
   }
@@ -269,6 +269,8 @@ public class Bank {
         }
       }
     }
+   System.out.println(player.toString());
+    
     // finally reset last choice in UCA
     uca.resetUserChoice();
   }
@@ -536,7 +538,16 @@ public class Bank {
    * @param playerCash
    */
   public void addPlayerToBank(String name, Integer playerCash) {
-    this.registeredPlayers.add(new Player(name, playerCash));
+    
+    int cash = (int)Math.abs(playerCash.intValue());
+    
+    if (cash >= BANK_LIMIT){
+      cash = BANK_LIMIT;
+    } else if(cash < MIN_BET){
+      cash = MIN_BET;
+    }
+    
+    this.registeredPlayers.add(new Player(name, cash));
   }
 
   public void addPlayersToTheTable() {
