@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static kodaLoss.UserChoiceAdapter.*;
+
 import static kodaLoss.BlackJackConstantsAndTools.*;
+
+import static kodaLoss.RoundResult.*;
+
 import static kodaLoss.Bank_HelpersAndTools.*;
 
 public class Bank {
@@ -41,6 +45,7 @@ public class Bank {
   private int round = 0;
 
   // CONSTRUCTORS
+  // private because of Singleton pattern
   private Bank() {
     System.out.println("Bank started...");
   }
@@ -89,74 +94,76 @@ public class Bank {
    * waiting for user input!
    */
   public void playOneRound() {
-    
+
     // A ROUND CANNOT BE PLAYED WITHOUT A REGISTERED CONTROLLER!
-    if (controller == null){
+    if (controller == null) {
       System.out.println("CONTROLLER has to be set!");
       throw new IllegalStateException("Controller has to be set! ");
     }
-    
-    // DO not start a new game, when a game is running! 
+
+    // DO not start a new game, when a game is running!
     if (roundThread != null) {
       System.out.println("Already running a round");
 
     } else if (roundThread == null || !roundThread.isAlive()) {
       // start a new Round in its own Thread for not freezing the GUI!
-      roundThread = new Thread( () -> {
+      roundThread = new Thread(() -> {
 
-          // Updaterar runda DIRTY TEST
-          String roundString = Integer.toString(++round);
-          controller.updateRound(roundString);
+        // Updaterar runda DIRTY TEST
+        String roundString = Integer.toString(++round);
+        controller.updateRound(roundString);
 
-          // clear last hand from clean Table!
-          clearHandsOffTheTable();
+        // clear last hand from clean Table!
+        clearHandsOffTheTable();
 
-          // buttons off while dealing cards
-          controller.allButtonsOff();
-          
-          // ask all players for bet before dealing!
-          askPlayersForBetsForThisRound();
-          
-          BlackJackConstantsAndTools.sleepForXSeconds();
-          
-          // deal a card to all players and dealer
-          dealOneCardToAll();
-          
-          BlackJackConstantsAndTools.sleepForXSeconds();
+        // buttons off while dealing cards
+        controller.allButtonsOff();
 
-          // deal second card and hide dealers second card
-          controller.setHideDealersSecondCard(true);
-          dealOneCardToAll();
+        // ask all players for bet before dealing!
+        askPlayersForBetsForThisRound();
 
-          // each player who does not have a Blackjack plays against bank
-          allPlayersPlayAgainstTheDealer();
+        BlackJackConstantsAndTools.sleepForXSeconds();
 
-          BlackJackConstantsAndTools.sleepForXSeconds();
+        // deal a card to all players and dealer
+        dealOneCardToAll();
 
-          // dealer plays
-          dealerPlays();
-          
-          // get winners and inform active player 
-          calculateWinners();
-          
-          // handle the cash in pot and pay out players
-          handlePlayersBetsAndPayWinners();
+        BlackJackConstantsAndTools.sleepForXSeconds();
 
-          BlackJackConstantsAndTools.sleepForXSeconds(2000);
+        // deal second card and hide dealers second card
+        controller.setHideDealersSecondCard(true);
+        dealOneCardToAll();
 
-          // reset Thread and Players for next round!
-          resetBeforeNextRound();
+        // each player who does not have a Blackjack plays against bank
+        allPlayersPlayAgainstTheDealer();
+
+        BlackJackConstantsAndTools.sleepForXSeconds();
+
+        // dealer plays
+        dealerPlays();
+
+        // get winners and inform active player
+        // calculateWinners();
+        roundOutcome();
+        // handle the cash in pot and pay out players
+        handlePlayersBetsAndPayWinners();
+
+        BlackJackConstantsAndTools.sleepForXSeconds(2000);
+
+        // reset Thread and Players for next round!
+        resetBeforeNextRound();
       });
       roundThread.start();
-      
+
     } else {
       System.out.println("WRONG STATE in ROUND THREAD !");
       throw new RuntimeException("Round Thread in an impossible state!");
     }
   }
-  
-  /* take all cards off the table 
-  * (clear dealer and players hands and update gui)*/
+
+  /*
+   * take all cards off the table (clear dealer and players hands and update
+   * gui)
+   */
   private void clearHandsOffTheTable() {
 
     for (Player p : registeredPlayers) {
@@ -168,9 +175,9 @@ public class Bank {
 
   // all players without a BlackJack play against the bank
   private void allPlayersPlayAgainstTheDealer() {
-    
+
     for (Player p : registeredPlayers) {
-      
+
       if (!isPlayersHandABlackJack(p)) {
         controller.gameIson();
         playerPlays(p);
@@ -181,7 +188,7 @@ public class Bank {
       controller.allButtonsOff();
     }
   }
-  
+
   /*
    * reset Bank before next round can start, inform GUI.
    */
@@ -199,9 +206,9 @@ public class Bank {
   public void askPlayersForBetsForThisRound() {
 
     for (Player p : registeredPlayers) {
-      
+
       // METHOD TO CHANGE ACTIVEPLAYERINGUI COMES HERE
-      
+
       controller.activatePlayersBetField();
 
       controller.setlabelWinnerText(
@@ -284,35 +291,33 @@ public class Bank {
    */
   protected void dealerPlays() {
 
-    
-      // to show dealers second card, set to false
-      controller.setHideDealersSecondCard(false);
+    // to show dealers second card, set to false
+    controller.setHideDealersSecondCard(false);
+    updateGuiAfterChangeInDataModel();
+
+    // take cards while hand less than 17
+    while (calculateValueOfPlayersHand(dealer) < 17) {
+
+      if (isPlayersHandOver21(dealer)) {
+
+        System.out.println("DEALER IS BUST!");
+        controller.setlabelWinnerText("DEALER IS BUST!");
+      }
+
+      BlackJackConstantsAndTools.sleepForXSeconds(2000);
+      dealOneCardToPlayer(dealer);
       updateGuiAfterChangeInDataModel();
 
-      // take cards while hand less than 17
-      while (calculateValueOfPlayersHand(dealer) < 17) {
-
-        if (isPlayersHandOver21(dealer)) {
-
-          System.out.println("DEALER IS BUST!");
-          controller.setlabelWinnerText("DEALER IS BUST!");
-        }
-
-        BlackJackConstantsAndTools.sleepForXSeconds(2000);
-        dealOneCardToPlayer(dealer);
+      if (isPlayersHandOver21(dealer)) {
+        // temporary until we send to GUI
+        System.out.println("DEALER IS BUST!");
         updateGuiAfterChangeInDataModel();
 
-        if (isPlayersHandOver21(dealer)) {
-          // temporary until we send to GUI
-          System.out.println("DEALER IS BUST!");
-          updateGuiAfterChangeInDataModel();
-
-        } else {
-          // temporary until we send to GUI
-          System.out
-              .println("DEALER has " + calculateValueOfPlayersHand(dealer));
-        }
+      } else {
+        // temporary until we send to GUI
+        System.out.println("DEALER has " + calculateValueOfPlayersHand(dealer));
       }
+    }
   }
 
   /*
@@ -340,71 +345,154 @@ public class Bank {
    */
   public void calculateWinners() {
     /*
-     * possible Combinations by basic rules : 
-     * DEALER BUST -> PLayer not bust => WIN = CASE 1
-     * DEALER BUST -> Player bust => Loose = CASE 2 
-     * Dealer BJ -> Player BJ => TIE = CASE 3 
-     * DEALER BJ -> Player <= 21 => Loose = CASE 4 
-     * Dealer <= 21 -> Player Bust => Loose = CASE 5
-     * Dealer <= 21 -> Player < dealer => Loose = CASE 6 
-     * DEALER <= 21 -> Player > dealer => WIN = CASE 7 
-     * DEALER <= 21 -> Player = dealer => TIE = CASE 8
-     * Dealer <=21 -> Player = BJ => WIN = case 9
+     * calculates and sets the RoundResult for every possible outcome of the
+     * game between the bank and the player!
      */
+
+    // Outcomes as ordered in Method: 
+    // PLAYER BJ    - Dealer BJ => TIE
+    //              - Dealer less => WIN
+    //
+    // Player BUST  - DEALER ? => LOOSE
+    // 
+    // Player value - Dealer BUST=> WIN
+    //              - Dealer BJ => LOOSE
+    //              = Dealer value => TIE
+    //              < Dealer value => LOOSE
+    //              > Dealer value => WIN
+    
 
     int playerpoints;
     String winnerText = null;
 
-    // 1. dealer is bust
-    if (isPlayersHandOver21(dealer)) {
+    for (Player player : registeredPlayers) {
+      playerpoints = calculateValueOfPlayersHand(player);
 
-      for (Player p : registeredPlayers) {
-        playerpoints = calculateValueOfPlayersHand(p);
+      // player has a BJ
+      if (isPlayersHandABlackJack(player)) {
 
-        // player not Bust - CASE 1
-        if (playerpoints <= 21) {
-          System.out.println("Congratulations! You won.");
-          winnerText = BlackJackConstantsAndTools.RESULT_YOU_WON;
-          p.setRoundResult(RoundResult.WIN);
-
-          // player also bust - CASE 2
+        if (isPlayersHandABlackJack(dealer)) {
+          winnerText = setAndShowResults(player, TIE, winnerText);
+        
         } else {
-          System.out.println("Sorry, you lost.");
-          winnerText = BlackJackConstantsAndTools.RESULT_YOU_LOOSE;
-          p.setRoundResult(RoundResult.LOOSE);
+          winnerText = setAndShowResults(player, WIN, winnerText);
         }
+      // player is bust
+      } else if (isPlayersHandOver21(player)) {
+        winnerText = setAndShowResults(player, LOOSE, winnerText);
       }
 
-      // 2. dealer is not bust
-    } else {
+      // player not a BJ nor BUST => has a value
+      else {
 
-      for (Player p : registeredPlayers) {
-        playerpoints = calculateValueOfPlayersHand(p);
-
-        // player not bust and higher hand than dealer - CASE 7
-        if (playerpoints <= 21
-            && playerpoints > calculateValueOfPlayersHand(dealer)) {
-          System.out.println("Congratulations! You won.");
-          winnerText = BlackJackConstantsAndTools.RESULT_YOU_WON;
-          p.setRoundResult(RoundResult.WIN);
+        int dealerpoints = calculateValueOfPlayersHand(dealer);
+        // DEALER is Bust
+        if (isPlayersHandOver21(dealer)) {
+          winnerText = setAndShowResults(player, WIN, winnerText);
+          // DEALER has a BJ
+        } else if (isPlayersHandABlackJack(dealer)) {
+          winnerText = setAndShowResults(player, LOOSE, winnerText);
+          // EQUAL
+        } else if (playerpoints == dealerpoints) {
+          winnerText = setAndShowResults(player, TIE, winnerText);
+          // LESS
+        } else if (playerpoints < dealerpoints) {
+          winnerText = setAndShowResults(player, LOOSE, winnerText);
+          // HIGHER HAND
+        } else if (playerpoints > dealerpoints) {
+          winnerText = setAndShowResults(player, WIN, winnerText);
         }
-        // players hand has same hand as dealers - CASE 8
-        else if (playerpoints <= 21
-            && playerpoints == calculateValueOfPlayersHand(dealer)) {
-          winnerText = BlackJackConstantsAndTools.RESULT_A_TIE;
-          p.setRoundResult(RoundResult.TIE);
-
-          // players hand is lower than Banks - CASE 6
-        } else {
-          System.out.println("Sorry, you lost.");
-          winnerText = BlackJackConstantsAndTools.RESULT_YOU_LOOSE;
-          p.setRoundResult(RoundResult.LOOSE);
-        }
-
-        // TODO CASE 3 , 4 , 5 , 9 are missing
       }
     }
+    // Controller is set when a round plays! This is for our unit tests to work!
+    if (controller != null) {
       controller.setlabelWinnerText(winnerText);
+    }
+  }
+  
+  // help function for calculateWinners()
+  private String setAndShowResults( Player p, RoundResult result, 
+      String winnerText ) {
+
+    switch (result) {
+      case LOOSE:
+        System.out.println("Sorry, you lost.");
+        winnerText = BlackJackConstantsAndTools.RESULT_YOU_LOOSE;
+        p.setRoundResult(RoundResult.LOOSE);
+        break;
+      case WIN:
+        System.out.println("Congratulations! You won.");
+        winnerText = BlackJackConstantsAndTools.RESULT_YOU_WON;
+        p.setRoundResult(RoundResult.WIN);
+        break;
+      case TIE:
+        System.out.println("It´s a tie!");
+        winnerText = BlackJackConstantsAndTools.RESULT_A_TIE;
+        p.setRoundResult(RoundResult.TIE);
+        break;
+      default:
+        System.out.println("Error in calculation of round result!");
+    }
+    return winnerText;
+  }
+
+  /**
+   * NEW! Method to replace CalculateWinner
+   */
+  public void roundOutcome() {
+    String winnerText = null;
+
+    // 1. dealer is bust
+    for (Player p : registeredPlayers) {
+
+      if (isPlayersHandOver21(dealer)) {
+
+        if (isPlayersHandOver21(p)) {
+          System.out.println("Sorry you LOST");
+          winnerText = BlackJackConstantsAndTools.RESULT_YOU_LOOSE;
+          p.setRoundResult(RoundResult.LOOSE);
+
+        } else {
+          System.out.println("Congratulations! You won.");
+          winnerText = BlackJackConstantsAndTools.RESULT_YOU_WON;
+          p.setRoundResult(RoundResult.WIN);
+        }
+      }
+
+      else if (calculateValueOfPlayersHand(p) <= 21
+          && calculateValueOfPlayersHand(dealer) <= 21) {
+
+        if (isPlayersHandABlackJack(p) && !isPlayersHandABlackJack(dealer)) {
+          System.out.println("Congratulations! You won.");
+          winnerText = BlackJackConstantsAndTools.RESULT_YOU_WON;
+          p.setRoundResult(RoundResult.WIN);
+        }
+
+        else if (calculateValueOfPlayersHand(p) > calculateValueOfPlayersHand(
+            dealer)) {
+          System.out.println("Congratulations! You won.");
+          winnerText = BlackJackConstantsAndTools.RESULT_YOU_WON;
+          p.setRoundResult(RoundResult.WIN);
+
+        } else if (calculateValueOfPlayersHand(p) < calculateValueOfPlayersHand(
+            dealer)) {
+          System.out.println("Sorry you LOST");
+          winnerText = BlackJackConstantsAndTools.RESULT_YOU_LOOSE;
+          p.setRoundResult(RoundResult.LOOSE);
+
+        } else if (calculateValueOfPlayersHand(
+            p) == calculateValueOfPlayersHand(dealer)) {
+          System.out.println("It´s a TIE.");
+          winnerText = BlackJackConstantsAndTools.RESULT_A_TIE;
+          p.setRoundResult(RoundResult.TIE);
+        }
+      }
+    }
+    // Controller is set when a round plays! This is for our unit tests to
+    // work!
+    if (controller != null) {
+      controller.setlabelWinnerText(winnerText);
+    }
   }
 
   /*
@@ -416,9 +504,7 @@ public class Bank {
   public void handlePlayersBetsAndPayWinners() {
 
     /*
-     * TIE => return betting amount
-     * WIN => return 2 * bet 
-     * WIN + BJ => return 2.5
+     * TIE => return betting amount WIN => return 2 * bet WIN + BJ => return 2.5
      * bet Loose => players bet is not returned
      */
     int playersBet;
@@ -449,8 +535,9 @@ public class Bank {
 
   // NON STATIC HELPER FUNCTIONS
   public void addPlayerToBank(Player player) {
-    
-    if (registeredPlayers.size() <= BlackJackConstantsAndTools.PLAYERS_MAX_COUNT ){
+
+    if (registeredPlayers
+        .size() <= BlackJackConstantsAndTools.PLAYERS_MAX_COUNT) {
       this.registeredPlayers.add(player);
     }
   }
@@ -465,13 +552,11 @@ public class Bank {
     this.registeredPlayers.add(new Player(name, playerCash));
   }
 
-  
   public void addPlayersToTheTable() {
     int rp = registeredPlayers.size() - 1;
     activePlayerOnGui = registeredPlayers.get(rp);
     updateGuiAfterChangeInDataModel();
   }
-  
 
   /*
    * Method to reset Bank to a default start state. Clears all players and

@@ -15,15 +15,13 @@ public class BlackJackConstantsAndTools {
   public final static  String RESULT_YOU_WON =  "Congratulations! You won.";
   public final static String RESULT_YOU_LOOSE = "Sorry, you lost.";
   public final static String RESULT_A_TIE = "It´s a tie";
-  public static final String ASK_FOR_BETS = "please enter your bet!";
+  public static final String ASK_FOR_BETS = ", please enter your bet!";
   
   // GAME SETTINGS
   public static final int PLAYERS_MAX_COUNT = 1;
   public static final int MAX_BET = 5000;
   public static final int MIN_BET = 5;
-  
-  
-  
+ 
   
   public static void sleepForXSeconds( ){
 
