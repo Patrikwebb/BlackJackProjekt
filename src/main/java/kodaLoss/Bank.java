@@ -146,6 +146,11 @@ public class Bank {
         roundOutcome();
         // handle the cash in pot and pay out players
         handlePlayersBetsAndPayWinners();
+        
+        // Check if player is game over
+        // Sprint 3: => game terminates!
+        checkForGameOver();
+        
 
         BlackJackConstantsAndTools.sleepForXSeconds(2000);
 
@@ -158,6 +163,25 @@ public class Bank {
       System.out.println("WRONG STATE in ROUND THREAD !");
       throw new RuntimeException("Round Thread in an impossible state!");
     }
+  }
+
+  
+  
+  /*
+   * Sprint 3: if single user is bankrupt the game terminates!
+   */
+  private void checkForGameOver() {
+    
+    if (activePlayerOnGui.getPlayersCash() < BlackJackConstantsAndTools.MIN_BET){
+      controller.setlabelWinnerText("GAME OVER! Please get money and restart the game!");
+      resetBank();
+      updateGuiAfterChangeInDataModel();
+      BlackJackConstantsAndTools.sleepForXSeconds(10000);
+      controller.setlabelWinnerText("Programme terminates...");
+      BlackJackConstantsAndTools.sleepForXSeconds(2000);
+      System.exit(0);
+    }
+    
   }
 
   /*
@@ -543,8 +567,9 @@ public class Bank {
   }
 
   /**
-   * Use for AlertBox
-   * 
+   * Adds a player to the bank from the inlog-window
+   * Checks that player cannot bring to much or too little money to
+   * the table according to the Banks limits.
    * @param name
    * @param playerCash
    */
@@ -575,5 +600,7 @@ public class Bank {
     registeredPlayers.clear();
     dealer = new Player("Dealer", 0);
     cardShoe = new CardShoe();
+    updateGuiAfterChangeInDataModel();
+    roundThread = null;
   }
 }
