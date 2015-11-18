@@ -142,15 +142,15 @@ public class Bank {
         dealerPlays();
 
         // get winners and inform active player
-        // calculateWinners();
-        roundOutcome();
+         calculateWinners();
+//        roundOutcome();
+         
         // handle the cash in pot and pay out players
         handlePlayersBetsAndPayWinners();
         
         // Check if player is game over
         // Sprint 3: => game terminates!
         checkForGameOver();
-        
 
         BlackJackConstantsAndTools.sleepForXSeconds(2000);
 
@@ -174,8 +174,8 @@ public class Bank {
     
     if (activePlayerOnGui.getPlayersCash() < BlackJackConstantsAndTools.MIN_BET){
       controller.setlabelWinnerText("GAME OVER! Please get money and restart the game!");
+      clearHandsOffTheTable();
       resetBank();
-      updateGuiAfterChangeInDataModel();
       BlackJackConstantsAndTools.sleepForXSeconds(10000);
       controller.setlabelWinnerText("Programme terminates...");
       BlackJackConstantsAndTools.sleepForXSeconds(2000);
@@ -250,6 +250,8 @@ public class Bank {
         }
         BlackJackConstantsAndTools.sleepForXSeconds(10);
       }
+      
+      bet = (int)Math.abs(bet);
       
       if(bet > MAX_BET){
     	  bet = MAX_BET;
@@ -600,7 +602,6 @@ public class Bank {
     registeredPlayers.clear();
     dealer = new Player("Dealer", 0);
     cardShoe = new CardShoe();
-    updateGuiAfterChangeInDataModel();
     roundThread = null;
   }
 }

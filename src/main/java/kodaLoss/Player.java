@@ -159,6 +159,7 @@ public class Player {
 	/**
 	 * method to be called by bank for calculating money amount won  
 	 * @return result of last played Round as enum type RoundResult
+	 * 
 	 */
 	public RoundResult getRoundResult() {
 	  return roundResult;

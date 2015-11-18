@@ -5,6 +5,9 @@ import kodaLoss.Player;
 
 public class ImplIController implements IController {
 
+  private int betForRound;
+  
+  
   @Override
   public void setplayersHandScore(String score) {
     // TODO Auto-generated method stub
@@ -73,8 +76,24 @@ public class ImplIController implements IController {
 
   @Override
   public int getBetFromPlayersTextField() {
-    // TODO Auto-generated method stub
-    return 0;
+ 
+    return betForRound;
   }
 
+  private int getBetFromTestEngine() {
+    
+    return this.betForRound;
+  }
+
+  
+  /**
+   * for accessing the players bet amount for this round via the test
+   * engine!
+   * @param bet
+   */
+  public void setBetFromTestEngine(int bet ){
+    this.betForRound = bet;
+  }
+  
+  
 }
