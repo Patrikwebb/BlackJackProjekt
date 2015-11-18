@@ -16,6 +16,8 @@ public class BlackJackConstantsAndTools {
   public final static String RESULT_YOU_LOOSE = "Sorry, you lost.";
   public final static String RESULT_A_TIE = "It´s a tie";
   public static final String ASK_FOR_BETS = ", please enter your bet!";
+  public static final String PLAYER_IS_BUST = "Player got bust!";
+  public static final String DEALER_IS_BUST = "Dealer got bust!";
   
 
   // GAME SETTINGS

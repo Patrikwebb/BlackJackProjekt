@@ -236,7 +236,7 @@ public class Bank {
       controller.activatePlayersBetField();
 
       controller.setlabelWinnerText(
-          p.getName() + ", " + BlackJackConstantsAndTools.ASK_FOR_BETS);
+          p.getName()  + BlackJackConstantsAndTools.ASK_FOR_BETS);
 
       int bet;
 
@@ -255,12 +255,12 @@ public class Bank {
       
       if(bet > MAX_BET){
     	  bet = MAX_BET;
-    	  controller.setlabelWinnerText("Max bet " + MAX_BET + " on table!");
+    	  controller.setlabelWinnerText("Max bet is " + MAX_BET + " on this table!");
       }
       
       if(bet<BlackJackConstantsAndTools.MIN_BET){
     	  bet=BlackJackConstantsAndTools.MIN_BET;
-    	  controller.setlabelWinnerText("Min bet "+BlackJackConstantsAndTools.MIN_BET+" on table!");
+    	  controller.setlabelWinnerText("Min bet is "+BlackJackConstantsAndTools.MIN_BET+" on this table!");
       }
       p.setPlayersBet(bet);
       updateGuiAfterChangeInDataModel();
@@ -299,8 +299,8 @@ public class Bank {
         uca.resetUserChoice();
 
         if (isPlayersHandOver21(player)) {
-          System.out.println("PLAYER IS BUST!");
-          controller.setlabelWinnerText("PLAYER IS BUST!");
+          System.out.println(PLAYER_IS_BUST);
+          controller.setlabelWinnerText(PLAYER_IS_BUST);
           updateGuiAfterChangeInDataModel();
           break;
         }
@@ -326,8 +326,8 @@ public class Bank {
 
       if (isPlayersHandOver21(dealer)) {
 
-        System.out.println("DEALER IS BUST!");
-        controller.setlabelWinnerText("DEALER IS BUST!");
+        System.out.println(DEALER_IS_BUST);
+        controller.setlabelWinnerText(DEALER_IS_BUST);
       }
 
       BlackJackConstantsAndTools.sleepForXSeconds(2000);
@@ -336,12 +336,12 @@ public class Bank {
 
       if (isPlayersHandOver21(dealer)) {
         // temporary until we send to GUI
-        System.out.println("DEALER IS BUST!");
+        System.out.println(DEALER_IS_BUST);
         updateGuiAfterChangeInDataModel();
 
       } else {
         // temporary until we send to GUI
-        System.out.println("DEALER has " + calculateValueOfPlayersHand(dealer));
+        System.out.println("Dealer has " + calculateValueOfPlayersHand(dealer));
       }
     }
   }
@@ -474,7 +474,7 @@ public class Bank {
       if (isPlayersHandOver21(dealer)) {
 
         if (isPlayersHandOver21(p)) {
-          System.out.println("Sorry you LOST");
+          System.out.println(RESULT_YOU_LOOSE);
           winnerText = BlackJackConstantsAndTools.RESULT_YOU_LOOSE;
           p.setRoundResult(RoundResult.LOOSE);
 
