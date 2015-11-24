@@ -26,7 +26,7 @@
                </children>
             </Pane>
             <Button id="buttonHit" fx:id="buttonDouble" disable="true" layoutX="224.0" layoutY="279.0" mnemonicParsing="false" text="Double" />
-            <Button id="buttonHit" fx:id="buttonDouble2" disable="true" layoutX="246.0" layoutY="218.0" mnemonicParsing="false" text="Split" />
+            <Button id="buttonHit" fx:id="buttonSplit" disable="true" layoutX="246.0" layoutY="218.0" mnemonicParsing="false" text="Split" />
          </children></Pane>
    </right>
    <bottom>
@@ -64,7 +64,7 @@
                   <Font size="36.0" />
                </font>
             </Label>
-            <Button id="buttonHit" fx:id="buttonDouble1" disable="true" layoutX="854.0" layoutY="3.0" mnemonicParsing="false" text="Insurence" />
+            <Button id="buttonHit" fx:id="buttonInsurence" disable="true" layoutX="854.0" layoutY="3.0" mnemonicParsing="false" text="Insurence" />
          </children>
       </Pane>
    </bottom>
