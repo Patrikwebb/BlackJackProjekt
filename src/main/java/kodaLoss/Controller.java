@@ -35,6 +35,12 @@ public class Controller implements Initializable , IController {
   private Button buttonDouble;
   
   @FXML
+  private Button buttonInsurence;
+  
+  @FXML
+  private Button buttonSplit;
+  
+  @FXML
   private Label labelPlayerName1, labelPlayerName2;
 
   @FXML

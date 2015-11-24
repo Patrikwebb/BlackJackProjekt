@@ -13,7 +13,7 @@
       <Pane id="PaneLeftBorderPane" prefHeight="290.0" prefWidth="353.0" />
    </left>
    <right>
-      <Pane id="PaneRightBorderPane" prefHeight="290.0" prefWidth="353.0">
+      <Pane id="PaneRightBorderPane" prefHeight="408.0" prefWidth="353.0">
          <children>
             <Pane id="player1" layoutX="-48.0" layoutY="102.0">
                <children>
@@ -25,6 +25,8 @@
                   <HBox fx:id="playerCard2" layoutX="54.0" layoutY="28.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="96.0" prefWidth="72.0" rotate="-27.0" />
                </children>
             </Pane>
+            <Button id="buttonHit" fx:id="buttonDouble" disable="true" layoutX="224.0" layoutY="279.0" mnemonicParsing="false" text="Double" />
+            <Button id="buttonHit" fx:id="buttonDouble2" disable="true" layoutX="246.0" layoutY="218.0" mnemonicParsing="false" text="Split" />
          </children></Pane>
    </right>
    <bottom>
@@ -62,7 +64,7 @@
                   <Font size="36.0" />
                </font>
             </Label>
-            <Button id="buttonHit" fx:id="buttonDouble" disable="true" layoutX="439.0" layoutY="4.0" mnemonicParsing="false" text="Double" />
+            <Button id="buttonHit" fx:id="buttonDouble1" disable="true" layoutX="854.0" layoutY="3.0" mnemonicParsing="false" text="Insurence" />
          </children>
       </Pane>
    </bottom>
