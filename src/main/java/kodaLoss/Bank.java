@@ -311,6 +311,19 @@ public class Bank {
     // finally reset last choice in UCA
     uca.resetUserChoice();
   }
+  
+  /* Doubles players bet for this round, if player has the cash! Otherwise 
+   * just leaves the bet as it is. Should be called after checking if 
+   * playing double is legal! */
+  protected void doublePlayersBet(Player p ){
+    final int playersBet= p.getPlayersBet();
+    
+    if (p.getPlayersCash() >= playersBet){
+      p.addToPlayersCash(playersBet);
+      p.setPlayersBet(2*playersBet);
+    } 
+  }
+  
 
   /*
    * dealer plays. Takes cards until its hand is over 16
