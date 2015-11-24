@@ -30,7 +30,10 @@ public class Controller implements Initializable , IController {
 
   @FXML
   private Button buttonDeal;
-
+  
+  @FXML
+  private Button buttonDouble;
+  
   @FXML
   private Label labelPlayerName1, labelPlayerName2;
 
