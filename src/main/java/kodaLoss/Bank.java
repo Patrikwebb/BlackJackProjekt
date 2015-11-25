@@ -115,10 +115,13 @@ public class Bank {
 
         // clear last hand from clean Table!
         clearHandsOffTheTable();
-
+        
         // buttons off while dealing cards
         controller.allButtonsOff();
-
+        
+        // Activate player to set bet before pressing DEAL
+        // activatePlayerToSetBet();
+        
         // ask all players for bet before dealing!
         askPlayersForBetsForThisRound();
 
@@ -131,11 +134,17 @@ public class Bank {
 
         // deal second card and hide dealers second card
         controller.setHideDealersSecondCard(true);
+        
+        // Insurance Test
+        activateInsurance();
+        
+        BlackJackConstantsAndTools.sleepForXSeconds();
+        
         dealOneCardToAll();
 
         // each player who does not have a Blackjack plays against bank
         allPlayersPlayAgainstTheDealer();
-
+        
         BlackJackConstantsAndTools.sleepForXSeconds();
 
         // dealer plays
@@ -221,7 +230,18 @@ public class Bank {
     roundThread = null;
     controller.gameIsoff(); // for player to choose DEAL! DONT FORGET!
   }
-
+  
+  public void activatePlayerToSetBet(){
+	
+	for (Player p : registeredPlayers){
+		
+	    controller.activatePlayersBetField();
+	
+	    controller.setlabelWinnerText(
+	        p.getName()  + BlackJackConstantsAndTools.ASK_FOR_BETS);
+	}
+  }
+  
   /*
    * method which blocks starting the dealing of cards until all players set
    * their bets
@@ -323,7 +343,30 @@ public class Bank {
       p.setPlayersBet(2*playersBet);
     } 
   }
-  
+  /**
+   * 
+   * Check if the dealer got an ACE on the first DEAL,
+   * And activates the button so the player can choice to use Insurance
+   * 
+   */
+  public void activateInsurance(){
+	  
+	  if (Bank_HelpersAndTools.checkForAceCardOnYourHand(dealer) == true){
+		  
+		  System.out.println("dealer.getPlayerHandsSize " + dealer.getPlayerHandsSize());
+		  
+		  // Denna if sats behövs egentligen inte, 
+		  // men hjälper till för att inte få möjliga buggar
+		  if (dealer.getPlayerHandsSize() == 1){
+			  controller.activateInsuranceButton();
+		  } else {
+			  System.out.println("\nDealer got more the one card on hand\n");
+		  }
+	  // For testing 
+	  } else {
+		  System.out.println("\nDealer aint got any ACE on first hand\n");
+	  }
+  }
 
   /*
    * dealer plays. Takes cards until its hand is over 16

@@ -27,6 +27,15 @@ public class Bank_HelpersAndTools {
     
     return sum;
   }
+  
+  public static boolean checkForAceCardOnYourHand(Player player){
+	  
+	  for (Card card : player.getPlayersHand()) {
+	      if (card.getRank() == Rank.ACE) 
+	        return true;
+	  }
+	return false;
+  }
 
   /**
    * checks if players hand is a BlackJack!

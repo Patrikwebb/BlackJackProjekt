@@ -49,7 +49,7 @@
             </TextField>
             <TextField id="textFieldRound" alignment="CENTER" editable="false" focusTraversable="false" layoutX="-1.0" layoutY="-1.0" opacity="0.84" prefHeight="65.0" prefWidth="135.0" text="Round" />
             <TextField id="textFieldRoundBett" editable="false" focusTraversable="false" layoutX="-3.0" layoutY="65.0" prefHeight="65.0" prefWidth="197.0" text="Round Bett" />
-            <TextField id="textFieldRoundBettInt" fx:id="TextFieldRoundBett" alignment="CENTER" focusTraversable="false" layoutX="173.0" layoutY="76.0" opacity="0.7" prefHeight="33.0" prefWidth="73.0" promptText="0" text="5" />
+            <TextField id="textFieldRoundBettInt" fx:id="TextFieldRoundBett" alignment="CENTER" focusTraversable="false" layoutX="173.0" layoutY="76.0" opacity="0.7" prefHeight="33.0" prefWidth="73.0" promptText="0" />
             <Button id="buttonDeal" fx:id="buttonDeal" layoutX="618.0" layoutY="70.0" mnemonicParsing="false" text="Deal" />
             <TextField id="textFieldPlayerCashInt" fx:id="TextFieldBetts" alignment="CENTER" editable="false" focusTraversable="false" layoutX="903.0" layoutY="77.0" opacity="0.7" prefHeight="33.0" prefWidth="88.0" promptText="0">
                <opaqueInsets>

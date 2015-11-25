@@ -395,12 +395,20 @@ public class Controller implements Initializable , IController {
       TextFieldRoundBett.setDisable(false);
     });
   }
+  /**
+   * Activates the Insurance button
+   */
+  public void activateInsuranceButton(){
+	  Platform.runLater(() -> {
+		  buttonInsurence.setDisable(false);
+	   });
+  }
 
   /**
    * get the bet Player has entered and deactivate textField after that!
    */
   public int getBetFromPlayersTextField() {
-    Integer bet = 5;
+    Integer bet = null;
 
     do {
       try {

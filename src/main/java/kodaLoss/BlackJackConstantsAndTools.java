@@ -18,7 +18,6 @@ public class BlackJackConstantsAndTools {
   public static final String ASK_FOR_BETS = ", please enter your bet!";
   public static final String PLAYER_IS_BUST = "Player got bust!";
   public static final String DEALER_IS_BUST = "Dealer got bust!";
-  
 
   // GAME SETTINGS
   public static final int PLAYERS_MAX_COUNT = 1; // SPRINT 3 - Not multiplayer yet!
