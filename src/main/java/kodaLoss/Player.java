@@ -12,12 +12,13 @@ public class Player {
 	
 	private int playersCash = 100; // alla spelare startar med 100 dollar
 	
-
-
 	private int betForThisRound = 0 ; // vad spelare satsar denna runda
+
+	private boolean hasInsurance = false; //insurance Casino rule
 	
 	private List<Card> hand = new ArrayList<Card>(); //Players hand
 
+	
 	// THIS IS NEW!
 	private RoundResult roundResult;
 	
@@ -66,7 +67,6 @@ public class Player {
 	public int getPlayerHandsSize() {
 		return hand.size();
 	}
-
 	
 	/**
 	 * getter for players hand
@@ -114,14 +114,12 @@ public class Player {
 	    playersCash = 0;
 	    
 	  } else {
-	   betForThisRound =requestedBet;
+	   betForThisRound = requestedBet;
 	   playersCash -= requestedBet;
 	  }
 	}
-	
 
 	// INSTANCE METHODS
-	
 	/**
 	 * set the players Cash amount
 	 * @param playersCash
@@ -181,5 +179,14 @@ public class Player {
 	      this.getPlayersBet(), 
 	      Arrays.deepToString(this.getPlayersHand().toArray()) );
 	}
+
+	
+  public boolean isHasInsurance() {
+    return hasInsurance;
+  }
+
+  public void setHasInsurance(boolean hasInsurance) {
+    this.hasInsurance = hasInsurance;
+  }
 	
 }

@@ -656,9 +656,13 @@ public void doublePlayersBet(Player p ){
           player.addToPlayersCash((int) Math.round(playersBet / 2.0d));
           System.out.println("BLACKJACK");
         }
+      } else if (player.getRoundResult() == RoundResult.LOOSE){
+        // if player has insurance he gets his bet back!
+        if (player.isHasInsurance()){
+          player.addToPlayersCash(playersBet);
+        } 
       }
       // just reset players bet for round
-      // TODO would a whole method to reset players for next round?
       player.setPlayersBet(0);
       player.setRoundResult(null);
       updateGuiAfterChangeInDataModel();
