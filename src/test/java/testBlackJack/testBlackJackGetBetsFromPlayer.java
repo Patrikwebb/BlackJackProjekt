@@ -38,7 +38,7 @@ public class testBlackJackGetBetsFromPlayer extends TestCase {
   
   
   @After
-  public void tearDown(){
+  public void buildDown(){
     bank.resetBank();
     bank = null;
   }

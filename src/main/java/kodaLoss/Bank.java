@@ -276,6 +276,10 @@ public class Bank {
 
     System.out.println("Player plays started...");
 
+    // check for casino rules
+//    checkIfDoubleCanBePlayed(player);
+    
+    
     // activate players buttons
     controller.gameIson();
 
@@ -314,14 +318,44 @@ public class Bank {
   
   /* Doubles players bet for this round, if player has the cash! Otherwise 
    * just leaves the bet as it is. Should be called after checking if 
-   * playing double is legal! */
-  protected void doublePlayersBet(Player p ){
+   * playing double is legal! 
+   * 
+   * THROWS: IllegalArgumentException if doubled bet would exceed players
+   * cash!
+   * */
+public void doublePlayersBet(Player p ){
     final int playersBet= p.getPlayersBet();
     
     if (p.getPlayersCash() >= playersBet){
       p.addToPlayersCash(playersBet);
       p.setPlayersBet(2*playersBet);
-    } 
+    } else {
+      throw new IllegalArgumentException("doubled bet exceeds Players cash!");
+    }
+  }
+  
+  
+  /*
+   * Returns true if a player has two cards in his hand and both have the 
+   * same value. This rule means that even a hand with a 10 and a King e.g. 
+   * could be split!
+   */
+  public boolean checkIfSplitCanBePlayed( Player p ){
+    
+    if (p.getPlayersHand().size() != 2){
+      return false;
+      
+    } else if (p.getPlayersBet() > p.getPlayersCash()){
+      return false;
+      
+    } else {
+      final Card cardOne = p.getPlayersHand().get(0);
+      final Card cardTwo = p.getPlayersHand().get(1);
+      
+      System.out.println(cardOne.getValue() == cardTwo.getValue());
+      
+      return (cardOne.getValue() == cardTwo.getValue());
+    }
   }
   
 

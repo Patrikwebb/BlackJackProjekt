@@ -27,6 +27,8 @@ public class testBJPlayerAndCard extends TestCase {
   public void testCardValue(){
     Card card = new Card( Suite.CLUBS , Rank.JACK);
     Assert.assertTrue(card.getValue() == 10);
+    Card card2 = new Card(Suite.DIAMONDS , Rank.ACE);
+    Assert.assertTrue(card2.getValue() == 11);
   }
   
   @Test
