@@ -391,7 +391,7 @@ public class Controller implements Initializable , IController {
    * get the bet Player has entered and deactivate textField after that!
    */
   public int getBetFromPlayersTextField() {
-    Integer bet = null;
+    Integer bet = 5;
 
     do {
       try {
