@@ -36,6 +36,8 @@ public interface IController {
   public void activatePlayersBetField();
   
   public int getBetFromPlayersTextField() ;
+
+  public void activateInsuranceButton();
   
   
   
