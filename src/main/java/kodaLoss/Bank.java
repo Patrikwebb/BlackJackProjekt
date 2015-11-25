@@ -48,6 +48,7 @@ public class Bank {
   // private because of Singleton pattern
   private Bank() {
     System.out.println("Bank started...");
+    
   }
 
   /**
@@ -87,7 +88,22 @@ public class Bank {
     } else
       System.out.println("ERROR: Controller not set in bank!");
   }
-
+  
+  /**
+   * defaultGameSettings --> Funderar lite 
+   * Bolla tankar
+   */
+  public void defaultGameSetting(){
+  	// Load the default setting on the game ???? 
+	  // Kom med idéér hur vi ska göra här i början
+	
+	 
+	// Controller settings
+//	if (BlackJackConstantsAndTools.INSURANCE Bla bla bla = false){
+//		//TODO
+//		controller.activateInsuranceButton();
+//	}
+  }
   /**
    * This method controls the sequence of actions to play one round, control of
    * the gameplay! Has to run in its own thread because method blocks while

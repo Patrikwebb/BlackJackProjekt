@@ -121,6 +121,8 @@ public class Controller implements Initializable , IController {
     initControls();
 
     initButtonEffects();
+    
+    disableAdvancedButton();
   }
 
   private void initControls() {
@@ -400,7 +402,27 @@ public class Controller implements Initializable , IController {
    */
   public void activateInsuranceButton(){
 	  Platform.runLater(() -> {
+		  buttonInsurence.setVisible(true);
 		  buttonInsurence.setDisable(false);
+	   });
+  }
+  
+  /**
+   * Disable the Insurance, Double and split button <Br />
+   * Use on start up so you dont need				<Br />
+   * to se them all the time						
+   */
+  public void disableAdvancedButton(){
+	  Platform.runLater(() -> {
+		  buttonInsurence.setVisible(false);
+		  buttonInsurence.setDisable(true);
+		  
+		  // Undo after testing
+//		  buttonDouble.setVisible(false);
+//		  buttonDouble.setDisable(true);
+//		  
+//		  buttonSplit.setVisible(false);
+//		  buttonSplit.setDisable(true);
 	   });
   }
 

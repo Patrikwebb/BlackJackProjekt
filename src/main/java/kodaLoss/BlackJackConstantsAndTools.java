@@ -25,7 +25,6 @@ public class BlackJackConstantsAndTools {
   public static final int BANK_LIMIT = 50000;
   public static final int MIN_BET = 5;
   
-  
   public static void sleepForXSeconds( ){
 
     try{
