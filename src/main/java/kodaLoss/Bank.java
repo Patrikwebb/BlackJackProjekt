@@ -313,7 +313,7 @@ public class Bank {
     System.out.println("Player plays started...");
 
     // check for casino rules
-//    checkIfDoubleCanBePlayed(player);
+   checkIfSplitCanBePlayed(player);
     
     
     // activate players buttons
@@ -345,13 +345,28 @@ public class Bank {
           break;
         }
       }
+      if (uca.getUserChoice() == UserChoice.DOUBLE) {
+    	  playerDouble(player);
+          break;
+			}
     }
    System.out.println(player.toString());
     
     // finally reset last choice in UCA
     uca.resetUserChoice();
   }
-  
+  //
+  public void playerDouble(Player p ){
+	  controller.activateDoubleButton();
+	  doublePlayersBet(p);
+	  dealOneCardToPlayer(p);
+      updateGuiAfterChangeInDataModel();
+
+      System.out.println("PLAYER DOUBLE");
+      p.printHandToConsole();
+      uca.resetUserChoice();
+	  
+  }
   /* Doubles players bet for this round, if player has the cash! Otherwise 
    * just leaves the bet as it is. Should be called after checking if 
    * playing double is legal! 
@@ -366,6 +381,8 @@ public void doublePlayersBet(Player p ){
       p.addToPlayersCash(playersBet);
       p.setPlayersBet(2*playersBet);
     } else {
+    	controller.setlabelWinnerText(
+		        BlackJackConstantsAndTools.NOT_ENOUGH_CASH_TO_DOUBLE);
       throw new IllegalArgumentException("doubled bet exceeds Players cash!");
     }
   }
@@ -656,13 +673,9 @@ public void doublePlayersBet(Player p ){
           player.addToPlayersCash((int) Math.round(playersBet / 2.0d));
           System.out.println("BLACKJACK");
         }
-      } else if (player.getRoundResult() == RoundResult.LOOSE){
-        // if player has insurance he gets his bet back!
-        if (player.isHasInsurance()){
-          player.addToPlayersCash(playersBet);
-        } 
       }
       // just reset players bet for round
+      // TODO would a whole method to reset players for next round?
       player.setPlayersBet(0);
       player.setRoundResult(null);
       updateGuiAfterChangeInDataModel();
