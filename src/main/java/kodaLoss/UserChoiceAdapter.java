@@ -9,7 +9,7 @@ public class UserChoiceAdapter {
    */
   
   public enum UserChoice{
-    STAY, HIT , START_ROUND, LAY_BET;
+    STAY, HIT , START_ROUND, LAY_BET, DOUBLE;
   }
   
   //Singleton Pattern
@@ -69,7 +69,16 @@ System.out.println("Player Choose to Lay his Bet");
       userChoice = UserChoice.LAY_BET;
     }
   }
-  
+  /**
+   * Change  UserChoice to DOUBLE
+   */
+    public void playerChoosesToDouble() {
+  System.out.println("Player Choose to Double");
+      
+      if (userChoice == null){
+        userChoice = UserChoice.DOUBLE;
+      }
+    } 
 
   /**
    * resets the userChoice field for next user choice
