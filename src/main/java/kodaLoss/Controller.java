@@ -477,6 +477,29 @@ public class Controller implements Initializable, IController {
 	}
 
 	
+	
+	/**
+	 * Puts the Casino rules buttons (Split, Double, Insurance)
+	 * on the game field in a deactivated state!
+	 */
+  @Override
+  public void activateAdvancedButton() {
+    
+      Platform.runLater(() -> {
+        buttonInsurence.setVisible(true);
+        buttonInsurence.setDisable(true);
+
+        buttonDouble.setVisible(true);
+        buttonDouble.setDisable(true);
+        // Undo after testing
+         buttonSplit.setVisible(true);
+         buttonSplit.setDisable(true);
+      });
+    }
+    
+
+
+	
     
   
 

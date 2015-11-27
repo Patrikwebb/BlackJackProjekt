@@ -126,64 +126,23 @@ public class Bank {
       
       // sets which rules to play in round! 
       
-//      roundThread = new CasinoRound(this);
+      // Mapping<String,String> Rule name for gui <--> class to create below 
+      try {
+        roundThread = (AbstractRound)Class.forName("kodaLoss.CasinoRound").newInstance();
+      } catch (InstantiationException | IllegalAccessException
+          | ClassNotFoundException e) {
+        
+        e.printStackTrace();
+        throw new RuntimeException("CANNOT START RULE-MODEL");
+      }
       
-      roundThread = new BasicRound(this);
+//      roundThread = new CasinoRound(this);
+//      roundThread = new BasicRound(this);
       
       roundThread.start();
     }
   }
-      
-     
   
-//  
-//  /*
-//   * Sprint 3: if single user is bankrupt the game terminates!
-//   */
-//  private void checkForGameOver() {
-//    
-//    if (activePlayerOnGui.getPlayersCash() < BlackJackConstantsAndTools.MIN_BET){
-//      controller.setlabelWinnerText("GAME OVER! Please get money and restart the game!");
-//     BlackJackConstantsAndTools.sleepForXSeconds(3000);
-//      clearHandsOffTheTable();
-//      resetBank();
-//      BlackJackConstantsAndTools.sleepForXSeconds(10000);
-//      controller.setlabelWinnerText("Programme terminates...");
-//      BlackJackConstantsAndTools.sleepForXSeconds(2000);
-//      System.exit(0);
-//    }
-//    
-//  }
-//
-//  /*
-//   * take all cards off the table (clear dealer and players hands and update
-//   * gui)
-//   */
-//  private void clearHandsOffTheTable() {
-//
-//    for (Player p : registeredPlayers) {
-//      p.clearPlayersHand();
-//    }
-//    dealer.clearPlayersHand();
-//    updateGuiAfterChangeInDataModel();
-//  }
-//
-//  // all players without a BlackJack play against the bank
-//  private void allPlayersPlayAgainstTheDealer() {
-//
-//    for (Player p : registeredPlayers) {
-//      
-//      if (!isPlayersHandABlackJack(p)) {
-//        controller.gameIson();
-//        playerPlays(p);
-//        // TODO Change GUI to next Player!
-//      } else {
-//        // TODO inform player about BlackJack!!!
-//      }
-//      controller.allButtonsOff();
-//    }
-//  }
-//
  /*
    * reset Bank before next round can start, inform GUI.
    */

@@ -43,5 +43,7 @@ public interface IController {
 
   public void disableAdvancedButton();
   
+  public void activateAdvancedButton();
+  
   
 }
