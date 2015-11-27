@@ -9,7 +9,26 @@ public class UserChoiceAdapter {
    */
   
   public enum UserChoice{
-    STAY, HIT , START_ROUND, LAY_BET, DOUBLE;
+    /** Player do not want another card or action - player stays */
+    STAY,
+    
+    /** Player wants to get a new card, player hits */
+    HIT ,
+    
+    /** Player wants to start the next round */
+    START_ROUND, 
+    
+    /** Player wants to set his bet for the round */
+    LAY_BET, 
+    
+    /** Player wants to play Double, the casino rule */
+    DOUBLE, 
+    
+    /** Player wants to buy an insurance from bank */
+    INSURANCE, 
+    
+    /** Player wants to split his deck , the casino rule */
+    SPLIT;
   }
   
   //Singleton Pattern

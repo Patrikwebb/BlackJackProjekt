@@ -317,7 +317,9 @@ public class Bank {
     System.out.println("Player plays started...");
 
     // check for casino rules
-   checkIfSplitCanBePlayed(player);
+    checkIfInsuranceCanBePlayed(player);
+    checkIfSplitCanBePlayed(player);
+   // checkIfDoubleCanBePlayer(player);
     
     // activate players buttons
     controller.gameIson();
@@ -348,28 +350,38 @@ public class Bank {
           break;
         }
       }
-      if (uca.getUserChoice() == UserChoice.DOUBLE) {
+      else if (uca.getUserChoice() == UserChoice.DOUBLE) {
     	  playerDouble(player);
-          break;
+        break;
+        
+			} else if (uca.getUserChoice() == UserChoice.INSURANCE){
+			  // TODO 
+			  
+			  
+			} else if (uca.getUserChoice() == UserChoice.SPLIT){
+			  //TODO
 			}
     }
+    
+    // print out all data of Player!
    System.out.println(player.toString());
     
     // finally reset last choice in UCA
     uca.resetUserChoice();
   }
+  
   //
   public void playerDouble(Player p ){
-	  controller.activateDoubleButton();
+//	  controller.activateDoubleButton(); // måste ha varit aktiverat innan dess för att kunna spela double
 	  doublePlayersBet(p);
 	  dealOneCardToPlayer(p);
       updateGuiAfterChangeInDataModel();
 
       System.out.println("PLAYER DOUBLE");
-      p.printHandToConsole();
-      uca.resetUserChoice();
-	  
+      // tog bort sysout prints och reset-uca, då de kommer i player plays i alla fall
   }
+  
+  
   /* Doubles players bet for this round, if player has the cash! Otherwise 
    * just leaves the bet as it is. Should be called after checking if 
    * playing double is legal! 
