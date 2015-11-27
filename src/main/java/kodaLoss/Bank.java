@@ -199,6 +199,7 @@ public class Bank {
     
     if (activePlayerOnGui.getPlayersCash() < BlackJackConstantsAndTools.MIN_BET){
       controller.setlabelWinnerText("GAME OVER! Please get money and restart the game!");
+     BlackJackConstantsAndTools.sleepForXSeconds(3000);
       clearHandsOffTheTable();
       resetBank();
       BlackJackConstantsAndTools.sleepForXSeconds(10000);
@@ -226,7 +227,7 @@ public class Bank {
   private void allPlayersPlayAgainstTheDealer() {
 
     for (Player p : registeredPlayers) {
-
+      
       if (!isPlayersHandABlackJack(p)) {
         controller.gameIson();
         playerPlays(p);
@@ -315,7 +316,6 @@ public class Bank {
     // check for casino rules
 //    checkIfDoubleCanBePlayed(player);
     
-    
     // activate players buttons
     controller.gameIson();
 
@@ -370,8 +370,20 @@ public void doublePlayersBet(Player p ){
     }
   }
   
+/**
+ * Checks if the player can buy an insurance. A player is allowed to insure 
+ * himself if the open card of the dealer is an ACE and the player has the 
+ * insurance price of half his bet for this round.
+ * @param p Player
+ * @return true if player can buy an insurance
+ */
+public boolean checkIfInsuranceCanBePlayed( Player p ){
+
+  return Bank_HelpersAndTools.checkForAceCardOnYourHand(p) &&
+      p.getPlayersCash() * 2 >= p.getPlayersBet();
+}
   
-  /*
+  /**
    * Returns true if a player has two cards in his hand and both have the 
    * same value. This rule means that even a hand with a 10 and a King e.g. 
    * could be split!
@@ -393,6 +405,7 @@ public void doublePlayersBet(Player p ){
       return (cardOne.getValue() == cardTwo.getValue());
     }
   }
+  
   /**
    * 
    * Check if the dealer got an ACE on the first DEAL,
