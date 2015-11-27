@@ -94,6 +94,18 @@ public class ImplIController implements IController {
   public void setBetFromTestEngine(int bet ){
     this.betForRound = bet;
   }
+
+@Override
+public void activateInsuranceButton() {
+	// TODO Auto-generated method stub
+	
+}
+
+@Override
+public void activateDoubleButton() {
+	// TODO Auto-generated method stub
+	
+}
   
   
 }

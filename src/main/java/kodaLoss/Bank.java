@@ -257,6 +257,9 @@ public class Bank {
 	        p.getName()  + BlackJackConstantsAndTools.ASK_FOR_BETS);
 	}
   }
+  public void setPlayersDefaultBet(){
+	  controller.getBetFromPlayersTextField();
+  }
   
   /*
    * method which blocks starting the dealing of cards until all players set
