@@ -40,6 +40,8 @@ public interface IController {
   public void activateInsuranceButton();
   
   public void activateDoubleButton();
+
+  public void disableAdvancedButton();
   
   
 }

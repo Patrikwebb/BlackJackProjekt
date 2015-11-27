@@ -7,6 +7,8 @@ import java.util.ResourceBundle;
 import javafx.animation.Animation;
 import javafx.animation.RotateTransition;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -132,6 +134,17 @@ public class Controller implements Initializable, IController {
 
 		TextFieldRoundBett.setDisable(true);
 
+		TextFieldRoundBett.setOnMousePressed(new EventHandler<MouseEvent>(){
+
+      @Override
+      public void handle(MouseEvent event) {
+       
+        if(event.getClickCount() >= 2){
+          uca.playerChoosesToLayHisBet();
+        }
+      }
+		});
+		
 		buttonStay.setOnAction(e -> uca.playerChoosesToStay());
 
 		buttonHit.setOnAction(e -> uca.playerChoosesToHit());
@@ -423,16 +436,17 @@ public class Controller implements Initializable, IController {
 	 * Use on start up so you dont need <Br />
 	 * to se them all the time
 	 */
+	@Override
 	public void disableAdvancedButton() {
 		Platform.runLater(() -> {
 			buttonInsurence.setVisible(false);
 			buttonInsurence.setDisable(true);
 
-			//buttonDouble.setVisible(false);
-			//buttonDouble.setDisable(true);
+			buttonDouble.setVisible(false);
+			buttonDouble.setDisable(true);
 			// Undo after testing
-			// buttonSplit.setVisible(false);
-			// buttonSplit.setDisable(true);
+			 buttonSplit.setVisible(false);
+			 buttonSplit.setDisable(true);
 		});
 	}
 
@@ -461,5 +475,9 @@ public class Controller implements Initializable, IController {
 
 		return bet;
 	}
+
+	
+    
+  
 
 }
