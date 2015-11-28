@@ -293,7 +293,7 @@ public void doublePlayersBet(Player p ){
   } else {
     controller.setlabelWinnerText(
           BlackJackConstantsAndTools.NOT_ENOUGH_CASH_TO_DOUBLE);
-    throw new IllegalArgumentException("doubled bet exceeds Players cash!");
+   // throw new IllegalArgumentException("doubled bet exceeds Players cash!");
   }
 }
 
