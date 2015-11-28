@@ -9,7 +9,11 @@ public class UserChoiceAdapter {
    */
   
   public enum UserChoice{
-    STAY, HIT , START_ROUND, LAY_BET;
+    STAY, 
+    HIT , 
+    START_ROUND, 
+    LAY_BET,
+    INSURANCE;
   }
   
   //Singleton Pattern
@@ -26,7 +30,16 @@ public class UserChoiceAdapter {
     return uca;
   }
   
-  
+  /**
+   * Player choose to take insurance by pressing the Insurance button in Gui 
+   */
+  public void playerChoosesToTakeInsurance(){
+	  System.out.println("Player takes Insurance");
+	  
+	  if( userChoice == null){
+		  userChoice = UserChoice.INSURANCE;
+	  }
+  }
   
   /**
    * Player chooses to stay by pressing the Stay-button on his user-interface

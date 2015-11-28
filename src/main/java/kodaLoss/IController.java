@@ -39,6 +39,7 @@ public interface IController {
 
   public void activateInsuranceButton();
   
+  public void disableAdvancedButton();
   
   
   

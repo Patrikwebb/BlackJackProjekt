@@ -28,6 +28,11 @@ public class Bank_HelpersAndTools {
     return sum;
   }
   
+  /**
+   * Check if any player got an ACE on there hand.
+   * @param player
+   * @return true / false
+   */
   public static boolean checkForAceCardOnYourHand(Player player){
 	  
 	  for (Card card : player.getPlayersHand()) {
