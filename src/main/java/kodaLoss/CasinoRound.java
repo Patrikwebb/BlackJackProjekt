@@ -58,7 +58,7 @@ public class CasinoRound extends AbstractRound{
         
       } else if (uca.getUserChoice() == UserChoice.INSURANCE){
         // TODO 
-        
+        playerInsurance(player);
         
       } else if (uca.getUserChoice() == UserChoice.SPLIT){
         //TODO
@@ -66,7 +66,7 @@ public class CasinoRound extends AbstractRound{
     }
     
     // print out all data of Player!
-   System.out.println(player.toString());
+    System.out.println(player.toString());
     
     // finally reset last choice in UCA
     uca.resetUserChoice();

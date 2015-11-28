@@ -56,8 +56,8 @@ public abstract class AbstractRound extends Thread{
         // deal second card and hide dealers second card
         controller.setHideDealersSecondCard(true);
         
-//        // Insurance Test
-//        activateInsurance();
+        // Insurance Test
+        activateInsurance();
         
         BlackJackConstantsAndTools.sleepForXSeconds();
         
@@ -268,8 +268,8 @@ protected abstract void playerPlays(Player player);
 //
 public void playerDouble(Player p ){
 //  controller.activateDoubleButton(); // måste ha varit aktiverat innan dess för att kunna spela double
-  doublePlayersBet(p);
-  bank.dealOneCardToPlayer(p);
+	doublePlayersBet(p);
+	bank.dealOneCardToPlayer(p);
     bank.updateGuiAfterChangeInDataModel();
 
     System.out.println("PLAYER DOUBLE");
@@ -310,6 +310,18 @@ return Bank_HelpersAndTools.checkForAceCardOnYourHand(p) &&
     p.getPlayersCash() * 2 >= p.getPlayersBet();
 }
 
+public void playerInsurance(Player p){
+	final int playersBet = p.getPlayersBet();
+	p.setHasInsurance(true);
+	
+	if(p.getPlayersCash() < playersBet / 2){
+		System.out.println("För lite pengar för insurance, spela vidare");
+	} else {
+		p.setPlayersBet(playersBet / 2);
+	}
+		
+}
+
 /**
  * Returns true if a player has two cards in his hand and both have the 
  * same value. This rule means that even a hand with a 10 and a King e.g. 
@@ -342,8 +354,6 @@ public boolean checkIfSplitCanBePlayed( Player p ){
 public void activateInsurance(){
   
   if (Bank_HelpersAndTools.checkForAceCardOnYourHand(bank.dealer) == true){
-    
-    System.out.println("dealer.getPlayerHandsSize " + bank.dealer.getPlayerHandsSize());
     
     // Denna if sats behövs egentligen inte, 
     // men hjälper till för att inte få möjliga buggar
