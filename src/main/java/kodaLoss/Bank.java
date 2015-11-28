@@ -1,15 +1,12 @@
 package kodaLoss;
 
+import static kodaLoss.BlackJackConstantsAndTools.BANK_LIMIT;
+import static kodaLoss.BlackJackConstantsAndTools.MIN_BET;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import static kodaLoss.UserChoiceAdapter.*;
-
-import static kodaLoss.BlackJackConstantsAndTools.*;
-
-import static kodaLoss.RoundResult.*;
-
-import static kodaLoss.Bank_HelpersAndTools.*;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class Bank {
 
@@ -30,26 +27,46 @@ public class Bank {
   public List<Player> registeredPlayers = new ArrayList<Player>();
 
   // 4 Decks of shuffled cards
-  private CardShoe cardShoe = new CardShoe();
+  CardShoe cardShoe = new CardShoe();
 
   // a round plays in its own thread for GUI-responsivity
-  private Thread roundThread = null;
-
+  private AbstractRound roundThread = null;
   /*
    * reference to the Player objects of dealer and the active player to be shown
    * on the GUI. Needed for updating the GUI.
    */
   public Player dealer = new Player("Dealer", 0);
-  private Player activePlayerOnGui;
+  Player activePlayerOnGui;
 
-  private int round = 0;
+  private static final String DEFAULT_RULE = "kodaLoss.BasicRound";
+  
+  private static String ruleForNextRound = DEFAULT_RULE;
+  
+  private static Map<String,String> ruleMapping;
+
 
   // CONSTRUCTORS
   // private because of Singleton pattern
   private Bank() {
     System.out.println("Bank started...");
     
+    mapRules();
   }
+  
+  
+// sends the selectable rules to ComboBox
+  private static void setUpGui() {
+    controller.setPlayableRules(ruleMapping.keySet());
+  }
+
+
+// Mapping of the rules that can be played. Add new Rules (Round-types) here!
+  private void mapRules() {
+    ruleMapping = new TreeMap<>();
+    ruleMapping.put("Basic", "kodaLoss.BasicRound");
+    ruleMapping.put("Casino", "kodaLoss.CasinoRound");
+  }
+
 
   /**
    * Returns a reference to the one and only Bank object
@@ -71,6 +88,7 @@ public class Bank {
   public static void registerController(IController control) {
 
     controller = control;
+    setUpGui();
   }
 
   // METHODS FOR GUI
@@ -80,7 +98,7 @@ public class Bank {
    * calling methods in Controller. Bank decides this way when GUI should be
    * changed
    */
-  private void updateGuiAfterChangeInDataModel() {
+  void updateGuiAfterChangeInDataModel() {
 
     if (controller != null) {
       controller.updatePlayer(activePlayerOnGui);
@@ -123,125 +141,27 @@ public class Bank {
 
     } else if (roundThread == null || !roundThread.isAlive()) {
       // start a new Round in its own Thread for not freezing the GUI!
-      roundThread = new Thread(() -> {
-
-        // Updaterar runda DIRTY TEST
-        String roundString = Integer.toString(++round);
-        controller.updateRound(roundString);
-
-        // clear last hand from clean Table!
-        clearHandsOffTheTable();
+      // Mapping<String,String> Rule name for gui <--> class to create below 
+      try {
+        roundThread = (AbstractRound)Class.forName( ruleForNextRound ).newInstance();
+      } catch (InstantiationException | IllegalAccessException
+          | ClassNotFoundException e) {
         
-        // buttons off while dealing cards
-        controller.allButtonsOff();
-        
-        // Activate player to set bet before pressing DEAL
-        // activatePlayerToSetBet();
-        
-        // ask all players for bet before dealing!
-        askPlayersForBetsForThisRound();
-
-        BlackJackConstantsAndTools.sleepForXSeconds();
-
-        // deal a card to all players and dealer
-        dealOneCardToAll();
-
-        BlackJackConstantsAndTools.sleepForXSeconds();
-
-        // deal second card and hide dealers second card
-        controller.setHideDealersSecondCard(true);
-        
-        // Insurance Test
-        activateInsurance();
-        
-        BlackJackConstantsAndTools.sleepForXSeconds();
-        
-        dealOneCardToAll();
-
-        // each player who does not have a Blackjack plays against bank
-        allPlayersPlayAgainstTheDealer();
-        
-        BlackJackConstantsAndTools.sleepForXSeconds();
-
-        // dealer plays
-        dealerPlays();
-
-        // get winners and inform active player
-         calculateWinners();
-//        roundOutcome();
-         
-        // handle the cash in pot and pay out players
-        handlePlayersBetsAndPayWinners();
-        
-        // Check if player is game over
-        // Sprint 3: => game terminates!
-        checkForGameOver();
-
-        BlackJackConstantsAndTools.sleepForXSeconds(2000);
-
-        // reset Thread and Players for next round!
-        resetBeforeNextRound();
-      });
-      roundThread.start();
-
-    } else {
-      System.out.println("WRONG STATE in ROUND THREAD !");
-      throw new RuntimeException("Round Thread in an impossible state!");
-    }
-  }
-
-  
-  
-  /*
-   * Sprint 3: if single user is bankrupt the game terminates!
-   */
-  private void checkForGameOver() {
-    
-    if (activePlayerOnGui.getPlayersCash() < BlackJackConstantsAndTools.MIN_BET){
-      controller.setlabelWinnerText("GAME OVER! Please get money and restart the game!");
-      clearHandsOffTheTable();
-      resetBank();
-      BlackJackConstantsAndTools.sleepForXSeconds(10000);
-      controller.setlabelWinnerText("Programme terminates...");
-      BlackJackConstantsAndTools.sleepForXSeconds(2000);
-      System.exit(0);
-    }
-    
-  }
-
-  /*
-   * take all cards off the table (clear dealer and players hands and update
-   * gui)
-   */
-  private void clearHandsOffTheTable() {
-
-    for (Player p : registeredPlayers) {
-      p.clearPlayersHand();
-    }
-    dealer.clearPlayersHand();
-    updateGuiAfterChangeInDataModel();
-  }
-
-  // all players without a BlackJack play against the bank
-  private void allPlayersPlayAgainstTheDealer() {
-
-    for (Player p : registeredPlayers) {
-
-      if (!isPlayersHandABlackJack(p)) {
-        controller.gameIson();
-        playerPlays(p);
-        // TODO Change GUI to next Player!
-      } else {
-        // TODO inform player about BlackJack!!!
+        e.printStackTrace();
+        throw new RuntimeException("CANNOT START RULE-MODEL");
       }
-      controller.allButtonsOff();
+      
+//      roundThread = new CasinoRound(this);
+//      roundThread = new BasicRound(this);
+      
+      roundThread.start();
     }
   }
-
-  /*
+  
+ /*
    * reset Bank before next round can start, inform GUI.
    */
-  private void resetBeforeNextRound() {
+  final void resetBeforeNextRound() {
     controller.setlabelWinnerText("");
     roundThread = null;
     controller.gameIsoff(); // for player to choose DEAL! DONT FORGET!
@@ -257,200 +177,38 @@ public class Bank {
 	        p.getName()  + BlackJackConstantsAndTools.ASK_FOR_BETS);
 	}
   }
-  
-  /*
-   * method which blocks starting the dealing of cards until all players set
-   * their bets
-   */
-  // TODO public just for testing!
-  public void askPlayersForBetsForThisRound() {
-
-    for (Player p : registeredPlayers) {
-
-      // METHOD TO CHANGE ACTIVEPLAYERINGUI COMES HERE
-
-      controller.activatePlayersBetField();
-
-      controller.setlabelWinnerText(
-          p.getName()  + BlackJackConstantsAndTools.ASK_FOR_BETS);
-
-      int bet;
-
-      while (true) {
-
-        if (uca.getUserChoice() == UserChoice.LAY_BET) {
-          bet = controller.getBetFromPlayersTextField();
-          // switch off asking for a bet!
-          controller.setlabelWinnerText("");
-          break;
-        }
-        BlackJackConstantsAndTools.sleepForXSeconds(10);
-      }
-      
-      bet = (int)Math.abs(bet);
-      
-      if(bet > MAX_BET){
-    	  bet = MAX_BET;
-    	  controller.setlabelWinnerText("Max bet is " + MAX_BET + " on this table!");
-      }
-      
-      if(bet<BlackJackConstantsAndTools.MIN_BET){
-    	  bet=BlackJackConstantsAndTools.MIN_BET;
-    	  controller.setlabelWinnerText("Min bet is "+BlackJackConstantsAndTools.MIN_BET+" on this table!");
-      }
-      p.setPlayersBet(bet);
-      updateGuiAfterChangeInDataModel();
-    }
+  public void setPlayersDefaultBet(){
+	  controller.getBetFromPlayersTextField();
   }
 
-  /*
-   * Player plays against Bank in one round. Sets player inactive if bust.
-   * 
-   * Uses class UserChoiceAdapter to get user events from the user interface
-   */
-  protected void playerPlays(Player player) {
-
-    System.out.println("Player plays started...");
-
-    // check for casino rules
-//    checkIfDoubleCanBePlayed(player);
-    
-    
-    // activate players buttons
-    controller.gameIson();
-
-    uca.resetUserChoice(); // prepare UCA for input
-
-    while (uca.getUserChoice() != UserChoice.STAY) {
-
-      try {
-        Thread.sleep(10);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
-
-      if (uca.getUserChoice() == UserChoice.HIT) {
-
-        dealOneCardToPlayer(player);
-        updateGuiAfterChangeInDataModel();
-
-        System.out.println("PLAYER HIT");
-        player.printHandToConsole();
-        uca.resetUserChoice();
-
-        if (isPlayersHandOver21(player)) {
-          System.out.println(PLAYER_IS_BUST);
-          controller.setlabelWinnerText(PLAYER_IS_BUST);
-          updateGuiAfterChangeInDataModel();
-          break;
-        }
-      }
-    }
-   System.out.println(player.toString());
-    
-    // finally reset last choice in UCA
-    uca.resetUserChoice();
-  }
-  
-  /* Doubles players bet for this round, if player has the cash! Otherwise 
-   * just leaves the bet as it is. Should be called after checking if 
-   * playing double is legal! 
-   * 
-   * THROWS: IllegalArgumentException if doubled bet would exceed players
-   * cash!
-   * */
-public void doublePlayersBet(Player p ){
-    final int playersBet= p.getPlayersBet();
-    
-    if (p.getPlayersCash() >= playersBet){
-      p.addToPlayersCash(playersBet);
-      p.setPlayersBet(2*playersBet);
-    } else {
-      throw new IllegalArgumentException("doubled bet exceeds Players cash!");
-    }
-  }
-  
-  
-  /*
-   * Returns true if a player has two cards in his hand and both have the 
-   * same value. This rule means that even a hand with a 10 and a King e.g. 
-   * could be split!
-   */
-  public boolean checkIfSplitCanBePlayed( Player p ){
-    
-    if (p.getPlayersHand().size() != 2){
-      return false;
-      
-    } else if (p.getPlayersBet() > p.getPlayersCash()){
-      return false;
-      
-    } else {
-      final Card cardOne = p.getPlayersHand().get(0);
-      final Card cardTwo = p.getPlayersHand().get(1);
-      
-      System.out.println(cardOne.getValue() == cardTwo.getValue());
-      
-      return (cardOne.getValue() == cardTwo.getValue());
-    }
-  }
-  /**
-   * 
-   * Check if the dealer got an ACE on the first DEAL,
-   * And activates the button so the player can choice to use Insurance
-   * 
-   */
-  public void activateInsurance(){
-	  
-	  if (Bank_HelpersAndTools.checkForAceCardOnYourHand(dealer) == true){
-		  
-		  System.out.println("dealer.getPlayerHandsSize " + dealer.getPlayerHandsSize());
-		  
-		  // Denna if sats behövs egentligen inte, 
-		  // men hjälper till för att inte få möjliga buggar
-		  if (dealer.getPlayerHandsSize() == 1){
-			  controller.activateInsuranceButton();
-		  } else {
-			  System.out.println("\nDealer got more the one card on hand\n");
-		  }
-	  // For testing 
-	  } else {
-		  System.out.println("\nDealer aint got any ACE on first hand\n");
-	  }
-  }
-
-  /*
-   * dealer plays. Takes cards until its hand is over 16
-   */
-  protected void dealerPlays() {
-
-    // to show dealers second card, set to false
-    controller.setHideDealersSecondCard(false);
-    updateGuiAfterChangeInDataModel();
-
-    // take cards while hand less than 17
-    while (calculateValueOfPlayersHand(dealer) < 17) {
-
-      if (isPlayersHandOver21(dealer)) {
-
-        System.out.println(DEALER_IS_BUST);
-        controller.setlabelWinnerText(DEALER_IS_BUST);
-      }
-
-      BlackJackConstantsAndTools.sleepForXSeconds(2000);
-      dealOneCardToPlayer(dealer);
-      updateGuiAfterChangeInDataModel();
-
-      if (isPlayersHandOver21(dealer)) {
-        // temporary until we send to GUI
-        System.out.println(DEALER_IS_BUST);
-        updateGuiAfterChangeInDataModel();
-
-      } else {
-        // temporary until we send to GUI
-        System.out.println("Dealer has " + calculateValueOfPlayersHand(dealer));
-      }
-    }
-  }
+//  /**
+//   * 
+//   * Check if the dealer got an ACE on the first DEAL,
+//   * And activates the button so the player can choice to use Insurance
+//   * 
+//   */
+//  public void activateInsurance(){
+//	  
+//	  if (Bank_HelpersAndTools.checkForAceCardOnYourHand(dealer) == true){
+//		  
+//		  System.out.println("dealer.getPlayerHandsSize " + dealer.getPlayerHandsSize());
+//		  
+//		  // Denna if sats behövs egentligen inte, 
+//		  // men hjälper till för att inte få möjliga buggar
+//		  if (dealer.getPlayerHandsSize() == 1){
+//			  controller.activateInsuranceButton();
+//		  } else {
+//			  System.out.println("\nDealer got more the one card on hand\n");
+//		  }
+//	  // For testing 
+//	  } else {
+//		  System.out.println("\nDealer aint got any ACE on first hand\n");
+//	  }
+//  }
+//
+//  /*
+//   * dealer plays. Takes cards until its hand is over 16
+//   */
 
   /*
    * deals one card to all players and dealer
@@ -468,206 +226,11 @@ public void doublePlayersBet(Player p ){
    * bank deals one card from the card shoe to a player who takes the card and
    * adds it to his hand. (Then the gui is updated for the player)
    */
-  private void dealOneCardToPlayer(Player player) {
+  void dealOneCardToPlayer(Player player) {
     player.addCardToHand(cardShoe.getACardFromCardShoe());
   }
 
-  /**
-   * Calculate winners
-   */
-  public void calculateWinners() {
-    /*
-     * calculates and sets the RoundResult for every possible outcome of the
-     * game between the bank and the player!
-     */
 
-    // Outcomes as ordered in Method: 
-    // PLAYER BJ    - Dealer BJ => TIE
-    //              - Dealer less => WIN
-    //
-    // Player BUST  - DEALER ? => LOOSE
-    // 
-    // Player value - Dealer BUST=> WIN
-    //              - Dealer BJ => LOOSE
-    //              = Dealer value => TIE
-    //              < Dealer value => LOOSE
-    //              > Dealer value => WIN
-    
-
-    int playerpoints;
-    String winnerText = null;
-
-    for (Player player : registeredPlayers) {
-      playerpoints = calculateValueOfPlayersHand(player);
-
-      // player has a BJ
-      if (isPlayersHandABlackJack(player)) {
-
-        if (isPlayersHandABlackJack(dealer)) {
-          winnerText = setAndShowResults(player, TIE, winnerText);
-        
-        } else {
-          winnerText = setAndShowResults(player, WIN, winnerText);
-        }
-      // player is bust
-      } else if (isPlayersHandOver21(player)) {
-        winnerText = setAndShowResults(player, LOOSE, winnerText);
-      }
-
-      // player not a BJ nor BUST => has a value
-      else {
-
-        int dealerpoints = calculateValueOfPlayersHand(dealer);
-        // DEALER is Bust
-        if (isPlayersHandOver21(dealer)) {
-          winnerText = setAndShowResults(player, WIN, winnerText);
-          // DEALER has a BJ
-        } else if (isPlayersHandABlackJack(dealer)) {
-          winnerText = setAndShowResults(player, LOOSE, winnerText);
-          // EQUAL
-        } else if (playerpoints == dealerpoints) {
-          winnerText = setAndShowResults(player, TIE, winnerText);
-          // LESS
-        } else if (playerpoints < dealerpoints) {
-          winnerText = setAndShowResults(player, LOOSE, winnerText);
-          // HIGHER HAND
-        } else if (playerpoints > dealerpoints) {
-          winnerText = setAndShowResults(player, WIN, winnerText);
-        }
-      }
-    }
-    // Controller is set when a round plays! This is for our unit tests to work!
-    if (controller != null) {
-      controller.setlabelWinnerText(winnerText);
-    }
-  }
-  
-  // help function for calculateWinners()
-  private String setAndShowResults( Player p, RoundResult result, 
-      String winnerText ) {
-
-    switch (result) {
-      case LOOSE:
-        System.out.println("Sorry, you lost.");
-        winnerText = BlackJackConstantsAndTools.RESULT_YOU_LOOSE;
-        p.setRoundResult(RoundResult.LOOSE);
-        break;
-      case WIN:
-        System.out.println("Congratulations! You won.");
-        winnerText = BlackJackConstantsAndTools.RESULT_YOU_WON;
-        p.setRoundResult(RoundResult.WIN);
-        break;
-      case TIE:
-        System.out.println("It´s a tie!");
-        winnerText = BlackJackConstantsAndTools.RESULT_A_TIE;
-        p.setRoundResult(RoundResult.TIE);
-        break;
-      default:
-        System.out.println("Error in calculation of round result!");
-    }
-    return winnerText;
-  }
-
-  /**
-   * NEW! Method to replace CalculateWinner
-   */
-  public void roundOutcome() {
-    String winnerText = null;
-
-    // 1. dealer is bust
-    for (Player p : registeredPlayers) {
-
-      if (isPlayersHandOver21(dealer)) {
-
-        if (isPlayersHandOver21(p)) {
-          System.out.println(RESULT_YOU_LOOSE);
-          winnerText = BlackJackConstantsAndTools.RESULT_YOU_LOOSE;
-          p.setRoundResult(RoundResult.LOOSE);
-
-        } else {
-          System.out.println("Congratulations! You won.");
-          winnerText = BlackJackConstantsAndTools.RESULT_YOU_WON;
-          p.setRoundResult(RoundResult.WIN);
-        }
-      }
-
-      else if (calculateValueOfPlayersHand(p) <= 21
-          && calculateValueOfPlayersHand(dealer) <= 21) {
-
-        if (isPlayersHandABlackJack(p) && !isPlayersHandABlackJack(dealer)) {
-          System.out.println("Congratulations! You won.");
-          winnerText = BlackJackConstantsAndTools.RESULT_YOU_WON;
-          p.setRoundResult(RoundResult.WIN);
-        }
-
-        else if (calculateValueOfPlayersHand(p) > calculateValueOfPlayersHand(
-            dealer)) {
-          System.out.println("Congratulations! You won.");
-          winnerText = BlackJackConstantsAndTools.RESULT_YOU_WON;
-          p.setRoundResult(RoundResult.WIN);
-
-        } else if (calculateValueOfPlayersHand(p) < calculateValueOfPlayersHand(
-            dealer)) {
-          System.out.println("Sorry you LOST");
-          winnerText = BlackJackConstantsAndTools.RESULT_YOU_LOOSE;
-          p.setRoundResult(RoundResult.LOOSE);
-
-        } else if (calculateValueOfPlayersHand(
-            p) == calculateValueOfPlayersHand(dealer)) {
-          System.out.println("It´s a TIE.");
-          winnerText = BlackJackConstantsAndTools.RESULT_A_TIE;
-          p.setRoundResult(RoundResult.TIE);
-        }
-      }
-    }
-    // Controller is set when a round plays! This is for our unit tests to
-    // work!
-    if (controller != null) {
-      controller.setlabelWinnerText(winnerText);
-    }
-  }
-
-  /*
-   * uses players bets and result of played round to calculate money to be payed
-   * back to players. Loosing players loose their bet, Tie players get their bet
-   * back, winning players get the double amount of their bet, winning players
-   * with a Blackjack even get an extra 50% of their bet!
-   */
-  public void handlePlayersBetsAndPayWinners() {
-
-    /*
-     * TIE => return betting amount WIN => return 2 * bet WIN + BJ => return 2.5
-     * bet Loose => players bet is not returned
-     */
-    int playersBet;
-
-    for (Player player : registeredPlayers) {
-
-      playersBet = player.getPlayersBet();
-
-      if (player.getRoundResult() == RoundResult.TIE) {
-        player.addToPlayersCash(playersBet);
-
-      } else if (player.getRoundResult() == RoundResult.WIN) {
-        player.addToPlayersCash(playersBet * 2);
-
-        // Win with Black Jack adds another 50% of bet!
-        if (isPlayersHandABlackJack(player)) {
-          player.addToPlayersCash((int) Math.round(playersBet / 2.0d));
-          System.out.println("BLACKJACK");
-        }
-      } else if (player.getRoundResult() == RoundResult.LOOSE){
-        // if player has insurance he gets his bet back!
-        if (player.isHasInsurance()){
-          player.addToPlayersCash(playersBet);
-        } 
-      }
-      // just reset players bet for round
-      player.setPlayersBet(0);
-      player.setRoundResult(null);
-      updateGuiAfterChangeInDataModel();
-    }
-  }
 
   // NON STATIC HELPER FUNCTIONS
   public void addPlayerToBank(Player player) {
@@ -713,5 +276,19 @@ public void doublePlayersBet(Player p ){
     dealer = new Player("Dealer", 0);
     cardShoe = new CardShoe();
     roundThread = null;
+  }
+
+  /**
+   * Sets the requested rule to be played in the next round. 
+   * 
+   * @param value - selected rule from the rule-combobox on GUI as String
+   */
+  public void setRule(String value) {
+    
+    if (value == null){
+      return;
+    }
+    String ruleClass = ruleMapping.getOrDefault(value , DEFAULT_RULE);
+    ruleForNextRound = ruleClass;
   }
 }
