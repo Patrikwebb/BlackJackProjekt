@@ -17,7 +17,7 @@
 	
 		#labelWinnerText{
 			-fx-font-size: 30px;
-			-fx-text-fill: green;
+			-fx-text-fill: rgb(23,234,0);
 		    -fx-effect: dropshadow( gaussian , black , 1,1,1,3 );
 		}
 		
@@ -75,6 +75,12 @@
 			-fx-font-size: 20px;
 		}
 			
+#comboBoxRules{
+ -fx-background-color: transparent ;
+ -fx-border-color:WHITE;
+ -fx-text-fill:transparent;
+ -fx-font-size: 20px
+}
 
 
 

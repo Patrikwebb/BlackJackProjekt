@@ -1,15 +1,12 @@
 package kodaLoss;
 
+import static kodaLoss.BlackJackConstantsAndTools.BANK_LIMIT;
+import static kodaLoss.BlackJackConstantsAndTools.MIN_BET;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import static kodaLoss.UserChoiceAdapter.*;
-
-import static kodaLoss.BlackJackConstantsAndTools.*;
-
-import static kodaLoss.RoundResult.*;
-
-import static kodaLoss.Bank_HelpersAndTools.*;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class Bank {
 
@@ -34,7 +31,6 @@ public class Bank {
 
   // a round plays in its own thread for GUI-responsivity
   private AbstractRound roundThread = null;
-
   /*
    * reference to the Player objects of dealer and the active player to be shown
    * on the GUI. Needed for updating the GUI.
@@ -42,13 +38,35 @@ public class Bank {
   public Player dealer = new Player("Dealer", 0);
   Player activePlayerOnGui;
 
+  private static final String DEFAULT_RULE = "kodaLoss.BasicRound";
+  
+  private static String ruleForNextRound = DEFAULT_RULE;
+  
+  private static Map<String,String> ruleMapping;
+
 
   // CONSTRUCTORS
   // private because of Singleton pattern
   private Bank() {
     System.out.println("Bank started...");
     
+    mapRules();
   }
+  
+  
+// sends the selectable rules to ComboBox
+  private static void setUpGui() {
+    controller.setPlayableRules(ruleMapping.keySet());
+  }
+
+
+// Mapping of the rules that can be played. Add new Rules (Round-types) here!
+  private void mapRules() {
+    ruleMapping = new TreeMap<>();
+    ruleMapping.put("Basic", "kodaLoss.BasicRound");
+    ruleMapping.put("Casino", "kodaLoss.CasinoRound");
+  }
+
 
   /**
    * Returns a reference to the one and only Bank object
@@ -70,6 +88,7 @@ public class Bank {
   public static void registerController(IController control) {
 
     controller = control;
+    setUpGui();
   }
 
   // METHODS FOR GUI
@@ -122,13 +141,9 @@ public class Bank {
 
     } else if (roundThread == null || !roundThread.isAlive()) {
       // start a new Round in its own Thread for not freezing the GUI!
-      
-      
-      // sets which rules to play in round! 
-      
       // Mapping<String,String> Rule name for gui <--> class to create below 
       try {
-        roundThread = (AbstractRound)Class.forName("kodaLoss.CasinoRound").newInstance();
+        roundThread = (AbstractRound)Class.forName( ruleForNextRound ).newInstance();
       } catch (InstantiationException | IllegalAccessException
           | ClassNotFoundException e) {
         
@@ -261,5 +276,19 @@ public class Bank {
     dealer = new Player("Dealer", 0);
     cardShoe = new CardShoe();
     roundThread = null;
+  }
+
+  /**
+   * Sets the requested rule to be played in the next round. 
+   * 
+   * @param value - selected rule from the rule-combobox on GUI as String
+   */
+  public void setRule(String value) {
+    
+    if (value == null){
+      return;
+    }
+    String ruleClass = ruleMapping.getOrDefault(value , DEFAULT_RULE);
+    ruleForNextRound = ruleClass;
   }
 }

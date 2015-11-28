@@ -3,6 +3,9 @@
  */
 package kodaLoss;
 
+import java.util.List;
+import java.util.Set;
+
 /**
  * 
  * Needed to be able to create a mock-controller for testing our methods
@@ -44,6 +47,8 @@ public interface IController {
   public void disableAdvancedButton();
   
   public void activateAdvancedButton();
+  
+  public void setPlayableRules(Set<String> ruleNames);
   
   
 }

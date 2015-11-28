@@ -3,15 +3,20 @@ package kodaLoss;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
+
+import com.sun.javafx.collections.ObservableListWrapper;
 
 import javafx.animation.Animation;
 import javafx.animation.RotateTransition;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
@@ -68,6 +73,9 @@ public class Controller implements Initializable, IController {
 
 	@FXML
 	private TextField TextFieldRoundBett;
+	
+	@FXML
+	private ComboBox<String> ruleBox;
 
 	// reference to UserChoiceAdapter for players button-events
 	private UserChoiceAdapter uca = UserChoiceAdapter.getInstance();
@@ -134,6 +142,7 @@ public class Controller implements Initializable, IController {
 
 		TextFieldRoundBett.setDisable(true);
 
+		// double click on bet-field sends bet to bank!
 		TextFieldRoundBett.setOnMousePressed(new EventHandler<MouseEvent>(){
 
       @Override
@@ -143,6 +152,14 @@ public class Controller implements Initializable, IController {
           uca.playerChoosesToLayHisBet();
         }
       }
+		});
+		
+		ruleBox.setOnAction( e -> {
+		  if (ruleBox.getSelectionModel() == null){
+		    System.out.println("NO MODEL!");
+		  } else {
+		  bank.setRule( ruleBox.getSelectionModel().getSelectedItem() );
+		  }
 		});
 		
 		buttonStay.setOnAction(e -> uca.playerChoosesToStay());
@@ -496,11 +513,17 @@ public class Controller implements Initializable, IController {
          buttonSplit.setDisable(true);
       });
     }
-    
 
-
-	
-    
+  /**
+   * sets the list model of selectable rules from the bank in the 
+   * rules-combo box 
+   */
+  @Override
+  public void setPlayableRules(Set<String> ruleNames) {
+    Platform.runLater( () -> 
+      ruleBox.setItems(FXCollections.observableArrayList(ruleNames))
+    );
+  }
   
 
 }
