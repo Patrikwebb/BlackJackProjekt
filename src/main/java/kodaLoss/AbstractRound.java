@@ -315,7 +315,8 @@ public void playerInsurance(Player p){
 	p.setHasInsurance(true);
 	
 	if(p.getPlayersCash() < playersBet / 2){
-		System.out.println("För lite pengar för insurance, spela vidare");
+		controller.setlabelWinnerText(BlackJackConstantsAndTools.
+							NOT_ENOUGH_CASH_TO_TAKE_INSURANCE);
 	} else {
 		p.setPlayersBet(playersBet / 2);
 	}
@@ -359,12 +360,7 @@ public void activateInsurance(){
     // men hjälper till för att inte få möjliga buggar
     if (bank.dealer.getPlayerHandsSize() == 1){
       controller.activateInsuranceButton();
-    } else {
-      System.out.println("\nDealer got more the one card on hand\n");
     }
-  // For testing 
-  } else {
-    System.out.println("\nDealer aint got any ACE on first hand\n");
   }
 }
 

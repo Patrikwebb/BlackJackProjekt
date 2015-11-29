@@ -57,8 +57,8 @@ public class CasinoRound extends AbstractRound{
         break;
         
       } else if (uca.getUserChoice() == UserChoice.INSURANCE){
-        // TODO 
         playerInsurance(player);
+        break;
         
       } else if (uca.getUserChoice() == UserChoice.SPLIT){
         //TODO
