@@ -97,6 +97,7 @@
                </children>
             </Pane>
             <TextField id="playersHandScore" fx:id="playersHandScore" editable="false" focusTraversable="false" layoutX="68.0" layoutY="169.0" prefHeight="25.0" prefWidth="35.0" promptText="Sc" />
+            <TextField id="playersHandScore" fx:id="playersHandScore2" editable="false" focusTraversable="false" layoutX="246.0" layoutY="164.0" prefHeight="25.0" prefWidth="35.0" promptText="Sc" rotate="-27.0" />
          </children>
       </Pane>
    </center>

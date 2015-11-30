@@ -60,7 +60,7 @@ public class Controller implements Initializable, IController {
 	private TextField dealersHandScore;
 
 	@FXML
-	private TextField playersHandScore;
+	private TextField playersHandScore, playersHandScore2;
 
 	@FXML
 	private Label labelWinnerText;

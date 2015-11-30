@@ -246,6 +246,8 @@ return Bank_HelpersAndTools.checkForAceCardOnYourHand(p) &&
 
 public void playerInsurance(Player p){
 	
+	
+	
 	final int playersBet = p.getPlayersBet();
 	p.setHasInsurance(true);
 	
