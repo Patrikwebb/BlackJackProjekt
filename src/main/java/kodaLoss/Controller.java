@@ -58,7 +58,7 @@ public class Controller implements Initializable, IController {
 	private TextField dealersHandScore;
 
 	@FXML
-	private TextField playersHandScore;
+	private TextField playersHandScore, playersHandScore2;
 
 	@FXML
 	private Label labelWinnerText;
@@ -395,11 +395,7 @@ public class Controller implements Initializable, IController {
 			buttonHit.setDisable(false);
 			buttonStay.setDisable(false);
 			buttonDeal.setDisable(true);
-//			buttonDouble.setDisable(false);
-			// Sets the Round betts node to Editable -> false
-			// During the round
-			// TextFieldRoundBett.setEditable(false);
-			// Får null pointer så får kolla vidare på de här ;)
+
 		});
 	}
 
@@ -415,7 +411,6 @@ public class Controller implements Initializable, IController {
 				buttonHit.setDisable(true);
 				buttonStay.setDisable(true);
 				buttonDeal.setDisable(false);
-				buttonDouble.setDisable(true);
 			}
 		});
 	}

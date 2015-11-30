@@ -31,6 +31,9 @@ public class CasinoRound extends AbstractRound {
     checkIfInsuranceCanBePlayed(player);
     checkIfSplitCanBePlayed(player);
     checkIfDoubleCanBePlayer(player);
+    
+ // Insurance Test
+    activateInsurance();
 
     // activate players buttons
     controller.gameIson();

@@ -50,9 +50,6 @@ public abstract class AbstractRound extends Thread{
         // deal second card and hide dealers second card
         controller.setHideDealersSecondCard(true);
         
-        // Insurance Test
-        activateInsurance();
-        
         BlackJackConstantsAndTools.sleepForXSeconds();
         
         bank.dealOneCardToAll();
@@ -253,6 +250,9 @@ return Bank_HelpersAndTools.checkForAceCardOnYourHand(p) &&
 }
 
 public void playerInsurance(Player p){
+	
+	
+	
 	final int playersBet = p.getPlayersBet();
 	p.setHasInsurance(true);
 	
@@ -260,7 +260,7 @@ public void playerInsurance(Player p){
 		controller.setlabelWinnerText(BlackJackConstantsAndTools.
 							NOT_ENOUGH_CASH_TO_TAKE_INSURANCE);
 	} else {
-		p.setPlayersBet(playersBet / 2);
+		p.setPlayersInsurance(playersBet / 2);
 	}
 		
 }
