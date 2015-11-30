@@ -50,9 +50,6 @@ public abstract class AbstractRound extends Thread{
         // deal second card and hide dealers second card
         controller.setHideDealersSecondCard(true);
         
-        // Insurance Test
-        activateInsurance();
-        
         BlackJackConstantsAndTools.sleepForXSeconds();
         
         bank.dealOneCardToAll();
