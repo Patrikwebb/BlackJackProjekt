@@ -118,7 +118,12 @@ private void clearHandsOffTheTable() {
 // all players without a BlackJack play against the bank
 private void allPlayersPlayAgainstTheDealer() {
 
-  for (Player p : bank.registeredPlayers) {
+  Player p;
+  // has to be oldfashioned for-loop because of list might be changed in size 
+  // by playing split
+  for (int i = 0 ; i <  bank.registeredPlayers.size() ; i++) {
+    
+    p = bank.registeredPlayers.get(i);
     
     if (!isPlayersHandABlackJack(p)) {
       controller.gameIson();

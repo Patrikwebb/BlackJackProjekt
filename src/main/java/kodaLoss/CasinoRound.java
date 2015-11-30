@@ -4,10 +4,19 @@ import static kodaLoss.Bank_HelpersAndTools.isPlayersHandABlackJack;
 import static kodaLoss.Bank_HelpersAndTools.isPlayersHandOver21;
 import static kodaLoss.BlackJackConstantsAndTools.PLAYER_IS_BUST;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import kodaLoss.UserChoiceAdapter.UserChoice;
 
 public class CasinoRound extends AbstractRound {
 
+  private List<Player> SplitPlayerToDelete = new ArrayList<>();
+  
+  
+  
+  
+  
   public CasinoRound() {
     System.out.println("CasinoRound");
     controller.activateAdvancedButton();
@@ -55,6 +64,12 @@ public class CasinoRound extends AbstractRound {
       } else if (uca.getUserChoice() == UserChoice.INSURANCE) {
 
       } else if (uca.getUserChoice() == UserChoice.SPLIT) {
+        
+        makeSplitPlayer(player);
+        
+        
+        
+        
 
       } else if (uca.getUserChoice() == UserChoice.DOUBLE) {
         playerDouble(player);
@@ -78,6 +93,23 @@ public class CasinoRound extends AbstractRound {
     uca.resetUserChoice();
 
   }
+  
+  
+  // makes a SPLIT_Player to player 
+  private void makeSplitPlayer(Player player) {
+    
+    Player splitPlayer = new Player("SPLIT_"+ player.getName() , 0);
+    splitPlayer.setPlayersBet(player.getPlayersBet());
+    
+    for (int i = 0 ; i < bank.registeredPlayers.size() ; i++){
+
+      if (bank.registeredPlayers.get(i) == player){
+        bank.registeredPlayers.add(i+1, splitPlayer);
+      }
+    }
+  }
+  
+  
 
   private boolean playerMayPlayDouble(Player player) {
     return player.getPlayersCash() >= player.getPlayersBet()

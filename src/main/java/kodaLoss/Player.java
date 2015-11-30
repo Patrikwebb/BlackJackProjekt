@@ -16,6 +16,9 @@ public class Player {
 
 	private boolean hasInsurance = false; //insurance Casino rule
 	
+	private boolean isSplitPlayer = false; // splitplayer => different place on table
+	
+	
 	private List<Card> hand = new ArrayList<Card>(); //Players hand
 
 	
@@ -187,6 +190,15 @@ public class Player {
 
   public void setHasInsurance(boolean hasInsurance) {
     this.hasInsurance = hasInsurance;
+  }
+
+  
+  public boolean isSplitPlayer() {
+    return this.isSplitPlayer;
+  }
+  
+  public void setSplitPlayer(boolean split){
+    this.isSplitPlayer = split;
   }
 	
 }

@@ -5,16 +5,14 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 
-import com.sun.javafx.collections.ObservableListWrapper;
-
 import javafx.animation.Animation;
 import javafx.animation.RotateTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -270,6 +268,16 @@ public class Controller implements Initializable, IController {
 
 		Platform.runLater(() -> {
 
+		  HBox target;
+		  
+		  
+		  if (!activePlayerOnGui.isSplitPlayer()){
+		    target = playerCard1;
+		  } else {
+		    target = playerCard2;
+		  }
+		  
+		  
 			setPlayersHandScore(activePlayerOnGui);
 
 			labelPlayerName1.setText(activePlayerOnGui.getName()); // name label
@@ -277,7 +285,7 @@ public class Controller implements Initializable, IController {
 			// Sets the playerCash in the TextField
 			TextFieldBetts.setText(activePlayerOnGui.getPlayersCash() + "");
 			TextFieldRoundBett.setText(activePlayerOnGui.getPlayersBet() + "");
-			setPics(activePlayerOnGui, playerCard1);
+			setPics(activePlayerOnGui, target );
 		});
 	}
 
@@ -304,6 +312,8 @@ public class Controller implements Initializable, IController {
 		Platform.runLater(new Runnable() {
 
 			public void run() {
+			 
+			  
 				setPics(dealer, dealerCard);
 
 				String handValue = Bank_HelpersAndTools.isPlayersHandABlackJack(dealer) ? "BJ!"
@@ -327,6 +337,10 @@ public class Controller implements Initializable, IController {
 	 */
 	private void setPics(Player player, HBox target) {
 
+	  
+	  
+	  
+	  
 		Platform.runLater(new Runnable() {
 			public void run() {
 
@@ -381,7 +395,7 @@ public class Controller implements Initializable, IController {
 			buttonHit.setDisable(false);
 			buttonStay.setDisable(false);
 			buttonDeal.setDisable(true);
-			buttonDouble.setDisable(false);
+//			buttonDouble.setDisable(false);
 			// Sets the Round betts node to Editable -> false
 			// During the round
 			// TextFieldRoundBett.setEditable(false);
