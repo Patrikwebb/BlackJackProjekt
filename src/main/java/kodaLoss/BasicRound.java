@@ -11,12 +11,6 @@ public class BasicRound extends AbstractRound{
   
   public BasicRound(){
     System.out.println("BasicRound");
-    initController();
-  }
-  
-
-  // hide and deactivate casino buttons
-  private void initController() {
     controller.disableAdvancedButton();
   }
 

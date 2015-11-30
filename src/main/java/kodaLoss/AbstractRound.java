@@ -40,6 +40,7 @@ public abstract class AbstractRound extends Thread{
         // buttons off while dealing cards
         controller.allButtonsOff();
         
+        
         // Activate player to set bet before pressing DEAL
         // activatePlayerToSetBet();
         
@@ -204,66 +205,8 @@ public void askPlayersForBetsForThisRound() {
  * 
  * Uses class UserChoiceAdapter to get user events from the user interface
  */
-
 protected abstract void playerPlays(Player player);
 
-//protected void playerPlays(Player player) {
-//
-//  System.out.println("Player plays started...");
-//
-//  // check for casino rules
-//  checkIfInsuranceCanBePlayed(player);
-//  checkIfSplitCanBePlayed(player);
-// // checkIfDoubleCanBePlayer(player);
-//  
-//  // activate players buttons
-//  controller.gameIson();
-//
-//  uca.resetUserChoice(); // prepare UCA for input
-//
-//  while (uca.getUserChoice() != UserChoice.STAY) {
-//
-//    try {
-//      Thread.sleep(10);
-//    } catch (InterruptedException e) {
-//      e.printStackTrace();
-//    }
-//
-//    if (uca.getUserChoice() == UserChoice.HIT) {
-//
-//      dealOneCardToPlayer(player);
-//      bank.updateGuiAfterChangeInDataModel();
-//
-//      System.out.println("PLAYER HIT");
-//      player.printHandToConsole();
-//      uca.resetUserChoice();
-//
-//      if (isPlayersHandOver21(player)) {
-//        System.out.println(PLAYER_IS_BUST);
-//        controller.setlabelWinnerText(PLAYER_IS_BUST);
-//        bank.updateGuiAfterChangeInDataModel();
-//        break;
-//      }
-//    }
-//    else if (uca.getUserChoice() == UserChoice.DOUBLE) {
-//      playerDouble(player);
-//      break;
-//      
-//    } else if (uca.getUserChoice() == UserChoice.INSURANCE){
-//      // TODO 
-//      
-//      
-//    } else if (uca.getUserChoice() == UserChoice.SPLIT){
-//      //TODO
-//    }
-//  }
-//  
-//  // print out all data of Player!
-// System.out.println(player.toString());
-//  
-//  // finally reset last choice in UCA
-//  uca.resetUserChoice();
-//}
 
 //
 public void playerDouble(Player p ){
@@ -290,6 +233,7 @@ public void doublePlayersBet(Player p ){
   if (p.getPlayersCash() >= playersBet){
     p.addToPlayersCash(playersBet);
     p.setPlayersBet(2*playersBet);
+  
   } else {
     controller.setlabelWinnerText(
           BlackJackConstantsAndTools.NOT_ENOUGH_CASH_TO_DOUBLE);

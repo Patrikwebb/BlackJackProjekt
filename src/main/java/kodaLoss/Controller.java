@@ -150,7 +150,7 @@ public class Controller implements Initializable, IController {
        
         if(event.getClickCount() >= 2){
           uca.playerChoosesToLayHisBet();
-        }
+        } 
       }
 		});
 		
