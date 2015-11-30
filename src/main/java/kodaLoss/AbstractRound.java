@@ -71,7 +71,7 @@ public abstract class AbstractRound extends Thread {
     // Sprint 3: => game terminates!
     checkForGameOver();
 
-    clearUpAfterRound();
+    cleanUpAfterRound();
 
     BlackJackConstantsAndTools.sleepForXSeconds(2000);
 
@@ -80,7 +80,7 @@ public abstract class AbstractRound extends Thread {
   }
 
   // Can be overridden in implementation of Round
-  protected void clearUpAfterRound() {
+  protected void cleanUpAfterRound() {
 
   }
 
@@ -108,11 +108,12 @@ public abstract class AbstractRound extends Thread {
    * take all cards off the table (clear dealer and players hands and update
    * gui)
    */
-  private void clearHandsOffTheTable() {
+  protected void clearHandsOffTheTable() {
 
     for (Player p : bank.registeredPlayers) {
       p.clearPlayersHand();
     }
+    bank.activePlayerOnGui = bank.registeredPlayers.get(0); 
     bank.dealer.clearPlayersHand();
     bank.updateGuiAfterChangeInDataModel();
   }
@@ -206,7 +207,7 @@ public abstract class AbstractRound extends Thread {
    * 
    * Uses class UserChoiceAdapter to get user events from the user interface
    */
-  protected abstract void playerPlays(Player player);
+  public abstract void playerPlays(Player player);
 
 //  //
 //  public void playerDouble(Player p) {

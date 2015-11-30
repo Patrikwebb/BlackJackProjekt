@@ -261,7 +261,6 @@ public class Controller implements Initializable, IController {
 
 		  HBox target;
 		  
-		  
 		  if (!activePlayerOnGui.isSplitPlayer()){
 		    target = playerCard1;
 		    setPlayersHandScore(activePlayerOnGui , false);
@@ -310,7 +309,6 @@ public class Controller implements Initializable, IController {
 		Platform.runLater(new Runnable() {
 
 			public void run() {
-			 
 			  
 				setPics(dealer, dealerCard);
 
@@ -334,10 +332,6 @@ public class Controller implements Initializable, IController {
 	 * players and dealers elements i GUI.
 	 */
 	private void setPics(Player player, HBox target) {
-
-	  
-	  
-	  
 	  
 		Platform.runLater(new Runnable() {
 			public void run() {

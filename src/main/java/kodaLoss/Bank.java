@@ -30,7 +30,7 @@ public class Bank {
   CardShoe cardShoe = new CardShoe();
 
   // a round plays in its own thread for GUI-responsivity
-  private AbstractRound roundThread = null;
+  public AbstractRound roundThread = null;
   /*
    * reference to the Player objects of dealer and the active player to be shown
    * on the GUI. Needed for updating the GUI.

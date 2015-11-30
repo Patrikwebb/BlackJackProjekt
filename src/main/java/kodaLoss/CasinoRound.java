@@ -5,29 +5,29 @@ import static kodaLoss.Bank_HelpersAndTools.isPlayersHandOver21;
 import static kodaLoss.BlackJackConstantsAndTools.PLAYER_IS_BUST;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import kodaLoss.UserChoiceAdapter.UserChoice;
 
 public class CasinoRound extends AbstractRound {
 
+  // list to save Split-players for deletion at the end of round!
   private List<Player> SplitPlayerToDelete = new ArrayList<>();
   
-  
-  
-  
-  
+  // Constructor
   public CasinoRound() {
+    super();
     System.out.println("CasinoRound");
     controller.activateAdvancedButton();
   }
 
   @Override
-  protected void playerPlays(Player player) {
+  public void playerPlays(Player player) {
 
     System.out.println("Player plays - Casino rules - started...");
 
-    // check for casino rules before playing
+    // check for casino rules before playing!
     // just one casino rule per round, the other will be deactivated 
     // after playing one of them!
     
@@ -38,11 +38,8 @@ public class CasinoRound extends AbstractRound {
     } else {
       controller.disableAdvancedButton();
     }
-    
-    
     // activate players buttons
     controller.gameIson();
-
     uca.resetUserChoice(); // prepare UCA for input
 
     while (uca.getUserChoice() != UserChoice.STAY) {
@@ -53,7 +50,7 @@ public class CasinoRound extends AbstractRound {
         bank.updateGuiAfterChangeInDataModel();
         break;
       }
-
+      // sleep to reduce processor load!
       try {
         Thread.sleep(10);
       } catch (InterruptedException e) {
@@ -70,124 +67,71 @@ public class CasinoRound extends AbstractRound {
         uca.resetUserChoice();
 
       } else if (uca.getUserChoice() == UserChoice.SPLIT) {
-        
         makeSplitPlayer(player);
         controller.disableAdvancedButton();
         uca.resetUserChoice();
 
       } else if (uca.getUserChoice() == UserChoice.DOUBLE) {
-        playerDouble(player);
-        break;
-
+        playDouble(player);
+        break; // break out of loop, round is over for player!
         
       } else if (uca.getUserChoice() == UserChoice.INSURANCE){
-        playerInsurance(player);
+        playInsurance(player);
         controller.disableAdvancedButton();
-       
-        
       }
     }
-
     // print out all data of Player!
     System.out.println(player.toString());
 
-    
     // finally reset last choice in UCA
     uca.resetUserChoice();
-
   }
   
   
+  // activate double button if players hand allow playing Double
   private void activateDouble(Player player) {
     
     if (checkIfDoubleCanBePlayed(player)){
       controller.activateDoubleButton();
     }
-    
-  }
-
-  
-  // adds an insurance to player and adjusts money
-  private void playerInsurance(Player p){
-    p.setHasInsurance(true);
   }
   
-  
-  
-  // makes a SPLIT_Player to player 
-  private void makeSplitPlayer(Player player) {
-    
-    Player splitPlayer = new Player("SPLIT_"+ player.getName() , 0);
-    splitPlayer.setPlayersBet(player.getPlayersBet());
-    splitPlayer.setSplitPlayer(true);
-    splitPlayer.addCardToHand(player.getPlayersHand().remove(1));
-    SplitPlayerToDelete.add(splitPlayer);
-    controller.updatePlayer(splitPlayer);
-    bank.updateGuiAfterChangeInDataModel();
-    bank.dealOneCardToPlayer(player);
-    
-    bank.dealOneCardToPlayer(splitPlayer);
-    
-    for (int i = 0 ; i < bank.registeredPlayers.size() ; i++){
-
-      if (bank.registeredPlayers.get(i) == player){
-        bank.registeredPlayers.add(i+1, splitPlayer);
-      }
-    }
-    
-    bank.updateGuiAfterChangeInDataModel();
-  }
-  
-  @Override
-  protected void clearUpAfterRound(){
-    mergeSplitPlayers();
-    deleteSplitPlayers();
-    
-  }
-  
-
-
-  private void mergeSplitPlayers() {
-    bank.activePlayerOnGui = bank.registeredPlayers.get(0);
-    
-    for (int i = 0 ; i < bank.registeredPlayers.size() ; i++){
-     
-      Player p = bank.registeredPlayers.get(i);
-      
-      if (p.isSplitPlayer()){
-        Player addPlayer = bank.registeredPlayers.get(i-1);
-        addPlayer.addToPlayersCash(p.getPlayersCash());
-      }
-    }
-  }
-
-  private void deleteSplitPlayers() {
-    for (Player p : SplitPlayerToDelete){
-        if (bank.registeredPlayers.contains(p)){
-          bank.registeredPlayers.remove(p);
-      }
-    }
-  }
-
   /**
-   * Checks if the player can buy an insurance. A player is allowed to insure
-   * himself if the open card of the dealer is an ACE and the player has the
-   * insurance price of half his bet for this round.
    * 
-   * @param p
-   *          Player
-   * @return true if player can buy an insurance
+   * Check if the dealer got an ACE on the first DEAL, And activates the button
+   * so the player can choice to use Insurance
+   * 
    */
+  public void activateInsurance(Player p) {
+  
+    if (checkIfInsuranceCanBePlayed(p)) {
+  
+      controller.activateInsuranceButton();
+    } else {
+  
+      if (p.getPlayersCash() < p.getPlayersBet() / 2) {
+        controller.setlabelWinnerText(
+            BlackJackConstantsAndTools.NOT_ENOUGH_CASH_TO_TAKE_INSURANCE);
+      }
+    }
+  }
+
+  // activate splitbutton if player may play Split
+  public void activateSplit(Player p) {
+  
+    if (true){//checkIfSplitCanBePlayed(p)) {
+      controller.activateSplitButton();
+    }
+  }
+
+  // returns true if a player may play Double
   private boolean checkIfDoubleCanBePlayed(Player player) {
     return player.getPlayersCash() >= player.getPlayersBet()
         && player.getPlayersHand().size() <= 2;
   }
-  
-  /**
-   * Returns true if a player has two cards in his hand and both have the same
-   * value. This rule means that even a hand with a 10 and a King e.g. could be
-   * split!
-   */
+
+ //returns true if player may play Split (2 cards of same value, even different
+  // Ranks!)
   public boolean checkIfSplitCanBePlayed(Player p) {
   
     if (p.getPlayersHand().size() != 2) {
@@ -199,46 +143,118 @@ public class CasinoRound extends AbstractRound {
     } else {
       final Card cardOne = p.getPlayersHand().get(0);
       final Card cardTwo = p.getPlayersHand().get(1);
-  
       System.out.println(cardOne.getValue() == cardTwo.getValue());
-  
       return (cardOne.getValue() == cardTwo.getValue());
     }
   }
 
+  // returns true if player may buy an insurance
   public boolean checkIfInsuranceCanBePlayed(Player p){
     
     return Bank_HelpersAndTools.checkForAceCardOnYourHand(bank.dealer) && 
         p.getPlayersCash() * 2 >= p.getPlayersBet();
-    
-    
+  }
+
+  // player plays Double
+  public void playDouble(Player p) {
+
+    doublePlayersBet(p);
+    bank.dealOneCardToPlayer(p);
+    bank.updateGuiAfterChangeInDataModel();
+    System.out.println("PLAYER DOUBLE");
+  }
+
+  /*
+   * Doubles players bet for this round, if player has the cash! Otherwise just
+   * leaves the bet as it is. Should be called after checking if playing double
+   * is legal!
+   * 
+   * THROWS: IllegalArgumentException if doubled bet would exceed players cash!
+   */
+  private void doublePlayersBet(Player p) {
+    final int playersBet = p.getPlayersBet();
+  
+    if (p.getPlayersCash() >= playersBet) {
+      p.addToPlayersCash(playersBet);
+      p.setPlayersBet(2 * playersBet);
+  
+    } else {
+      controller.setlabelWinnerText(
+          BlackJackConstantsAndTools.NOT_ENOUGH_CASH_TO_DOUBLE);
+      throw new IllegalArgumentException("doubled bet exceeds Players cash!");
+    }
+  }
+
+  // adds an insurance to player and adjusts money
+  private void playInsurance(Player p){
+    p.setHasInsurance(true);
   }
   
   
   
-  /**
-   * 
-   * Check if the dealer got an ACE on the first DEAL, And activates the button
-   * so the player can choice to use Insurance
-   * 
-   */
-  public void activateInsurance(Player p) {
+  // makes a SPLIT_Player to player 
+  public void makeSplitPlayer(Player player) {
+    
+    Player splitPlayer = new Player("SPLIT_"+ player.getName() , 0);
+    // take a new bet for splitplayer!
+    final int bet = player.getPlayersBet();
+    splitPlayer.setPlayersBet(bet);
+    player.setPlayersBet(0);
+    player.setPlayersBet(bet);
+    splitPlayer.setSplitPlayer(true);
+    splitPlayer.addCardToHand(player.getPlayersHand().remove(1));
+    SplitPlayerToDelete.add(splitPlayer);
+    controller.updatePlayer(splitPlayer);
+    bank.updateGuiAfterChangeInDataModel();
+    bank.dealOneCardToPlayer(player);
+    BlackJackConstantsAndTools.sleepForXSeconds();
+    bank.dealOneCardToPlayer(splitPlayer);
+    controller.updatePlayer(splitPlayer);
+    
+    for (int i = 0 ; i < bank.registeredPlayers.size() ; i++){
 
-    if (checkIfInsuranceCanBePlayed(p)) {
-
-      controller.activateInsuranceButton();
-    } else {
-
-      if (p.getPlayersCash() < p.getPlayersBet() / 2) {
-        controller.setlabelWinnerText(
-            BlackJackConstantsAndTools.NOT_ENOUGH_CASH_TO_TAKE_INSURANCE);
+      if (bank.registeredPlayers.get(i) == player){
+        bank.registeredPlayers.add(i+1, splitPlayer);
+        System.out.println(Arrays.deepToString(bank.registeredPlayers.toArray()));
+        break;
+      }
+    }
+    
+    bank.updateGuiAfterChangeInDataModel();
+  }
+  
+  private void mergeSplitPlayers() {
+    bank.activePlayerOnGui = bank.registeredPlayers.get(0);
+    
+    for (int i = 0 ; i < bank.registeredPlayers.size() ; i++){
+      Player p = bank.registeredPlayers.get(i);
+      
+      if (p.isSplitPlayer()){
+        Player addToPlayer = bank.registeredPlayers.get(i-1);
+        addToPlayer.addToPlayersCash(p.getPlayersCash());
       }
     }
   }
-  
-  
-  
 
+  private void deleteSplitPlayers() {
+    for (Player p : SplitPlayerToDelete){
+      
+        if (bank.registeredPlayers.contains(p)){
+          System.out.println("removed : " + p.getName());
+          
+          bank.registeredPlayers.remove(p);
+      }
+    }
+  }
+
+  @Override
+  public void cleanUpAfterRound(){
+    mergeSplitPlayers();
+    clearHandsOffTheTable();
+    deleteSplitPlayers();
+  }
+
+  
   @Override
   public void handlePlayersBetsAndPayWinners() {
     /*
@@ -266,6 +282,7 @@ public class CasinoRound extends AbstractRound {
       } else if (player.getRoundResult() == RoundResult.LOOSE) {
         // insured against loss => return bet (2 * 1/2 bet)
         // Dealer has a BlackJAck => return 3:2 of bet!
+       
         if (player.isHasInsurance()) {
 
           if (isPlayersHandABlackJack(bank.dealer)) {
@@ -280,49 +297,6 @@ public class CasinoRound extends AbstractRound {
       player.setRoundResult(null);
       player.setHasInsurance(false);
       bank.updateGuiAfterChangeInDataModel();
-    }
-  }
-  //
-  public void playerDouble(Player p) {
-    // controller.activateDoubleButton(); // måste ha varit aktiverat innan dess
-    // för att kunna spela double
-    doublePlayersBet(p);
-    bank.dealOneCardToPlayer(p);
-    bank.updateGuiAfterChangeInDataModel();
-
-    System.out.println("PLAYER DOUBLE");
-    // tog bort sysout prints och reset-uca, då de kommer i player plays i alla
-    // fall
-  }
-
-  /*
-   * Doubles players bet for this round, if player has the cash! Otherwise just
-   * leaves the bet as it is. Should be called after checking if playing double
-   * is legal!
-   * 
-   * THROWS: IllegalArgumentException if doubled bet would exceed players cash!
-   */
-  public void doublePlayersBet(Player p) {
-    final int playersBet = p.getPlayersBet();
-
-    if (p.getPlayersCash() >= playersBet) {
-      p.addToPlayersCash(playersBet);
-      p.setPlayersBet(2 * playersBet);
-
-    } else {
-      controller.setlabelWinnerText(
-          BlackJackConstantsAndTools.NOT_ENOUGH_CASH_TO_DOUBLE);
-      // throw new IllegalArgumentException("doubled bet exceeds Players
-      // cash!");
-    }
-  }
-
- 
-
-  public void activateSplit(Player p) {
-
-    if (true){//checkIfSplitCanBePlayed(p)) {
-      controller.activateSplitButton();
     }
   }
 }

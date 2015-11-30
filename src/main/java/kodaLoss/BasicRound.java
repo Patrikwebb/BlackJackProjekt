@@ -16,7 +16,7 @@ public class BasicRound extends AbstractRound{
 
 
   @Override
-  protected void playerPlays(Player player) {
+  public void playerPlays(Player player) {
     System.out.println("Player plays - Basic rules - started...");
     
     // activate players buttons
@@ -81,7 +81,6 @@ public class BasicRound extends AbstractRound{
           System.out.println("BLACKJACK");
         }
       } 
-      
       
       // last rounds Players bet as default in gui for next round
       //        player.setPlayersBet(0); 
