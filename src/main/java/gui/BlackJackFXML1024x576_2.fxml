@@ -11,7 +11,10 @@
 
 <BorderPane id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1024.0" stylesheets="@style1024x576.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kodaLoss.Controller">
    <left>
-      <Pane id="PaneLeftBorderPane" prefHeight="290.0" prefWidth="353.0" />
+      <Pane id="PaneLeftBorderPane" prefHeight="290.0" prefWidth="353.0">
+         <children>
+            <Button id="buttonHit" fx:id="buttonInsurence" disable="true" layoutY="281.0" mnemonicParsing="false" text="Insurence" />
+         </children></Pane>
    </left>
    <right>
       <Pane id="PaneRightBorderPane" prefHeight="408.0" prefWidth="353.0">
@@ -26,8 +29,8 @@
                   <HBox fx:id="playerCard2" layoutX="54.0" layoutY="28.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="96.0" prefWidth="72.0" rotate="-27.0" />
                </children>
             </Pane>
-            <Button id="buttonHit" fx:id="buttonDouble" disable="true" layoutX="224.0" layoutY="279.0" mnemonicParsing="false" text="Double" />
-            <Button id="buttonHit" fx:id="buttonSplit" disable="true" layoutX="246.0" layoutY="218.0" mnemonicParsing="false" text="Split" />
+            <Button id="buttonHit" fx:id="buttonDouble" disable="true" layoutX="231.0" layoutY="281.0" mnemonicParsing="false" text="Double" />
+            <Button id="buttonHit" fx:id="buttonSplit" disable="true" layoutX="254.0" layoutY="216.0" mnemonicParsing="false" text="Split" />
          </children></Pane>
    </right>
    <bottom>
@@ -43,12 +46,6 @@
                   <Insets left="175.0" top="20.0" />
                </HBox.margin>
             </Button>
-            <TextField id="textFieldRoundInt" fx:id="TextFieldRounds" alignment="CENTER" editable="false" focusTraversable="false" layoutX="112.0" layoutY="9.0" opacity="0.83" prefHeight="46.0" prefWidth="62.0" promptText="0">
-               <HBox.margin>
-                  <Insets left="20.0" />
-               </HBox.margin>
-            </TextField>
-            <TextField id="textFieldRound" alignment="CENTER" editable="false" focusTraversable="false" layoutX="-1.0" layoutY="-1.0" opacity="0.84" prefHeight="65.0" prefWidth="135.0" text="Round" />
             <TextField id="textFieldRoundBett" editable="false" focusTraversable="false" layoutX="-3.0" layoutY="65.0" prefHeight="65.0" prefWidth="197.0" text="Bet:" />
             <TextField id="textFieldRoundBettInt" fx:id="TextFieldRoundBett" alignment="CENTER" focusTraversable="false" layoutX="95.0" layoutY="76.0" opacity="0.7" prefHeight="41.0" prefWidth="151.0" promptText="0" />
             <Button id="buttonDeal" fx:id="buttonDeal" layoutX="618.0" layoutY="70.0" mnemonicParsing="false" text="Deal" />
@@ -60,26 +57,25 @@
                <opaqueInsets>
                   <Insets />
                </opaqueInsets></TextField>
-            <Label id="labelWinnerText" fx:id="labelWinnerText" alignment="CENTER" layoutX="179.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="48.0" prefWidth="817.0" textFill="WHITE" wrapText="true">
+            <Label id="labelWinnerText" fx:id="labelWinnerText" alignment="CENTER" layoutX="6.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="57.0" prefWidth="987.0" textFill="WHITE" wrapText="true">
                <font>
                   <Font size="36.0" />
                </font>
             </Label>
-            <Button id="buttonHit" fx:id="buttonInsurence" disable="true" layoutX="854.0" layoutY="3.0" mnemonicParsing="false" text="Insurence" />
          </children>
       </Pane>
    </bottom>
    <top>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Table rules:" textFill="#dad7d7">
+            <Label contentDisplay="CENTER" prefHeight="43.0" prefWidth="103.0" text="Table rules:" textFill="#dad7d7">
                <font>
-                  <Font size="14.0" />
+                  <Font size="18.0" />
                </font>
                <effect>
                   <Glow />
                </effect></Label>
-            <ComboBox id="comboBoxRules" fx:id="ruleBox" prefWidth="150.0" promptText="select rules...">
+            <ComboBox id="comboBoxRules" fx:id="ruleBox" prefHeight="46.0" prefWidth="194.0" promptText="select rules...">
                <effect>
                   <Glow />
                </effect></ComboBox>
