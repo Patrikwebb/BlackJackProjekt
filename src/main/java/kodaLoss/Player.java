@@ -13,6 +13,8 @@ public class Player {
 	private int playersCash = 100; // alla spelare startar med 100 dollar
 	
 	private int betForThisRound = 0 ; // vad spelare satsar denna runda
+	
+	private int insuranceForThisRound = 0;
 
 	private boolean hasInsurance = false; //insurance Casino rule
 	
@@ -118,6 +120,12 @@ public class Player {
 	   playersCash -= requestedBet;
 	  }
 	}
+	
+	public void setPlayersInsurance(int insurance){
+
+		insuranceForThisRound = insurance;
+
+		}
 
 	// INSTANCE METHODS
 	/**
