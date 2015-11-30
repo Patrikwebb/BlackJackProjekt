@@ -381,7 +381,6 @@ public class Controller implements Initializable, IController {
 			buttonHit.setDisable(false);
 			buttonStay.setDisable(false);
 			buttonDeal.setDisable(true);
-			buttonDouble.setDisable(false);
 			// Sets the Round betts node to Editable -> false
 			// During the round
 			// TextFieldRoundBett.setEditable(false);
@@ -401,7 +400,6 @@ public class Controller implements Initializable, IController {
 				buttonHit.setDisable(true);
 				buttonStay.setDisable(true);
 				buttonDeal.setDisable(false);
-				buttonDouble.setDisable(true);
 			}
 		});
 	}
