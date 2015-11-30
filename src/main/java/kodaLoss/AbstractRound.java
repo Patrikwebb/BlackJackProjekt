@@ -57,8 +57,8 @@ public abstract class AbstractRound extends Thread{
         // deal second card and hide dealers second card
         controller.setHideDealersSecondCard(true);
         
-//        // Insurance Test
-//        activateInsurance();
+        // Insurance Test
+        activateInsurance();
         
         BlackJackConstantsAndTools.sleepForXSeconds();
         
@@ -211,8 +211,8 @@ protected abstract void playerPlays(Player player);
 //
 public void playerDouble(Player p ){
 //  controller.activateDoubleButton(); // måste ha varit aktiverat innan dess för att kunna spela double
-  doublePlayersBet(p);
-  bank.dealOneCardToPlayer(p);
+	doublePlayersBet(p);
+	bank.dealOneCardToPlayer(p);
     bank.updateGuiAfterChangeInDataModel();
 
     System.out.println("PLAYER DOUBLE");
@@ -237,7 +237,7 @@ public void doublePlayersBet(Player p ){
   } else {
     controller.setlabelWinnerText(
           BlackJackConstantsAndTools.NOT_ENOUGH_CASH_TO_DOUBLE);
-    throw new IllegalArgumentException("doubled bet exceeds Players cash!");
+   // throw new IllegalArgumentException("doubled bet exceeds Players cash!");
   }
 }
 
@@ -252,6 +252,19 @@ public boolean checkIfInsuranceCanBePlayed( Player p ){
 
 return Bank_HelpersAndTools.checkForAceCardOnYourHand(p) &&
     p.getPlayersCash() * 2 >= p.getPlayersBet();
+}
+
+public void playerInsurance(Player p){
+	final int playersBet = p.getPlayersBet();
+	p.setHasInsurance(true);
+	
+	if(p.getPlayersCash() < playersBet / 2){
+		controller.setlabelWinnerText(BlackJackConstantsAndTools.
+							NOT_ENOUGH_CASH_TO_TAKE_INSURANCE);
+	} else {
+		p.setPlayersBet(playersBet / 2);
+	}
+		
 }
 
 /**
@@ -287,18 +300,11 @@ public void activateInsurance(){
   
   if (Bank_HelpersAndTools.checkForAceCardOnYourHand(bank.dealer) == true){
     
-    System.out.println("dealer.getPlayerHandsSize " + bank.dealer.getPlayerHandsSize());
-    
     // Denna if sats behövs egentligen inte, 
     // men hjälper till för att inte få möjliga buggar
     if (bank.dealer.getPlayerHandsSize() == 1){
       controller.activateInsuranceButton();
-    } else {
-      System.out.println("\nDealer got more the one card on hand\n");
     }
-  // For testing 
-  } else {
-    System.out.println("\nDealer aint got any ACE on first hand\n");
   }
 }
 

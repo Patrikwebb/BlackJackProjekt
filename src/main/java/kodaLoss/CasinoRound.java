@@ -60,12 +60,20 @@ public class CasinoRound extends AbstractRound {
         playerDouble(player);
         break;
 
+        
+      } else if (uca.getUserChoice() == UserChoice.INSURANCE){
+        playerInsurance(player);
+        break;
+        
+      } else if (uca.getUserChoice() == UserChoice.SPLIT){
+        //TODO
       }
     }
 
     // print out all data of Player!
     System.out.println(player.toString());
 
+    
     // finally reset last choice in UCA
     uca.resetUserChoice();
 

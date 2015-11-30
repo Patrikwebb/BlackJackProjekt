@@ -9,6 +9,7 @@ public class UserChoiceAdapter {
    */
   
   public enum UserChoice{
+	  
     /** Player do not want another card or action - player stays */
     STAY,
     
@@ -45,7 +46,16 @@ public class UserChoiceAdapter {
     return uca;
   }
   
-  
+  /**
+   * Player choose to take insurance by pressing the Insurance button in Gui 
+   */
+  public void playerChoosesToTakeInsurance(){
+	  System.out.println("Player takes Insurance");
+	  
+	  if( userChoice == null){
+		  userChoice = UserChoice.INSURANCE;
+	  }
+  }
   
   /**
    * Player chooses to stay by pressing the Stay-button on his user-interface
