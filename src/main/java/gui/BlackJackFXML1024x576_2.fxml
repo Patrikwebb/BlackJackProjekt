@@ -19,14 +19,15 @@
    <right>
       <Pane id="PaneRightBorderPane" prefHeight="408.0" prefWidth="353.0">
          <children>
-            <Pane id="player1" layoutX="-48.0" layoutY="102.0">
+            <Pane id="player1" layoutX="122.0" layoutY="-18.0">
                <children>
-                  <Label fx:id="labelPlayerName2" alignment="CENTER" prefHeight="16.0" prefWidth="150.0" rotate="-27.0" textFill="WHITE">
+                  <Label fx:id="labelPlayerName2" alignment="CENTER" layoutX="-21.0" layoutY="22.0" prefHeight="16.0" prefWidth="150.0" rotate="-42.0" textFill="WHITE">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <HBox fx:id="playerCard2" layoutX="54.0" layoutY="28.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="96.0" prefWidth="72.0" rotate="-27.0" />
+                  <HBox fx:id="playerCard2" layoutX="54.0" layoutY="28.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="96.0" prefWidth="72.0" rotate="-42.0" />
+                  <TextField id="playersHandScore" fx:id="playersHandScore2" editable="false" focusTraversable="false" layoutX="14.0" layoutY="85.0" prefHeight="25.0" prefWidth="35.0" promptText="Sc" />
                </children>
             </Pane>
             <Button id="buttonHit" fx:id="buttonDouble" disable="true" layoutX="231.0" layoutY="281.0" mnemonicParsing="false" text="Double" />
@@ -97,7 +98,6 @@
                </children>
             </Pane>
             <TextField id="playersHandScore" fx:id="playersHandScore" editable="false" focusTraversable="false" layoutX="68.0" layoutY="169.0" prefHeight="25.0" prefWidth="35.0" promptText="Sc" />
-            <TextField id="playersHandScore" fx:id="playersHandScore2" editable="false" focusTraversable="false" layoutX="246.0" layoutY="164.0" prefHeight="25.0" prefWidth="35.0" promptText="Sc" rotate="-27.0" />
          </children>
       </Pane>
    </center>
