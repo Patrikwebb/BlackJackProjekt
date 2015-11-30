@@ -213,6 +213,7 @@ public class Bank {
    */
   void dealOneCardToPlayer(Player player) {
     player.addCardToHand(cardShoe.getACardFromCardShoe());
+    updateGuiAfterChangeInDataModel();
   }
 
 

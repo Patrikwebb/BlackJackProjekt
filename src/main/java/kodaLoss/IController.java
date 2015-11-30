@@ -16,8 +16,6 @@ import java.util.Set;
  */
 public interface IController {
 
-  public void setplayersHandScore(String score);
-  
   public void setdealersHandScore(String score);
   
   public void setlabelWinnerText(String winnerText);
@@ -47,6 +45,8 @@ public interface IController {
   public void activateAdvancedButton();
   
   public void setPlayableRules(Set<String> ruleNames);
+
+  public void activateSplitButton();
   
   
 }
