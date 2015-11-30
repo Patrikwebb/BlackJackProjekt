@@ -84,27 +84,15 @@ public class Controller implements Initializable, IController {
 	private boolean hideDealers2ndCard = true;
 
 	/**
-	 * Setter for playersHandScore
-	 * 
-	 * @param score
-	 */
-	public void setplayersHandScore(String score) {
-
-		Platform.runLater(() -> {
-			playersHandScore.setText(score);
-		});
-	}
-
-	/**
 	 * Setter for dealersHandScore
 	 * 
 	 * @param score
 	 */
 	public void setdealersHandScore(String score) {
 
-		Platform.runLater(() -> {
+//		Platform.runLater(() -> {
 			dealersHandScore.setText(score);
-		});
+//		});
 	}
 
 	/**
@@ -159,6 +147,9 @@ public class Controller implements Initializable, IController {
 		  bank.setRule( ruleBox.getSelectionModel().getSelectedItem() );
 		  }
 		});
+		
+		
+		buttonSplit.setOnAction(e -> uca.playerChoosesToSplit());
 		
 		buttonStay.setOnAction(e -> uca.playerChoosesToStay());
 
@@ -273,24 +264,23 @@ public class Controller implements Initializable, IController {
 		  
 		  if (!activePlayerOnGui.isSplitPlayer()){
 		    target = playerCard1;
+		    setPlayersHandScore(activePlayerOnGui , false);
+		    labelPlayerName1.setText(activePlayerOnGui.getName()); // name label
+		    TextFieldBetts.setText(activePlayerOnGui.getPlayersCash() + "");
+		  
 		  } else {
 		    target = playerCard2;
+		    setPlayersHandScore(activePlayerOnGui , true );
 		  }
 		  
-		  
-			setPlayersHandScore(activePlayerOnGui);
-
-			labelPlayerName1.setText(activePlayerOnGui.getName()); // name label
-
 			// Sets the playerCash in the TextField
-			TextFieldBetts.setText(activePlayerOnGui.getPlayersCash() + "");
 			TextFieldRoundBett.setText(activePlayerOnGui.getPlayersBet() + "");
 			setPics(activePlayerOnGui, target );
 		});
 	}
 
 	// must be called within main application thread, or Platform.runLater()
-	private void setPlayersHandScore(Player player) {
+	private void setPlayersHandScore(Player player , boolean isSplitPlayer) {
 		String handValue;
 
 		if (Bank_HelpersAndTools.isPlayersHandABlackJack(player)) {
@@ -298,9 +288,17 @@ public class Controller implements Initializable, IController {
 		} else {
 			handValue = Bank_HelpersAndTools.calculateValueOfPlayersHand(player) + "";
 		}
-		playersHandScore.setText(handValue);
+		
+		Platform.runLater(() -> {
+		if (isSplitPlayer){
+		  playersHandScore2.setText(handValue);
+		} else{
+		  playersHandScore.setText(handValue);
+		}
+	});
 	}
-
+	
+	
 	/**
 	 * updates the Dealers variables in GUI
 	 * 
@@ -529,6 +527,14 @@ public class Controller implements Initializable, IController {
     Platform.runLater( () -> 
       ruleBox.setItems(FXCollections.observableArrayList(ruleNames))
     );
+  }
+
+  @Override
+  public void activateSplitButton() {
+    Platform.runLater(() -> {
+      buttonSplit.setDisable(false);
+    });
+    
   }
   
 

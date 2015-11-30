@@ -125,5 +125,15 @@ System.out.println("Player Choose to Lay his Bet");
   }
 
 
+  public void playerChoosesToSplit() {
+ System.out.println("Player choose SPLIT");
+    
+    if( userChoice == null){
+      userChoice = UserChoice.SPLIT;
+    }
+  }
+  
+
+
   
 }
