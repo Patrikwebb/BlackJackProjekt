@@ -20,19 +20,12 @@ public abstract class AbstractRound extends Thread{
   
   protected IController controller = bank.controller;
   
-  private static int round = 0; 
-  
-  
   public  AbstractRound(){
   
   }
   
   @Override
   public void run(){
-
-        // Updaterar runda DIRTY TEST
-        String roundString = Integer.toString(++round);
-        controller.updateRound(roundString);
 
         // clear last hand from clean Table!
         clearHandsOffTheTable();
