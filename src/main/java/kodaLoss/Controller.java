@@ -316,11 +316,6 @@ public class Controller implements Initializable, IController {
 		});
 	}
 
-	public void updateRound(String round) {
-		Platform.runLater(() -> {
-			TextFieldRounds.setText(round);
-		});
-	}
 
 	/*
 	 * adds a new request to update players hand i gui to the javafx application

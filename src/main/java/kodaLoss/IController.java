@@ -28,8 +28,6 @@ public interface IController {
   
   public void updateDealer(Player dealer);
   
-  public void updateRound(String round) ;
-  
   public void gameIson() ;
   
   public void gameIsoff();
