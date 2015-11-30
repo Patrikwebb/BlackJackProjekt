@@ -75,7 +75,7 @@
                <effect>
                   <Glow />
                </effect></Label>
-            <ComboBox id="comboBoxRules" fx:id="ruleBox" prefHeight="46.0" prefWidth="194.0" promptText="select rules...">
+            <ComboBox id="comboBoxRules" fx:id="ruleBox" prefHeight="46.0" prefWidth="194.0" promptText="Basic">
                <effect>
                   <Glow />
                </effect></ComboBox>
