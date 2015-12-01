@@ -113,6 +113,8 @@ public class Player {
 	 */
 	public void setPlayersBet(int requestedBet){
 	  
+	  if (!isSplitPlayer){
+	  
 	  if (requestedBet >= playersCash){
 	    // just set bet to max bet! "ALL IN"!
 	    betForThisRound = playersCash;
@@ -121,6 +123,9 @@ public class Player {
 	  } else {
 	   betForThisRound = requestedBet;
 	   playersCash -= requestedBet;
+	  }
+	  } else {
+	    betForThisRound = requestedBet;
 	  }
 	}
 	

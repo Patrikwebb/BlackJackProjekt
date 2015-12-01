@@ -21,6 +21,7 @@ public class CasinoRound extends AbstractRound {
     controller.activateAdvancedButton();
   }
 
+  
   @Override
   public void playerPlays(Player player) {
 
@@ -192,18 +193,17 @@ public class CasinoRound extends AbstractRound {
     p.setHasInsurance(true);
   }
   
-  
-  
   // makes a SPLIT_Player to player 
   public void makeSplitPlayer(Player player) {
     
-    Player splitPlayer = new Player("SPLIT_"+ player.getName() , 0);
+    Player splitPlayer = new Player("SPLIT_"+ player.getName() , 0 );
+    splitPlayer.setSplitPlayer(true);
+
     // take a new bet for splitplayer!
     final int bet = player.getPlayersBet();
     splitPlayer.setPlayersBet(bet);
     player.setPlayersBet(0);
     player.setPlayersBet(bet);
-    splitPlayer.setSplitPlayer(true);
     splitPlayer.addCardToHand(player.getPlayersHand().remove(1));
     SplitPlayerToDelete.add(splitPlayer);
     controller.updatePlayer(splitPlayer);
@@ -245,12 +245,12 @@ public class CasinoRound extends AbstractRound {
       
         if (bank.registeredPlayers.contains(p)){
           System.out.println("removed : " + p.getName());
-          
           bank.registeredPlayers.remove(p);
       }
     }
   }
 
+  
   @Override
   public void cleanUpAfterRound(){
     mergeSplitPlayers();
@@ -273,16 +273,20 @@ public class CasinoRound extends AbstractRound {
 
       playersBet = player.getPlayersBet();
 
+      if (playersBet == 0){
+        System.out.println("NOT BET FOR : " + player.getName());
+      }
+      
       if (player.getRoundResult() == RoundResult.TIE) {
         playersBalance = playersBet;
 
       } else if (player.getRoundResult() == RoundResult.WIN) {
 
-        player.addToPlayersCash((int) Math.floor(playersBet * 2.0d));
-
+        playersBalance = (int) Math.floor(playersBet * 2.0d);
+        
         // Win with Black Jack adds another 50% of bet!
         if (isPlayersHandABlackJack(player)) {
-          player.addToPlayersCash((int) Math.floor(playersBet / 2.0d));
+          playersBalance += (int) Math.floor(playersBet / 2.0d);
           System.out.println("BLACKJACK");
         }
       } else if (player.getRoundResult() == RoundResult.LOOSE) {
@@ -292,19 +296,23 @@ public class CasinoRound extends AbstractRound {
         if (player.isHasInsurance()) {
 
           if (isPlayersHandABlackJack(bank.dealer)) {
-            player.addToPlayersCash((int) Math.floor(1.5 * player.getPlayersBet()));
+            playersBalance += (int) Math.floor(1.5 * player.getPlayersBet());
           } else {
             playersBalance = player.getPlayersBet();
           }
+          
+        } else {
+          playersBalance = 0;
         }
       }
       // last rounds Players bet as default in gui for next round
       // player.setPlayersBet(0);
-      controller.setlabelWinnerText(String.format("$: + %d" , playersBalance ));
+      controller.setlabelWinnerText(String.format("%s $: + %d" , player.getName() , playersBalance ));
       player.addToPlayersCash(playersBalance);
       player.setRoundResult(null);
       player.setHasInsurance(false);
       bank.updateGuiAfterChangeInDataModel();
+      BlackJackConstantsAndTools.sleepForXSeconds();
     }
   }
 }
