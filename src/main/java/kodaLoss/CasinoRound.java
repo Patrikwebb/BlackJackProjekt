@@ -111,7 +111,7 @@ public class CasinoRound extends AbstractRound {
       controller.activateInsuranceButton();
     } else {
   
-      if (p.getPlayersCash() < p.getPlayersBet() / 2) {
+      if (p.getPlayersCash() < (int) Math.ceil(p.getPlayersBet() / 2.0d)) {
         controller.setlabelWinnerText(
             BlackJackConstantsAndTools.NOT_ENOUGH_CASH_TO_TAKE_INSURANCE);
       }
@@ -178,7 +178,7 @@ public class CasinoRound extends AbstractRound {
   
     if (p.getPlayersCash() >= playersBet) {
       p.addToPlayersCash(playersBet);
-      p.setPlayersBet(2 * playersBet);
+      p.setPlayersBet((int) Math.floor(2.0 * playersBet));
   
     } else {
       controller.setlabelWinnerText(
@@ -277,11 +277,12 @@ public class CasinoRound extends AbstractRound {
         playersBalance = playersBet;
 
       } else if (player.getRoundResult() == RoundResult.WIN) {
-        playersBalance = playersBet * 2;
+
+        player.addToPlayersCash((int) Math.floor(playersBet * 2.0d));
 
         // Win with Black Jack adds another 50% of bet!
         if (isPlayersHandABlackJack(player)) {
-          playersBalance += ((int) Math.round(playersBet / 2.0d));
+          player.addToPlayersCash((int) Math.floor(playersBet / 2.0d));
           System.out.println("BLACKJACK");
         }
       } else if (player.getRoundResult() == RoundResult.LOOSE) {
@@ -291,7 +292,7 @@ public class CasinoRound extends AbstractRound {
         if (player.isHasInsurance()) {
 
           if (isPlayersHandABlackJack(bank.dealer)) {
-            playersBalance = ((int) 1.5 * player.getPlayersBet());
+            player.addToPlayersCash((int) Math.floor(1.5 * player.getPlayersBet()));
           } else {
             playersBalance = player.getPlayersBet();
           }

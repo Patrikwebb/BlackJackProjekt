@@ -73,11 +73,11 @@ public class BasicRound extends AbstractRound{
         player.addToPlayersCash(playersBet);
 
       } else if (player.getRoundResult() == RoundResult.WIN) {
-        player.addToPlayersCash(playersBet * 2);
+        player.addToPlayersCash((int) Math.floor(playersBet * 2.0d));
 
         // Win with Black Jack adds another 50% of bet!
         if (isPlayersHandABlackJack(player)) {
-          player.addToPlayersCash((int) Math.round(playersBet / 2.0d));
+          player.addToPlayersCash((int) Math.floor(playersBet / 2.0d));
           System.out.println("BLACKJACK");
         }
       } 
