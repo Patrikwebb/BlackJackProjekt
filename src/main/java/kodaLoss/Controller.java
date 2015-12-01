@@ -74,6 +74,13 @@ public class Controller implements Initializable, IController {
 	
 	@FXML
 	private ComboBox<String> ruleBox;
+	
+	@FXML
+	private ComboBox<String> ComboBoxRules;
+	
+	@FXML
+	private String BlackJacktext;
+	
 
 	// reference to UserChoiceAdapter for players button-events
 	private UserChoiceAdapter uca = UserChoiceAdapter.getInstance();
@@ -166,6 +173,36 @@ public class Controller implements Initializable, IController {
 	 * Button Effects
 	 */
 	public void initButtonEffects() {
+		
+		BlackJacktext = 
+				
+			"Regler i korthet \n\n"
+
+			+ "Black Jack är ett spel där man inte spelar mot \n"
+			+ "andra spelare utan mot givaren (dealern). \n\n"
+			
+			+ "Målet är att få högre summa än givaren men \n"
+			+ "inte mer än 21 för då förlorar man och på \n"
+			+ "Black Jack språk blir man ”tjock”. \n\n"
+			
+			+ "Varje spelare har några val de kan göra varje omgång. \n\n"
+			+ "=> [HIT]		  Man väljer att ta ett till kort.\n"
+			+ "=> [STAY]	  Man väljer att stanna (dvs nöja sig med de kort man har). \n"
+			+ "=> [DOUBLE] 	  Man väljer att dubbla sitt bett och får ett kort till, \n"
+			+ "  			  sen blir det automatiskt som att man klickar på Stay. \n"
+			+ "=> [SPLIT]	  Man väljer att splitta sin hand till 2 händer, \n"
+			+ "  			  detta kan göras om man har 2 kort av samma värde. \n"
+			+ "=> [INSURANCE] Man väljer att ta en försäkring som blir halva ens bett, \n"
+			+ "  			  vinner du får du tillbaka ditt bett men dealern tar din \n"
+			+ "  			  insurance. Vinner dealern så får du din insurance x2. \n"
+			+ "  			  Detta kan göras om dealers har ett ESS på första hand. \n\n"
+			
+			+ "  			  Väljer spelaren att splitta får man, \n"
+			+ "  			  två händer att spela på och försöka \n"
+			+ "  			  komma så nära 21 som möjligt. ";
+		
+		ComboBoxRules.getItems().add(BlackJacktext);
+		
 
 		// Shadow Effect on all buttons
 		DropShadow dropShadow = new DropShadow();

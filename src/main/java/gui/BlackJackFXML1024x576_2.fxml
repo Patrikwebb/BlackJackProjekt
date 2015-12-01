@@ -80,6 +80,11 @@
                <effect>
                   <Glow />
                </effect></ComboBox>
+            <ComboBox fx:id="ComboBoxRules" prefHeight="31.0" prefWidth="179.0" promptText="Black Jack Rules">
+               <HBox.margin>
+                  <Insets left="450.0" top="20.0" />
+               </HBox.margin>
+            </ComboBox>
          </children></HBox>
    </top>
    <center>
