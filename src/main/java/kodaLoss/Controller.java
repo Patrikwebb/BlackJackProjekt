@@ -176,7 +176,8 @@ public class Controller implements Initializable, IController {
 		
 		BlackJacktext = 
 				
-			"Regler i korthet \n\n"
+			  "Black Jack Rules:\n"
+			+ "Regler i korthet \n\n"
 
 			+ "Black Jack är ett spel där man inte spelar mot \n"
 			+ "andra spelare utan mot givaren (dealern). \n\n"

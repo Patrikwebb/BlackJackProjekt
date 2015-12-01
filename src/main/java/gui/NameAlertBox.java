@@ -70,7 +70,7 @@ public class NameAlertBox {
         GridPane.setConstraints(enterButton, 1, 2);
         
         // Cancel button
-        Button cancelButton = new Button("Cancel");
+        Button cancelButton = new Button("Demo Player");
         cancelButton.setFocusTraversable(false);
         GridPane.setConstraints(cancelButton, 2, 2);
         
@@ -116,7 +116,7 @@ public class NameAlertBox {
         grid.getChildren().addAll(nameLabel, nameInput, bettingLabel, playerCashInput, enterButton, cancelButton);
 
         //Display window and wait for it to be closed before returning
-        Scene scene = new Scene(grid, 420, 150);
+        Scene scene = new Scene(grid, 450, 150);
         nameWindow.setScene(scene);
         nameWindow.showAndWait();
     }
