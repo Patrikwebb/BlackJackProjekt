@@ -20,7 +20,10 @@ public class BlackJackConstantsAndTools {
   public static final String PLAYER_IS_BUST = "Player got bust!";
   public static final String DEALER_IS_BUST = "Dealer got bust!";
   public static final String NOT_ENOUGH_CASH_TO_TAKE_INSURANCE = "Not enough cash to take insurance, play along!";
-
+  public static final String SPLIT_TEXT_TO_PLAYER = "Please play your first split-hand!";
+  public static final String SPLIT_TEXT_TO_SPLITPLAYER = "Now play your other split-hand!";
+  
+  
   // GAME SETTINGS
   public static final int PLAYERS_MAX_COUNT = 1; // SPRINT 3 - Not multiplayer yet!
   public static final int MAX_BET = 5000;

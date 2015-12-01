@@ -399,6 +399,7 @@ public abstract class AbstractRound extends Thread {
     // Controller is set when a round plays! This is for our unit tests to work!
     if (controller != null) {
       controller.setlabelWinnerText(winnerText);
+      BlackJackConstantsAndTools.sleepForXSeconds();
     }
   }
 
@@ -485,6 +486,7 @@ public abstract class AbstractRound extends Thread {
     // work!
     if (controller != null) {
       controller.setlabelWinnerText(winnerText);
+      BlackJackConstantsAndTools.sleepForXSeconds();
     }
   }
 

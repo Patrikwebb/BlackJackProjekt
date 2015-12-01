@@ -1,6 +1,8 @@
 package testBlackJack;
 
-import java.util.Random;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -23,6 +25,10 @@ public class testBJCasinoRound extends TestCase {
   CasinoRound round;
   
   
+  /*
+   * 
+   */
+  
   @Override
   public void setUp(){
     bank = Bank.getInstance();
@@ -35,25 +41,26 @@ public class testBJCasinoRound extends TestCase {
     player.addCardToHand(card2);
     dealer.addCardToHand(card1);
     dealer.addCardToHand(card1);
-    round = new CasinoRound();
+    round = new CasinoRound(); 
+    
     bank.roundThread = round;
   }
   
   
   @Test
-  public void testSplitHandsFirstCardIsHandsSecond(){
+  public void testMakeSplit_SplitHandsFirstCardIsHandsSecond(){
     round.makeSplitPlayer(player);
     Assert.assertEquals(card2, bank.registeredPlayers.get(1).getPlayersHand().get(0));
   }
   
   @Test
-  public void testFirstCardIsSameAfterSplit(){
+  public void testMakeSplit_FirstCardIsSameAfterSplit(){
     round.makeSplitPlayer(player);
     Assert.assertEquals(card1, player.getPlayersHand().get(0));
   }
   
   @Test
-  public void testSecondCardInSplitHandIsNewCards(){
+  public void testMakeSplit_SecondCardInSplitHandIsNewCards(){
     round.makeSplitPlayer(player);
     final Player splitPlayer = bank.registeredPlayers.get(1);
     final Card splitPlayersSec = splitPlayer.getPlayersHand().get(1);
@@ -71,7 +78,6 @@ public class testBJCasinoRound extends TestCase {
     Player splitplayer = bank.registeredPlayers.get(1);
     System.out.println(splitplayer.getPlayersBet());
     Assert.assertTrue(splitplayer.getPlayersBet() == bet);
-    
   }
   
   

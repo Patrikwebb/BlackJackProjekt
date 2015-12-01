@@ -352,8 +352,10 @@ public class Controller implements Initializable, IController {
 							}
 							URL url = Controller.class.getResource("/CardPictures/" + cardString + ".png");
 
-							image = new Image(url.toString());
+							image = new Image(url.toString() );
 							ImageView view = new ImageView(image);
+//							view.setScaleX(1.5);
+//							view.setScaleY(1.5);
 							target.getChildren().add(view);
 							target.setSpacing(-45);
 
