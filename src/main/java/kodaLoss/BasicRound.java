@@ -52,7 +52,6 @@ public class BasicRound extends AbstractRound{
     
     // print out all data of Player!
    System.out.println(player.toString());
-    
     // finally reset last choice in UCA
     uca.resetUserChoice();
   }
@@ -64,26 +63,30 @@ public class BasicRound extends AbstractRound{
      * bet Loose => players bet is not returned
      */
     int playersBet;
-
+    int playersBalance = 0;
+    
     for (Player player : bank.registeredPlayers) {
 
       playersBet = player.getPlayersBet();
 
       if (player.getRoundResult() == RoundResult.TIE) {
-        player.addToPlayersCash(playersBet);
+        playersBalance = playersBet;
 
       } else if (player.getRoundResult() == RoundResult.WIN) {
-        player.addToPlayersCash((int) Math.floor(playersBet * 2.0d));
+        playersBalance = (int) Math.floor(playersBet * 2.0d);
 
         // Win with Black Jack adds another 50% of bet!
         if (isPlayersHandABlackJack(player)) {
-          player.addToPlayersCash((int) Math.floor(playersBet / 2.0d));
+          playersBalance += (int) Math.floor(playersBet / 2.0d);
           System.out.println("BLACKJACK");
         }
       } 
       
       // last rounds Players bet as default in gui for next round
-      //        player.setPlayersBet(0); 
+//              player.setPlayersBet(0);
+      controller.setlabelWinnerText(String.format("%s $: + %d" , player.getName() , playersBalance ));
+      player.addToPlayersCash(playersBalance);
+      
       player.setRoundResult(null);
       bank.updateGuiAfterChangeInDataModel();
     }
