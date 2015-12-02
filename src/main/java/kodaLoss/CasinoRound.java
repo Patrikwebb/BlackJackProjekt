@@ -82,7 +82,9 @@ public class CasinoRound extends AbstractRound {
         
       } else if (uca.getUserChoice() == UserChoice.INSURANCE){
         playInsurance(player);
+        bank.updateGuiAfterChangeInDataModel();
         controller.disableAdvancedButton();
+        uca.resetUserChoice();
       }
     }
     // print out all data of Player!
@@ -107,7 +109,7 @@ public class CasinoRound extends AbstractRound {
    */
   public void activateInsurance(Player p) {
   
-    if (checkIfInsuranceCanBePlayed(p)) {
+    if (!checkIfInsuranceCanBePlayed(p)) {
   
       controller.activateInsuranceButton();
     } else {
@@ -191,6 +193,10 @@ public class CasinoRound extends AbstractRound {
   // adds an insurance to player and adjusts money
   private void playInsurance(Player p){
     p.setHasInsurance(true);
+    
+    int insurance = (p.getPlayersBet() / 2);
+    p.setPlayersCash((p.getPlayersCash() - insurance) - 1);
+    
   }
   
   // makes a SPLIT_Player to player 
