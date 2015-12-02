@@ -17,16 +17,16 @@ public class BlackJackConstantsAndTools {
   public final static String RESULT_A_TIE = "It´s a tie";
   public static final String ASK_FOR_BETS = ", please enter your bet!";
   public static final String NOT_ENOUGH_CASH_TO_DOUBLE = "You don´t have enough cash to double, play along!";
-  public static final String PLAYER_IS_BUST = "Player got bust!";
+  public static final String PLAYER_IS_BUST = "You got bust!";
   public static final String DEALER_IS_BUST = "Dealer got bust!";
   public static final String NOT_ENOUGH_CASH_TO_TAKE_INSURANCE = "Not enough cash to take insurance, play along!";
   public static final String SPLIT_TEXT_TO_PLAYER = "Please play your first split-hand!";
   public static final String SPLIT_TEXT_TO_SPLITPLAYER = "Now play your other split-hand!";
-  public static final String INSURANCE_TEXT_TO_PLAYER = "You are now ensurade";
+  public static final String INSURANCE_TEXT_TO_PLAYER = "You are now insured. Please play!";
   
   
   // GAME SETTINGS
-  public static final int PLAYERS_MAX_COUNT = 1; // SPRINT 3 - Not multiplayer yet!
+  public static final int PLAYERS_MAX_COUNT = 2; // SPRINT 3 - Not multiplayer yet!
   public static final int MAX_BET = 5000;
   public static final int BANK_LIMIT = 50000;
   public static final int MIN_BET = 5;

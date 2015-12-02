@@ -13,7 +13,7 @@
    <left>
       <Pane id="PaneLeftBorderPane" prefHeight="290.0" prefWidth="353.0">
          <children>
-            <Button id="buttonHit" fx:id="buttonInsurence" disable="true" layoutY="281.0" mnemonicParsing="false" text="Insurence" />
+            <Button id="buttonHit" fx:id="buttonInsurence" disable="true" layoutY="281.0" mnemonicParsing="false" text="Insurance" />
             <Label id="labelPlayerName1" fx:id="labelPlayerName1" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="307.0" layoutY="159.0" prefHeight="16.0" prefWidth="150.0" textAlignment="RIGHT" textFill="WHITE">
                <font>
                   <Font size="16.0" />
@@ -69,11 +69,12 @@
    <top>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <ComboBox fx:id="ComboBoxRules" prefHeight="31.0" prefWidth="179.0" promptText="Black Jack Rules">
+            <ComboBox fx:id="ComboBoxRules" prefHeight="31.0" prefWidth="185.0" promptText="Black Jack Rules">
                <HBox.margin>
                   <Insets top="20.0" />
                </HBox.margin>
             </ComboBox>
+            <Label prefHeight="95.0" prefWidth="143.0" text="DEMO VERSION: Casino Rules Always Activated!" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
             <Label contentDisplay="CENTER" prefHeight="31.0" prefWidth="103.0" text="Table rules:" textFill="#dad7d7">
                <font>
                   <Font size="18.0" />

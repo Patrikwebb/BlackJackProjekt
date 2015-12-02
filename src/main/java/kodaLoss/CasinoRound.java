@@ -50,7 +50,7 @@ public class CasinoRound extends AbstractRound {
 
       if (isPlayersHandOver21(player)) {
         System.out.println(PLAYER_IS_BUST);
-        controller.setlabelWinnerText(player.getName() + PLAYER_IS_BUST);
+        controller.setlabelWinnerText(player.getName() +": " + PLAYER_IS_BUST);
         bank.updateGuiAfterChangeInDataModel();
         break;
       }
@@ -197,9 +197,8 @@ public class CasinoRound extends AbstractRound {
   // adds an insurance to player and adjusts money
   private void playInsurance(Player p) {
     p.setHasInsurance(true);
-    
-    int insurance = (p.getPlayersBet() / 2);
-    p.setPlayersCash((p.getPlayersCash() - insurance) - 1);
+    int insurance = (int)Math.round(p.getPlayersBet() / 2.0d);
+    p.setPlayersCash(p.getPlayersCash() - insurance) ;
     
   }
 
