@@ -576,6 +576,13 @@ public class Controller implements Initializable, IController {
     });
     
   }
-  
 
+@Override
+public void updateSplitPlayer(Player splitPlayer) {
+	Platform.runLater(() -> {
+
+	labelPlayerName2.setText(splitPlayer.getName()); // name label
+	});
+}
+	  
 }

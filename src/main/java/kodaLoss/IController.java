@@ -24,6 +24,8 @@ public interface IController {
   
   public void updatePlayer(Player activePlayerOnGui);
   
+  public void updateSplitPlayer(Player splitPlayer);
+  
   public void updateDealer(Player dealer);
   
   public void gameIson() ;
