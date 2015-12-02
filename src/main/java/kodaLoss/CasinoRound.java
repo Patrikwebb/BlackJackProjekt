@@ -109,7 +109,7 @@ public class CasinoRound extends AbstractRound {
    */
   public void activateInsurance(Player p) {
   
-    if (!checkIfInsuranceCanBePlayed(p)) {
+    if (checkIfInsuranceCanBePlayed(p)) {
   
       controller.activateInsuranceButton();
     } else {
