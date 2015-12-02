@@ -207,7 +207,7 @@ public class CasinoRound extends AbstractRound {
 
     Player splitPlayer = new Player("SPLIT_" + player.getName(), 0);
     splitPlayer.setSplitPlayer(true);
-controller.updateSplitPlayer(splitPlayer);
+//controller.updateSplitPlayer(splitPlayer);
     // take a new bet for splitplayer!
     final int bet = player.getPlayersBet();
     splitPlayer.setPlayersBet(bet);
