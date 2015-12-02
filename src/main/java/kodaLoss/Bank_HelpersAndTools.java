@@ -39,7 +39,7 @@ public class Bank_HelpersAndTools {
 	      if (card.getRank() == Rank.ACE) 
 	        return true;
 	  }
-	return false;
+	  return false;
   }
 
   /**

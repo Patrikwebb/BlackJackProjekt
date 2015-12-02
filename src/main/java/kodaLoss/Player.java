@@ -10,7 +10,7 @@ public class Player {
   
   private String name = "Anonymous"; // alla spelare har ett namn
 	
-	private int playersCash = 100; // alla spelare startar med 100 dollar
+	private int playersCash = 0; // alla spelare startar med 0 dollar
 	
 	private int betForThisRound = 0 ; // vad spelare satsar denna runda
 	
@@ -213,5 +213,5 @@ public class Player {
   public void setSplitPlayer(boolean split){
     this.isSplitPlayer = split;
   }
-	
+
 }
