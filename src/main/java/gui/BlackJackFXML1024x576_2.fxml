@@ -69,22 +69,28 @@
    <top>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Label contentDisplay="CENTER" prefHeight="43.0" prefWidth="103.0" text="Table rules:" textFill="#dad7d7">
+            <ComboBox fx:id="ComboBoxRules" prefHeight="31.0" prefWidth="179.0" promptText="Black Jack Rules">
+               <HBox.margin>
+                  <Insets top="20.0" />
+               </HBox.margin>
+            </ComboBox>
+            <Label contentDisplay="CENTER" prefHeight="31.0" prefWidth="103.0" text="Table rules:" textFill="#dad7d7">
                <font>
                   <Font size="18.0" />
                </font>
                <effect>
                   <Glow />
-               </effect></Label>
+               </effect>
+               <HBox.margin>
+                  <Insets left="500.0" top="20.0" />
+               </HBox.margin></Label>
             <ComboBox id="comboBoxRules" fx:id="ruleBox" prefHeight="46.0" prefWidth="194.0" promptText="Basic">
                <effect>
                   <Glow />
-               </effect></ComboBox>
-            <ComboBox fx:id="ComboBoxRules" prefHeight="31.0" prefWidth="179.0" promptText="Black Jack Rules">
+               </effect>
                <HBox.margin>
-                  <Insets left="450.0" top="20.0" />
-               </HBox.margin>
-            </ComboBox>
+                  <Insets left="10.0" top="10.0" />
+               </HBox.margin></ComboBox>
          </children></HBox>
    </top>
    <center>
