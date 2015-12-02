@@ -83,6 +83,7 @@ public class CasinoRound extends AbstractRound {
 
       } else if (uca.getUserChoice() == UserChoice.INSURANCE) {
         playInsurance(player);
+        controller.setlabelWinnerText(BlackJackConstantsAndTools.INSURANCE_TEXT_TO_PLAYER);
         bank.updateGuiAfterChangeInDataModel();
         controller.disableAdvancedButton();
         uca.resetUserChoice();

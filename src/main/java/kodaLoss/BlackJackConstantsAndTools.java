@@ -22,6 +22,7 @@ public class BlackJackConstantsAndTools {
   public static final String NOT_ENOUGH_CASH_TO_TAKE_INSURANCE = "Not enough cash to take insurance, play along!";
   public static final String SPLIT_TEXT_TO_PLAYER = "Please play your first split-hand!";
   public static final String SPLIT_TEXT_TO_SPLITPLAYER = "Now play your other split-hand!";
+  public static final String INSURANCE_TEXT_TO_PLAYER = "You are now ensurade";
   
   
   // GAME SETTINGS
