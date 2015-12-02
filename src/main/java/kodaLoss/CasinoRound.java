@@ -108,6 +108,12 @@ public class CasinoRound extends AbstractRound {
    * so the player can choice to use Insurance
    */
   public void activateInsurance(Player p) {
+	  
+		  // for demo
+		  if (!checkIfInsuranceCanBePlayed(p)) {
+			  
+		      controller.activateInsuranceButton();
+		    } 
   
     if (checkIfInsuranceCanBePlayed(p)) {
   
@@ -156,6 +162,7 @@ public class CasinoRound extends AbstractRound {
   // returns true if player may buy an insurance
   public boolean checkIfInsuranceCanBePlayed(Player p){
     
+	 
     return Bank_HelpersAndTools.checkForAceCardOnYourHand(bank.dealer) && 
         p.getPlayersCash() * 2 >= p.getPlayersBet();
   }
