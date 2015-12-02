@@ -24,6 +24,8 @@ public interface IController {
   
   public void updatePlayer(Player activePlayerOnGui);
   
+  public void updateSplitPlayer(Player splitPlayer);
+  
   public void updateDealer(Player dealer);
   
   public void gameIson() ;
@@ -47,6 +49,7 @@ public interface IController {
   public void setPlayableRules(Set<String> ruleNames);
 
   public void activateSplitButton();
-  
-  
+
+  public void removeSplitPlayerName(Player splitPlayer);
+ 
 }

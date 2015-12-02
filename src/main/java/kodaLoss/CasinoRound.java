@@ -3,7 +3,7 @@ package kodaLoss;
 import static kodaLoss.Bank_HelpersAndTools.isPlayersHandABlackJack;
 import static kodaLoss.Bank_HelpersAndTools.isPlayersHandOver21;
 import static kodaLoss.BlackJackConstantsAndTools.PLAYER_IS_BUST;
-
+import kodaLoss.Player;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class CasinoRound extends AbstractRound {
   private List<Player> SplitPlayerToDelete = new ArrayList<>();
 
   // Constructor
-  public CasinoRound() {
+  public CasinoRound(){
     super();
     System.out.println("CasinoRound");
     controller.activateAdvancedButton();
@@ -50,7 +50,7 @@ public class CasinoRound extends AbstractRound {
 
       if (isPlayersHandOver21(player)) {
         System.out.println(PLAYER_IS_BUST);
-        controller.setlabelWinnerText(PLAYER_IS_BUST);
+        controller.setlabelWinnerText(player.getName() + PLAYER_IS_BUST);
         bank.updateGuiAfterChangeInDataModel();
         break;
       }
@@ -83,6 +83,7 @@ public class CasinoRound extends AbstractRound {
 
       } else if (uca.getUserChoice() == UserChoice.INSURANCE) {
         playInsurance(player);
+        bank.updateGuiAfterChangeInDataModel();
         controller.disableAdvancedButton();
         uca.resetUserChoice();
       }
@@ -107,7 +108,7 @@ public class CasinoRound extends AbstractRound {
    * so the player can choice to use Insurance
    */
   public void activateInsurance(Player p) {
-
+	  
     if (checkIfInsuranceCanBePlayed(p)) {
 
       controller.activateInsuranceButton();
@@ -195,6 +196,10 @@ public class CasinoRound extends AbstractRound {
   // adds an insurance to player and adjusts money
   private void playInsurance(Player p) {
     p.setHasInsurance(true);
+    
+    int insurance = (p.getPlayersBet() / 2);
+    p.setPlayersCash((p.getPlayersCash() - insurance) - 1);
+    
   }
 
   // makes a SPLIT_Player to player
@@ -202,7 +207,7 @@ public class CasinoRound extends AbstractRound {
 
     Player splitPlayer = new Player("SPLIT_" + player.getName(), 0);
     splitPlayer.setSplitPlayer(true);
-
+controller.updateSplitPlayer(splitPlayer);
     // take a new bet for splitplayer!
     final int bet = player.getPlayersBet();
     splitPlayer.setPlayersBet(bet);
@@ -245,12 +250,14 @@ public class CasinoRound extends AbstractRound {
 
   // delete splitplayers at the end of round!
   private void deleteSplitPlayers() {
+
     for (Player p : SplitPlayerToDelete) {
 
       if (bank.registeredPlayers.contains(p)) {
         System.out.println("removed : " + p.getName());
         bank.registeredPlayers.remove(p);
       }
+        bank.updateGuiAfterChangeInDataModel();
     }
   }
 
@@ -281,6 +288,7 @@ public class CasinoRound extends AbstractRound {
       }
 
       if (player.getRoundResult() == RoundResult.TIE) {
+    	  controller.setlabelWinnerText(player.getName() + RoundResult.TIE);
         playersBalance = playersBet;
 
       } else if (player.getRoundResult() == RoundResult.WIN) {
