@@ -126,6 +126,8 @@ public class Controller implements Initializable, IController {
 		initButtonEffects();
 
 		disableAdvancedButton();
+		
+		blackJackRulesText();
 	}
 
 	private void initControls() {
@@ -170,8 +172,6 @@ public class Controller implements Initializable, IController {
 	}
 	/**
 	 * Text in the Black Jack Rules ComboBox
-	 * 
-	 * 
 	 */
 	public void blackJackRulesText(){
 		//TODO Byta från en metod och lägga i textdokument senare
