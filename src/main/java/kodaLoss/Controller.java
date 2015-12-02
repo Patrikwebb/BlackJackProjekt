@@ -584,5 +584,14 @@ public void updateSplitPlayer(Player splitPlayer) {
 	labelPlayerName2.setText(splitPlayer.getName()); // name label
 	});
 }
+
+@Override
+public void removeSplitPlayerName(Player splitPlayer) {
+	Platform.runLater(() -> {
+
+		labelPlayerName2.setText(""); // remove name
+		});
+	
+}
 	  
 }

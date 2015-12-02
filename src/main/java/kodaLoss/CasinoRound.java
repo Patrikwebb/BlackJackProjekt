@@ -258,7 +258,7 @@ controller.updateSplitPlayer(splitPlayer);
     	p.clearPlayersHand();
         if (bank.registeredPlayers.contains(p)){
           System.out.println("removed : " + p.getName());
-          
+          controller.removeSplitPlayerName(p);
           bank.registeredPlayers.remove(p);
       }
         bank.updateGuiAfterChangeInDataModel();

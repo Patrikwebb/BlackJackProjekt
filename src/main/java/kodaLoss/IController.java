@@ -49,6 +49,7 @@ public interface IController {
   public void setPlayableRules(Set<String> ruleNames);
 
   public void activateSplitButton();
-  
-  
+
+  public void removeSplitPlayerName(Player splitPlayer);
+ 
 }
