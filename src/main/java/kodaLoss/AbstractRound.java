@@ -92,7 +92,6 @@ public abstract class AbstractRound extends Thread {
 
     for (Player p : bank.registeredPlayers) {
       p.clearPlayersHand();
-      controller.updatePlayer(p);
     }
     bank.activePlayerOnGui = bank.registeredPlayers.get(0); 
     bank.dealer.clearPlayersHand();
@@ -190,74 +189,7 @@ public abstract class AbstractRound extends Thread {
    */
   public abstract void playerPlays(Player player);
 
-//  //
-//  public void playerDouble(Player p) {
-//    // controller.activateDoubleButton(); // måste ha varit aktiverat innan dess
-//    // för att kunna spela double
-//    doublePlayersBet(p);
-//    bank.dealOneCardToPlayer(p);
-//    bank.updateGuiAfterChangeInDataModel();
-//
-//    System.out.println("PLAYER DOUBLE");
-//    // tog bort sysout prints och reset-uca, då de kommer i player plays i alla
-//    // fall
-//  }
-//
-//  /*
-//   * Doubles players bet for this round, if player has the cash! Otherwise just
-//   * leaves the bet as it is. Should be called after checking if playing double
-//   * is legal!
-//   * 
-//   * THROWS: IllegalArgumentException if doubled bet would exceed players cash!
-//   */
-//  public void doublePlayersBet(Player p) {
-//    final int playersBet = p.getPlayersBet();
-//
-//    if (p.getPlayersCash() >= playersBet) {
-//      p.addToPlayersCash(playersBet);
-//      p.setPlayersBet(2 * playersBet);
-//
-//    } else {
-//      controller.setlabelWinnerText(
-//          BlackJackConstantsAndTools.NOT_ENOUGH_CASH_TO_DOUBLE);
-//      // throw new IllegalArgumentException("doubled bet exceeds Players
-//      // cash!");
-//    }
-//  }
-//
-// 
-//
-//  /**
-//   * Returns true if a player has two cards in his hand and both have the same
-//   * value. This rule means that even a hand with a 10 and a King e.g. could be
-//   * split!
-//   */
-//  public boolean checkIfSplitCanBePlayed(Player p) {
-//
-//    if (p.getPlayersHand().size() != 2) {
-//      return false;
-//
-//    } else if (p.getPlayersBet() > p.getPlayersCash()) {
-//      return false;
-//
-//    } else {
-//      final Card cardOne = p.getPlayersHand().get(0);
-//      final Card cardTwo = p.getPlayersHand().get(1);
-//
-//      System.out.println(cardOne.getValue() == cardTwo.getValue());
-//
-//      return (cardOne.getValue() == cardTwo.getValue());
-//    }
-//  }
-//
-//  public void activateSplit(Player p) {
-//
-//    if (checkIfSplitCanBePlayed(p)) {
-//      controller.activateSplitButton();
-//    }
-//  }
 
-  
 
   /*
    * dealer plays. Takes cards until its hand is over 16
@@ -293,26 +225,6 @@ public abstract class AbstractRound extends Thread {
       }
     }
   }
-
-  /// *
-  // * deals one card to all players and dealer
-  // */
-  // protected void dealOneCardToAll() {
-  //
-  // for (Player p : bank.registeredPlayers) {
-  // dealOneCardToPlayer(p);
-  // }
-  // dealOneCardToPlayer(bank.dealer);
-  // bank.updateGuiAfterChangeInDataModel();
-  // }
-  //
-  /// *
-  // * bank deals one card from the card shoe to a player who takes the card and
-  // * adds it to his hand. (Then the gui is updated for the player)
-  // */
-  // private void dealOneCardToPlayer(Player player) {
-  // player.addCardToHand(bank.cardShoe.getACardFromCardShoe());
-  // }
 
   /**
    * Calculate winners
@@ -376,12 +288,12 @@ public abstract class AbstractRound extends Thread {
           winnerText = setAndShowResults(player, WIN, winnerText);
         }
       }
+      if (controller != null) {
+        controller.setlabelWinnerText( player.getName() + ": " + winnerText );
+        BlackJackConstantsAndTools.sleepForXSeconds();
+      }
     }
     // Controller is set when a round plays! This is for our unit tests to work!
-    if (controller != null) {
-      controller.setlabelWinnerText(winnerText);
-      BlackJackConstantsAndTools.sleepForXSeconds();
-    }
   }
 
   // help function for calculateWinners()
@@ -410,66 +322,7 @@ public abstract class AbstractRound extends Thread {
     return winnerText;
   }
 
-//  /**
-//   * NEW! Method to replace CalculateWinner
-//   */
-//  public void roundOutcome() {
-//    String winnerText = null;
-//
-//    // 1. dealer is bust
-//    for (Player p : bank.registeredPlayers) {
-//
-//      if (isPlayersHandOver21(bank.dealer)) {
-//
-//        if (isPlayersHandOver21(p)) {
-//          System.out.println(RESULT_YOU_LOOSE);
-//          winnerText = BlackJackConstantsAndTools.RESULT_YOU_LOOSE;
-//          p.setRoundResult(RoundResult.LOOSE);
-//
-//        } else {
-//          System.out.println("Congratulations! You won.");
-//          winnerText = BlackJackConstantsAndTools.RESULT_YOU_WON;
-//          p.setRoundResult(RoundResult.WIN);
-//        }
-//      }
-//
-//      else if (calculateValueOfPlayersHand(p) <= 21
-//          && calculateValueOfPlayersHand(bank.dealer) <= 21) {
-//
-//        if (isPlayersHandABlackJack(p)
-//            && !isPlayersHandABlackJack(bank.dealer)) {
-//          System.out.println("Congratulations! You won.");
-//          winnerText = BlackJackConstantsAndTools.RESULT_YOU_WON;
-//          p.setRoundResult(RoundResult.WIN);
-//        }
-//
-//        else if (calculateValueOfPlayersHand(p) > calculateValueOfPlayersHand(
-//            bank.dealer)) {
-//          System.out.println("Congratulations! You won.");
-//          winnerText = BlackJackConstantsAndTools.RESULT_YOU_WON;
-//          p.setRoundResult(RoundResult.WIN);
-//
-//        } else if (calculateValueOfPlayersHand(p) < calculateValueOfPlayersHand(
-//            bank.dealer)) {
-//          System.out.println("Sorry you LOST");
-//          winnerText = BlackJackConstantsAndTools.RESULT_YOU_LOOSE;
-//          p.setRoundResult(RoundResult.LOOSE);
-//
-//        } else if (calculateValueOfPlayersHand(
-//            p) == calculateValueOfPlayersHand(bank.dealer)) {
-//          System.out.println("It´s a TIE.");
-//          winnerText = BlackJackConstantsAndTools.RESULT_A_TIE;
-//          p.setRoundResult(RoundResult.TIE);
-//        }
-//      }
-//    }
-//    // Controller is set when a round plays! This is for our unit tests to
-//    // work!
-//    if (controller != null) {
-//      controller.setlabelWinnerText(winnerText);
-//      BlackJackConstantsAndTools.sleepForXSeconds();
-//    }
-//  }
+
 
   /*
    * uses players bets and result of played round to calculate money to be payed

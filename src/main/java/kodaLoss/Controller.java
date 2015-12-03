@@ -12,7 +12,6 @@ import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -313,11 +312,18 @@ public class Controller implements Initializable, IController {
 		  
 		  } else {
 		    target = playerCard2;
-		    setPlayersHandScore(activePlayerOnGui , true );
+		    labelPlayerName2.setText("");
+		    if (activePlayerOnGui.getPlayersHand().size() != 0){
+		      setPlayersHandScore(activePlayerOnGui , true );
+		      labelPlayerName2.setText(activePlayerOnGui.getName());
+		    } else {
+		      labelPlayerName2.setText("");
+		      playersHandScore2.setVisible(false);
+		    }
 		  }
 		  
 			// Sets the playerCash in the TextField
-			TextFieldRoundBett.setText(activePlayerOnGui.getPlayersBet() + "");
+//			TextFieldRoundBett.setText(activePlayerOnGui.getPlayersBet() + "");
 			setPics(activePlayerOnGui, target );
 		});
 	}
@@ -334,8 +340,10 @@ public class Controller implements Initializable, IController {
 		
 		Platform.runLater(() -> {
 		if (isSplitPlayer){
+		  playersHandScore2.setVisible(true);
 		  playersHandScore2.setText(handValue);
 		} else{
+		  
 		  playersHandScore.setText(handValue);
 		}
 	});
@@ -577,21 +585,5 @@ public class Controller implements Initializable, IController {
     
   }
 
-@Override
-public void updateSplitPlayer(Player splitPlayer) {
-	Platform.runLater(() -> {
-
-	labelPlayerName2.setText(splitPlayer.getName()); // name label
-	});
-}
-
-@Override
-public void removeSplitPlayerName(Player splitPlayer) {
-	Platform.runLater(() -> {
-
-		labelPlayerName2.setText(""); // remove name
-		});
-	
-}
 	  
 }

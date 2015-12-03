@@ -24,7 +24,7 @@ public interface IController {
   
   public void updatePlayer(Player activePlayerOnGui);
   
-  public void updateSplitPlayer(Player splitPlayer);
+//  public void updateSplitPlayer(Player splitPlayer);
   
   public void updateDealer(Player dealer);
   
@@ -50,6 +50,6 @@ public interface IController {
 
   public void activateSplitButton();
 
-  public void removeSplitPlayerName(Player splitPlayer);
- 
+//  public void removeSplitPlayerName(Player splitPlayer);
+// 
 }
