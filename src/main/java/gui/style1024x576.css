@@ -81,6 +81,10 @@
  -fx-text-fill:transparent;
  -fx-font-size: 20px
 }
+#buttonRulesGB,#buttonRulesSWE,#buttonRulesGER{
+	 -fx-background-color: transparent ;
+/* -fx-text-fill:transparent;*/
+}
 
 
 

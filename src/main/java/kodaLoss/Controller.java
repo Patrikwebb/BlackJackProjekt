@@ -64,6 +64,9 @@ public class Controller implements Initializable, IController {
 
 	@FXML
 	private Button buttonSplit;
+	
+	@FXML
+	private Button buttonRulesGB, buttonRulesSWE, buttonRulesGER;
 
 	@FXML
 	private Label labelPlayerName1, labelPlayerName2;
@@ -95,8 +98,8 @@ public class Controller implements Initializable, IController {
 	@FXML
 	private ComboBox<String> ruleBox;
 	
-	@FXML
-	private ComboBox<String> ComboBoxRules;
+//	@FXML
+//	private ComboBox<String> ComboBoxRules;
 	
 	@FXML
 	private String BlackJacktext;
@@ -225,7 +228,7 @@ public class Controller implements Initializable, IController {
 				+ "  			  två händer att spela på och försöka \n"
 				+ "  			  komma så nära 21 som möjligt. ";
 			
-			ComboBoxRules.getItems().add(BlackJacktext);
+		//	ComboBoxRules.getItems().add(BlackJacktext);
 
 	}
 	
@@ -233,7 +236,13 @@ public class Controller implements Initializable, IController {
 	 * Button Effects
 	 */
 	public void initButtonEffects() {
-
+		  Image imageGb = new Image(getClass().getResourceAsStream("/Icon_flag/gb.png"));
+		  Image imageSWE = new Image(getClass().getResourceAsStream("/Icon_flag/swe.png"));
+		  Image imageGER = new Image(getClass().getResourceAsStream("/Icon_flag/ger.png"));
+		  buttonRulesGB.setGraphic(new ImageView(imageGb));
+		  buttonRulesSWE.setGraphic(new ImageView(imageSWE));
+		  buttonRulesGER.setGraphic(new ImageView(imageGER));
+		  
 		// Shadow Effect on all buttons
 		DropShadow dropShadow = new DropShadow();
 		dropShadow.setRadius(3.0);
@@ -465,7 +474,6 @@ public class Controller implements Initializable, IController {
 			buttonHit.setDisable(false);
 			buttonStay.setDisable(false);
 			buttonDeal.setDisable(true);
-
 		});
 	}
 
