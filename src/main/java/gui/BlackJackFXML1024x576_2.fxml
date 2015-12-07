@@ -69,12 +69,9 @@
    <top>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <ComboBox fx:id="ComboBoxRules" prefHeight="31.0" prefWidth="185.0" promptText="Black Jack Rules">
-               <HBox.margin>
-                  <Insets top="20.0" />
-               </HBox.margin>
-            </ComboBox>
-            <Label prefHeight="95.0" prefWidth="143.0" text="DEMO VERSION: Casino Rules Always Activated!" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
+            <Button id="buttonRulesGB" fx:id="buttonRulesGB" mnemonicParsing="false" text="GB" />
+            <Button id="buttonRulesSWE" fx:id="buttonRulesSWE" mnemonicParsing="false" text="SWE" />
+            <Button id="buttonRulesGER" fx:id="buttonRulesGER" mnemonicParsing="false" text="GER" />
             <Label contentDisplay="CENTER" prefHeight="31.0" prefWidth="103.0" text="Table rules:" textFill="#dad7d7">
                <font>
                   <Font size="18.0" />
