@@ -16,7 +16,7 @@ import java.util.Set;
  */
 public interface IController {
 
-  public void setdealersHandScore(String score);
+//  public void setdealersHandScore(String score);
   
   public void setlabelWinnerText(String winnerText);
   
@@ -28,27 +28,27 @@ public interface IController {
   
   public void updateDealer(Player dealer);
   
-  public void gameIson() ;
+  public void gameIson() ;//
   
-  public void gameIsoff();
+  public void gameIsoff();//
   
-  public void allButtonsOff();
+  public void allButtonsOff();//
   
-  public void activatePlayersBetField();
+  public void activatePlayersBetField();//
   
   public int getBetFromPlayersTextField() ;
 
-  public void activateInsuranceButton();
+  public void activateInsuranceButton();//
   
-  public void activateDoubleButton();
+  public void activateDoubleButton();//
 
-  public void disableAdvancedButton();
+  public void disableAdvancedButton();//
   
-  public void activateAdvancedButton();
+  public void activateAdvancedButton();//
   
   public void setPlayableRules(Set<String> ruleNames);
 
-  public void activateSplitButton();
+  public void activateSplitButton();//
 
 //  public void removeSplitPlayerName(Player splitPlayer);
 // 
