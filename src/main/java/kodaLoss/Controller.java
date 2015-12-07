@@ -152,7 +152,6 @@ public class Controller implements Initializable, IController {
 		
 		blackJackRulesText();
 		
-		showRuleWindow(Language.GERMAN);
 		
 	}
 
@@ -195,6 +194,12 @@ public class Controller implements Initializable, IController {
 		buttonDouble.setOnAction(e -> uca.playerChoosesToDouble());
 		
 		buttonInsurence.setOnAction(e -> uca.playerChoosesToTakeInsurance());
+		
+		buttonRulesGB.setOnAction(e -> showRuleWindow(Language.ENGLISH));
+		
+		buttonRulesGER.setOnAction(e -> showRuleWindow(Language.GERMAN));
+
+		buttonRulesSWE.setOnAction(e -> showRuleWindow(Language.SWEDISH));
 	}
 	/**
 	 * Text in the Black Jack Rules ComboBox
