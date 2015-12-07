@@ -486,6 +486,7 @@ public class Controller implements Initializable, IController {
 	public void activatePlayersBetField() {
 		Platform.runLater(() -> {
 			TextFieldRoundBett.setDisable(false);
+			
 		});
 	}
 

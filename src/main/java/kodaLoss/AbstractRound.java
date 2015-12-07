@@ -155,7 +155,8 @@ public abstract class AbstractRound extends Thread {
 
       while (true) {
 
-        if (uca.getUserChoice() == UserChoice.LAY_BET) {
+        if (uca.getUserChoice() == UserChoice.LAY_BET || 
+            uca.getUserChoice() == UserChoice.START_ROUND ) {
           bet = controller.getBetFromPlayersTextField();
           // switch off asking for a bet!
           controller.setlabelWinnerText("");

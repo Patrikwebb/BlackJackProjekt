@@ -197,7 +197,7 @@ public class CasinoRound extends AbstractRound {
   // adds an insurance to player and adjusts money
   private void playInsurance(Player p) {
     p.setHasInsurance(true);
-    int insurance = (int)Math.round(p.getPlayersBet() / 2.0d);
+    int insurance = (int)Math.ceil(p.getPlayersBet() / 2.0d);
     p.setPlayersCash(p.getPlayersCash() - insurance) ;
     
   }

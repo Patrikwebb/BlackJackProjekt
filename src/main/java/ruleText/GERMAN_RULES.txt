@@ -1,0 +1,16 @@
+Black Jack Regeln:
+
+Black Jack ist ein Spiel in dem ein Spieler gegen die Bank, den Dealer, spielt. Das Spiel gewinnt der Spieler, wenn seine Hand einen höheren Wert aufweist als die Hand des Dealers. Der höchste, mögliche Wert ist 21, wer diesen übersteigt, verliert. Auf englisch heisst dies "Busted".
+
+Bei einem Spiel im Grund-Regelwerk ("BASIC RULES") hat der Spieler folgende Wahlmöglichkeiten:
+ 
+ [HIT]      - ob er eine weitere Karte aufnehmen möchte
+ 
+ [STAY]     - ob er die Runde mit seinem Blatt abschliessen möchte
+ 
+Im Casino-Regelwerk("CASINO RULES") hat der Spieler weitere Wahlmöglichkeiten, wenn er sich den erhöhten Einsatz("Bet") leisten kann:
+
+  [SPLIT]   - Bei einer Anfangs-Hand mit zwei Karten gleichen Wertes (z.B.               10 und König) kann der Spieler die Hand in zwei Hände aufteilen,               die beide nacheinander gespielt werden. Der Einsatz ("Bet")                 erhöht sich entsprechend für die aktuelle Runde.
+  [DOUBLE]  - Der Spieler hat bei jedem Anfangsblatt die Möglichkeit DOUBLE zu spielen. Hier verdoppelt sich der Einsatz des Spielers und er erhält eine zusätliche Karte. 
+  
+  [INSURANCE]- Ist die aufgedeckte Karte des Dealers ein Ass, erhält der                    Spieler die Möglichkeit, eine Versicherung("Insurance") gegen                 den Verlust der Runde zu kaufen. Die Versicherung kosten den                 Spieler zusätzlich die Hälfte seines Einsatzes. Sollte der                   Spieler verlieren, erhält er den doppelten                                   Versicherungsbetrag ausgezahlt; gewinnt der Dealer mit einem                 BlackJack, erhält der Spieler sogar den dreifachen                            Versicherungsbetrag. 
