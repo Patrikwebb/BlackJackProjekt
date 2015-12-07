@@ -1,27 +1,48 @@
 package kodaLoss;
 
+import java.awt.FlowLayout;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+import com.sun.glass.events.WindowEvent;
+
 import javafx.animation.Animation;
 import javafx.animation.RotateTransition;
 import javafx.application.Platform;
+import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.web.WebView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class Controller implements Initializable, IController {
@@ -127,6 +148,9 @@ public class Controller implements Initializable, IController {
 		disableAdvancedButton();
 		
 		blackJackRulesText();
+		
+		showRuleWindow(Language.GERMAN);
+		
 	}
 
 	private void initControls() {
@@ -583,8 +607,52 @@ public class Controller implements Initializable, IController {
     Platform.runLater(() -> {
       buttonSplit.setDisable(false);
     });
-    
   }
-
-	  
+    
+    
+  /**
+   * Shows a popup-window with the rules of the game in the language 
+   * given as a parameter
+   * @param language - Language enum
+   */
+    public void showRuleWindow( Language language ){
+      
+      Stage alertStage = new Stage();
+      alertStage.initModality(Modality.WINDOW_MODAL);
+      
+      VBox root = new VBox();
+     Scene alert = new Scene(root);
+     alert.getStylesheets().add(getClass().
+         getResource("/gui/rulePopup.css").toExternalForm());
+     
+     alertStage.setScene(alert);
+     
+     Button button = new Button("X");
+     button.setOnAction(e -> alertStage.close());
+     button.getStyleClass().add("closeButton");
+     button.setAlignment(Pos.BOTTOM_CENTER);
+     WebView wv = new WebView();
+     wv.getStyleClass().add("webview");
+     
+    root.getChildren().add(wv);
+    root.getChildren().add(button);
+    
+    
+   String ruleText = getStringURL2Ressource(language);
+    wv.getEngine().load(ruleText) ;
+    
+    alert.setRoot(root);
+    
+     Platform.runLater(() -> 
+      alertStage.show());
+    }
+    
+    
+    
+    public static String getStringURL2Ressource( Language lang){
+      
+      String pathName = (String)Controller.class.getResource("/ruleText/" + 
+          lang.toString() + "_RULES.html").toExternalForm();
+      return pathName;
+    } 
 }
