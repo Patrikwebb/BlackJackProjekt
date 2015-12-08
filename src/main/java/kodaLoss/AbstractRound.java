@@ -145,44 +145,79 @@ public abstract class AbstractRound extends Thread {
     for (Player p : bank.registeredPlayers) {
 
       // METHOD TO CHANGE ACTIVEPLAYERINGUI COMES HERE
-
-      controller.activatePlayersBetField();
-
+      controller.allButtonsOff();
+  
       controller.setlabelWinnerText(
           p.getName() + BlackJackConstantsAndTools.ASK_FOR_BETS);
-
-      int bet;
+      
+      
+      // start by checking if players has already a valid bet!
+      uca.playerChoosesToLayHisBet();
+      
+      int bet = 0;
+      int betInField= 0;
 
       while (true) {
-
-        if (uca.getUserChoice() == UserChoice.LAY_BET || 
-            uca.getUserChoice() == UserChoice.START_ROUND ) {
+        
+        BlackJackConstantsAndTools.sleepForXSeconds(50);
+        controller.activatePlayersBetField();
+//        betInField = controller.getBetFromPlayersTextField();
+//        controller.activatePlayersBetField();
+        
+//        if  (isValidBet(betInField , p)){
+//          bet = betInField;
+//          controller.gameIsoff();
+//          controller.setlabelWinnerText("Change your bet or press DEAL to start the round");
+//        } else {
+//          controller.allButtonsOff();
+//          controller.activatePlayersBetField();
+//          controller.setlabelWinnerText("Please enter a valid bet!");
+//        }
+        
+        if (uca.getUserChoice() == UserChoice.LAY_BET){
+          betInField = controller.getBetFromPlayersTextField();
+          
+          if (isValidBet(betInField , p)){
+            bet = betInField;
+            controller.gameIsoff();
+            controller.setlabelWinnerText("Change your bet or press DEAL to start the round");
+          } else {
+            controller.allButtonsOff();
+            controller.activatePlayersBetField();
+            controller.setlabelWinnerText("Please enter a valid bet!");
+          }
+        
+            
+          
+          
+        } else if (uca.getUserChoice() == UserChoice.START_ROUND){
+          controller.allButtonsOff();
           bet = controller.getBetFromPlayersTextField();
-          // switch off asking for a bet!
-          controller.setlabelWinnerText("");
+          p.setPlayersBet(bet);
+          controller.setlabelWinnerText(p.getName() + ", your bet for this round is " + bet) ;
+          BlackJackConstantsAndTools.sleepForXSeconds();
+          bank.updateGuiAfterChangeInDataModel();
           break;
         }
-        BlackJackConstantsAndTools.sleepForXSeconds(10);
+        
+        uca.resetUserChoice();
+//        controller.setlabelWinnerText("");
       }
-
-      bet = (int) Math.abs(bet);
-
-      if (bet > MAX_BET) {
-        bet = MAX_BET;
-        controller
-            .setlabelWinnerText("Max bet is " + MAX_BET + " on this table!");
-      }
-
-      if (bet < BlackJackConstantsAndTools.MIN_BET) {
-        bet = BlackJackConstantsAndTools.MIN_BET;
-        controller.setlabelWinnerText("Min bet is "
-            + BlackJackConstantsAndTools.MIN_BET + " on this table!");
-      }
-      p.setPlayersBet(bet);
-      bank.updateGuiAfterChangeInDataModel();
     }
   }
 
+  private boolean isValidBet(int bet , Player player) {
+    bet = (int) Math.abs(bet);
+    
+          if (bet > BlackJackConstantsAndTools.MAX_BET ||
+              bet < BlackJackConstantsAndTools.MIN_BET ||
+              bet > player.getPlayersCash() ) {
+                return false;
+            } else {
+              return true;
+            }
+  }
+          
   /*
    * Player plays against Bank in one round. Sets player inactive if bust.
    * 

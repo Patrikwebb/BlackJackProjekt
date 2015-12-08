@@ -189,7 +189,10 @@ public class Controller implements Initializable, IController {
 
 		buttonHit.setOnAction(e -> uca.playerChoosesToHit());
 
-		buttonDeal.setOnAction(e -> bank.playOneRound());
+		buttonDeal.setOnAction(e -> {
+		  bank.playOneRound();
+		  uca.playerChoosesToStartNewRound();
+		});
 		
 		buttonDouble.setOnAction(e -> uca.playerChoosesToDouble());
 		
