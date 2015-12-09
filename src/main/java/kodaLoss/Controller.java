@@ -64,15 +64,15 @@ public class Controller implements Initializable, IController {
 
 	@FXML
 	private Button buttonSplit;
-	
+
 	@FXML
 	private Button buttonRulesGB, buttonRulesSWE, buttonRulesGER;
 
 	@FXML
-	private Label labelPlayerName1, labelPlayerName2;
+	private Label labelPlayerName1, labelPlayerName2, labelPlayerName3, labelPlayerName4, labelPlayerName5;
 
 	@FXML
-	private HBox playerCard1, playerCard2;
+	private HBox playerCard1, playerCard2, playerCard3, playerCard4, playerCard5;
 
 	@FXML
 	private HBox dealerCard;
@@ -81,7 +81,7 @@ public class Controller implements Initializable, IController {
 	private TextField dealersHandScore;
 
 	@FXML
-	private TextField playersHandScore, playersHandScore2;
+	private TextField playersHandScore, playersHandScore2, playersHandScore3, playersHandScore4, playersHandScore5;
 
 	@FXML
 	private Label labelWinnerText;
@@ -94,16 +94,15 @@ public class Controller implements Initializable, IController {
 
 	@FXML
 	private TextField TextFieldRoundBett;
-	
+
 	@FXML
 	private ComboBox<String> ruleBox;
-	
-//	@FXML
-//	private ComboBox<String> ComboBoxRules;
-	
+
+	// @FXML
+	// private ComboBox<String> ComboBoxRules;
+
 	@FXML
 	private String BlackJacktext;
-	
 
 	// reference to UserChoiceAdapter for players button-events
 	private UserChoiceAdapter uca = UserChoiceAdapter.getInstance();
@@ -120,9 +119,9 @@ public class Controller implements Initializable, IController {
 	 */
 	public void setdealersHandScore(String score) {
 
-//		Platform.runLater(() -> {
-			dealersHandScore.setText(score);
-//		});
+		// Platform.runLater(() -> {
+		dealersHandScore.setText(score);
+		// });
 	}
 
 	/**
@@ -149,10 +148,9 @@ public class Controller implements Initializable, IController {
 		initButtonEffects();
 
 		disableAdvancedButton();
-		
-		blackJackRulesText();
-		
-		
+
+		// blackJackRulesText();
+
 	}
 
 	private void initControls() {
@@ -161,69 +159,66 @@ public class Controller implements Initializable, IController {
 		TextFieldRoundBett.setOnAction(e -> uca.playerChoosesToLayHisBet());
 
 		TextFieldRoundBett.requestFocus();
-		
+
 		TextFieldRoundBett.setDisable(true);
 
 		// double click on bet-field sends bet to bank!
-		TextFieldRoundBett.setOnMousePressed(new EventHandler<MouseEvent>(){
+		TextFieldRoundBett.setOnMousePressed(new EventHandler<MouseEvent>() {
 
-      @Override
-      public void handle(MouseEvent event) {
-       
-        if(event.getClickCount() >= 2){
-          uca.playerChoosesToLayHisBet();
-        } 
-      }
+			@Override
+			public void handle(MouseEvent event) {
+
+				if (event.getClickCount() >= 2) {
+					uca.playerChoosesToLayHisBet();
+				}
+			}
 		});
-		
-		ruleBox.setOnAction( e -> {
-		  if (ruleBox.getSelectionModel() == null){
-		    System.out.println("NO MODEL!");
-		  } else {
-		  bank.setRule( ruleBox.getSelectionModel().getSelectedItem() );
-		  }
+
+		ruleBox.setOnAction(e -> {
+			if (ruleBox.getSelectionModel() == null) {
+				System.out.println("NO MODEL!");
+			} else {
+				bank.setRule(ruleBox.getSelectionModel().getSelectedItem());
+			}
 		});
-		
-		
+
 		buttonSplit.setOnAction(e -> uca.playerChoosesToSplit());
-		
+
 		buttonStay.setOnAction(e -> uca.playerChoosesToStay());
 
 		buttonHit.setOnAction(e -> uca.playerChoosesToHit());
 
 		buttonDeal.setOnAction(e -> {
-		  bank.playOneRound();
-		  uca.playerChoosesToStartNewRound();
+			bank.playOneRound();
+			uca.playerChoosesToStartNewRound();
 		});
-		
+
 		buttonDouble.setOnAction(e -> uca.playerChoosesToDouble());
-		
+
 		buttonInsurence.setOnAction(e -> uca.playerChoosesToTakeInsurance());
-		
+
 		buttonRulesGB.setOnAction(e -> showRuleWindow(Language.ENGLISH));
-		
+
 		buttonRulesGER.setOnAction(e -> showRuleWindow(Language.GERMAN));
 
 		buttonRulesSWE.setOnAction(e -> showRuleWindow(Language.SWEDISH));
-		
-		
+
 	}
+
 	/**
 	 * Text in the Black Jack Rules ComboBox
 	 */
-	public void blackJackRulesText(){
-		//TODO Byta från en metod och lägga i textdokument senare
-		BlackJacktext = 
-				
-				  "Black Jack Rules:\n\n"
-				
-				+ "Black Jack är ett spel där man inte spelar mot \n"
-				+ "andra spelare utan mot givaren (dealern). \n\n"
-				
-				+ "Målet är att få högre summa än givaren men \n"
-				+ "inte mer än 21 för då förlorar man och på \n"
+	public void blackJackRulesText() {
+		// TODO Byta från en metod och lägga i textdokument senare
+		BlackJacktext =
+
+		"Black Jack Rules:\n\n"
+
+				+ "Black Jack är ett spel där man inte spelar mot \n" + "andra spelare utan mot givaren (dealern). \n\n"
+
+				+ "Målet är att få högre summa än givaren men \n" + "inte mer än 21 för då förlorar man och på \n"
 				+ "Black Jack språk blir man ”tjock”. \n\n"
-				
+
 				+ "Varje spelare har några val de kan göra varje omgång. \n\n"
 				+ "=> [HIT]		  Man väljer att ta ett till kort.\n"
 				+ "=> [STAY]	  Man väljer att stanna (dvs nöja sig med de kort man har). \n"
@@ -235,32 +230,64 @@ public class Controller implements Initializable, IController {
 				+ "  			  vinner du får du tillbaka ditt bett men dealern tar din \n"
 				+ "  			  insurance. Vinner dealern så får du din insurance x2. \n"
 				+ "  			  Detta kan göras om dealers har ett ESS på första hand. \n\n"
-				
+
 				+ "  			  Väljer spelaren att splitta får man, \n"
 				+ "  			  två händer att spela på och försöka \n"
 				+ "  			  komma så nära 21 som möjligt. ";
-			
-		//	ComboBoxRules.getItems().add(BlackJacktext);
+
+		// ComboBoxRules.getItems().add(BlackJacktext);
 
 	}
-	
+
 	/*
 	 * Button Effects
 	 */
 	public void initButtonEffects() {
-		  Image imageGb = new Image(getClass().getResourceAsStream("/Icon_flag/gb.png"));
-		  Image imageSWE = new Image(getClass().getResourceAsStream("/Icon_flag/swe.png"));
-		  Image imageGER = new Image(getClass().getResourceAsStream("/Icon_flag/ger.png"));
-		  buttonRulesGB.setGraphic(new ImageView(imageGb));
-		  buttonRulesSWE.setGraphic(new ImageView(imageSWE));
-		  buttonRulesGER.setGraphic(new ImageView(imageGER));
-		  
 		// Shadow Effect on all buttons
 		DropShadow dropShadow = new DropShadow();
 		dropShadow.setRadius(3.0);
 		dropShadow.setOffsetX(3.0);
 		dropShadow.setOffsetY(2.0);
 		dropShadow.setColor(Color.BLACK);
+
+		// LANGUAGE-RULES btn
+		Image imageGb = new Image(getClass().getResourceAsStream("/Icon_flag/gb.png"));
+		Image imageSWE = new Image(getClass().getResourceAsStream("/Icon_flag/swe.png"));
+		Image imageGER = new Image(getClass().getResourceAsStream("/Icon_flag/ger.png"));
+		buttonRulesGB.setGraphic(new ImageView(imageGb));
+		buttonRulesSWE.setGraphic(new ImageView(imageSWE));
+		buttonRulesGER.setGraphic(new ImageView(imageGER));
+		// Effect on Hover and exit
+		buttonRulesGB.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
+			buttonRulesGB.setEffect(dropShadow);
+			buttonRulesGB.setScaleX(1.1);
+			buttonRulesGB.setScaleY(1.1);
+		});
+		buttonRulesGB.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
+			buttonRulesGB.setEffect(null);
+			buttonRulesGB.setScaleX(1);
+			buttonRulesGB.setScaleY(1);
+		});
+		buttonRulesSWE.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
+			buttonRulesSWE.setEffect(dropShadow);
+			buttonRulesSWE.setScaleX(1.1);
+			buttonRulesSWE.setScaleY(1.1);
+		});
+		buttonRulesSWE.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
+			buttonRulesSWE.setEffect(null);
+			buttonRulesSWE.setScaleX(1);
+			buttonRulesSWE.setScaleY(1);
+		});
+		buttonRulesGER.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
+			buttonRulesGER.setEffect(dropShadow);
+			buttonRulesGER.setScaleX(1.1);
+			buttonRulesGER.setScaleY(1.1);
+		});
+		buttonRulesGER.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
+			buttonRulesGER.setEffect(null);
+			buttonRulesGER.setScaleX(1);
+			buttonRulesGER.setScaleY(1);
+		});
 
 		// Rotation effect - Button Stand
 		RotateTransition buttonStandrotation = new RotateTransition(Duration.seconds(0.5), buttonStay);
@@ -347,34 +374,36 @@ public class Controller implements Initializable, IController {
 
 		Platform.runLater(() -> {
 
-		  HBox target;
-		  
-		  if (!activePlayerOnGui.isSplitPlayer()){
-		    target = playerCard1;
-		    setPlayersHandScore(activePlayerOnGui , false);
-		    labelPlayerName1.setText(activePlayerOnGui.getName()); // name label
-		    TextFieldBetts.setText(activePlayerOnGui.getPlayersCash() + "");
-		  
-		  } else {
-		    target = playerCard2;
-		    labelPlayerName2.setText("");
-		    if (activePlayerOnGui.getPlayersHand().size() != 0){
-		      setPlayersHandScore(activePlayerOnGui , true );
-		      labelPlayerName2.setText(activePlayerOnGui.getName());
-		    } else {
-		      labelPlayerName2.setText("");
-		      playersHandScore2.setVisible(false);
-		    }
-		  }
-		  
+			HBox target;
+
+			if (!activePlayerOnGui.isSplitPlayer()) {
+				target = playerCard1;
+				setPlayersHandScore(activePlayerOnGui, false);
+				labelPlayerName1.setText(activePlayerOnGui.getName()); // name
+																		// label
+				TextFieldBetts.setText(activePlayerOnGui.getPlayersCash() + "");
+
+			} else {
+				target = playerCard2;
+				labelPlayerName2.setText("");
+				if (activePlayerOnGui.getPlayersHand().size() != 0) {
+					setPlayersHandScore(activePlayerOnGui, true);
+					labelPlayerName2.setText(activePlayerOnGui.getName());
+				} else {
+					labelPlayerName2.setText("");
+					playersHandScore2.setVisible(false);
+				}
+			}
+
 			// Sets the playerCash in the TextField
-//			TextFieldRoundBett.setText(activePlayerOnGui.getPlayersBet() + "");
-			setPics(activePlayerOnGui, target );
+			// TextFieldRoundBett.setText(activePlayerOnGui.getPlayersBet() +
+			// "");
+			setPics(activePlayerOnGui, target);
 		});
 	}
 
 	// must be called within main application thread, or Platform.runLater()
-	private void setPlayersHandScore(Player player , boolean isSplitPlayer) {
+	private void setPlayersHandScore(Player player, boolean isSplitPlayer) {
 		String handValue;
 
 		if (Bank_HelpersAndTools.isPlayersHandABlackJack(player)) {
@@ -382,19 +411,18 @@ public class Controller implements Initializable, IController {
 		} else {
 			handValue = Bank_HelpersAndTools.calculateValueOfPlayersHand(player) + "";
 		}
-		
+
 		Platform.runLater(() -> {
-		if (isSplitPlayer){
-		  playersHandScore2.setVisible(true);
-		  playersHandScore2.setText(handValue);
-		} else{
-		  
-		  playersHandScore.setText(handValue);
-		}
-	});
+			if (isSplitPlayer) {
+				playersHandScore2.setVisible(true);
+				playersHandScore2.setText(handValue);
+			} else {
+
+				playersHandScore.setText(handValue);
+			}
+		});
 	}
-	
-	
+
 	/**
 	 * updates the Dealers variables in GUI
 	 * 
@@ -406,7 +434,7 @@ public class Controller implements Initializable, IController {
 		Platform.runLater(new Runnable() {
 
 			public void run() {
-			  
+
 				setPics(dealer, dealerCard);
 
 				String handValue = Bank_HelpersAndTools.isPlayersHandABlackJack(dealer) ? "BJ!"
@@ -419,7 +447,6 @@ public class Controller implements Initializable, IController {
 		});
 	}
 
-
 	/*
 	 * adds a new request to update players hand i gui to the javafx application
 	 * thread (via Platform.runLater()). Quite uneffectivly erases all card
@@ -429,7 +456,7 @@ public class Controller implements Initializable, IController {
 	 * players and dealers elements i GUI.
 	 */
 	private void setPics(Player player, HBox target) {
-	  
+
 		Platform.runLater(new Runnable() {
 			public void run() {
 
@@ -449,10 +476,10 @@ public class Controller implements Initializable, IController {
 							}
 							URL url = Controller.class.getResource("/CardPictures/" + cardString + ".png");
 
-							image = new Image(url.toString() );
+							image = new Image(url.toString());
 							ImageView view = new ImageView(image);
-//							view.setScaleX(1.5);
-//							view.setScaleY(1.5);
+							// view.setScaleX(1.5);
+							// view.setScaleY(1.5);
 							target.getChildren().add(view);
 							target.setSpacing(-45);
 
@@ -522,9 +549,9 @@ public class Controller implements Initializable, IController {
 	public void activatePlayersBetField(boolean on) {
 		Platform.runLater(() -> {
 			TextFieldRoundBett.setDisable(!on);
-			if (on){
-	      TextFieldRoundBett.requestFocus();
-		  }
+			if (on) {
+				TextFieldRoundBett.requestFocus();
+			}
 		});
 	}
 
@@ -537,6 +564,7 @@ public class Controller implements Initializable, IController {
 			buttonInsurence.setDisable(false);
 		});
 	}
+
 	/**
 	 * Activates the Double button
 	 */
@@ -561,8 +589,8 @@ public class Controller implements Initializable, IController {
 			buttonDouble.setVisible(false);
 			buttonDouble.setDisable(true);
 			// Undo after testing
-			 buttonSplit.setVisible(false);
-			 buttonSplit.setDisable(true);
+			buttonSplit.setVisible(false);
+			buttonSplit.setDisable(true);
 		});
 	}
 
@@ -570,104 +598,98 @@ public class Controller implements Initializable, IController {
 	 * get the bet Player has entered and deactivate textField after that!
 	 * returns a zero valued int if user input cannot be parsed correctly!
 	 */
-  public int getBetFromPlayersTextField() {
-    int bet = 0;
+	public int getBetFromPlayersTextField() {
+		int bet = 0;
 
-    try {
-      bet = Integer.parseInt(TextFieldRoundBett.getText());
-    } catch (Exception e) {
-      return 0;
-    }
+		try {
+			bet = Integer.parseInt(TextFieldRoundBett.getText());
+		} catch (Exception e) {
+			return 0;
+		}
 
-//    Platform.runLater(() -> {
-//      TextFieldRoundBett.setDisable(true);
-//    });
+		// Platform.runLater(() -> {
+		// TextFieldRoundBett.setDisable(true);
+		// });
 
-    return bet;
-  }
-	
+		return bet;
+	}
+
 	/**
-	 * Puts the Casino rules buttons (Split, Double, Insurance)
-	 * on the game field in a deactivated state!
+	 * Puts the Casino rules buttons (Split, Double, Insurance) on the game
+	 * field in a deactivated state!
 	 */
-  @Override
-  public void activateAdvancedButton() {
-    
-      Platform.runLater(() -> {
-        buttonInsurence.setVisible(true);
-        buttonInsurence.setDisable(true);
+	@Override
+	public void activateAdvancedButton() {
 
-        buttonDouble.setVisible(true);
-        buttonDouble.setDisable(true);
-        // Undo after testing
-         buttonSplit.setVisible(true);
-         buttonSplit.setDisable(true);
-      });
-    }
+		Platform.runLater(() -> {
+			buttonInsurence.setVisible(true);
+			buttonInsurence.setDisable(true);
 
-  /**
-   * sets the list model of selectable rules from the bank in the 
-   * rules-combo box 
-   */
-  @Override
-  public void setPlayableRules(Set<String> ruleNames) {
-    Platform.runLater( () -> 
-      ruleBox.setItems(FXCollections.observableArrayList(ruleNames))
-    );
-  }
+			buttonDouble.setVisible(true);
+			buttonDouble.setDisable(true);
+			// Undo after testing
+			buttonSplit.setVisible(true);
+			buttonSplit.setDisable(true);
+		});
+	}
 
-  @Override
-  public void activateSplitButton() {
-    Platform.runLater(() -> {
-      buttonSplit.setDisable(false);
-    });
-  }
-    
-    
-  /**
-   * Shows a popup-window with the rules of the game in the language 
-   * given as a parameter
-   * @param language - Language enum
-   */
-    public void showRuleWindow( Language language ){
-      
-      Stage alertStage = new Stage();
-      alertStage.initModality(Modality.WINDOW_MODAL);
-      
-      VBox root = new VBox();
-     Scene alert = new Scene(root);
-     alert.getStylesheets().add(getClass().
-         getResource("/gui/rulePopup.css").toExternalForm());
-     
-     alertStage.setScene(alert);
-    // Vi måste inte ha den här knappen va?
-     
-//     Button button = new Button("X");
-//     button.setOnAction(e -> alertStage.close());
-//     button.getStyleClass().add("closeButton");
-//     button.setAlignment(Pos.BOTTOM_CENTER);
-     WebView wv = new WebView();
-     wv.getStyleClass().add("webview");
-     
-    root.getChildren().add(wv);
-   // root.getChildren().add(button);
-    
-    
-   String ruleText = getStringURL2Ressource(language);
-    wv.getEngine().load(ruleText) ;
-    
-    alert.setRoot(root);
-    
-     Platform.runLater(() -> 
-      alertStage.show());
-    }
-    
-    
-    
-    public static String getStringURL2Ressource( Language lang){
-      
-      String pathName = (String)Controller.class.getResource("/ruleText/" + 
-          lang.toString() + "_RULES.html").toExternalForm();
-      return pathName;
-    } 
+	/**
+	 * sets the list model of selectable rules from the bank in the rules-combo
+	 * box
+	 */
+	@Override
+	public void setPlayableRules(Set<String> ruleNames) {
+		Platform.runLater(() -> ruleBox.setItems(FXCollections.observableArrayList(ruleNames)));
+	}
+
+	@Override
+	public void activateSplitButton() {
+		Platform.runLater(() -> {
+			buttonSplit.setDisable(false);
+		});
+	}
+
+	/**
+	 * Shows a popup-window with the rules of the game in the language given as
+	 * a parameter
+	 * 
+	 * @param language
+	 *            - Language enum
+	 */
+	public void showRuleWindow(Language language) {
+
+		Stage alertStage = new Stage();
+		alertStage.initModality(Modality.WINDOW_MODAL);
+
+		VBox root = new VBox();
+		Scene alert = new Scene(root);
+		alert.getStylesheets().add(getClass().getResource("/gui/rulePopup.css").toExternalForm());
+
+		alertStage.setScene(alert);
+		// Vi måste inte ha den här knappen va?
+
+		// Button button = new Button("X");
+		// button.setOnAction(e -> alertStage.close());
+		// button.getStyleClass().add("closeButton");
+		// button.setAlignment(Pos.BOTTOM_CENTER);
+		WebView wv = new WebView();
+		wv.getStyleClass().add("webview");
+
+		root.getChildren().add(wv);
+		// root.getChildren().add(button);
+
+		String ruleText = getStringURL2Ressource(language);
+		wv.getEngine().load(ruleText);
+
+		alert.setRoot(root);
+
+		Platform.runLater(() -> alertStage.show());
+	}
+
+	public static String getStringURL2Ressource(Language lang) {
+
+		String pathName = (String) Controller.class.getResource("/ruleText/" + lang.toString() + "_RULES.html")
+				.toExternalForm();
+		return pathName;
+	}
 }
