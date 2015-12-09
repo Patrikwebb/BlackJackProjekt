@@ -157,7 +157,7 @@ public class Controller implements Initializable, IController {
 
 		// Field for player making bets
 		TextFieldRoundBett.setOnAction(e -> uca.playerChoosesToLayHisBet());
-
+		TextFieldRoundBett.setOnKeyTyped(e -> uca.playerChoosesToLayHisBet());
 		TextFieldRoundBett.requestFocus();
 
 		TextFieldRoundBett.setDisable(true);
@@ -554,7 +554,7 @@ public class Controller implements Initializable, IController {
 			}
 		});
 	}
-
+	
 	/**
 	 * Activates the Insurance button
 	 */
