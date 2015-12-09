@@ -158,7 +158,7 @@ public class Bank {
 	
 	for (Player p : registeredPlayers){
 		
-	    controller.activatePlayersBetField();
+	    controller.activatePlayersBetField(true);
 	
 	    controller.setlabelWinnerText(
 	        p.getName()  + BlackJackConstantsAndTools.ASK_FOR_BETS);

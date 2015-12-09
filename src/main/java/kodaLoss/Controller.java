@@ -674,6 +674,7 @@ public class Controller implements Initializable, IController {
 		// button.setAlignment(Pos.BOTTOM_CENTER);
 		WebView wv = new WebView();
 		wv.getStyleClass().add("webview");
+		wv.setOnMouseClicked(e -> alertStage.close());
 
 		root.getChildren().add(wv);
 		// root.getChildren().add(button);
