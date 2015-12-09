@@ -23,6 +23,9 @@ public class BlackJackConstantsAndTools {
   public static final String SPLIT_TEXT_TO_PLAYER = "Please play your first split-hand!";
   public static final String SPLIT_TEXT_TO_SPLITPLAYER = "Now play your other split-hand!";
   public static final String INSURANCE_TEXT_TO_PLAYER = "You are now insured. Please play!";
+  public static final String ENTER_VALID_BET = "Please enter a valid bet!";
+  public static final String CHANGE_BET_OR_START = "Change your bet or press DEAL to start the round!";
+  public static final String YOUR_BET_IS = ", your bet for this round is $: ";
   
   
   // GAME SETTINGS

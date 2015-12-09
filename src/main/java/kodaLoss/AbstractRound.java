@@ -124,7 +124,7 @@ public abstract class AbstractRound extends Thread {
 
     for (Player p : bank.registeredPlayers) {
 
-      controller.activatePlayersBetField();
+      controller.activatePlayersBetField(true);
 
       controller.setlabelWinnerText(
           p.getName() + BlackJackConstantsAndTools.ASK_FOR_BETS);
@@ -152,6 +152,7 @@ public abstract class AbstractRound extends Thread {
       
       
       // start by checking if players has already a valid bet!
+      uca.resetUserChoice();
       uca.playerChoosesToLayHisBet();
       
       int bet = 0;
@@ -160,19 +161,7 @@ public abstract class AbstractRound extends Thread {
       while (true) {
         
         BlackJackConstantsAndTools.sleepForXSeconds(50);
-        controller.activatePlayersBetField();
-//        betInField = controller.getBetFromPlayersTextField();
-//        controller.activatePlayersBetField();
-        
-//        if  (isValidBet(betInField , p)){
-//          bet = betInField;
-//          controller.gameIsoff();
-//          controller.setlabelWinnerText("Change your bet or press DEAL to start the round");
-//        } else {
-//          controller.allButtonsOff();
-//          controller.activatePlayersBetField();
-//          controller.setlabelWinnerText("Please enter a valid bet!");
-//        }
+        controller.activatePlayersBetField(true);
         
         if (uca.getUserChoice() == UserChoice.LAY_BET){
           betInField = controller.getBetFromPlayersTextField();
@@ -180,28 +169,25 @@ public abstract class AbstractRound extends Thread {
           if (isValidBet(betInField , p)){
             bet = betInField;
             controller.gameIsoff();
-            controller.setlabelWinnerText("Change your bet or press DEAL to start the round");
+            controller.setlabelWinnerText(BlackJackConstantsAndTools.CHANGE_BET_OR_START);
           } else {
             controller.allButtonsOff();
-            controller.activatePlayersBetField();
-            controller.setlabelWinnerText("Please enter a valid bet!");
+            controller.activatePlayersBetField(true);
+            controller.setlabelWinnerText(BlackJackConstantsAndTools.ENTER_VALID_BET);
           }
         
-            
-          
-          
         } else if (uca.getUserChoice() == UserChoice.START_ROUND){
           controller.allButtonsOff();
           bet = controller.getBetFromPlayersTextField();
           p.setPlayersBet(bet);
-          controller.setlabelWinnerText(p.getName() + ", your bet for this round is " + bet) ;
+          controller.activatePlayersBetField(false);
+          controller.setlabelWinnerText(p.getName() + BlackJackConstantsAndTools.YOUR_BET_IS + bet) ;
           BlackJackConstantsAndTools.sleepForXSeconds();
           bank.updateGuiAfterChangeInDataModel();
           break;
         }
         
         uca.resetUserChoice();
-//        controller.setlabelWinnerText("");
       }
     }
   }

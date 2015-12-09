@@ -160,6 +160,8 @@ public class Controller implements Initializable, IController {
 		// Field for player making bets
 		TextFieldRoundBett.setOnAction(e -> uca.playerChoosesToLayHisBet());
 
+		TextFieldRoundBett.requestFocus();
+		
 		TextFieldRoundBett.setDisable(true);
 
 		// double click on bet-field sends bet to bank!
@@ -203,6 +205,8 @@ public class Controller implements Initializable, IController {
 		buttonRulesGER.setOnAction(e -> showRuleWindow(Language.GERMAN));
 
 		buttonRulesSWE.setOnAction(e -> showRuleWindow(Language.SWEDISH));
+		
+		
 	}
 	/**
 	 * Text in the Black Jack Rules ComboBox
@@ -515,10 +519,12 @@ public class Controller implements Initializable, IController {
 	/**
 	 * Bank opens players betting textfield for entering a bet
 	 */
-	public void activatePlayersBetField() {
+	public void activatePlayersBetField(boolean on) {
 		Platform.runLater(() -> {
-			TextFieldRoundBett.setDisable(false);
-			
+			TextFieldRoundBett.setDisable(!on);
+			if (on){
+	      TextFieldRoundBett.requestFocus();
+		  }
 		});
 	}
 
@@ -562,31 +568,23 @@ public class Controller implements Initializable, IController {
 
 	/**
 	 * get the bet Player has entered and deactivate textField after that!
+	 * returns a zero valued int if user input cannot be parsed correctly!
 	 */
-	public int getBetFromPlayersTextField() {
-		Integer bet = null;
+  public int getBetFromPlayersTextField() {
+    int bet = 0;
 
-		do {
-			try {
+    try {
+      bet = Integer.parseInt(TextFieldRoundBett.getText());
+    } catch (Exception e) {
+      return 0;
+    }
 
-				bet = Integer.parseInt(TextFieldRoundBett.getText());
+//    Platform.runLater(() -> {
+//      TextFieldRoundBett.setDisable(true);
+//    });
 
-				if (bet < 0) {
-					bet = new Integer(Math.abs(bet));
-				}
-				break;
-			} catch (Exception e) {
-			}
-		} while (bet == null);
-
-		Platform.runLater(() -> {
-			TextFieldRoundBett.setDisable(true);
-		});
-
-		return bet;
-	}
-
-	
+    return bet;
+  }
 	
 	/**
 	 * Puts the Casino rules buttons (Split, Double, Insurance)

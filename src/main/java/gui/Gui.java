@@ -1,6 +1,7 @@
 package gui;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -24,11 +25,12 @@ public class Gui extends Application{
 			Scene scene = new Scene(page, 1034, 576);
 				primaryStage.setScene(scene); 
 				primaryStage.setResizable(false);
+				primaryStage.setOnCloseRequest(e -> System.exit(0));
 				primaryStage.show();
 				
 				NameAlertBox nameAlertBox = new NameAlertBox();
 				nameAlertBox.NameDisplay();
-			    	
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

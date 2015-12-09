@@ -34,7 +34,7 @@ public interface IController {
   
   public void allButtonsOff();//
   
-  public void activatePlayersBetField();//
+  public void activatePlayersBetField(boolean on);//
   
   public int getBetFromPlayersTextField() ;
 
