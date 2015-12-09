@@ -83,6 +83,7 @@
 }
 #buttonRulesGB,#buttonRulesSWE,#buttonRulesGER{
 	 -fx-background-color: transparent ;
+	 -fx-padding:  3 3 3 3;
 /* -fx-text-fill:transparent;*/
 }
 
