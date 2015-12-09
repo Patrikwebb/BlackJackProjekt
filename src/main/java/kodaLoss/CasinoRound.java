@@ -237,28 +237,39 @@ public class CasinoRound extends AbstractRound {
   // add Splitplayers money to players at the end of round
   private void mergeSplitPlayers() {
     bank.activePlayerOnGui = bank.registeredPlayers.get(0);
+//    for(Player sp : SplitPlayerToDelete) {
+//		 bank.registeredPlayers.get(0).addToPlayersCash(sp.getPlayersCash());
+//	 }
 
     for (int i = 0; i < bank.registeredPlayers.size(); i++) {
       Player p = bank.registeredPlayers.get(i);
 
       if (p.isSplitPlayer()) {
-        Player addToPlayer = bank.registeredPlayers.get(i - 1);
-        addToPlayer.addToPlayersCash(p.getPlayersCash());
+//        Player addToPlayer = bank.registeredPlayers.get(i - 1);
+//        addToPlayer.addToPlayersCash(p.getPlayersCash());
+    	  bank.registeredPlayers.get(0).addToPlayersCash(p.getPlayersCash());
       }
     }
+    bank.updateGuiAfterChangeInDataModel();
   }
 
-  // delete splitplayers at the end of round!
+ /* delete splitplayers at the end of round!
+  * both from registeredPlayers and SplitPlayerToDelete
+  */
   private void deleteSplitPlayers() {
-
-    for (Player p : SplitPlayerToDelete) {
-
-      if (bank.registeredPlayers.contains(p)) {
-        System.out.println("removed : " + p.getName());
-        bank.registeredPlayers.remove(p);
-      }
-        bank.updateGuiAfterChangeInDataModel();
-    }
+//    for (Player p : SplitPlayerToDelete) {
+//
+//      if (bank.registeredPlayers.contains(p)) {
+//        System.out.println("removed : " + p.getName());
+//        bank.registeredPlayers.remove(p);
+//      } 
+//    }
+	  bank.registeredPlayers.removeAll(SplitPlayerToDelete);
+	  SplitPlayerToDelete.removeAll(SplitPlayerToDelete);
+	  
+	 System.out.println("REG p " +bank.registeredPlayers.size() );
+	 System.out.println("SPLIT p "+SplitPlayerToDelete.size());
+    bank.updateGuiAfterChangeInDataModel();
   }
 
   @Override
