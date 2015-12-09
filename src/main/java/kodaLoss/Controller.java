@@ -640,16 +640,17 @@ public class Controller implements Initializable, IController {
          getResource("/gui/rulePopup.css").toExternalForm());
      
      alertStage.setScene(alert);
+    // Vi måste inte ha den här knappen va?
      
-     Button button = new Button("X");
-     button.setOnAction(e -> alertStage.close());
-     button.getStyleClass().add("closeButton");
-     button.setAlignment(Pos.BOTTOM_CENTER);
+//     Button button = new Button("X");
+//     button.setOnAction(e -> alertStage.close());
+//     button.getStyleClass().add("closeButton");
+//     button.setAlignment(Pos.BOTTOM_CENTER);
      WebView wv = new WebView();
      wv.getStyleClass().add("webview");
      
     root.getChildren().add(wv);
-    root.getChildren().add(button);
+   // root.getChildren().add(button);
     
     
    String ruleText = getStringURL2Ressource(language);
