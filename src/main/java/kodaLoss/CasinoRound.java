@@ -208,15 +208,18 @@ public class CasinoRound extends AbstractRound {
     Player splitPlayer = new Player("SPLIT_" + player.getName(), 0);
     splitPlayer.setSplitPlayer(true);
 //controller.updateSplitPlayer(splitPlayer);
+    
     // take a new bet for splitplayer!
     final int bet = player.getPlayersBet();
     splitPlayer.setPlayersBet(bet);
     player.setPlayersBet(0);
     player.setPlayersBet(bet);
+    
     splitPlayer.addCardToHand(player.getPlayersHand().remove(1));
     SplitPlayerToDelete.add(splitPlayer);
     controller.updatePlayer(splitPlayer);
     bank.updateGuiAfterChangeInDataModel();
+    
     bank.dealOneCardToPlayer(player);
     BlackJackConstantsAndTools.sleepForXSeconds();
     bank.dealOneCardToPlayer(splitPlayer);
@@ -237,13 +240,10 @@ public class CasinoRound extends AbstractRound {
   // add Splitplayers money to players at the end of round
   private void mergeSplitPlayers() {
     bank.activePlayerOnGui = bank.registeredPlayers.get(0);
-//    for(Player sp : SplitPlayerToDelete) {
-//		 bank.registeredPlayers.get(0).addToPlayersCash(sp.getPlayersCash());
-//	 }
 
-    for (int i = 0; i < bank.registeredPlayers.size(); i++) {
+    for (int i = 1; i < bank.registeredPlayers.size(); i++) {
       Player p = bank.registeredPlayers.get(i);
-
+      
       if (p.isSplitPlayer()) {
 //        Player addToPlayer = bank.registeredPlayers.get(i - 1);
 //        addToPlayer.addToPlayersCash(p.getPlayersCash());
