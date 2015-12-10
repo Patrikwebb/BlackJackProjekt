@@ -256,7 +256,7 @@ public class CasinoRound extends AbstractRound {
  /* delete splitplayers at the end of round!
   * both from registeredPlayers and SplitPlayerToDelete
   */
-  private void deleteSplitPlayers() {
+  public void deleteSplitPlayers() {
 //    for (Player p : SplitPlayerToDelete) {
 //
 //      if (bank.registeredPlayers.contains(p)) {
