@@ -16,15 +16,12 @@ import java.util.Set;
  */
 public interface IController {
 
-//  public void setdealersHandScore(String score);
   
   public void setlabelWinnerText(String winnerText);
   
   public void setHideDealersSecondCard(boolean hide);
   
-  public void updatePlayer(Player activePlayerOnGui);
-  
-//  public void updateSplitPlayer(Player splitPlayer);
+  public void updatePlayer(List<Player> players);
   
   public void updateDealer(Player dealer);
   
@@ -50,6 +47,4 @@ public interface IController {
 
   public void activateSplitButton();//
 
-//  public void removeSplitPlayerName(Player splitPlayer);
-// 
 }

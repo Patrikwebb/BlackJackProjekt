@@ -101,9 +101,7 @@ public class Bank {
   void updateGuiAfterChangeInDataModel() {
 
     if (controller != null) {
-    	for (Player p : bank.registeredPlayers) {
-      controller.updatePlayer(p);
-    	}
+      controller.updatePlayer( bank.registeredPlayers);
       controller.updateDealer(dealer);
     } else
       System.out.println("ERROR: Controller not set in bank!");

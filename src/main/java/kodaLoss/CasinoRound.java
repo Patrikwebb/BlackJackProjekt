@@ -30,7 +30,8 @@ public class CasinoRound extends AbstractRound {
     // just one casino rule per round, the other will be deactivated
     // after playing one of them!
 
-    if (!player.isSplitPlayer()) {
+//    if (!player.isSplitPlayer()) {
+    if (true){
       activateSplit(player);
       activateInsurance(player);
       activateDouble(player);
@@ -125,15 +126,17 @@ public class CasinoRound extends AbstractRound {
   // activate splitbutton if player may play Split
   public void activateSplit(Player p) {
 
-    if (true) {// checkIfSplitCanBePlayed(p)) {
+    if ( checkIfSplitCanBePlayed(p)) {
       controller.activateSplitButton();
     }
   }
 
   // returns true if a player may play Double
   private boolean checkIfDoubleCanBePlayed(Player player) {
-    return player.getPlayersCash() >= player.getPlayersBet()
-        && player.getPlayersHand().size() <= 2;
+    
+    return true;
+//    return player.getPlayersCash() >= player.getPlayersBet()
+//        && player.getPlayersHand().size() <= 2;
   }
 
   // returns true if player may play Split (2 cards of same value, even
@@ -141,18 +144,19 @@ public class CasinoRound extends AbstractRound {
   // Ranks!)
   public boolean checkIfSplitCanBePlayed(Player p) {
 
-    if (p.getPlayersHand().size() != 2) {
-      return false;
-
-    } else if (p.getPlayersBet() > p.getPlayersCash()) {
-      return false;
-
-    } else {
-      final Card cardOne = p.getPlayersHand().get(0);
-      final Card cardTwo = p.getPlayersHand().get(1);
-      System.out.println(cardOne.getValue() == cardTwo.getValue());
-      return (cardOne.getValue() == cardTwo.getValue());
-    }
+    return true;
+//    if (p.getPlayersHand().size() != 2) {
+//      return false;
+//
+//    } else if (p.getPlayersBet() > p.getPlayersCash()) {
+//      return false;
+//
+//    } else {
+//      final Card cardOne = p.getPlayersHand().get(0);
+//      final Card cardTwo = p.getPlayersHand().get(1);
+//      System.out.println(cardOne.getValue() == cardTwo.getValue());
+//      return (cardOne.getValue() == cardTwo.getValue());
+//    }
   }
 
   // returns true if player may buy an insurance
@@ -183,7 +187,7 @@ public class CasinoRound extends AbstractRound {
   private void doublePlayersBet(Player p) {
     final int playersBet = p.getPlayersBet();
 
-    if (p.getPlayersCash() >= playersBet) {
+    if (bank.registeredPlayers.get(0).getPlayersCash() >= playersBet) {
       p.addToPlayersCash(playersBet);
       p.setPlayersBet((int) Math.floor(2.0 * playersBet));
 
@@ -219,13 +223,12 @@ public class CasinoRound extends AbstractRound {
     splitPlayer.addCardToHand(player.getPlayersHand().remove(1));
     SplitPlayerToDelete.add(splitPlayer);
     
-    controller.updatePlayer(splitPlayer);
     bank.updateGuiAfterChangeInDataModel();
     bank.dealOneCardToPlayer(player);
     BlackJackConstantsAndTools.sleepForXSeconds();
     bank.dealOneCardToPlayer(splitPlayer);
-    controller.updatePlayer(splitPlayer);
-
+    bank.updateGuiAfterChangeInDataModel();
+    
     for (int i = 0; i < bank.registeredPlayers.size(); i++) {
 
       if (bank.registeredPlayers.get(i) == player) {
