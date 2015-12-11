@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -81,7 +83,7 @@ public class Controller implements Initializable, IController {
 	private TextField dealersHandScore;
 
 	@FXML
-	private TextField playersHandScore, playersHandScore2, playersHandScore3, playersHandScore4, playersHandScore5;
+	private TextField playersHandScore1, playersHandScore2, playersHandScore3, playersHandScore4, playersHandScore5;
 
 	@FXML
 	private Label labelWinnerText;
@@ -112,6 +114,13 @@ public class Controller implements Initializable, IController {
 
 	private boolean hideDealers2ndCard = true;
 
+	
+	private List<Label> playerNameLabel;
+	private List<TextField> playerScoreLabel;
+	private List<HBox> playerCardsBox;
+	
+	
+	
 	/**
 	 * Setter for dealersHandScore
 	 * 
@@ -146,6 +155,8 @@ public class Controller implements Initializable, IController {
 		initControls();
 
 		initButtonEffects();
+		
+		initElementLists();
 
 		disableAdvancedButton();
 
@@ -153,7 +164,24 @@ public class Controller implements Initializable, IController {
 
 	}
 
-	private void initControls() {
+  private void initElementLists() {
+    playerCardsBox = new ArrayList<>();
+    playerCardsBox.addAll(Arrays.asList(new HBox[] { playerCard1, playerCard2,
+        playerCard3, playerCard4, playerCard5 }));
+
+    playerNameLabel = new ArrayList<>();
+    playerNameLabel
+        .addAll(Arrays.asList(new Label[] { labelPlayerName1, labelPlayerName2,
+            labelPlayerName3, labelPlayerName4, labelPlayerName5 }));
+
+    playerScoreLabel = new ArrayList<>();
+    playerScoreLabel.addAll(
+        Arrays.asList(new TextField[] { playersHandScore1, playersHandScore2,
+            playersHandScore3, playersHandScore4, playersHandScore5 }));
+  }
+	
+	
+private void initControls() {
 
 		// Field for player making bets
 		TextFieldRoundBett.setOnAction(e -> uca.playerChoosesToLayHisBet());
@@ -370,40 +398,64 @@ public class Controller implements Initializable, IController {
 	 * @param activePlayerOnGui
 	 *            - Player-object received from Bank
 	 */
-	public void updatePlayer(Player activePlayerOnGui) {
+	public void updatePlayer(List<Player> playerData ) {
 
-		Platform.runLater(() -> {
+		Platform.runLater( new Runnable(){
+		  
+		  public void run(){
 
-			HBox target;
+			HBox targetCards;
+			Label targetName;
+			TextField targetScore;
 
-			if (!activePlayerOnGui.isSplitPlayer()) {
-				target = playerCard1;
-				setPlayersHandScore(activePlayerOnGui, false);
-				labelPlayerName1.setText(activePlayerOnGui.getName()); // name
-																		// label
-				TextFieldBetts.setText(activePlayerOnGui.getPlayersCash() + "");
-
-			} else {
-				target = playerCard2;
-				labelPlayerName2.setText("");
-				if (activePlayerOnGui.getPlayersHand().size() != 0) {
-					setPlayersHandScore(activePlayerOnGui, true);
-					labelPlayerName2.setText(activePlayerOnGui.getName());
-				} else {
-					labelPlayerName2.setText("");
-					playersHandScore2.setVisible(false);
-				}
+			// set main player
+			Player player;
+			
+			TextFieldBetts.setText(playerData.get(0).getPlayersCash() + "");
+			
+			for (int i = 0 ; i < playerData.size() ; i++){
+			 
+			player = playerData.get(i);
+			targetCards = playerCardsBox.get(i);
+			targetName = playerNameLabel.get(i);
+			targetScore = playerScoreLabel.get(i);
+			
+			setPlayersHandScore(player , targetScore);
+			targetName.setText(player.getName()); 
+			setPics(player , targetCards);
+			
 			}
+			
 
-			// Sets the playerCash in the TextField
-			// TextFieldRoundBett.setText(activePlayerOnGui.getPlayersBet() +
-			// "");
-			setPics(activePlayerOnGui, target);
-		});
-	}
+//			if (!activePlayerOnGui.isSplitPlayer()) {
+//				targetCards = playerCard1;
+//				setPlayersHandScore(activePlayerOnGui, false);
+//				labelPlayerName1.setText(activePlayerOnGui.getName()); // name
+//																		// label
+//				TextFieldBetts.setText(activePlayerOnGui.getPlayersCash() + "");
+//
+//			} else {
+//				targetCards = playerCard2;
+//				labelPlayerName2.setText("");
+//				if (activePlayerOnGui.getPlayersHand().size() != 0) {
+//					setPlayersHandScore(activePlayerOnGui, true);
+//					labelPlayerName2.setText(activePlayerOnGui.getName());
+//				} else {
+//					labelPlayerName2.setText("");
+//					playersHandScore2.setVisible(false);
+//				}
+//			}
+//
+//			// Sets the playerCash in the TextField
+//			// TextFieldRoundBett.setText(activePlayerOnGui.getPlayersBet() +
+//			// "");
+//			setPics(activePlayerOnGui, targetCards);
+	
+	}});
+		}
 
 	// must be called within main application thread, or Platform.runLater()
-	private void setPlayersHandScore(Player player, boolean isSplitPlayer) {
+	private void setPlayersHandScore(Player player , TextField target) {
 		String handValue;
 
 		if (Bank_HelpersAndTools.isPlayersHandABlackJack(player)) {
@@ -413,12 +465,12 @@ public class Controller implements Initializable, IController {
 		}
 
 		Platform.runLater(() -> {
-			if (isSplitPlayer) {
-				playersHandScore2.setVisible(true);
-				playersHandScore2.setText(handValue);
+			if (player.isSplitPlayer()) {
+				target.setVisible(true);
+				target.setText(handValue);
 			} else {
 
-				playersHandScore.setText(handValue);
+				target.setText(handValue);
 			}
 		});
 	}
@@ -607,10 +659,6 @@ public class Controller implements Initializable, IController {
 			return 0;
 		}
 
-		// Platform.runLater(() -> {
-		// TextFieldRoundBett.setDisable(true);
-		// });
-
 		return bet;
 	}
 
@@ -666,18 +714,10 @@ public class Controller implements Initializable, IController {
 		alert.getStylesheets().add(getClass().getResource("/gui/rulePopup.css").toExternalForm());
 
 		alertStage.setScene(alert);
-		// Vi måste inte ha den här knappen va?
-
-		// Button button = new Button("X");
-		// button.setOnAction(e -> alertStage.close());
-		// button.getStyleClass().add("closeButton");
-		// button.setAlignment(Pos.BOTTOM_CENTER);
 		WebView wv = new WebView();
 		wv.getStyleClass().add("webview");
 		wv.setOnMouseClicked(e -> alertStage.close());
-
 		root.getChildren().add(wv);
-		// root.getChildren().add(button);
 
 		String ruleText = getStringURL2Ressource(language);
 		wv.getEngine().load(ruleText);
@@ -693,4 +733,10 @@ public class Controller implements Initializable, IController {
 				.toExternalForm();
 		return pathName;
 	}
+
+  @Override
+  public void updatePlayer(Player activePlayerOnGui) {
+    // TODO Auto-generated method stub
+    
+  }
 }
