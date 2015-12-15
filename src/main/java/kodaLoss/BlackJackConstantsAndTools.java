@@ -26,7 +26,7 @@ public class BlackJackConstantsAndTools {
   public static final String ENTER_VALID_BET = "Please enter a valid bet!";
   public static final String CHANGE_BET_OR_START = "Change your bet or press DEAL to start the round!";
   public static final String YOUR_BET_IS = ", your bet for this round is $: ";
-  
+  public static final String NOT_ENOUGH_CASH_TO_SPLIT = "You don´t have enough cash to SPLIT ";
   
   // GAME SETTINGS
   public static final int PLAYERS_MAX_COUNT = 2; // SPRINT 3 - Not multiplayer yet!
