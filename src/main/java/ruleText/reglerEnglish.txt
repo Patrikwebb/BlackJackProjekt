@@ -9,7 +9,7 @@
 				
 				+ "Every player has got several choices to make every round \n\n"
 				+ "=> [HIT]		  Player choose to draw one more card.\n"
-				+ "=> [STAY]	  Player choose to stop (i.e to cease to draw new cards). \n"
+				+ "=> [STAY]	  Player choose to stop (i.e to cease drawing new cards). \n"
 				+ "=> [DOUBLE] 	  Player choose to double his bet and draws another card, \n"
 				+ "  			  then automatically cease to draw more cards. \n"
 				+ "=> [SPLIT]	  Players choose to split his hand, \n"
