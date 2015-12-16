@@ -41,7 +41,7 @@
             </Pane>
             <Button id="buttonHit" fx:id="buttonDouble" disable="true" layoutX="231.0" layoutY="281.0" mnemonicParsing="false" text="Double" />
             <Button id="buttonHit" fx:id="buttonSplit" disable="true" layoutX="254.0" layoutY="216.0" mnemonicParsing="false" text="Split" />
-            <HBox fx:id="playerCard21" layoutX="184.0" layoutY="9.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="96.0" prefWidth="72.0" rotate="-49.4" />
+            <HBox fx:id="playerCard4" layoutX="184.0" layoutY="9.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="96.0" prefWidth="72.0" rotate="-49.4" />
             <TextField id="playersHandScore" fx:id="playersHandScore4" editable="false" focusTraversable="false" layoutX="121.0" layoutY="61.0" prefHeight="25.0" prefWidth="35.0" />
             <Label id="labelPlayerName1" fx:id="labelPlayerName4" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="167.0" layoutY="106.0" prefHeight="16.0" prefWidth="150.0" rotate="-39.8" textAlignment="RIGHT" textFill="WHITE">
                <font>

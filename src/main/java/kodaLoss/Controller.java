@@ -375,7 +375,7 @@ public class Controller implements Initializable, IController {
 		Platform.runLater(() -> {
 
 			HBox target;
-
+			
 			if (!activePlayerOnGui.isSplitPlayer()) {
 				target = playerCard1;
 				setPlayersHandScore(activePlayerOnGui, false);
@@ -384,8 +384,28 @@ public class Controller implements Initializable, IController {
 				TextFieldBetts.setText(activePlayerOnGui.getPlayersCash() + "");
 
 			} else {
-				target = playerCard2;
-				labelPlayerName2.setText("");
+				int splitPlayerNr = bank.indexOfPlayer(activePlayerOnGui);
+				switch(splitPlayerNr){
+					case 1:
+						target = playerCard2;
+						labelPlayerName2.setText("SPLIT 1 "+activePlayerOnGui.getName());
+						break;
+					case 2:
+						target = playerCard3;
+						labelPlayerName3.setText("SPLIT 2 "+activePlayerOnGui.getName());
+						break;
+					case 3:
+						target = playerCard4;
+						labelPlayerName4.setText("SPLIT 3 "+activePlayerOnGui.getName());
+						break;
+					case 4:
+						target = playerCard5;
+						labelPlayerName5.setText("SPLIT 4 "+activePlayerOnGui.getName());
+						break;
+						default:
+							target = playerCard1;
+				}
+				
 				if (activePlayerOnGui.getPlayersHand().size() != 0) {
 					setPlayersHandScore(activePlayerOnGui, true);
 					labelPlayerName2.setText(activePlayerOnGui.getName());
@@ -399,6 +419,7 @@ public class Controller implements Initializable, IController {
 			// TextFieldRoundBett.setText(activePlayerOnGui.getPlayersBet() +
 			// "");
 			setPics(activePlayerOnGui, target);
+			
 		});
 	}
 
@@ -525,9 +546,13 @@ public class Controller implements Initializable, IController {
 	public void gameIsoff() {
 		Platform.runLater(new Runnable() {
 			public void run() {
+				buttonDeal.setDisable(false);
+				
 				buttonHit.setDisable(true);
 				buttonStay.setDisable(true);
-				buttonDeal.setDisable(false);
+				buttonInsurence.setDisable(true);
+				buttonDouble.setDisable(true);
+				buttonSplit.setDisable(true);
 			}
 		});
 	}
@@ -540,6 +565,9 @@ public class Controller implements Initializable, IController {
 			buttonHit.setDisable(true);
 			buttonStay.setDisable(true);
 			buttonDeal.setDisable(true);
+			buttonInsurence.setDisable(true);
+			buttonDouble.setDisable(true);
+			buttonSplit.setDisable(true);
 		});
 	}
 

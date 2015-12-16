@@ -279,4 +279,8 @@ public class Bank {
     String ruleClass = ruleMapping.getOrDefault(value , DEFAULT_RULE);
     ruleForNextRound = ruleClass;
   }
+
+  public int indexOfPlayer(Player p) {
+	return registeredPlayers.indexOf(p);
+  }
 }

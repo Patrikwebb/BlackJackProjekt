@@ -30,7 +30,7 @@ public class CasinoRound extends AbstractRound {
 		// just one casino rule per round, the other will be deactivated
 		// after playing one of them!
 
-		if (!player.isSplitPlayer()) {
+		if (bank.indexOfPlayer(player) <= 4) {
 			activateSplit(player);
 			activateInsurance(player);
 			activateDouble(player);
@@ -81,7 +81,7 @@ public class CasinoRound extends AbstractRound {
 				// }
 				makeSplitPlayer(player);
 				controller.setlabelWinnerText(BlackJackConstantsAndTools.SPLIT_TEXT_TO_PLAYER);
-				controller.disableAdvancedButton();
+				//controller.disableAdvancedButton();
 				uca.resetUserChoice();
 			} else if (uca.getUserChoice() == UserChoice.DOUBLE) {
 				playDouble(player);
@@ -94,6 +94,7 @@ public class CasinoRound extends AbstractRound {
 				controller.disableAdvancedButton();
 				uca.resetUserChoice();
 			}
+			bank.updateGuiAfterChangeInDataModel();
 		}
 		// print out all data of Player!
 		System.out.println(player.toString());
@@ -129,11 +130,13 @@ public class CasinoRound extends AbstractRound {
 
 	// activate splitbutton if player may play Split
 	public void activateSplit(Player p) {
+		//TILLFÄLLIG override för att funka utan att checkIf.. blir activerad
+		controller.activateSplitButton();
 
-		if (true) {
-			checkIfSplitCanBePlayed(p);
-			controller.activateSplitButton();
-		}
+//		if (true) {
+//			checkIfSplitCanBePlayed(p);
+//			controller.activateSplitButton();
+//		}
 	}
 
 	// returns true if a player may play Double
@@ -230,15 +233,17 @@ public class CasinoRound extends AbstractRound {
 		BlackJackConstantsAndTools.sleepForXSeconds();
 		bank.dealOneCardToPlayer(splitPlayer);
 		controller.updatePlayer(splitPlayer);
-
-		for (int i = 0; i < bank.registeredPlayers.size(); i++) {
-
-			if (bank.registeredPlayers.get(i) == player) {
-				bank.registeredPlayers.add(i + 1, splitPlayer);
-				System.out.println();
-				break;
-			}
-		}
+		
+		//Addas denna någon annanstans?
+		bank.registeredPlayers.add(splitPlayer);
+//		for (int i = 0; i < bank.registeredPlayers.size(); i++) {
+//
+//			if (bank.registeredPlayers.get(i) == player) {
+//				bank.registeredPlayers.add(i + 1, splitPlayer);
+//				System.out.println();
+//				break;
+//			}
+//		}
 
 		bank.updateGuiAfterChangeInDataModel();
 	}
