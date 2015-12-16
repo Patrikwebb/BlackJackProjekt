@@ -388,19 +388,19 @@ public class Controller implements Initializable, IController {
 				switch(splitPlayerNr){
 					case 1:
 						target = playerCard2;
-						labelPlayerName2.setText("SPLIT 1 "+activePlayerOnGui.getName());
+						labelPlayerName2.setText(activePlayerOnGui.getName());
 						break;
 					case 2:
 						target = playerCard3;
-						labelPlayerName3.setText("SPLIT 2 "+activePlayerOnGui.getName());
+						labelPlayerName3.setText(activePlayerOnGui.getName());
 						break;
 					case 3:
 						target = playerCard4;
-						labelPlayerName4.setText("SPLIT 3 "+activePlayerOnGui.getName());
+						labelPlayerName4.setText(activePlayerOnGui.getName());
 						break;
 					case 4:
 						target = playerCard5;
-						labelPlayerName5.setText("SPLIT 4 "+activePlayerOnGui.getName());
+						labelPlayerName5.setText(activePlayerOnGui.getName());
 						break;
 						default:
 							target = playerCard1;

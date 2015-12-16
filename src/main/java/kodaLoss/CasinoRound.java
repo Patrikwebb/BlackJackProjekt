@@ -217,7 +217,7 @@ public class CasinoRound extends AbstractRound {
 	// makes a SPLIT_Player to player
 	public void makeSplitPlayer(Player player) {
 
-		Player splitPlayer = new Player("SPLIT_" + player.getName(), 0);
+		Player splitPlayer = new Player("SPLIT " +(bank.registeredPlayers.indexOf(player)+1)+" " + player.getName(), 0);
 		splitPlayer.setSplitPlayer(true);
 		// controller.updateSplitPlayer(splitPlayer);
 

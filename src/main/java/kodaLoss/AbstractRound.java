@@ -231,7 +231,7 @@ public abstract class AbstractRound extends Thread {
         controller.setlabelWinnerText(DEALER_IS_BUST);
       }
 
-      BlackJackConstantsAndTools.sleepForXSeconds(2000);
+      BlackJackConstantsAndTools.sleepForXSeconds(1000);
       bank.dealOneCardToPlayer(bank.dealer);
       bank.updateGuiAfterChangeInDataModel();
 
@@ -374,9 +374,9 @@ public abstract class AbstractRound extends Thread {
       BlackJackConstantsAndTools.sleepForXSeconds(3000);
       clearHandsOffTheTable();
       bank.resetBank();
-      BlackJackConstantsAndTools.sleepForXSeconds(10000);
+      BlackJackConstantsAndTools.sleepForXSeconds(5000);
       controller.setlabelWinnerText("Programme terminates...");
-      BlackJackConstantsAndTools.sleepForXSeconds(2000);
+      BlackJackConstantsAndTools.sleepForXSeconds(1000);
       System.exit(0);
       }
     }
