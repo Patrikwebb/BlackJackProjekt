@@ -39,14 +39,15 @@ public class CasinoRound extends AbstractRound {
 			controller.disableAdvancedButton();
 			controller.allButtonsOff();
 			controller.setlabelWinnerText(BlackJackConstantsAndTools.SPLIT_TEXT_TO_SPLITPLAYER);
-			BlackJackConstantsAndTools.sleepForXSeconds();
+			//BlackJackConstantsAndTools.sleepForXSeconds();
 		}
 		// activate players buttons
 		controller.gameIson();
 		uca.resetUserChoice(); // prepare UCA for input
 
 		while (uca.getUserChoice() != UserChoice.STAY) {
-
+			controller.setlabelWinnerText("Play NOW: "+ player.getName());
+			bank.updateGuiAfterChangeInDataModel();
 			if (isPlayersHandOver21(player)) {
 				System.out.println(PLAYER_IS_BUST);
 				controller.setlabelWinnerText(player.getName() + ": " + PLAYER_IS_BUST);
@@ -80,7 +81,9 @@ public class CasinoRound extends AbstractRound {
 				// BlackJackConstantsAndTools.NOT_ENOUGH_CASH_TO_SPLIT);
 				// }
 				makeSplitPlayer(player);
-				controller.setlabelWinnerText(BlackJackConstantsAndTools.SPLIT_TEXT_TO_PLAYER);
+				bank.updateGuiAfterChangeInDataModel();
+				controller.setlabelWinnerText("Play NOW: "+ player.getName());
+				bank.updateGuiAfterChangeInDataModel();
 				//controller.disableAdvancedButton();
 				uca.resetUserChoice();
 			} else if (uca.getUserChoice() == UserChoice.DOUBLE) {
@@ -98,7 +101,7 @@ public class CasinoRound extends AbstractRound {
 		}
 		// print out all data of Player!
 		System.out.println(player.toString());
-
+		
 		// finally reset last choice in UCA
 		uca.resetUserChoice();
 	}
@@ -278,7 +281,6 @@ public class CasinoRound extends AbstractRound {
 		// }
 		bank.registeredPlayers.removeAll(SplitPlayerToDelete);
 		SplitPlayerToDelete.removeAll(SplitPlayerToDelete);
-
 		System.out.println("REG p " + bank.registeredPlayers.size());
 		System.out.println("SPLIT p " + SplitPlayerToDelete.size());
 		bank.updateGuiAfterChangeInDataModel();
@@ -290,6 +292,7 @@ public class CasinoRound extends AbstractRound {
 		clearHandsOffTheTable();
 		mergeSplitPlayers();
 		deleteSplitPlayers();
+		bank.updateGuiAfterChangeInDataModel();
 	}
 
 	@Override
@@ -346,7 +349,7 @@ public class CasinoRound extends AbstractRound {
 			player.setRoundResult(null);
 			player.setHasInsurance(false);
 			bank.updateGuiAfterChangeInDataModel();
-			BlackJackConstantsAndTools.sleepForXSeconds();
+			//BlackJackConstantsAndTools.sleepForXSeconds();
 		}
 	}
 }

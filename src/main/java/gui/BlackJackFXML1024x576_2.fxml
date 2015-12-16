@@ -15,14 +15,14 @@
          <children>
             <Button id="buttonHit" fx:id="buttonInsurence" disable="true" layoutY="281.0" mnemonicParsing="false" text="Insurance" />
             <HBox id="playerCard1" fx:id="playerCard3" layoutX="259.0" layoutY="128.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="96.0" prefWidth="72.0" rotate="33.7" />
-            <TextField id="playersHandScore" fx:id="playersHandScore3" editable="false" focusTraversable="false" layoutX="238.0" layoutY="97.0" prefHeight="25.0" prefWidth="35.0" />
+            <TextField id="playersHandScore" fx:id="playersHandScore3" editable="false" focusTraversable="false" layoutX="238.0" layoutY="97.0" prefHeight="25.0" prefWidth="35.0" visible="false" />
             <Label fx:id="labelPlayerName3" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="181.0" layoutY="201.0" prefHeight="16.0" prefWidth="150.0" rotate="20.0" textAlignment="RIGHT" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
             <HBox id="playerCard1" fx:id="playerCard5" layoutX="110.0" layoutY="24.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="96.0" prefWidth="72.0" rotate="50.2" />
-            <TextField id="playersHandScore" fx:id="playersHandScore5" editable="false" focusTraversable="false" layoutX="107.0" layoutY="2.0" prefHeight="25.0" prefWidth="35.0" />
+            <TextField id="playersHandScore" fx:id="playersHandScore5" editable="false" focusTraversable="false" layoutX="107.0" layoutY="2.0" prefHeight="25.0" prefWidth="35.0" visible="false" />
             <Label fx:id="labelPlayerName5" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="7.0" layoutY="74.0" prefHeight="16.0" prefWidth="150.0" rotate="41.6" textAlignment="RIGHT" textFill="WHITE">
                <font>
                   <Font size="16.0" />
@@ -42,7 +42,7 @@
             <Button id="buttonHit" fx:id="buttonDouble" disable="true" layoutX="231.0" layoutY="281.0" mnemonicParsing="false" text="Double" />
             <Button id="buttonHit" fx:id="buttonSplit" disable="true" layoutX="254.0" layoutY="216.0" mnemonicParsing="false" text="Split" />
             <HBox fx:id="playerCard4" layoutX="184.0" layoutY="9.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="96.0" prefWidth="72.0" rotate="-49.4" />
-            <TextField id="playersHandScore" fx:id="playersHandScore4" editable="false" focusTraversable="false" layoutX="121.0" layoutY="61.0" prefHeight="25.0" prefWidth="35.0" />
+            <TextField id="playersHandScore" fx:id="playersHandScore4" editable="false" focusTraversable="false" layoutX="121.0" layoutY="61.0" prefHeight="25.0" prefWidth="35.0" visible="false" />
             <Label id="labelPlayerName1" fx:id="labelPlayerName4" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="167.0" layoutY="106.0" prefHeight="16.0" prefWidth="150.0" rotate="-39.8" textAlignment="RIGHT" textFill="WHITE">
                <font>
                   <Font size="16.0" />

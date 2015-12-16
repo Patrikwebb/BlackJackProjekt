@@ -408,10 +408,16 @@ public class Controller implements Initializable, IController {
 				
 				if (activePlayerOnGui.getPlayersHand().size() != 0) {
 					setPlayersHandScore(activePlayerOnGui, true);
-					labelPlayerName2.setText(activePlayerOnGui.getName());
+					//labelPlayerName2.setText(activePlayerOnGui.getName());
 				} else {
 					labelPlayerName2.setText("");
+					labelPlayerName3.setText("");
+					labelPlayerName4.setText("");
+					labelPlayerName5.setText("");
 					playersHandScore2.setVisible(false);
+					playersHandScore3.setVisible(false);
+					playersHandScore4.setVisible(false);
+					playersHandScore5.setVisible(false);
 				}
 			}
 
@@ -435,8 +441,23 @@ public class Controller implements Initializable, IController {
 
 		Platform.runLater(() -> {
 			if (isSplitPlayer) {
-				playersHandScore2.setVisible(true);
-				playersHandScore2.setText(handValue);
+				if (bank.registeredPlayers.indexOf(player) == 1){
+					playersHandScore2.setVisible(true);
+					playersHandScore2.setText(handValue);
+				}
+				else if (bank.registeredPlayers.indexOf(player) == 2){
+					playersHandScore3.setVisible(true);
+					playersHandScore3.setText(handValue);
+				}
+				else if (bank.registeredPlayers.indexOf(player) == 3){
+					playersHandScore4.setVisible(true);
+					playersHandScore4.setText(handValue);
+				}
+				else if (bank.registeredPlayers.indexOf(player) == 4){
+					playersHandScore5.setVisible(true);
+					playersHandScore5.setText(handValue);
+				}
+				
 			} else {
 
 				playersHandScore.setText(handValue);
