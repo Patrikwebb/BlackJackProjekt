@@ -1,0 +1,23 @@
+"Black Jack Rules:\n\n"
+				
+				+ "Black Jack is a game in which the player does \n"
+				+ "not play against other players, but only against a dealer. \n\n"
+				
+				+ "The purpose of the game is to get a higher hand than the dealer \n"
+				+ "but not more than 21 (then the player loses)  \n"
+				+ "In Black Jack jargon the player becomes "phat". \n\n"
+				
+				+ "Every player has got several choices to make every round \n\n"
+				+ "=> [HIT]		  Player choose to draw one more card.\n"
+				+ "=> [STAY]	  Player choose to stop (i.e to cease to draw new cards). \n"
+				+ "=> [DOUBLE] 	  Player choose to double his bet and draws another card, \n"
+				+ "  			  then automatically cease to draw more cards. \n"
+				+ "=> [SPLIT]	  Players choose to split his hand, \n"
+				+ "  			  this can only be done when the player sits on cards of same value. \n"
+				+ "=> [INSURANCE] Player choose to insure his wager which costs half of his bet, \n"
+				+ "  			  if the player wins he recieves his bet back but the dealer takes his insurence \n"
+				+ "  			  . If the dealer wins the player gets his insurance x2. \n"
+				+ "  			  This can only be done if the dealer has got an ace as first card. \n\n"
+				
+				+ "  			  If the player choose to split he gets, \n"
+				+ "  			  two hands to play with.";
